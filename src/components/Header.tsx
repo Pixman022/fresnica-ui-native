@@ -8,13 +8,14 @@ export type HeaderProps = {
     leading?: ReactNode;
     trailing?: ReactNode;
     onBack?: () => void;
+    backAccessibilityLabel?: string;
 };
 
-export function Header({ theme, title, leading, trailing, onBack }: HeaderProps) {
+export function Header({ theme, title, leading, trailing, onBack, backAccessibilityLabel }: HeaderProps) {
     const start = onBack ? (
         <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Back"
+            accessibilityLabel={backAccessibilityLabel}
             hitSlop={8}
             onPress={onBack}
             style={styles.action}

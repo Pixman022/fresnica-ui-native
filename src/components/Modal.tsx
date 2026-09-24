@@ -8,9 +8,10 @@ export type ModalProps = {
     title: string;
     children: ReactNode;
     onRequestClose: () => void;
+    closeAccessibilityLabel: string;
 };
 
-export function Modal({ theme, visible, title, children, onRequestClose }: ModalProps) {
+export function Modal({ theme, visible, title, children, onRequestClose, closeAccessibilityLabel }: ModalProps) {
     return (
         <NativeModal
             visible={visible}
@@ -32,7 +33,7 @@ export function Modal({ theme, visible, title, children, onRequestClose }: Modal
                         </Text>
                         <Pressable
                             accessibilityRole="button"
-                            accessibilityLabel="Close"
+                            accessibilityLabel={closeAccessibilityLabel}
                             onPress={onRequestClose}
                             style={styles.close}
                             hitSlop={8}

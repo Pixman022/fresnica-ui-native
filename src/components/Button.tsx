@@ -14,8 +14,6 @@ export type ButtonProps = {
     accessibilityHint?: string;
 };
 
-const heights: Record<ControlSize, number> = { sm: 36, md: 48, lg: 56 };
-
 export function Button({
     label,
     theme,
@@ -28,6 +26,11 @@ export function Button({
     accessibilityHint,
 }: ButtonProps) {
     const isDisabled = disabled || loading;
+    const heights: Record<ControlSize, number> = {
+        sm: theme.sizes.controlCompact,
+        md: theme.sizes.controlBase,
+        lg: theme.sizes.controlLg,
+    };
     const filled = variant === 'primary' || variant === 'danger';
     const background = variant === 'danger' ? theme.colors.negative : theme.colors.primary;
     const foreground = filled ? theme.colors.onPrimary : theme.colors.primary;
@@ -44,10 +47,11 @@ export function Button({
                 {
                     backgroundColor: filled ? background : 'transparent',
                     borderColor: background,
+                    borderWidth: theme.sizes.border,
+                    borderRadius: theme.radii.base,
                     height: heights[size],
                     opacity: isDisabled ? 0.5 : pressed ? 0.82 : 1,
                 },
-                !filled && styles.outlined,
             ]}
         >
             {icon}
@@ -62,13 +66,10 @@ const styles = StyleSheet.create({
     base: {
         minWidth: 44,
         paddingHorizontal: 16,
-        borderRadius: 16,
-        borderWidth: 1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         gap: 8,
     },
-    outlined: { borderWidth: 1 },
     label: { fontWeight: '600' },
 });

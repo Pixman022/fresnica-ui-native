@@ -27,6 +27,8 @@ contracts; it does not import DOM, CSS, Less, Web Portal or browser storage APIs
 3. Button, Field and StateView primitives (implemented in this scaffold)
 4. Screen, Header and ListRow primitives (implemented in this scaffold)
 5. Modal primitive (implemented in this scaffold); platform-owned overlays remain in the App shell
+6. Common supporting primitives: Typography, IconButton, Divider, StatusBadge, InlineMessage,
+   Skeleton, Progress and SegmentedControl
 
 Navigation, system bars, safe areas, persistence and product routes belong to the App
 shell. Wallet flows remain Feature-local. See
@@ -50,7 +52,11 @@ The Android shell boundary and build order are documented in
 Product-app integration boundaries are documented in
 [`docs/integration-guide.md`](docs/integration-guide.md).
 
+`AppTheme` dimensions are generated from the shared primitive Token source by
+`npm run generate:tokens`. The generated contract is committed at
+`src/generated-token-contract.ts` so builds do not depend on the Web repository being present.
 `AppTheme.colors` is currently mapped to the shared semantic roles by
 `scripts/validate-token-source.mjs`. The hand-authored light/dark values in `src/theme.ts`
-are a temporary reviewable adapter; a future generator must preserve this role map and
-record every platform override before replacing it.
+are a temporary reviewable adapter because the Web semantic colors resolve through theme CSS;
+the generator preserves the semantic role aliases and must record every platform override
+before color generation replaces the adapter.

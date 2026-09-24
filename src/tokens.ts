@@ -46,6 +46,14 @@ export type AppTheme = {
         screenTitle: number;
         display: number;
     };
+    sizes: {
+        controlSm: number;
+        controlCompact: number;
+        controlBase: number;
+        controlEmphasis: number;
+        controlLg: number;
+        border: number;
+    };
     systemBars: {
         statusBarStyle: 'light-content' | 'dark-content';
         navigationBarStyle: 'light-content' | 'dark-content';

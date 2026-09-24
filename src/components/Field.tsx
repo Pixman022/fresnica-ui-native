@@ -42,6 +42,7 @@ export function Field({
                         backgroundColor: theme.colors.surface,
                         borderColor,
                         borderRadius: theme.radii.control,
+                        borderWidth: theme.sizes.border,
                         opacity: disabled ? 0.5 : 1,
                     },
                 ]}
@@ -78,7 +79,7 @@ export function Field({
 const styles = StyleSheet.create({
     wrapper: { gap: 6 },
     label: { fontWeight: '600' },
-    control: { minHeight: 48, borderWidth: 1, paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center' },
+    control: { minHeight: 48, paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center' },
     input: { flex: 1, minHeight: 44, paddingVertical: 0 },
     supporting: { lineHeight: 18 },
 });

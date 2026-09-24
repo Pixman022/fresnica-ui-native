@@ -1,9 +1,8 @@
 import type { AppTheme, ThemeMode, ThemeResolver } from './tokens';
+import { generatedTokens } from './generated-token-contract.ts';
 
 const shared = {
-    spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 24 },
-    radii: { sm: 8, control: 12, base: 16, lg: 24, pill: 9999 },
-    typography: { body: 14, supporting: 13, action: 15, sectionTitle: 18, screenTitle: 20, display: 48 },
+    ...generatedTokens,
 };
 
 const light: AppTheme = {
