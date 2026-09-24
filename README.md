@@ -47,6 +47,9 @@ Component behavior and the phase-one acceptance matrix are documented in
 The Android shell boundary and build order are documented in
 [`docs/android-shell-plan.md`](docs/android-shell-plan.md).
 
+Product-app integration boundaries are documented in
+[`docs/integration-guide.md`](docs/integration-guide.md).
+
 `AppTheme.colors` is currently mapped to the shared semantic roles by
 `scripts/validate-token-source.mjs`. The hand-authored light/dark values in `src/theme.ts`
 are a temporary reviewable adapter; a future generator must preserve this role map and
