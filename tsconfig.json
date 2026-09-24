@@ -12,5 +12,6 @@
         "isolatedModules": true,
         "types": ["react", "react-native"]
     },
-    "include": ["src", "scripts"]
+    "include": ["src", "scripts"],
+    "exclude": ["test"]
 }

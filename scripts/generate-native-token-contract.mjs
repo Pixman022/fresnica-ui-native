@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 const repositoryRoot = path.resolve(import.meta.dirname, '..', '..');
 const sourcePath = path.join(repositoryRoot, 'fresnica-ui', 'design-system', 'tokens.json');
@@ -63,4 +64,6 @@ export const generatedTokens = ${JSON.stringify(contract, null, 4)} as const;
 export const semanticColorRoles = ${JSON.stringify(semanticColorRoles, null, 4)} as const;
 `;
 fs.writeFileSync(outputPath, contents);
+const prettierPath = path.join(import.meta.dirname, '..', 'node_modules', 'prettier', 'bin', 'prettier.cjs');
+execFileSync(process.execPath, [prettierPath, '--write', outputPath], { stdio: 'inherit' });
 console.log(`Generated ${outputPath} from ${sourcePath}`);

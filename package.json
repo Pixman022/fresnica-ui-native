@@ -35,13 +35,19 @@
         "test:theme": "node --experimental-strip-types scripts/test-theme.mjs",
         "test:contracts": "node scripts/test-component-contracts.mjs",
         "build": "tsc -p tsconfig.build.json",
+        "test:render": "jest --runInBand",
         "test": "npm run typecheck && npm run format:check && npm run validate:tokens && npm run test:theme && npm run test:contracts"
     },
     "devDependencies": {
+        "@testing-library/react-native": "^13.2.0",
+        "@types/jest": "^30.0.0",
         "@types/react": "^19.0.0",
+        "babel-jest": "^30.1.2",
+        "jest": "^30.1.3",
         "prettier": "^3.4.0",
         "react": "19.2.3",
         "react-native": "0.87.0",
+        "react-test-renderer": "^19.2.3",
         "typescript": "6.0.3"
     }
 }
