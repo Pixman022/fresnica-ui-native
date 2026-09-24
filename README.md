@@ -41,6 +41,9 @@ The token validation script is a source-contract check only; it does not generat
 artifacts yet. Copy this directory into the approved `fresnica-ui-native` repository before
 installing the native toolchain and generating the lockfile.
 
+Component behavior and the phase-one acceptance matrix are documented in
+[`docs/component-contracts.md`](docs/component-contracts.md).
+
 `AppTheme.colors` is currently mapped to the shared semantic roles by
 `scripts/validate-token-source.mjs`. The hand-authored light/dark values in `src/theme.ts`
 are a temporary reviewable adapter; a future generator must preserve this role map and
