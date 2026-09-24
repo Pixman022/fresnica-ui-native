@@ -5,6 +5,12 @@
     "author": "Pixman <pixhonic@gmail.com>",
     "private": true,
     "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
@@ -26,7 +32,10 @@
         "format:check": "prettier --check .",
         "generate:tokens": "node scripts/generate-native-token-contract.mjs",
         "validate:tokens": "node scripts/validate-token-source.mjs",
-        "test:theme": "node --experimental-strip-types scripts/test-theme.mjs"
+        "test:theme": "node --experimental-strip-types scripts/test-theme.mjs",
+        "test:contracts": "node scripts/test-component-contracts.mjs",
+        "build": "tsc -p tsconfig.build.json",
+        "test": "npm run typecheck && npm run format:check && npm run validate:tokens && npm run test:theme && npm run test:contracts"
     },
     "devDependencies": {
         "@types/react": "^19.0.0",
