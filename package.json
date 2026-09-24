@@ -1,0 +1,36 @@
+{
+    "name": "@fresnica/ui-native",
+    "version": "1.0.0",
+    "description": "Android-first React Native adapter for the Fresnica design system",
+    "private": true,
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE",
+        "THIRD_PARTY_NOTICES.md"
+    ],
+    "license": "MIT",
+    "engines": {
+        "node": ">=22.13.0"
+    },
+    "peerDependencies": {
+        "react": "19.2.3",
+        "react-native": "0.87.0"
+    },
+    "scripts": {
+        "typecheck": "tsc --noEmit",
+        "format:check": "prettier --check .",
+        "validate:tokens": "node scripts/validate-token-source.mjs",
+        "test:theme": "node --experimental-strip-types scripts/test-theme.mjs"
+    },
+    "devDependencies": {
+        "@types/react": "^19.0.0",
+        "prettier": "^3.4.0",
+        "react": "19.2.3",
+        "react-native": "0.87.0",
+        "typescript": "6.0.3"
+    }
+}
