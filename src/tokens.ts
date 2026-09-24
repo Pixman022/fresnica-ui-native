@@ -54,3 +54,8 @@ export type AppTheme = {
 
 /** The app shell resolves `system` from the platform appearance API. */
 export type ThemeResolver = (mode: ThemeMode, systemMode?: Exclude<ThemeMode, 'system'>) => AppTheme;
+
+export type ButtonVariant = 'primary' | 'secondary' | 'quiet' | 'danger';
+export type ControlSize = 'sm' | 'md' | 'lg';
+export type FieldState = 'default' | 'focused' | 'error' | 'disabled';
+export type StateViewTone = 'empty' | 'error' | 'success';

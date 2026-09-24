@@ -23,10 +23,10 @@ contracts; it does not import DOM, CSS, Less, Web Portal or browser storage APIs
 ## First implementation slice
 
 1. `AppTheme` and theme-mode resolution
-2. Typography
-3. Button and Field
+2. Typography contracts
+3. Button, Field and StateView primitives (implemented in this scaffold)
 4. Screen, Header and ListRow
-5. Modal and StateView
+5. Modal and platform-owned overlays
 
 Navigation, system bars, safe areas, persistence and product routes belong to the App
 shell. Wallet flows remain Feature-local. See
