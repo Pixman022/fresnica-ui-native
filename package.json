@@ -39,6 +39,7 @@
         "test": "npm run typecheck && npm run format:check && npm run validate:tokens && npm run test:theme && npm run test:contracts"
     },
     "devDependencies": {
+        "@react-native/babel-preset": "^0.87.0",
         "@testing-library/react-native": "^13.2.0",
         "@types/jest": "^30.0.0",
         "@types/react": "^19.0.0",

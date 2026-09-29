@@ -22,3 +22,19 @@ are established.
 5. Run Android emulator checks at 320, 360, 390–393 and 430 logical pixels.
 
 No shell dependency is added to this component package until the app repository is ready.
+
+## Product-App Acceptance Checklist
+
+These checks are performed in the final Android product App,
+not inside the component library repository.
+
+- [ ] TalkBack focus order is logical.
+- [ ] All icon-only actions have localized labels.
+- [ ] Keyboard does not hide focused fields or primary actions.
+- [ ] Safe-area insets do not cover content.
+- [ ] Status-bar and navigation-bar icon contrast is correct.
+- [ ] Light and dark system appearance are correctly resolved.
+- [ ] Large text does not clip or overlap.
+- [ ] Reduced-motion preference is respected.
+- [ ] 320 dp width does not cause horizontal overflow.
+- [ ] English and Simplified Chinese labels fit expected layouts.

@@ -29,3 +29,61 @@ All accessibility labels for actions, loading indicators and groups are required
 the component package does not ship default English or Chinese UI copy.
 The Android app shell additionally verifies TalkBack focus order, keyboard behavior, safe-area
 insets, system-bar icon contrast, reduced motion and Dynamic Type.
+
+## Usage Rules
+
+### Theme
+
+Every component receives an `AppTheme` object from the host application.
+
+The component library does not persist theme preferences and does not read
+Android dynamic accent colors.
+
+Supported modes:
+
+- `light`
+- `dark`
+- `system`
+
+For `system`, the host application resolves the platform appearance first,
+then passes the resolved light or dark theme to the component.
+
+### Localization
+
+Components do not contain product copy.
+
+The host application provides:
+
+- English labels
+- Simplified Chinese labels
+- accessibility labels
+- placeholders
+- supporting text
+- error messages
+- loading messages
+
+### Accessibility
+
+The host application must provide localized accessibility labels for:
+
+- icon-only buttons
+- close buttons
+- back buttons
+- loading indicators
+- segmented control groups
+- progress indicators
+
+Do not communicate status through color alone. Status components must include
+readable text or an equivalent accessible label.
+
+### Layout
+
+The component library supports a minimum logical width of 320 dp.
+
+The host application is responsible for:
+
+- safe-area insets
+- keyboard avoidance
+- system bars
+- screen navigation
+- window-level scrolling
