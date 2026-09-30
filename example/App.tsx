@@ -150,9 +150,7 @@ export default function App() {
                         theme={theme}
                         title={labels.emptyTitle}
                         description={labels.emptyDescription}
-                        action={
-                            <Button theme={theme} label={labels.modalOpen} onPress={() => setModalVisible(true)} />
-                        }
+                        action={<Button theme={theme} label={labels.modalOpen} onPress={() => setModalVisible(true)} />}
                     />
 
                     <Modal
@@ -163,11 +161,7 @@ export default function App() {
                         onRequestClose={() => setModalVisible(false)}
                     >
                         <Typography theme={theme}>{labels.modalBody}</Typography>
-                        <Button
-                            theme={theme}
-                            label={labels.modalClose}
-                            onPress={() => setModalVisible(false)}
-                        />
+                        <Button theme={theme} label={labels.modalClose} onPress={() => setModalVisible(false)} />
                     </Modal>
                 </Screen>
             </SafeAreaView>
