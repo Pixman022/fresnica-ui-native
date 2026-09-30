@@ -45,6 +45,9 @@ jobs:
             - name: Install package dependencies
               run: npm ci
 
+            - name: Print formatted preview source
+              run: npx prettier example/App.tsx
+
             - name: Bootstrap preview host
               run: npm run example:bootstrap
 
