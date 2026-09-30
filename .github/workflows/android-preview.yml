@@ -3,14 +3,14 @@ name: Android Preview
 on:
     pull_request:
         paths:
-            - "src/**"
-            - "example/**"
-            - "scripts/bootstrap-example.mjs"
-            - "scripts/build-example-android.mjs"
-            - "scripts/run-example-android.mjs"
-            - "package.json"
-            - "package-lock.json"
-            - ".github/workflows/android-preview.yml"
+            - 'src/**'
+            - 'example/**'
+            - 'scripts/bootstrap-example.mjs'
+            - 'scripts/build-example-android.mjs'
+            - 'scripts/run-example-android.mjs'
+            - 'package.json'
+            - 'package-lock.json'
+            - '.github/workflows/android-preview.yml'
     workflow_dispatch:
 
 permissions:
@@ -35,10 +35,11 @@ jobs:
               uses: actions/setup-java@v6
               with:
                   distribution: temurin
-                  java-version: "17"
+                  java-version: '17'
 
             - name: Install Android SDK packages
-              run: "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37" "build-tools;37.0.0" "ndk;27.1.12297006"
+              run: |
+                  "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"                       "platforms;android-37"                       "build-tools;37.0.0"                       "ndk;27.1.12297006"
 
             - name: Install package dependencies
               run: npm ci
