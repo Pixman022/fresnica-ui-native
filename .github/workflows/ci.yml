@@ -1,0 +1,48 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+permissions:
+    contents: read
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout native package
+              uses: actions/checkout@v4
+              with:
+                  path: fresnica-ui-native
+
+            - name: Checkout Web token source
+              uses: actions/checkout@v4
+              with:
+                  repository: Pixman022/fresnica-ui
+                  path: fresnica-ui
+
+            - name: Set up Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22.13.0
+                  cache: npm
+                  cache-dependency-path: fresnica-ui-native/package-lock.json
+
+            - name: Install dependencies
+              working-directory: fresnica-ui-native
+              run: npm ci
+
+            - name: Run standalone tests
+              working-directory: fresnica-ui-native
+              run: npm test
+
+            - name: Verify shared token source
+              working-directory: fresnica-ui-native
+              run: npm run test:source-contract
+
+            - name: Build package
+              working-directory: fresnica-ui-native
+              run: npm run build
