@@ -121,8 +121,8 @@ describe('native components', () => {
             />,
         );
 
-        expect(screen.getByRole('tab', { name: 'All' })).toBeSelected();
-        fireEvent.press(screen.getByRole('tab', { name: 'Active' }));
+        expect(screen.getByRole('tab', { name: 'View mode, All' })).toBeSelected();
+        fireEvent.press(screen.getByRole('tab', { name: 'View mode, Active' }));
         expect(onChange).toHaveBeenCalledWith('active');
     });
 

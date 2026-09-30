@@ -41,11 +41,14 @@ for the complete boundary and acceptance contract.
 ## Local development
 
 This repository is the standalone native component package; it deliberately does not add
-React Native dependencies to the Web workspace. The token validation script is a
-source-contract check. `npm run generate:tokens` refreshes the committed native dimension
-and color contract, while `npm run check:generated` performs a read-only consistency check
-for CI. `npm test` runs the type, formatting, Token, generated-file and component-contract
-checks.
+React Native dependencies to the Web workspace. `npm test` runs type, formatting, theme,
+component-contract and hostless render checks using only this repository.
+
+Cross-repository token validation is intentionally separate. When `fresnica-ui` is checked
+out beside this repository, `npm run test:source-contract` validates the shared Web token
+source and verifies that the committed generated Native contract is current. CI checks out
+both repositories before running this source-contract check. `npm run generate:tokens`
+refreshes the committed Native dimension and color contract.
 
 `npm run build` emits JavaScript and TypeScript declarations to `dist/`. The package export
 keeps React and React Native as peer dependencies and does not bundle an App shell.

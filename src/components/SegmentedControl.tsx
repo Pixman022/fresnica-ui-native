@@ -19,7 +19,7 @@ export function SegmentedControl({
 }: SegmentedControlProps) {
     return (
         <View
-            accessible
+            accessible={false}
             accessibilityRole="tablist"
             accessibilityLabel={accessibilityLabel}
             style={[styles.container, { backgroundColor: theme.colors.surfaceRaised }]}
@@ -31,7 +31,7 @@ export function SegmentedControl({
                         key={segment.key}
                         accessible
                         accessibilityRole="tab"
-                        accessibilityLabel={segment.label}
+                        accessibilityLabel={`${accessibilityLabel}, ${segment.label}`}
                         accessibilityState={{ selected }}
                         onPress={() => onChange(segment.key)}
                         style={[styles.segment, selected && { backgroundColor: theme.colors.surface }]}

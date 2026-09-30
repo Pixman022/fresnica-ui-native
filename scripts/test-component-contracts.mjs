@@ -23,6 +23,7 @@ assert.match(modal, /onRequestClose=\{onRequestClose\}/);
 assert.match(modal, /closeAccessibilityLabel/);
 
 const segmented = read('src/components/SegmentedControl.tsx');
+assert.match(segmented, /accessible=\{false\}/);
 assert.match(segmented, /accessibilityRole="tablist"/);
 assert.match(segmented, /accessibilityState=\{\{ selected \}\}/);
 

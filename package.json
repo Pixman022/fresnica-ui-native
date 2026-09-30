@@ -37,7 +37,8 @@
         "build": "tsc -p tsconfig.build.json",
         "test:render": "jest --runInBand",
         "check:generated": "node scripts/generate-native-token-contract.mjs --check",
-        "test": "npm run typecheck && npm run format:check && npm run validate:tokens && npm run check:generated && npm run test:theme && npm run test:contracts"
+        "test:source-contract": "npm run validate:tokens && npm run check:generated",
+        "test": "npm run typecheck && npm run format:check && npm run test:theme && npm run test:contracts && npm run test:render"
     },
     "devDependencies": {
         "@react-native/babel-preset": "^0.87.0",
