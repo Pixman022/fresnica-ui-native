@@ -14,18 +14,18 @@ jobs:
 
         steps:
             - name: Checkout native package
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
               with:
                   path: fresnica-ui-native
 
             - name: Checkout Web token source
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
               with:
                   repository: Pixman022/fresnica-ui
                   path: fresnica-ui
 
             - name: Set up Node
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v7
               with:
                   node-version: 22.13.0
                   cache: npm
