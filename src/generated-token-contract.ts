@@ -32,6 +32,69 @@ export const generatedTokens = {
     },
 } as const;
 
+/** Native theme colors generated from the reviewed platform token source. */
+export const nativeThemeColors = {
+    light: {
+        background: '#f9f9fb',
+        surface: '#ffffff',
+        surfaceRaised: '#ffffff',
+        primary: '#00a875',
+        primaryPressed: '#008f65',
+        onPrimary: '#ffffff',
+        contentPrimary: '#1a1c1d',
+        contentSecondary: '#3f4942',
+        contentMuted: '#8a948e',
+        border: '#e3e3e5',
+        separator: '#edeef0',
+        positive: '#00a875',
+        negative: '#c73945',
+        warning: '#a87500',
+        overlay: 'rgba(15, 18, 16, 0.45)',
+        statusBar: '#f9f9fb',
+        navigationBar: '#f9f9fb',
+    },
+    dark: {
+        background: '#101312',
+        surface: '#171b19',
+        surfaceRaised: '#202623',
+        primary: '#00ca8a',
+        primaryPressed: '#00a875',
+        onPrimary: '#ffffff',
+        contentPrimary: '#f4f7f5',
+        contentSecondary: '#c5cec8',
+        contentMuted: '#8e9a93',
+        border: '#303934',
+        separator: '#252c28',
+        positive: '#00ca8a',
+        negative: '#c73945',
+        warning: '#f59e0b',
+        overlay: 'rgba(0, 0, 0, 0.62)',
+        statusBar: '#101312',
+        navigationBar: '#101312',
+    },
+} as const;
+
+/** Native color roles mapped to the shared semantic token names. */
+export const nativeColorRoles = {
+    background: 'background-canvas',
+    surface: 'surface-default',
+    surfaceRaised: 'surface-raised',
+    primary: 'action-primary',
+    primaryPressed: 'action-primary-pressed',
+    onPrimary: 'content-on-primary',
+    contentPrimary: 'content-primary',
+    contentSecondary: 'content-secondary',
+    contentMuted: 'content-muted',
+    border: 'border-default',
+    separator: 'border-light',
+    positive: 'feedback-success',
+    negative: 'feedback-error',
+    warning: 'feedback-warning',
+    overlay: 'overlay-scrim',
+    statusBar: 'background-canvas',
+    navigationBar: 'background-canvas',
+} as const;
+
 /** Semantic role aliases remain traceable to the Web token source. */
 export const semanticColorRoles = {
     'background-canvas': 'var(--Fresnica-bg-color)',

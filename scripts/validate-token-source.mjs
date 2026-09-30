@@ -4,7 +4,9 @@ import path from 'node:path';
 const repositoryRoot = path.resolve(import.meta.dirname, '..', '..');
 const webRoot = path.join(repositoryRoot, 'fresnica-ui');
 const tokenPath = path.join(webRoot, 'design-system', 'tokens.json');
+const platformTokenPath = path.join(webRoot, 'design-system', 'platform-token-source.json');
 const source = JSON.parse(fs.readFileSync(tokenPath, 'utf8'));
+const platformSource = JSON.parse(fs.readFileSync(platformTokenPath, 'utf8'));
 const semantic = source.semantic?.color ?? {};
 
 const required = [
@@ -19,26 +21,68 @@ const required = [
     'feedback-error',
     'feedback-warning',
 ];
-
-const nativeRoleMap = {
-    background: 'background-canvas',
-    surface: 'surface-default',
-    contentPrimary: 'content-primary',
-    contentSecondary: 'content-secondary',
-    border: 'border-default',
-    primary: 'action-primary',
-    primaryPressed: 'action-primary-pressed',
-    positive: 'feedback-success',
-    negative: 'feedback-error',
-    warning: 'feedback-warning',
-};
+const requiredNativeRoles = [
+    'background',
+    'surface',
+    'contentPrimary',
+    'contentSecondary',
+    'border',
+    'primary',
+    'primaryPressed',
+    'positive',
+    'negative',
+    'warning',
+];
 
 const missing = required.filter((name) => !semantic[name]);
-if (missing.length > 0) {
+const nativeColors = platformSource.native?.themeColors ?? {};
+const nativeRoleMap = platformSource.native?.semanticRoleMap ?? {};
+const colorKeys = [
+    'background',
+    'surface',
+    'surfaceRaised',
+    'primary',
+    'primaryPressed',
+    'onPrimary',
+    'contentPrimary',
+    'contentSecondary',
+    'contentMuted',
+    'border',
+    'separator',
+    'positive',
+    'negative',
+    'warning',
+    'overlay',
+    'statusBar',
+    'navigationBar',
+];
+const missingColorValues = ['light', 'dark'].flatMap((mode) =>
+    colorKeys.filter((name) => typeof nativeColors[mode]?.[name] !== 'string').map((name) => `${mode}.${name}`),
+);
+const missingNativeRoles = requiredNativeRoles.filter((name) => !nativeRoleMap[name]);
+const missingRoleTargets = Object.entries(nativeRoleMap)
+    .filter(([, semanticName]) => !semantic[semanticName])
+    .map(([nativeName, semanticName]) => `${nativeName}=${semanticName}`);
+if (
+    missing.length > 0 ||
+    missingColorValues.length > 0 ||
+    missingNativeRoles.length > 0 ||
+    missingRoleTargets.length > 0
+) {
     console.error(`Missing semantic tokens: ${missing.join(', ')}`);
+    if (missingColorValues.length > 0) {
+        console.error(`Missing Native theme colors: ${missingColorValues.join(', ')}`);
+    }
+    if (missingNativeRoles.length > 0) {
+        console.error(`Missing Native semantic roles: ${missingNativeRoles.join(', ')}`);
+    }
+    if (missingRoleTargets.length > 0) {
+        console.error(`Missing Native semantic role targets: ${missingRoleTargets.join(', ')}`);
+    }
     process.exitCode = 1;
 } else {
     console.log(`Validated ${required.length} native semantic token roles from ${tokenPath}`);
+    console.log(`Validated Native light/dark color values from ${platformTokenPath}`);
     console.log(
         `Mapped AppTheme roles: ${Object.entries(nativeRoleMap)
             .map(([native, semantic]) => `${native}=${semantic}`)

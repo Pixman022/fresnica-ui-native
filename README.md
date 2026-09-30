@@ -61,11 +61,10 @@ The Android shell boundary and build order are documented in
 Product-app integration boundaries are documented in
 [`docs/integration-guide.md`](docs/integration-guide.md).
 
-`AppTheme` dimensions are generated from the shared primitive Token source by
-`npm run generate:tokens`. The generated contract is committed at
-`src/generated-token-contract.ts` so builds do not depend on the Web repository being present.
-`AppTheme.colors` is currently mapped to the shared semantic roles by
-`scripts/validate-token-source.mjs`. The hand-authored light/dark values in `src/theme.ts`
-are a temporary reviewable adapter because the Web semantic colors resolve through theme CSS;
-the generator preserves the semantic role aliases and must record every platform override
-before color generation replaces the adapter.
+`AppTheme` dimensions and Light/Dark color values are generated from the shared Token and
+platform adapter sources by `npm run generate:tokens`. The generated contract is committed
+at `src/generated-token-contract.ts` so builds do not depend on the Web repository being
+present. The Native color values and semantic role mapping are reviewed in
+`../fresnica-ui/design-system/platform-token-source.json`; any platform override must keep
+its reason and accessibility review there. Theme preferences remain local to each host
+platform and are not synchronized with Web or another device.
