@@ -45,10 +45,12 @@ checks.
 
 `npm run build` emits JavaScript and TypeScript declarations to `dist/`. The package export
 keeps React and React Native as peer dependencies and does not bundle an App shell.
-`npm run test:render` runs Jest/React Native Testing Library tests for component rendering,
-callbacks and accessibility state. It requires the React Native 0.87 Babel preset
-(`@react-native/babel-preset@0.87.0`) in the development environment. The preset is kept
-as a host-side test dependency rather than a runtime package dependency.
+`npm run test:render` contains Jest/React Native Testing Library tests for component
+rendering, callbacks and accessibility state. React Native 0.87 no longer ships the
+standalone Jest preset that older RN templates provided, so these tests require a
+React Native host application's Jest environment (including its native test setup).
+They are intentionally separate from the package-only `npm test` contract checks and
+must not be treated as Android device acceptance.
 
 Component behavior and the phase-one acceptance matrix are documented in
 [`docs/component-contracts.md`](docs/component-contracts.md).

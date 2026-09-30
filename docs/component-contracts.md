@@ -87,3 +87,11 @@ The host application is responsible for:
 - system bars
 - screen navigation
 - window-level scrolling
+
+## Render-test boundary
+
+The Jest/React Native Testing Library suite exercises component rendering and
+accessibility props, but React Native 0.87 requires the host application's native test
+environment for those modules. The package-level checks remain runnable without an App
+shell; device rendering, TalkBack, keyboard, safe-area and system-bar behavior remain
+Android host acceptance responsibilities.
