@@ -19,6 +19,7 @@ export function SegmentedControl({
 }: SegmentedControlProps) {
     return (
         <View
+            accessible
             accessibilityRole="tablist"
             accessibilityLabel={accessibilityLabel}
             style={[styles.container, { backgroundColor: theme.colors.surfaceRaised }]}
@@ -28,6 +29,7 @@ export function SegmentedControl({
                 return (
                     <Pressable
                         key={segment.key}
+                        accessible
                         accessibilityRole="tab"
                         accessibilityLabel={segment.label}
                         accessibilityState={{ selected }}

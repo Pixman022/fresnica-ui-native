@@ -1,11 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import prettier from 'prettier';
 
 const repositoryRoot = path.resolve(import.meta.dirname, '..', '..');
 const sourcePath = path.join(repositoryRoot, 'fresnica-ui', 'design-system', 'tokens.json');
 const platformSourcePath = path.join(repositoryRoot, 'fresnica-ui', 'design-system', 'platform-token-source.json');
 const outputPath = path.join(import.meta.dirname, '..', 'src', 'generated-token-contract.ts');
+const checkOnly = process.argv.includes('--check');
 if (!fs.existsSync(sourcePath)) {
     throw new Error(`Shared Web token source not found: ${sourcePath}`);
 }
@@ -69,6 +70,14 @@ const colorKeys = [
     'primary',
     'primaryPressed',
     'onPrimary',
+    'accentPurple',
+    'accentPurpleContainer',
+    'accentBlue',
+    'accentBlueContainer',
+    'accentOrange',
+    'accentOrangeContainer',
+    'accentYellow',
+    'accentYellowContainer',
     'contentPrimary',
     'contentSecondary',
     'contentMuted',
@@ -131,7 +140,19 @@ export const nativeColorRoles = ${JSON.stringify(nativeColorRoles, null, 4)} as 
 /** Semantic role aliases remain traceable to the Web token source. */
 export const semanticColorRoles = ${JSON.stringify(semanticColorRoles, null, 4)} as const;
 `;
-fs.writeFileSync(outputPath, contents);
-const prettierPath = path.join(import.meta.dirname, '..', 'node_modules', 'prettier', 'bin', 'prettier.cjs');
-execFileSync(process.execPath, [prettierPath, '--write', outputPath], { stdio: 'inherit' });
-console.log(`Generated ${outputPath} from ${sourcePath} and ${platformSourcePath}`);
+const prettierOptions = (await prettier.resolveConfig(outputPath)) ?? {};
+const formattedContents = await prettier.format(contents, { ...prettierOptions, filepath: outputPath });
+
+if (checkOnly) {
+    const currentContents = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, 'utf8') : null;
+    if (currentContents !== formattedContents) {
+        console.error(`Generated Native token contract is out of date: ${outputPath}`);
+        console.error('Run "npm run generate:tokens" to regenerate it from the reviewed token sources.');
+        process.exitCode = 1;
+    } else {
+        console.log(`Generated Native token contract is up to date: ${outputPath}`);
+    }
+} else {
+    fs.writeFileSync(outputPath, formattedContents);
+    console.log(`Generated ${outputPath} from ${sourcePath} and ${platformSourcePath}`);
+}

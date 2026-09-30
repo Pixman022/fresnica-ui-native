@@ -14,6 +14,7 @@ export type HeaderProps = {
 export function Header({ theme, title, leading, trailing, onBack, backAccessibilityLabel }: HeaderProps) {
     const start = onBack ? (
         <Pressable
+            accessible
             accessibilityRole="button"
             accessibilityLabel={backAccessibilityLabel}
             hitSlop={8}

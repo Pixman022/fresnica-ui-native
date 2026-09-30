@@ -15,7 +15,12 @@ export function InlineMessage({ theme, message, tone = 'info', icon }: InlineMes
                 ? theme.colors.warning
                 : theme.colors.primary;
     return (
-        <View accessibilityRole="alert" style={[styles.container, { borderColor: color }]}>
+        <View
+            accessible
+            accessibilityRole={tone === 'error' ? 'alert' : 'text'}
+            accessibilityLabel={message}
+            style={[styles.container, { borderColor: color }]}
+        >
             {icon}
             <Text style={{ color: theme.colors.contentPrimary, fontSize: theme.typography.supporting, flex: 1 }}>
                 {message}

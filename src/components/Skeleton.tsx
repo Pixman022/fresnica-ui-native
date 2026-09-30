@@ -11,8 +11,10 @@ export type SkeletonProps = {
 export function Skeleton({ theme, width = '100%', height = 16, radius = 8, accessibilityLabel }: SkeletonProps) {
     return (
         <View
+            accessible
             accessibilityRole="progressbar"
             accessibilityLabel={accessibilityLabel}
+            accessibilityState={{ busy: true }}
             style={[styles.base, { width, height, borderRadius: radius, backgroundColor: theme.colors.surfaceRaised }]}
         />
     );

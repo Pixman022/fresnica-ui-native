@@ -12,6 +12,14 @@ export type AppTheme = {
         primary: ColorToken;
         primaryPressed: ColorToken;
         onPrimary: ColorToken;
+        accentPurple: ColorToken;
+        accentPurpleContainer: ColorToken;
+        accentBlue: ColorToken;
+        accentBlueContainer: ColorToken;
+        accentOrange: ColorToken;
+        accentOrangeContainer: ColorToken;
+        accentYellow: ColorToken;
+        accentYellowContainer: ColorToken;
         contentPrimary: ColorToken;
         contentSecondary: ColorToken;
         contentMuted: ColorToken;

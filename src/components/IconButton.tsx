@@ -13,6 +13,7 @@ export type IconButtonProps = {
 export function IconButton({ theme, label, icon, onPress, disabled = false }: IconButtonProps) {
     return (
         <Pressable
+            accessible
             accessibilityRole="button"
             accessibilityLabel={label}
             accessibilityState={{ disabled }}

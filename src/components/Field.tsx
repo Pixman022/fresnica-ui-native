@@ -49,7 +49,10 @@ export function Field({
             >
                 {leading}
                 <TextInput
+                    accessible
                     accessibilityLabel={label}
+                    accessibilityHint={state === 'error' ? supportingText : undefined}
+                    accessibilityState={{ disabled }}
                     editable={!disabled}
                     value={value}
                     onChangeText={onChangeText}

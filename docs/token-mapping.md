@@ -9,6 +9,9 @@ This document records the Web-to-React-Native token contract.
 - App shell owns system appearance, system bars, safe-area insets and localization.
 - Theme preferences are host-local. A Web dark-mode choice does not change the Native mode,
   and Native mode changes do not update Web.
+- There is no generic `secondary` action color in this baseline. `contentSecondary` is
+  supporting content only, and `accentBlue` is reserved for network information; do not
+  map either role to a generic secondary button without a new product decision.
 
 The first migration keeps existing Web visual values unchanged. Any platform value
 override must be recorded here with an accessibility reason and native test coverage.
@@ -24,24 +27,28 @@ override must be recorded here with an accessibility reason and native test cove
 | `motion.duration-*`                                |              Host duration in ms | Adapt and honor reduced motion   |
 | `shadow.base`                                      |        No shared elevation token | Defer; Web baseline is `none`    |
 
-| Semantic role                         | `AppTheme.colors`             |
-| ------------------------------------- | ----------------------------- |
-| `background-canvas`                   | `background`                  |
-| `surface-default`                     | `surface`                     |
-| `surface-raised`                      | `surfaceRaised`               |
-| `content-primary`                     | `contentPrimary`              |
-| `content-secondary`                   | `contentSecondary`            |
-| `content-muted` / `content-disabled`  | `contentMuted`                |
-| `border-default`                      | `border`                      |
-| `border-light` / `border-subtle`      | `separator`                   |
-| `action-primary`                      | `primary`                     |
-| `action-primary-pressed`              | `primaryPressed`              |
-| `content-on-primary`                  | `onPrimary`                   |
-| `feedback-success`                    | `positive`                    |
-| `feedback-error` / `feedback-failure` | `negative`                    |
-| `feedback-warning`                    | `warning`                     |
-| `overlay-scrim`                       | `overlay`                     |
-| `background-canvas`                   | `statusBar` / `navigationBar` |
+| Semantic role                               | `AppTheme.colors`                        |
+| ------------------------------------------- | ---------------------------------------- |
+| `background-canvas`                         | `background`                             |
+| `surface-default`                           | `surface`                                |
+| `surface-raised`                            | `surfaceRaised`                          |
+| `content-primary`                           | `contentPrimary`                         |
+| `content-secondary`                         | `contentSecondary`                       |
+| `content-muted` / `content-disabled`        | `contentMuted`                           |
+| `border-default`                            | `border`                                 |
+| `border-light` / `border-subtle`            | `separator`                              |
+| `action-primary`                            | `primary`                                |
+| `action-primary-pressed`                    | `primaryPressed`                         |
+| `content-on-primary`                        | `onPrimary`                              |
+| `accent-purple` / `accent-purple-container` | `accentPurple` / `accentPurpleContainer` |
+| `accent-blue` / `accent-blue-container`     | `accentBlue` / `accentBlueContainer`     |
+| `accent-orange` / `accent-orange-container` | `accentOrange` / `accentOrangeContainer` |
+| `accent-yellow` / `accent-yellow-container` | `accentYellow` / `accentYellowContainer` |
+| `feedback-success`                          | `positive`                               |
+| `feedback-error` / `feedback-failure`       | `negative`                               |
+| `feedback-warning`                          | `warning`                                |
+| `overlay-scrim`                             | `overlay`                                |
+| `background-canvas`                         | `statusBar` / `navigationBar`            |
 
 CSS variable strings are never passed to React Native. Keep existing `--Fresnica-*`
 aliases in Web, and do not import DOM/CSS/Less modules into the native package.

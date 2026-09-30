@@ -36,6 +36,7 @@ export function Button({
     const foreground = filled ? theme.colors.onPrimary : theme.colors.primary;
     return (
         <Pressable
+            accessible
             accessibilityRole="button"
             accessibilityState={{ disabled: isDisabled, busy: loading }}
             accessibilityLabel={label}

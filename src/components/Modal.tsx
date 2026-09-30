@@ -32,6 +32,7 @@ export function Modal({ theme, visible, title, children, onRequestClose, closeAc
                             {title}
                         </Text>
                         <Pressable
+                            accessible
                             accessibilityRole="button"
                             accessibilityLabel={closeAccessibilityLabel}
                             onPress={onRequestClose}

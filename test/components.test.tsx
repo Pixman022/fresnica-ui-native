@@ -1,9 +1,16 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import { Button } from '../src/components/Button';
 import { Field } from '../src/components/Field';
+import { Header } from '../src/components/Header';
+import { IconButton } from '../src/components/IconButton';
+import { InlineMessage } from '../src/components/InlineMessage';
+import { ListRow } from '../src/components/ListRow';
 import { Modal } from '../src/components/Modal';
 import { Progress } from '../src/components/Progress';
 import { SegmentedControl } from '../src/components/SegmentedControl';
+import { Skeleton } from '../src/components/Skeleton';
+import { StatusBadge } from '../src/components/StatusBadge';
+import { Typography } from '../src/components/Typography';
 import { theme } from './helpers';
 
 describe('native components', () => {
@@ -17,16 +24,68 @@ describe('native components', () => {
 
     it('exposes Button loading and disabled state', () => {
         render(<Button label="Continue" theme={theme} loading />);
-        expect(screen.getByRole('button', { name: 'Continue' })).toHaveAccessibilityState({
-            busy: true,
-            disabled: true,
-        });
+        const button = screen.getByRole('button', { name: 'Continue' });
+        expect(button).toBeBusy();
+        expect(button).toBeDisabled();
     });
 
     it('renders Field with an accessible label and error text', () => {
         render(<Field label="Amount" theme={theme} state="error" supportingText="Enter a valid amount" />);
-        expect(screen.getByLabelText('Amount')).toBeTruthy();
+        const field = screen.getByLabelText('Amount');
+        expect(field.props.accessibilityState).toEqual({ disabled: false });
+        expect(field.props.accessibilityHint).toBe('Enter a valid amount');
         expect(screen.getByText('Enter a valid amount')).toBeTruthy();
+    });
+
+    it('exposes IconButton label and disabled state', () => {
+        render(
+            <IconButton
+                label="Open settings"
+                theme={theme}
+                icon={<Typography theme={theme}>gear</Typography>}
+                disabled
+            />,
+        );
+        expect(screen.getByRole('button', { name: 'Open settings' })).toBeDisabled();
+    });
+
+    it('exposes Header back action and title', () => {
+        render(<Header title="Settings" theme={theme} onBack={jest.fn()} backAccessibilityLabel="Go back" />);
+        expect(screen.getByRole('button', { name: 'Go back' })).toBeTruthy();
+        expect(screen.getByText('Settings')).toBeTruthy();
+    });
+
+    it('exposes ListRow button and disabled state', () => {
+        render(<ListRow title="Security" theme={theme} onPress={jest.fn()} disabled />);
+        expect(screen.getByRole('button', { name: 'Security' })).toBeDisabled();
+    });
+
+    it('uses alert semantics only for error InlineMessage', () => {
+        const { rerender } = render(<InlineMessage message="Unable to connect" theme={theme} tone="error" />);
+        expect(screen.getByRole('alert', { name: 'Unable to connect' })).toBeTruthy();
+
+        rerender(<InlineMessage message="Connected" theme={theme} tone="success" />);
+        expect(screen.queryByRole('alert')).toBeNull();
+        expect(screen.getByText('Connected')).toBeTruthy();
+    });
+
+    it('renders StatusBadge text', () => {
+        render(<StatusBadge label="Completed" theme={theme} tone="positive" />);
+        expect(screen.getByText('Completed')).toBeTruthy();
+    });
+
+    it('exposes Skeleton busy state', () => {
+        render(<Skeleton accessibilityLabel="Loading balance" theme={theme} />);
+        expect(screen.getByRole('progressbar', { name: 'Loading balance' })).toBeBusy();
+    });
+
+    it('renders Typography content', () => {
+        render(
+            <Typography theme={theme} variant="sectionTitle">
+                Overview
+            </Typography>,
+        );
+        expect(screen.getByText('Overview')).toBeTruthy();
     });
 
     it('calls Modal close callback from the Android close request', () => {
@@ -62,7 +121,7 @@ describe('native components', () => {
             />,
         );
 
-        expect(screen.getByRole('tab', { name: 'All' })).toHaveAccessibilityState({ selected: true });
+        expect(screen.getByRole('tab', { name: 'All' })).toBeSelected();
         fireEvent.press(screen.getByRole('tab', { name: 'Active' }));
         expect(onChange).toHaveBeenCalledWith('active');
     });

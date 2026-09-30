@@ -6,6 +6,7 @@ export function Progress({ theme, value, accessibilityLabel }: ProgressProps) {
     const clamped = Math.max(0, Math.min(1, value));
     return (
         <View
+            accessible
             accessibilityRole="progressbar"
             accessibilityLabel={accessibilityLabel}
             accessibilityValue={{ min: 0, max: 1, now: clamped }}

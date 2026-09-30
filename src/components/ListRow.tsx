@@ -15,6 +15,7 @@ export type ListRowProps = {
 export function ListRow({ theme, title, description, leading, trailing, onPress, disabled = false }: ListRowProps) {
     return (
         <Pressable
+            accessible
             accessibilityRole={onPress ? 'button' : undefined}
             accessibilityLabel={title}
             accessibilityState={{ disabled }}
