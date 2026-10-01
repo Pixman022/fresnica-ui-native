@@ -1,32 +1,34 @@
 # Android App Shell Plan
 
-The component package is ready to be consumed by an Android-first React Native app shell.
-The shell is deliberately kept out of this package until the app repository and product routes
-are established.
+This repository now contains an on-demand React Native 0.87 Preview Host under `example/`.
+It validates the component package against a real Android build without turning
+`@fresnica/ui-native` into a product App.
+
+The eventual product shell may remain in this repository or be extracted later, but its
+product responsibilities stay separate from the reusable component package.
 
 ## Boundary
 
-- The app owns `NavigationContainer`, native stack/bottom tabs, persistence and feature routes.
+- The product App owns `NavigationContainer`, native stack/bottom tabs, persistence and feature routes.
 - `react-native-safe-area-context` owns insets; screens must not guess status-bar heights.
 - `StatusBar` and Android navigation-bar appearance are driven from `AppTheme.systemBars`.
 - `Appearance` resolves the platform result passed to `resolveTheme('system', mode)`.
-- LocalizationProvider injects English or Simplified Chinese labels and accessibility copy.
-- Android permission, keyboard and hardware integration remain app-owned.
+- The product localization layer owns English/Simplified Chinese labels and accessibility copy.
+- Android permissions, keyboard policy and hardware integration remain product-App responsibilities.
 
-## Build order
+## Current build order
 
-1. Create the React Native CLI Android app with the approved RN/Android baseline.
-2. Add the approved shell dependencies and register the root providers.
-3. Add a theme preview route using `Screen`, `Header`, `Button`, `Field`, `ListRow`, `Modal` and `StateView`.
-4. Add accessibility and state tests at the app boundary.
-5. Run Android emulator checks at 320, 360, 390–393 and 430 logical pixels.
+1. Generate the Preview Host from the approved React Native/Android baseline.
+2. Install the current local `@fresnica/ui-native` package into that host.
+3. Run package CI, Preview TypeScript validation and Android `assembleDebug`.
+4. Exercise Standard/Stress Preview scenarios across the Android acceptance matrix.
+5. Start product navigation and wallet routes only after reusable primitive defects are resolved.
 
-No shell dependency is added to this component package until the app repository is ready.
+See [`android-host-acceptance.md`](android-host-acceptance.md) for the device matrix and evidence requirements.
 
 ## Product-App Acceptance Checklist
 
-These checks are performed in the final Android product App,
-not inside the component library repository.
+The final Android product App repeats the host checks once real routes and feature state exist.
 
 - [ ] TalkBack focus order is logical.
 - [ ] All icon-only actions have localized labels.
