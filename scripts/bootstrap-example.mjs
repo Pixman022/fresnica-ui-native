@@ -8,7 +8,8 @@ const projectDir = path.join(exampleRoot, 'FresnicaPreview');
 const cacheDir = path.join(exampleRoot, '.cache');
 
 function run(command, args, cwd) {
-    const executable = process.platform === 'win32' && command === 'npm' ? 'npm.cmd' : command;
+    const executable =
+        process.platform === 'win32' && (command === 'npm' || command === 'npx') ? `${command}.cmd` : command;
     const result = spawnSync(executable, args, {
         cwd,
         stdio: 'inherit',
@@ -20,6 +21,20 @@ function run(command, args, cwd) {
     }
 }
 
+function applyAndroidBaseline() {
+    const buildGradlePath = path.join(projectDir, 'android', 'build.gradle');
+    const buildGradle = fs.readFileSync(buildGradlePath, 'utf8');
+
+    if (buildGradle.includes('minSdkVersion = 26')) {
+        return;
+    }
+    if (!buildGradle.includes('minSdkVersion = 24')) {
+        throw new Error('Unexpected React Native Android minSdk baseline.');
+    }
+
+    fs.writeFileSync(buildGradlePath, buildGradle.replace('minSdkVersion = 24', 'minSdkVersion = 26'));
+}
+
 if (!fs.existsSync(projectDir)) {
     run(
         'npx',
@@ -27,6 +42,8 @@ if (!fs.existsSync(projectDir)) {
         exampleRoot,
     );
 }
+
+applyAndroidBaseline();
 
 fs.mkdirSync(cacheDir, { recursive: true });
 for (const entry of fs.readdirSync(cacheDir)) {
