@@ -1,0 +1,56 @@
+name: Android Preview
+
+on:
+    pull_request:
+        paths:
+            - 'src/**'
+            - 'example/**'
+            - 'scripts/bootstrap-example.mjs'
+            - 'scripts/build-example-android.mjs'
+            - 'scripts/run-example-android.mjs'
+            - 'package.json'
+            - 'package-lock.json'
+            - '.github/workflows/android-preview.yml'
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Set up Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22.13.0
+                  cache: npm
+
+            - name: Set up Java
+              uses: actions/setup-java@v6
+              with:
+                  distribution: temurin
+                  java-version: '17'
+
+            - name: Install Android SDK packages
+              run: |
+                  "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37.0" "build-tools;37.0.0" "ndk;27.1.12297006"
+                  ln -sfn "$ANDROID_HOME/platforms/android-37.0" "$ANDROID_HOME/platforms/android-37"
+
+            - name: Install package dependencies
+              run: npm ci
+
+            - name: Bootstrap preview host
+              run: npm run example:bootstrap
+
+            - name: Typecheck preview host
+              working-directory: example/FresnicaPreview
+              run: npx tsc --noEmit
+
+            - name: Build Android preview
+              run: node scripts/build-example-android.mjs

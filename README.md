@@ -59,6 +59,21 @@ App exists. A product App should run the same tests again with its real React Na
 Jest/native host; this package-level suite must not be treated as Android device
 acceptance.
 
+## Android preview host
+
+The `example/` directory contains the committed Preview App source. The generated React
+Native CLI project is intentionally ignored so template output does not become part of the
+component package history.
+
+Run `npm run example:bootstrap` to generate a React Native 0.87 Android host and install the
+current local package build into it. With an emulator or device available, run
+`npm run example:android`. To verify only that the Android host compiles, run
+`npm run example:android:build`.
+
+The Preview App exercises theme resolution, English/Simplified Chinese copy, Safe Area,
+core component states and accessibility roles before wallet features are introduced.
+See [`example/README.md`](example/README.md) for details.
+
 Component behavior and the phase-one acceptance matrix are documented in
 [`docs/component-contracts.md`](docs/component-contracts.md).
 
