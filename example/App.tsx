@@ -46,8 +46,7 @@ const copy = {
         stressNetworkDescription:
             'This long description verifies that a reusable row can grow vertically without clipping or horizontal overflow.',
         addressTitle: 'Long address',
-        address:
-            '0x4d7F9f6A5cD1E24B89F0aD71E8b739f5A2b85cF2eC90d6Aa13E1427D9B1c6F49',
+        address: '0x4d7F9f6A5cD1E24B89F0aD71E8b739f5A2b85cF2eC90d6Aa13E1427D9B1c6F49',
         status: 'Connected',
         info: 'Native components are using the current Fresnica semantic theme.',
         stressInfo:
