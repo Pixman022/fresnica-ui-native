@@ -61,14 +61,7 @@ describe('native components', () => {
     });
 
     it('includes ListRow description in an interactive accessibility label', () => {
-        render(
-            <ListRow
-                title="Security"
-                description="Manage access and backups"
-                theme={theme}
-                onPress={jest.fn()}
-            />,
-        );
+        render(<ListRow title="Security" description="Manage access and backups" theme={theme} onPress={jest.fn()} />);
         expect(screen.getByRole('button', { name: 'Security, Manage access and backups' })).toBeTruthy();
     });
 
