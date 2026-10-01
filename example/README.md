@@ -17,8 +17,9 @@ The command:
 1. builds `@fresnica/ui-native`
 2. creates `example/FresnicaPreview` with React Native CLI 0.87.0 when it is missing
 3. packs the current local component package
-4. installs that package into the generated host
-5. copies `example/App.tsx` into the generated app
+4. normalizes the generated Android host to the repository's minSdk 26 baseline
+5. installs that package into the generated host
+6. copies `example/App.tsx` into the generated app
 
 The generated project and package tarball cache are ignored by Git.
 
