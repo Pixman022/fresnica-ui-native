@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { StatusBar, StyleSheet, View, useColorScheme } from 'react-native';
+import { StatusBar, StyleSheet, View, useColorScheme, useWindowDimensions } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
     Button,
@@ -18,25 +18,50 @@ import {
 import type { ThemeMode } from '@fresnica/ui-native';
 
 type Locale = 'en' | 'zh-CN';
+type Scenario = 'standard' | 'stress';
 
 const copy = {
     en: {
         title: 'Fresnica Native Preview',
         subtitle: 'Android host acceptance before wallet feature integration',
+        environment: 'Environment',
         themeGroup: 'Theme',
         languageGroup: 'Language',
+        scenarioGroup: 'Content scenario',
         system: 'System',
         light: 'Light',
         dark: 'Dark',
         english: 'English',
         chinese: '简体中文',
+        standard: 'Standard',
+        stress: 'Stress',
         amount: 'Amount',
         amountPlaceholder: 'Enter amount',
+        amountError: 'Enter a valid amount before continuing.',
+        stressAmountError:
+            'Enter a valid amount. This deliberately long supporting message verifies wrapping at narrow widths and large font scale.',
         networkTitle: 'Network',
         networkDescription: 'Testnet connected',
+        stressNetworkTitle: 'Network connection with intentionally long localized content',
+        stressNetworkDescription:
+            'This long description verifies that a reusable row can grow vertically without clipping or horizontal overflow.',
+        addressTitle: 'Long address',
+        address:
+            '0x4d7F9f6A5cD1E24B89F0aD71E8b739f5A2b85cF2eC90d6Aa13E1427D9B1c6F49',
         status: 'Connected',
         info: 'Native components are using the current Fresnica semantic theme.',
+        stressInfo:
+            'Stress mode uses long content, error states and large accessible labels so narrow Android windows and font scaling can be inspected before product flows are added.',
         progress: 'Sync progress',
+        componentStates: 'Control states',
+        enabledAction: 'Continue',
+        stressAction: 'Continue with an intentionally long action label',
+        disabledAction: 'Unavailable action',
+        loadingAction: 'Loading action',
+        keyboardTitle: 'Keyboard visibility check',
+        keyboardPlaceholder: 'Focus this field near the bottom of the screen',
+        keyboardHint: 'With the keyboard open, this field and the action below should remain reachable.',
+        keyboardAction: 'Primary action below keyboard field',
         modalOpen: 'Open modal',
         modalTitle: 'Preview modal',
         modalClose: 'Close modal',
@@ -47,20 +72,40 @@ const copy = {
     'zh-CN': {
         title: 'Fresnica 原生预览',
         subtitle: '在接入钱包业务前验证 Android 宿主能力',
+        environment: '当前环境',
         themeGroup: '主题',
         languageGroup: '语言',
+        scenarioGroup: '内容场景',
         system: '跟随系统',
         light: '浅色',
         dark: '深色',
         english: 'English',
         chinese: '简体中文',
+        standard: '标准',
+        stress: '压力测试',
         amount: '金额',
         amountPlaceholder: '输入金额',
+        amountError: '请输入有效金额后再继续。',
+        stressAmountError: '请输入有效金额。这是一段故意加长的辅助说明，用于检查窄屏和大字体下是否正确换行且不被裁切。',
         networkTitle: '网络',
         networkDescription: '测试网已连接',
+        stressNetworkTitle: '包含故意加长本地化文案的网络连接状态',
+        stressNetworkDescription: '这段较长的描述用于验证可复用列表行能否自然增高，并避免文字裁切或横向溢出。',
+        addressTitle: '长地址',
+        address: 'bc1q5r9m2g3s7t6u8w0x4zv2n6k9j8h3f5d7c4b2a1p0q9w8e7r6t5y4u3i2o1',
         status: '已连接',
         info: '原生组件正在使用当前 Fresnica 语义主题。',
+        stressInfo: '压力测试会显示长文案、错误状态和较长的无障碍标签，用于在接入产品流程前检查窄屏和字体缩放。',
         progress: '同步进度',
+        componentStates: '控件状态',
+        enabledAction: '继续',
+        stressAction: '使用一段故意加长的操作按钮文案继续',
+        disabledAction: '不可用操作',
+        loadingAction: '加载中的操作',
+        keyboardTitle: '键盘可见性检查',
+        keyboardPlaceholder: '聚焦这个位于页面底部附近的输入框',
+        keyboardHint: '键盘打开后，这个输入框和下面的主要操作仍应可以滚动到并保持可见。',
+        keyboardAction: '位于键盘测试输入框下方的主要操作',
         modalOpen: '打开弹窗',
         modalTitle: '预览弹窗',
         modalClose: '关闭弹窗',
@@ -72,12 +117,16 @@ const copy = {
 
 export default function App() {
     const systemScheme = useColorScheme();
+    const { width, height, fontScale } = useWindowDimensions();
     const [mode, setMode] = useState<ThemeMode>('system');
     const [locale, setLocale] = useState<Locale>('en');
+    const [scenario, setScenario] = useState<Scenario>('standard');
     const [amount, setAmount] = useState('');
+    const [keyboardValue, setKeyboardValue] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
 
     const labels = copy[locale];
+    const stress = scenario === 'stress';
     const resolvedSystemMode = systemScheme === 'dark' ? 'dark' : 'light';
     const theme = useMemo(() => resolveTheme(mode, resolvedSystemMode), [mode, resolvedSystemMode]);
 
@@ -95,6 +144,15 @@ export default function App() {
                         </Typography>
                         <Typography theme={theme} muted>
                             {labels.subtitle}
+                        </Typography>
+                    </View>
+
+                    <View style={styles.section}>
+                        <Typography theme={theme} variant="sectionTitle">
+                            {labels.environment}
+                        </Typography>
+                        <Typography theme={theme} muted>
+                            {Math.round(width)} × {Math.round(height)} dp · fontScale {fontScale.toFixed(2)} · {theme.mode}
                         </Typography>
                     </View>
 
@@ -120,6 +178,16 @@ export default function App() {
                                 { key: 'zh-CN', label: labels.chinese },
                             ]}
                         />
+                        <SegmentedControl
+                            theme={theme}
+                            accessibilityLabel={labels.scenarioGroup}
+                            selectedKey={scenario}
+                            onChange={(key) => setScenario(key as Scenario)}
+                            segments={[
+                                { key: 'standard', label: labels.standard },
+                                { key: 'stress', label: labels.stress },
+                            ]}
+                        />
                     </View>
 
                     <View style={styles.section}>
@@ -129,14 +197,21 @@ export default function App() {
                             value={amount}
                             onChangeText={setAmount}
                             placeholder={labels.amountPlaceholder}
+                            state={stress ? 'error' : 'default'}
+                            supportingText={stress ? labels.stressAmountError : labels.amountError}
                         />
                         <ListRow
                             theme={theme}
-                            title={labels.networkTitle}
-                            description={labels.networkDescription}
+                            title={stress ? labels.stressNetworkTitle : labels.networkTitle}
+                            description={stress ? labels.stressNetworkDescription : labels.networkDescription}
                             trailing={<StatusBadge theme={theme} label={labels.status} tone="positive" />}
                         />
-                        <InlineMessage theme={theme} message={labels.info} />
+                        {stress ? <ListRow theme={theme} title={labels.addressTitle} description={labels.address} /> : null}
+                        <InlineMessage
+                            theme={theme}
+                            message={stress ? labels.stressInfo : labels.info}
+                            tone={stress ? 'error' : 'info'}
+                        />
                     </View>
 
                     <View style={styles.section}>
@@ -146,12 +221,36 @@ export default function App() {
                         <Progress theme={theme} value={0.64} accessibilityLabel={labels.progress} />
                     </View>
 
+                    <View style={styles.section}>
+                        <Typography theme={theme} variant="sectionTitle">
+                            {labels.componentStates}
+                        </Typography>
+                        <Button theme={theme} label={stress ? labels.stressAction : labels.enabledAction} />
+                        <Button theme={theme} label={labels.disabledAction} disabled />
+                        <Button theme={theme} label={labels.loadingAction} loading />
+                    </View>
+
                     <StateView
                         theme={theme}
                         title={labels.emptyTitle}
                         description={labels.emptyDescription}
                         action={<Button theme={theme} label={labels.modalOpen} onPress={() => setModalVisible(true)} />}
                     />
+
+                    <View style={styles.section}>
+                        <Typography theme={theme} variant="sectionTitle">
+                            {labels.keyboardTitle}
+                        </Typography>
+                        <Field
+                            theme={theme}
+                            label={labels.keyboardTitle}
+                            value={keyboardValue}
+                            onChangeText={setKeyboardValue}
+                            placeholder={labels.keyboardPlaceholder}
+                            supportingText={labels.keyboardHint}
+                        />
+                        <Button theme={theme} label={labels.keyboardAction} />
+                    </View>
 
                     <Modal
                         theme={theme}
