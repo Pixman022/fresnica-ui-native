@@ -152,7 +152,8 @@ export default function App() {
                             {labels.environment}
                         </Typography>
                         <Typography theme={theme} muted>
-                            {Math.round(width)} × {Math.round(height)} dp · fontScale {fontScale.toFixed(2)} · {theme.mode}
+                            {Math.round(width)} × {Math.round(height)} dp · fontScale {fontScale.toFixed(2)} ·{' '}
+                            {theme.mode}
                         </Typography>
                     </View>
 
@@ -206,7 +207,9 @@ export default function App() {
                             description={stress ? labels.stressNetworkDescription : labels.networkDescription}
                             trailing={<StatusBadge theme={theme} label={labels.status} tone="positive" />}
                         />
-                        {stress ? <ListRow theme={theme} title={labels.addressTitle} description={labels.address} /> : null}
+                        {stress ? (
+                            <ListRow theme={theme} title={labels.addressTitle} description={labels.address} />
+                        ) : null}
                         <InlineMessage
                             theme={theme}
                             message={stress ? labels.stressInfo : labels.info}
