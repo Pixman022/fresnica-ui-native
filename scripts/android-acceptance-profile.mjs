@@ -137,7 +137,6 @@ if (options.reset) {
 
     assertReadyEmulator();
     run(['shell', 'wm', 'size', 'reset']);
-    run(['shell', 'wm', 'density', 'reset']);
     run(['shell', 'settings', 'put', 'system', 'font_scale', '1.0']);
     run(['shell', 'cmd', 'uimode', 'night', 'auto']);
     printCurrentProfile();
