@@ -20,6 +20,16 @@ assert.match(field, /editable=\{!disabled\}/);
 assert.match(field, /theme\.sizes\.border/);
 assert.match(field, /theme\.radii\.control/);
 
+const listRow = read('src/components/ListRow.tsx');
+assert.match(listRow, /accessible=\{interactive\}/);
+assert.match(listRow, /accessibilityLabel=\{interactive \? accessibilityLabel : undefined\}/);
+assert.match(listRow, /description \? `\$\{title\}, \$\{description\}` : title/);
+assert.match(listRow, /minWidth: 0/);
+
+const stateView = read('src/components/StateView.tsx');
+assert.match(stateView, /action \?/);
+assert.match(stateView, /maxWidth: '100%'/);
+
 const modal = read('src/components/Modal.tsx');
 assert.match(modal, /accessibilityViewIsModal/);
 assert.match(modal, /onRequestClose=\{onRequestClose\}/);
