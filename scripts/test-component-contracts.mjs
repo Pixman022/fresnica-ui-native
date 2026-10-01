@@ -13,6 +13,7 @@ assert.match(button, /theme\.radii\.base/);
 assert.match(button, /minHeight: heights\[size\]/);
 assert.doesNotMatch(button, /\bheight: heights\[size\]/);
 assert.match(button, /flexShrink: 1/);
+assert.match(button, /hitSlop=\{size === 'sm' \? \{ top: 4, bottom: 4, left: 0, right: 0 \} : undefined\}/);
 
 const field = read('src/components/Field.tsx');
 assert.match(field, /accessibilityLabel=\{label\}/);
@@ -39,6 +40,9 @@ const segmented = read('src/components/SegmentedControl.tsx');
 assert.match(segmented, /accessible=\{false\}/);
 assert.match(segmented, /accessibilityRole="tablist"/);
 assert.match(segmented, /accessibilityState=\{\{ selected \}\}/);
+assert.match(segmented, /minHeight: 44/);
+assert.match(segmented, /textAlign: 'center'/);
+assert.match(segmented, /flexShrink: 1/);
 
 const progress = read('src/components/Progress.tsx');
 assert.match(progress, /accessibilityRole="progressbar"/);
