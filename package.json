@@ -41,7 +41,8 @@
         "example:bootstrap": "npm run build && node scripts/bootstrap-example.mjs",
         "example:android": "npm run example:bootstrap && node scripts/run-example-android.mjs",
         "example:android:build": "npm run example:bootstrap && node scripts/build-example-android.mjs",
-        "test": "npm run typecheck && npm run format:check && npm run test:theme && npm run test:contracts && npm run test:render"
+        "test": "npm run typecheck && npm run format:check && npm run test:theme && npm run test:contracts && npm run test:render",
+        "example:device-info": "node scripts/android-device-info.mjs"
     },
     "devDependencies": {
         "@react-native/babel-preset": "^0.87.0",

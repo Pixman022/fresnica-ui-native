@@ -10,6 +10,9 @@ assert.match(button, /accessibilityRole="button"/);
 assert.match(button, /accessibilityState=\{\{ disabled: isDisabled, busy: loading \}\}/);
 assert.match(button, /theme\.sizes\.controlBase/);
 assert.match(button, /theme\.radii\.base/);
+assert.match(button, /minHeight: heights\[size\]/);
+assert.doesNotMatch(button, /\bheight: heights\[size\]/);
+assert.match(button, /flexShrink: 1/);
 
 const field = read('src/components/Field.tsx');
 assert.match(field, /accessibilityLabel=\{label\}/);
