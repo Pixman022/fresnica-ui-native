@@ -60,6 +60,25 @@ describe('native components', () => {
         expect(screen.getByRole('button', { name: 'Security' })).toBeDisabled();
     });
 
+    it('includes ListRow description in an interactive accessibility label', () => {
+        render(
+            <ListRow
+                title="Security"
+                description="Manage access and backups"
+                theme={theme}
+                onPress={jest.fn()}
+            />,
+        );
+        expect(screen.getByRole('button', { name: 'Security, Manage access and backups' })).toBeTruthy();
+    });
+
+    it('keeps noninteractive ListRow content outside a grouped button', () => {
+        render(<ListRow title="Network" description="Testnet connected" theme={theme} />);
+        expect(screen.queryByRole('button')).toBeNull();
+        expect(screen.getByText('Network')).toBeTruthy();
+        expect(screen.getByText('Testnet connected')).toBeTruthy();
+    });
+
     it('uses alert semantics only for error InlineMessage', () => {
         const { rerender } = render(<InlineMessage message="Unable to connect" theme={theme} tone="error" />);
         expect(screen.getByRole('alert', { name: 'Unable to connect' })).toBeTruthy();
