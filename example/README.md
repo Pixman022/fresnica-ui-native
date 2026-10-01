@@ -46,6 +46,28 @@ npm run example:device-info
 The command prints model, Android/API version, locale, window size, density, font scale
 and night-mode state as JSON so the result can be copied into an acceptance record.
 
+## Emulator acceptance profiles
+
+The profile helper changes Android system settings and therefore refuses to run on a
+physical device. Use it only with one ready Android emulator.
+
+Set a target logical width, font scale and appearance:
+
+```bash
+npm run example:profile -- --width 320 --font-scale 1.0 --theme light
+npm run example:profile -- --width 430 --font-scale 1.3 --theme dark
+```
+
+Supported logical widths are `320`, `360`, `390`, `393` and `430` dp. Width changes
+keep the emulator's current density and physical aspect ratio. Locale remains an in-app
+Preview toggle instead of a device-level mutation.
+
+Reset display size, density, font scale and night mode after acceptance:
+
+```bash
+npm run example:profile:reset
+```
+
 ## Acceptance scenarios
 
 The Preview page shows its current logical width, height and font scale. Use the
