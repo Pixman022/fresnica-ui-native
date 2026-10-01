@@ -29,6 +29,16 @@ describe('native components', () => {
         expect(button).toBeDisabled();
     });
 
+    it('expands the compact Button touch target without changing its visual token height', () => {
+        render(<Button label="Compact" theme={theme} size="sm" />);
+        expect(screen.getByRole('button', { name: 'Compact' }).props.hitSlop).toEqual({
+            top: 4,
+            bottom: 4,
+            left: 0,
+            right: 0,
+        });
+    });
+
     it('renders Field with an accessible label and error text', () => {
         render(<Field label="Amount" theme={theme} state="error" supportingText="Enter a valid amount" />);
         const field = screen.getByLabelText('Amount');

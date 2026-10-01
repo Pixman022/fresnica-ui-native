@@ -42,6 +42,7 @@ export function Button({
             accessibilityLabel={label}
             accessibilityHint={accessibilityHint}
             disabled={isDisabled}
+            hitSlop={size === 'sm' ? { top: 4, bottom: 4, left: 0, right: 0 } : undefined}
             onPress={onPress}
             style={({ pressed }) => [
                 styles.base,

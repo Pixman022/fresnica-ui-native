@@ -37,11 +37,14 @@ export function SegmentedControl({
                         style={[styles.segment, selected && { backgroundColor: theme.colors.surface }]}
                     >
                         <Text
-                            style={{
-                                color: selected ? theme.colors.contentPrimary : theme.colors.contentSecondary,
-                                fontSize: theme.typography.supporting,
-                                fontWeight: selected ? '600' : '400',
-                            }}
+                            style={[
+                                styles.label,
+                                {
+                                    color: selected ? theme.colors.contentPrimary : theme.colors.contentSecondary,
+                                    fontSize: theme.typography.supporting,
+                                    fontWeight: selected ? '600' : '400',
+                                },
+                            ]}
                         >
                             {segment.label}
                         </Text>
@@ -52,9 +55,9 @@ export function SegmentedControl({
     );
 }
 const styles = StyleSheet.create({
-    container: { minHeight: 44, padding: 3, borderRadius: 12, flexDirection: 'row', gap: 3 },
+    container: { minHeight: 50, padding: 3, borderRadius: 12, flexDirection: 'row', gap: 3 },
     segment: {
-        minHeight: 38,
+        minHeight: 44,
         minWidth: 44,
         flex: 1,
         paddingHorizontal: 12,
@@ -62,4 +65,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    label: { textAlign: 'center', flexShrink: 1 },
 });
