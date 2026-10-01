@@ -37,6 +37,22 @@ For a compile-only check:
 npm run example:android:build
 ```
 
+With one ready device connected through `adb`, capture the current acceptance context with:
+
+```bash
+npm run example:device-info
+```
+
+The command prints model, Android/API version, locale, window size, density, font scale
+and night-mode state as JSON so the result can be copied into an acceptance record.
+
+## Acceptance scenarios
+
+The Preview page shows its current logical width, height and font scale. Use the
+Standard/Stress switch to exercise normal content or deliberately long English/Chinese
+copy, long addresses, error text, loading/disabled controls and the bottom keyboard
+visibility scenario.
+
 The preview covers Light, Dark and System themes, English and Simplified Chinese,
 Safe Area handling, core component states and accessibility labels. Product navigation,
 wallet state, networking and persistence remain outside this preview host.
