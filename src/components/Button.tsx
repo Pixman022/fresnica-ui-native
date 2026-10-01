@@ -50,7 +50,7 @@ export function Button({
                     borderColor: background,
                     borderWidth: theme.sizes.border,
                     borderRadius: theme.radii.base,
-                    height: heights[size],
+                    minHeight: heights[size],
                     opacity: isDisabled ? 0.5 : pressed ? 0.82 : 1,
                 },
             ]}
@@ -67,10 +67,11 @@ const styles = StyleSheet.create({
     base: {
         minWidth: 44,
         paddingHorizontal: 16,
+        paddingVertical: 8,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         gap: 8,
     },
-    label: { fontWeight: '600' },
+    label: { fontWeight: '600', textAlign: 'center', flexShrink: 1 },
 });
