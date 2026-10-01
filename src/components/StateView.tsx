@@ -32,9 +32,7 @@ export function StateView({ theme, tone = 'empty', title, description, action, i
                     {description}
                 </Text>
             ) : null}
-            {action ? (
-                <View style={[styles.action, { borderColor: accent }]}>{action}</View>
-            ) : null}
+            {action ? <View style={[styles.action, { borderColor: accent }]}>{action}</View> : null}
         </View>
     );
 }
