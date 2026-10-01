@@ -131,7 +131,7 @@ if (options.help) {
 }
 
 if (options.reset) {
-    if (options.width || options.fontScale || options.theme) {
+    if (options.width !== undefined || options.fontScale !== undefined || options.theme !== undefined) {
         throw new Error('--reset cannot be combined with profile options.');
     }
 
@@ -143,24 +143,24 @@ if (options.reset) {
     process.exit(0);
 }
 
-if (!options.width && !options.fontScale && !options.theme) {
+if (options.width === undefined && options.fontScale === undefined && options.theme === undefined) {
     usage();
     process.exit(1);
 }
 
-if (options.width && !supportedWidths.has(options.width)) {
+if (options.width !== undefined && !supportedWidths.has(options.width)) {
     throw new Error(`Unsupported width: ${options.width}`);
 }
-if (options.fontScale && (!Number.isFinite(options.fontScale) || options.fontScale <= 0)) {
+if (options.fontScale !== undefined && (!Number.isFinite(options.fontScale) || options.fontScale <= 0)) {
     throw new Error(`Invalid font scale: ${options.fontScale}`);
 }
-if (options.theme && options.theme !== 'light' && options.theme !== 'dark') {
+if (options.theme !== undefined && options.theme !== 'light' && options.theme !== 'dark') {
     throw new Error(`Unsupported theme: ${options.theme}`);
 }
 
 assertReadyEmulator();
 
-if (options.width) {
+if (options.width !== undefined) {
     const physicalSize = parsePhysicalSize(run(['shell', 'wm', 'size']));
     const density = parseDensity(run(['shell', 'wm', 'density']));
     const widthPixels = Math.round((options.width * density) / 160);
@@ -168,11 +168,11 @@ if (options.width) {
     run(['shell', 'wm', 'size', `${widthPixels}x${heightPixels}`]);
 }
 
-if (options.fontScale) {
+if (options.fontScale !== undefined) {
     run(['shell', 'settings', 'put', 'system', 'font_scale', String(options.fontScale)]);
 }
 
-if (options.theme) {
+if (options.theme !== undefined) {
     run(['shell', 'cmd', 'uimode', 'night', options.theme === 'dark' ? 'yes' : 'no']);
 }
 
