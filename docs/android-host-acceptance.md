@@ -21,7 +21,7 @@ JSON beside the result.
 For an emulator, use `npm run example:profile -- --width <dp> --font-scale <scale> --theme <light|dark>`
 to switch the width/font/theme dimensions without editing Android Settings manually. The
 helper refuses to mutate a physical device. Run `npm run example:profile:reset` when the
-matrix is complete.
+matrix is complete. The reset does not change display density.
 
 A practical first pass is:
 
