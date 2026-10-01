@@ -18,11 +18,31 @@ The Preview displays its current logical width, height, resolved theme and font 
 With one emulator/device connected, run `npm run example:device-info` and record that
 JSON beside the result.
 
+For an emulator, use `npm run example:profile -- --width <dp> --font-scale <scale> --theme <light|dark>`
+to switch the width/font/theme dimensions without editing Android Settings manually. The
+helper refuses to mutate a physical device. Run `npm run example:profile:reset` when the
+matrix is complete.
+
+A practical first pass is:
+
+```text
+320 dp / 1.0 / Light / EN / Stress
+320 dp / 1.3 / Dark  / zh-CN / Stress
+360 dp / 1.0 / Light / zh-CN / Standard
+390 dp / 1.3 / Dark  / EN / Stress
+393 dp / 1.0 / Light / EN / Standard
+430 dp / 1.3 / Dark  / zh-CN / Stress
+```
+
+The remaining locale/scenario combinations should be covered when a defect appears or
+before the first wallet feature is accepted.
+
 ## Automated gates
 
 Pull requests that touch the Preview or native components must keep these checks green:
 
 - standalone package tests and component contracts
+- Android helper-script syntax/CLI checks
 - shared Web/Native token source contract
 - Preview Host TypeScript validation
 - React Native 0.87 Android `assembleDebug`
