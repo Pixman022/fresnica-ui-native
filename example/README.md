@@ -62,7 +62,7 @@ Supported logical widths are `320`, `360`, `390`, `393` and `430` dp. Width chan
 keep the emulator's current density and physical aspect ratio. Locale remains an in-app
 Preview toggle instead of a device-level mutation.
 
-Reset display size, density, font scale and night mode after acceptance:
+Reset display size, font scale and night mode after acceptance:
 
 ```bash
 npm run example:profile:reset
