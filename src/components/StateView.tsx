@@ -32,7 +32,7 @@ export function StateView({ theme, tone = 'empty', title, description, action, i
                     {description}
                 </Text>
             ) : null}
-            <View style={{ marginTop: 8, borderColor: accent }}>{action}</View>
+            {action ? <View style={[styles.action, { borderColor: accent }]}>{action}</View> : null}
         </View>
     );
 }
@@ -41,4 +41,5 @@ const styles = StyleSheet.create({
     container: { alignItems: 'center', justifyContent: 'center', padding: 24, gap: 8 },
     title: { textAlign: 'center', fontWeight: '700' },
     description: { textAlign: 'center', lineHeight: 22 },
+    action: { marginTop: 8, maxWidth: '100%' },
 });

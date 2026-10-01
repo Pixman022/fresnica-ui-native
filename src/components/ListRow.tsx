@@ -13,12 +13,15 @@ export type ListRowProps = {
 };
 
 export function ListRow({ theme, title, description, leading, trailing, onPress, disabled = false }: ListRowProps) {
+    const interactive = Boolean(onPress);
+    const accessibilityLabel = description ? `${title}, ${description}` : title;
+
     return (
         <Pressable
-            accessible
-            accessibilityRole={onPress ? 'button' : undefined}
-            accessibilityLabel={title}
-            accessibilityState={{ disabled }}
+            accessible={interactive}
+            accessibilityRole={interactive ? 'button' : undefined}
+            accessibilityLabel={interactive ? accessibilityLabel : undefined}
+            accessibilityState={interactive ? { disabled } : undefined}
             disabled={disabled}
             onPress={onPress}
             style={({ pressed }) => [
@@ -57,7 +60,7 @@ const styles = StyleSheet.create({
         gap: 12,
     },
     leading: { width: 40, alignItems: 'center' },
-    copy: { flex: 1, gap: 3 },
-    title: { fontWeight: '600' },
-    trailing: { minWidth: 44, alignItems: 'flex-end' },
+    copy: { flex: 1, gap: 3, minWidth: 0 },
+    title: { fontWeight: '600', flexShrink: 1 },
+    trailing: { minWidth: 44, alignItems: 'flex-end', flexShrink: 0 },
 });
