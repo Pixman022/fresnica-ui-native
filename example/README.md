@@ -46,6 +46,17 @@ npm run example:device-info
 The command prints model, Android/API version, locale, window size, density, font scale
 and night-mode state as JSON so the result can be copied into an acceptance record.
 
+To capture the visible Preview together with its Android UI hierarchy and device context:
+
+```bash
+npm run example:collect-evidence
+```
+
+Each run creates an ignored timestamped directory under `example/acceptance-evidence/`
+containing `screenshot.png`, `ui.xml` and `device-info.json`. Keep the Preview on
+screen while capturing. The UI hierarchy contains visible text, so do not use this
+helper on product screens containing secrets or personal data.
+
 ## Emulator acceptance profiles
 
 The profile helper changes Android system settings and therefore refuses to run on a

@@ -15,8 +15,10 @@ Run the Preview at:
 - Standard and Stress content scenarios
 
 The Preview displays its current logical width, height, resolved theme and font scale.
-With one emulator/device connected, run `npm run example:device-info` and record that
-JSON beside the result.
+With one emulator/device connected, run `npm run example:device-info` for a quick
+read-only check. For a reviewable evidence bundle, keep the Preview visible and run
+`npm run example:collect-evidence`; it saves a screenshot, Android UI hierarchy and
+device-info JSON under the ignored `example/acceptance-evidence/` directory.
 
 For an emulator, use `npm run example:profile -- --width <dp> --font-scale <scale> --theme <light|dark>`
 to switch the width/font/theme dimensions without editing Android Settings manually. The

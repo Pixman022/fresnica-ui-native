@@ -5,3 +5,4 @@ dist/
 *.log
 example/FresnicaPreview/
 example/.cache/
+example/acceptance-evidence/

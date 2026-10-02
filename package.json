@@ -43,9 +43,10 @@
         "example:android:build": "npm run example:bootstrap && node scripts/build-example-android.mjs",
         "test": "npm run typecheck && npm run format:check && npm run test:scripts && npm run test:theme && npm run test:contracts && npm run test:render",
         "example:device-info": "node scripts/android-device-info.mjs",
-        "test:scripts": "node --check scripts/android-device-info.mjs && node --check scripts/android-acceptance-profile.mjs && node scripts/test-android-acceptance-profile.mjs",
+        "test:scripts": "node --check scripts/android-device-info.mjs && node --check scripts/android-acceptance-profile.mjs && node --check scripts/collect-android-acceptance-evidence.mjs && node scripts/test-android-acceptance-profile.mjs && node scripts/collect-android-acceptance-evidence.mjs --help",
         "example:profile": "node scripts/android-acceptance-profile.mjs",
-        "example:profile:reset": "node scripts/android-acceptance-profile.mjs --reset"
+        "example:profile:reset": "node scripts/android-acceptance-profile.mjs --reset",
+        "example:collect-evidence": "node scripts/collect-android-acceptance-evidence.mjs"
     },
     "devDependencies": {
         "@react-native/babel-preset": "^0.87.0",
