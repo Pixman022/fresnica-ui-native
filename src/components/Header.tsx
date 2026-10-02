@@ -2,14 +2,24 @@ import type { ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { AppTheme } from '../tokens';
 
-export type HeaderProps = {
+type HeaderBaseProps = {
     theme: AppTheme;
     title: string;
     leading?: ReactNode;
     trailing?: ReactNode;
-    onBack?: () => void;
-    backAccessibilityLabel?: string;
 };
+
+type HeaderWithBackAction = HeaderBaseProps & {
+    onBack: () => void;
+    backAccessibilityLabel: string;
+};
+
+type HeaderWithoutBackAction = HeaderBaseProps & {
+    onBack?: undefined;
+    backAccessibilityLabel?: never;
+};
+
+export type HeaderProps = HeaderWithBackAction | HeaderWithoutBackAction;
 
 export function Header({ theme, title, leading, trailing, onBack, backAccessibilityLabel }: HeaderProps) {
     const start = onBack ? (
