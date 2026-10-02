@@ -47,5 +47,7 @@ assert.match(segmented, /flexShrink: 1/);
 const progress = read('src/components/Progress.tsx');
 assert.match(progress, /accessibilityRole="progressbar"/);
 assert.match(progress, /Math\.max\(0, Math\.min\(1, value\)\)/);
+assert.match(progress, /Math\.round\(clamped \* 100\)/);
+assert.match(progress, /accessibilityValue=\{\{ min: 0, max: 100, now: percentage \}\}/);
 
 console.log('Native component contract checks passed');

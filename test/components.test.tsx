@@ -148,8 +148,19 @@ describe('native components', () => {
         expect(onChange).toHaveBeenCalledWith('active');
     });
 
-    it('clamps Progress accessibility value to the supported range', () => {
-        render(<Progress theme={theme} value={2} accessibilityLabel="Upload progress" />);
-        expect(screen.getByRole('progressbar', { name: 'Upload progress' })).toHaveAccessibilityValue({ now: 1 });
+    it('exposes Progress as an integer percentage and clamps it to the supported range', () => {
+        const { rerender } = render(<Progress theme={theme} value={0.64} accessibilityLabel="Upload progress" />);
+        expect(screen.getByRole('progressbar', { name: 'Upload progress' })).toHaveAccessibilityValue({
+            min: 0,
+            max: 100,
+            now: 64,
+        });
+
+        rerender(<Progress theme={theme} value={2} accessibilityLabel="Upload progress" />);
+        expect(screen.getByRole('progressbar', { name: 'Upload progress' })).toHaveAccessibilityValue({
+            min: 0,
+            max: 100,
+            now: 100,
+        });
     });
 });
