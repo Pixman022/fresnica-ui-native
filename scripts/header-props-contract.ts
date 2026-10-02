@@ -16,11 +16,11 @@ const backHeader = {
 } satisfies HeaderProps;
 
 // @ts-expect-error A back action must provide a localized accessible label.
-const missingBackLabel = {
+const missingBackLabel: HeaderProps = {
     theme,
     title: 'Settings',
     onBack: () => {},
-} satisfies HeaderProps;
+};
 
 void staticHeader;
 void backHeader;
