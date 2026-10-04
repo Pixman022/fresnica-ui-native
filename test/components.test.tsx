@@ -60,9 +60,22 @@ describe('native components', () => {
     });
 
     it('exposes Header back action and title', () => {
-        render(<Header title="Settings" theme={theme} onBack={jest.fn()} backAccessibilityLabel="Go back" />);
+        render(
+            <Header
+                title="Settings"
+                theme={theme}
+                leading={<Typography theme={theme}>‹</Typography>}
+                onBack={jest.fn()}
+                backAccessibilityLabel="Go back"
+            />,
+        );
         expect(screen.getByRole('button', { name: 'Go back' })).toBeTruthy();
         expect(screen.getByText('Settings')).toBeTruthy();
+    });
+
+    it('allows Header titles to use two lines before truncating', () => {
+        render(<Header title="A deliberately long account settings title" theme={theme} />);
+        expect(screen.getByText('A deliberately long account settings title').props.numberOfLines).toBe(2);
     });
 
     it('exposes ListRow button and disabled state', () => {
