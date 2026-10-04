@@ -3,7 +3,8 @@ import type { AppTheme } from '../tokens';
 
 export type ProgressProps = { theme: AppTheme; value: number; accessibilityLabel: string };
 export function Progress({ theme, value, accessibilityLabel }: ProgressProps) {
-    const clamped = Math.max(0, Math.min(1, value));
+    const normalized = Number.isNaN(value) ? 0 : value;
+    const clamped = Math.max(0, Math.min(1, normalized));
     const percentage = Math.round(clamped * 100);
     return (
         <View

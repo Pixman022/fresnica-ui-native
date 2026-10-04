@@ -59,7 +59,8 @@ assert.match(screen, /keyboardShouldPersistTaps="handled"/);
 
 const progress = read('src/components/Progress.tsx');
 assert.match(progress, /accessibilityRole="progressbar"/);
-assert.match(progress, /Math\.max\(0, Math\.min\(1, value\)\)/);
+assert.match(progress, /Number\.isNaN\(value\) \? 0 : value/);
+assert.match(progress, /Math\.max\(0, Math\.min\(1, normalized\)\)/);
 assert.match(progress, /Math\.round\(clamped \* 100\)/);
 assert.match(progress, /accessibilityValue=\{\{ min: 0, max: 100, now: percentage \}\}/);
 

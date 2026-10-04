@@ -186,5 +186,12 @@ describe('native components', () => {
             max: 100,
             now: 100,
         });
+
+        rerender(<Progress theme={theme} value={Number.NaN} accessibilityLabel="Upload progress" />);
+        expect(screen.getByRole('progressbar', { name: 'Upload progress' })).toHaveAccessibilityValue({
+            min: 0,
+            max: 100,
+            now: 0,
+        });
     });
 });
