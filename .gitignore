@@ -5,3 +5,4 @@ dist/
 *.log
 example/FresnicaPreview/
 example/.cache/
+artifacts/android-acceptance/
