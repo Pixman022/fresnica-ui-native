@@ -22,7 +22,7 @@ assert.match(field, /theme\.sizes\.border/);
 assert.match(field, /theme\.radii\.control/);
 
 const header = read('src/components/Header.tsx');
-assert.match(header, /type HeaderWithBackAction = HeaderBaseProps & \{\s*leading: ReactNode;/);
+assert.match(header, /type HeaderWithBackAction = HeaderBaseProps & \\{\\s*leading: ReactElement;/);
 assert.match(header, /numberOfLines=\{2\}/);
 assert.match(header, /ellipsizeMode="tail"/);
 assert.match(header, /flexShrink: 1/);
