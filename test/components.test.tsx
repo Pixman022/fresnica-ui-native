@@ -7,6 +7,7 @@ import { InlineMessage } from '../src/components/InlineMessage';
 import { ListRow } from '../src/components/ListRow';
 import { Modal } from '../src/components/Modal';
 import { Progress } from '../src/components/Progress';
+import { Screen } from '../src/components/Screen';
 import { SegmentedControl } from '../src/components/SegmentedControl';
 import { Skeleton } from '../src/components/Skeleton';
 import { StatusBadge } from '../src/components/StatusBadge';
@@ -112,6 +113,15 @@ describe('native components', () => {
     it('exposes Skeleton busy state', () => {
         render(<Skeleton accessibilityLabel="Loading balance" theme={theme} />);
         expect(screen.getByRole('progressbar', { name: 'Loading balance' })).toBeBusy();
+    });
+
+    it('keeps scroll-screen actions tappable while the keyboard is open', () => {
+        render(
+            <Screen theme={theme} scroll>
+                <Button label="Continue" theme={theme} />
+            </Screen>,
+        );
+        expect(screen.getByRole('button', { name: 'Continue' })).toBeTruthy();
     });
 
     it('renders Typography content', () => {

@@ -54,6 +54,9 @@ assert.match(segmented, /minHeight: 44/);
 assert.match(segmented, /textAlign: 'center'/);
 assert.match(segmented, /flexShrink: 1/);
 
+const screen = read('src/components/Screen.tsx');
+assert.match(screen, /keyboardShouldPersistTaps="handled"/);
+
 const progress = read('src/components/Progress.tsx');
 assert.match(progress, /accessibilityRole="progressbar"/);
 assert.match(progress, /Math\.max\(0, Math\.min\(1, value\)\)/);
