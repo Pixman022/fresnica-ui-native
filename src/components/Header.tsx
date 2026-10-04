@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { AppTheme } from '../tokens';
 
@@ -9,7 +9,7 @@ type HeaderBaseProps = {
 };
 
 type HeaderWithBackAction = HeaderBaseProps & {
-    leading: ReactNode;
+    leading: ReactElement;
     onBack: () => void;
     backAccessibilityLabel: string;
 };
