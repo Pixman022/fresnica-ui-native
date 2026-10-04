@@ -12,7 +12,11 @@ export type ScreenProps = {
 export function Screen({ theme, children, scroll = false, padded = true }: ScreenProps) {
     const content = <View style={[styles.content, padded && { padding: theme.spacing.lg }]}>{children}</View>;
     return scroll ? (
-        <ScrollView style={{ backgroundColor: theme.colors.background }} contentContainerStyle={styles.scrollContent}>
+        <ScrollView
+            style={{ backgroundColor: theme.colors.background }}
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+        >
             {content}
         </ScrollView>
     ) : (
