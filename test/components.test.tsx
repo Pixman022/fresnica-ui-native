@@ -137,6 +137,7 @@ describe('native components', () => {
             </Modal>,
         );
 
+        expect(screen.getByRole('button', { name: 'Confirm' })).toBeTruthy();
         fireEvent(screen.getByLabelText('Close'), 'press');
         expect(onRequestClose).toHaveBeenCalledTimes(1);
     });

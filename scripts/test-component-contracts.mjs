@@ -41,6 +41,10 @@ const modal = read('src/components/Modal.tsx');
 assert.match(modal, /accessibilityViewIsModal/);
 assert.match(modal, /onRequestClose=\{onRequestClose\}/);
 assert.match(modal, /closeAccessibilityLabel/);
+assert.match(modal, /ScrollView/);
+assert.match(modal, /maxHeight: '90%'/);
+assert.match(modal, /keyboardShouldPersistTaps="handled"/);
+assert.match(modal, /content: \{ gap: 16 \}/);
 
 const segmented = read('src/components/SegmentedControl.tsx');
 assert.match(segmented, /accessible=\{false\}/);

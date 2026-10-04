@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Modal as NativeModal, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Modal as NativeModal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { AppTheme } from '../tokens';
 
 export type ModalProps = {
@@ -42,7 +42,9 @@ export function Modal({ theme, visible, title, children, onRequestClose, closeAc
                             <Text style={{ color: theme.colors.contentSecondary, fontSize: 20 }}>×</Text>
                         </Pressable>
                     </View>
-                    {children}
+                    <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+                        {children}
+                    </ScrollView>
                 </View>
             </View>
         </NativeModal>
@@ -51,8 +53,9 @@ export function Modal({ theme, visible, title, children, onRequestClose, closeAc
 
 const styles = StyleSheet.create({
     overlay: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
-    surface: { width: '100%', maxWidth: 480, padding: 24, gap: 16 },
+    surface: { width: '100%', maxWidth: 480, maxHeight: '90%', padding: 24, gap: 16 },
     header: { minHeight: 44, flexDirection: 'row', alignItems: 'center', gap: 12 },
-    title: { flex: 1, fontWeight: '700' },
+    title: { flex: 1, flexShrink: 1, fontWeight: '700' },
     close: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center' },
+    content: { gap: 16 },
 });
