@@ -46,6 +46,24 @@ npm run example:device-info
 The command prints model, Android/API version, locale, window size, density, font scale
 and night-mode state as JSON so the result can be copied into an acceptance record.
 
+After arranging the Preview in the exact state you want to review, capture one acceptance
+evidence bundle with:
+
+```bash
+npm run example:capture
+```
+
+The command creates a timestamped directory under `artifacts/android-acceptance/` containing:
+
+- `device.json` with the same device context as `example:device-info`
+- `screenshot.png` with the current Android display
+- `window.xml` with the current UIAutomator hierarchy
+- `manifest.json` with capture metadata
+
+The evidence directory is ignored by Git. The capture command does not change display,
+font, theme or app settings; UIAutomator uses a temporary device file that is removed
+after the hierarchy is pulled.
+
 ## Emulator acceptance profiles
 
 The profile helper changes Android system settings and therefore refuses to run on a
