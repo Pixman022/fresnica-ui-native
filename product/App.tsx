@@ -29,7 +29,18 @@ import {
 } from '@fresnica/ui-native';
 import type { AppTheme, ThemeMode } from '@fresnica/ui-native';
 import { copy, type Locale } from './copy';
-import { createTestnetWallet, deleteTestnetWallet, importTestnetWallet, loadTestnetWallet } from './secure-wallet';
+import {
+    createTestnetWallet,
+    deleteTestnetWallet,
+    importTestnetWallet,
+    loadTestnetWallet,
+    signTestnetTransactionXdr,
+} from './secure-wallet';
+import {
+    prepareTestnetPayment,
+    submitSignedTestnetTransactionXdr,
+    type PreparedTestnetPayment,
+} from './testnet-horizon';
 import type { WalletAccountMetadata } from './wallet-core';
 
 type RootStackParamList = {
@@ -358,9 +369,73 @@ function TransferScreen() {
     const { theme, locale } = useSettings();
     const labels = copy[locale];
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const [wallet, setWallet] = useState<WalletAccountMetadata | null>(null);
     const [recipient, setRecipient] = useState('');
     const [amount, setAmount] = useState('');
-    const ready = recipient.trim().length > 0 && amount.trim().length > 0;
+    const [prepared, setPrepared] = useState<PreparedTestnetPayment | null>(null);
+    const [transactionHash, setTransactionHash] = useState('');
+    const [busy, setBusy] = useState(false);
+    const [failed, setFailed] = useState(false);
+
+    useEffect(() => {
+        void loadTestnetWallet()
+            .then(setWallet)
+            .catch(() => setFailed(true));
+    }, []);
+
+    const ready =
+        wallet !== null &&
+        recipient.trim().length > 0 &&
+        amount.trim().length > 0 &&
+        !busy;
+
+    async function prepareTransfer() {
+        if (!wallet) {
+            return;
+        }
+
+        setBusy(true);
+        setFailed(false);
+        try {
+            const next = await prepareTestnetPayment({
+                sourcePublicKey: wallet.publicKey,
+                destinationPublicKey: recipient,
+                amount,
+            });
+            setPrepared(next);
+        } catch {
+            setFailed(true);
+        } finally {
+            setBusy(false);
+        }
+    }
+
+    async function submitTransfer() {
+        if (!prepared) {
+            return;
+        }
+
+        setBusy(true);
+        setFailed(false);
+        try {
+            const signedXdr = await signTestnetTransactionXdr(prepared.unsignedXdr, {
+                title: labels.authenticateWallet,
+                cancel: labels.cancel,
+            });
+            const hash = await submitSignedTestnetTransactionXdr(signedXdr);
+            setTransactionHash(hash);
+        } catch {
+            setFailed(true);
+        } finally {
+            setBusy(false);
+        }
+    }
+
+    function editTransfer() {
+        setPrepared(null);
+        setTransactionHash('');
+        setFailed(false);
+    }
 
     return (
         <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]} edges={['top', 'bottom']}>
@@ -372,22 +447,74 @@ function TransferScreen() {
                 backAccessibilityLabel={labels.back}
             />
             <Screen theme={theme} scroll>
-                <Field
-                    theme={theme}
-                    label={labels.recipient}
-                    value={recipient}
-                    onChangeText={setRecipient}
-                    placeholder={labels.recipientPlaceholder}
-                />
-                <Field
-                    theme={theme}
-                    label={labels.amount}
-                    value={amount}
-                    onChangeText={setAmount}
-                    placeholder={labels.amountPlaceholder}
-                />
-                <InlineMessage theme={theme} tone="warning" message={labels.transferHint} />
-                <Button theme={theme} label={labels.review} disabled={!ready} />
+                <StatusBadge theme={theme} label={labels.testnet} tone="warning" />
+                {transactionHash ? (
+                    <View style={styles.section}>
+                        <InlineMessage theme={theme} tone="success" message={labels.transferSubmitted} />
+                        <ListRow
+                            theme={theme}
+                            title={labels.transactionHash}
+                            description={abbreviatePublicKey(transactionHash)}
+                        />
+                    </View>
+                ) : prepared ? (
+                    <View style={styles.section}>
+                        <Typography theme={theme} variant="sectionTitle">
+                            {labels.reviewTestnetTransfer}
+                        </Typography>
+                        <ListRow
+                            theme={theme}
+                            title={labels.destination}
+                            description={abbreviatePublicKey(prepared.destinationPublicKey)}
+                        />
+                        <ListRow theme={theme} title={labels.amount} description={`${prepared.amount} XLM`} />
+                        <InlineMessage theme={theme} tone="warning" message={labels.transferHint} />
+                        <Button
+                            theme={theme}
+                            label={labels.authenticateAndSend}
+                            loading={busy}
+                            onPress={() => void submitTransfer()}
+                        />
+                        <Button
+                            theme={theme}
+                            label={labels.editTransfer}
+                            variant="secondary"
+                            disabled={busy}
+                            onPress={editTransfer}
+                        />
+                    </View>
+                ) : (
+                    <View style={styles.section}>
+                        {!wallet ? <InlineMessage theme={theme} tone="warning" message={labels.walletRequired} /> : null}
+                        <Field
+                            theme={theme}
+                            label={labels.recipient}
+                            value={recipient}
+                            onChangeText={setRecipient}
+                            placeholder={labels.recipientPlaceholder}
+                            autoCapitalize="characters"
+                            autoCorrect={false}
+                        />
+                        <Field
+                            theme={theme}
+                            label={labels.amount}
+                            value={amount}
+                            onChangeText={setAmount}
+                            placeholder={labels.amountPlaceholder}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                        />
+                        <InlineMessage theme={theme} tone="warning" message={labels.transferHint} />
+                        <Button
+                            theme={theme}
+                            label={labels.review}
+                            loading={busy}
+                            disabled={!ready}
+                            onPress={() => void prepareTransfer()}
+                        />
+                    </View>
+                )}
+                {failed ? <InlineMessage theme={theme} tone="error" message={labels.transferFailed} /> : null}
             </Screen>
         </SafeAreaView>
     );
