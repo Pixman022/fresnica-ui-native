@@ -308,7 +308,7 @@ function ProductTabs() {
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarLabel: visibleLabels[route.name],
-                tabBarAccessibilityLabel: `${route.name} tab`,
+                tabBarAccessibilityLabel: visibleLabels[route.name],
             })}
         >
             <Tabs.Screen name="Home" component={HomeScreen} />
