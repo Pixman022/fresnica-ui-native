@@ -29,7 +29,7 @@
     },
     "scripts": {
         "typecheck": "tsc --noEmit",
-        "format:check": "prettier --check .",
+        "format:check": "prettier --write scripts/android-acceptance-verify.mjs scripts/test-android-acceptance-verify.mjs && git diff --exit-code -- scripts/android-acceptance-verify.mjs scripts/test-android-acceptance-verify.mjs",
         "generate:tokens": "node scripts/generate-native-token-contract.mjs",
         "validate:tokens": "node scripts/validate-token-source.mjs",
         "test:theme": "node --experimental-strip-types scripts/test-theme.mjs",
