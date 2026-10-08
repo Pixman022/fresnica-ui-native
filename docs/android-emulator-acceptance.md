@@ -21,7 +21,6 @@ The workflow creates a headless Android emulator, builds the Preview host, start
 installs the debug APK, launches the app, and selects the required language and scenario by
 accessibility label.
 
-
 ## Automated cadence
 
 Pull requests keep the core acceptance profile only so review feedback stays focused and
