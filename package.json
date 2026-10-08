@@ -43,11 +43,12 @@
         "example:android:build": "npm run example:bootstrap && node scripts/build-example-android.mjs",
         "test": "npm run typecheck && npm run format:check && npm run test:scripts && npm run test:theme && npm run test:contracts && npm run test:render",
         "example:device-info": "node scripts/android-device-info.mjs",
-        "test:scripts": "node --check scripts/android-device-info.mjs && node --check scripts/android-acceptance-profile.mjs && node --check scripts/android-acceptance-capture.mjs && node --check scripts/android-acceptance-verify.mjs && node scripts/test-android-acceptance-profile.mjs && node scripts/test-android-acceptance-verify.mjs",
+        "test:scripts": "node --check scripts/android-device-info.mjs && node --check scripts/android-acceptance-profile.mjs && node --check scripts/android-acceptance-capture.mjs && node --check scripts/android-acceptance-verify.mjs && node --check scripts/android-tap-accessibility-label.mjs && node scripts/test-android-acceptance-profile.mjs && node scripts/test-android-acceptance-verify.mjs && node scripts/android-tap-accessibility-label.mjs --help",
         "example:profile": "node scripts/android-acceptance-profile.mjs",
         "example:profile:reset": "node scripts/android-acceptance-profile.mjs --reset",
         "example:capture": "node scripts/android-acceptance-capture.mjs",
-        "example:verify": "node scripts/android-acceptance-verify.mjs"
+        "example:verify": "node scripts/android-acceptance-verify.mjs",
+        "example:tap-label": "node scripts/android-tap-accessibility-label.mjs"
     },
     "devDependencies": {
         "@react-native/babel-preset": "^0.87.0",
