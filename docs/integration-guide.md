@@ -4,6 +4,9 @@
 the package and owns navigation, wallet state, persistence, permissions, networking and
 platform services.
 
+The reference product integration now lives under `product/`. It is intentionally kept
+outside `src/` so no product navigation or storage dependency leaks into the reusable package.
+
 ## Package usage
 
 1. Install the package in the product app after the native repository is published or linked.
@@ -18,6 +21,21 @@ const theme = resolveTheme(preference, systemAppearance);
 
 return <Button theme={theme} label={labels.continue} onPress={submit} />;
 ```
+
+## Reference shell
+
+The committed `product/App.tsx` demonstrates the current integration contract:
+
+- React Navigation 7 native stack and bottom tabs
+- App-owned English/Simplified Chinese copy
+- Light/Dark/System theme resolution
+- AsyncStorage theme/locale persistence
+- NetInfo connection state
+- user-initiated Android camera permission
+- safe-area composition and Android Back handling
+
+The Home route contains demo wallet state only. Key management, signing, secure storage,
+transaction submission and backend/API behavior require separate product/security contracts.
 
 ## Compatibility
 
@@ -35,6 +53,8 @@ return <Button theme={theme} label={labels.continue} onPress={submit} />;
 5. Pass `theme` and localized labels into components.
 6. Keep wallet state and business actions outside the component library.
 7. Run product-level Android accessibility acceptance.
+
+The reference shell completes this integration order for the non-sensitive product scaffold.
 
 ## Host Responsibilities
 

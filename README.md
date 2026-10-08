@@ -55,9 +55,7 @@ keeps React and React Native as peer dependencies and does not bundle an App she
 `npm run test:render` contains Jest/React Native Testing Library tests for component
 rendering, callbacks and accessibility state. The standalone package uses a small
 hostless Jest adapter for React Native primitives so these checks run before a product
-App exists. A product App should run the same tests again with its real React Native
-Jest/native host; this package-level suite must not be treated as Android device
-acceptance.
+App exists. Product Android acceptance is maintained separately from the package-level suite.
 
 ## Android preview host
 
@@ -74,14 +72,27 @@ The Preview App exercises theme resolution, English/Simplified Chinese copy, Saf
 core component states and accessibility roles before wallet features are introduced.
 See [`example/README.md`](example/README.md) for details.
 
+## Product App shell
+
+The `product/` directory contains the first Android product shell and wallet Home slice.
+It uses React Navigation 7, App-owned theme/localization preferences, AsyncStorage,
+NetInfo and a user-initiated Android camera permission path while keeping wallet secrets,
+signing and production transaction submission out of scope until their security contracts
+are approved.
+
+Run `npm run product:bootstrap` to generate the ignored React Native host,
+`npm run product:android` to launch it and `npm run product:android:build` for a compile-only
+check. See [`product/README.md`](product/README.md) and
+[`docs/product-app-acceptance.md`](docs/product-app-acceptance.md).
+
 Component behavior and the phase-one acceptance matrix are documented in
 [`docs/component-contracts.md`](docs/component-contracts.md).
 
 The Android shell boundary and build order are documented in
 [`docs/android-shell-plan.md`](docs/android-shell-plan.md).
 
-The real-device-style Android Emulator acceptance workflow, evidence bundle and review
-expectations are documented in
+The primitive Preview emulator workflow, evidence bundle and review expectations are
+documented in
 [`docs/android-emulator-acceptance.md`](docs/android-emulator-acceptance.md).
 
 Product-app integration boundaries are documented in

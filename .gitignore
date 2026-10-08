@@ -5,4 +5,6 @@ dist/
 *.log
 example/FresnicaPreview/
 example/.cache/
+product/FresnicaWallet/
+product/.cache/
 artifacts/android-acceptance/
