@@ -16,7 +16,13 @@ Run the Preview at:
 
 The Preview displays its current logical width, height, resolved theme and font scale.
 With one emulator/device connected, run `npm run example:device-info` and record that
-JSON beside the result.
+JSON beside the result. Use `npm run example:capture` when screenshot/UI-hierarchy evidence
+is required for review.
+
+Evidence capture includes visible screen text in both `screenshot.png` and `window.xml`.
+Run it only on the Preview or other non-sensitive test screens. Do not capture product
+screens containing secrets, mnemonic phrases, private keys, account credentials or
+personal data.
 
 For an emulator, use `npm run example:profile -- --width <dp> --font-scale <scale> --theme <light|dark>`
 to switch the width/font/theme dimensions without editing Android Settings manually. The

@@ -64,6 +64,11 @@ The evidence directory is ignored by Git. The capture command does not change di
 font, theme or app settings; UIAutomator uses a temporary device file that is removed
 after the hierarchy is pulled.
 
+The screenshot and UIAutomator hierarchy can contain visible text from the current screen.
+Use this helper only on the Preview or other non-sensitive test screens; do not capture
+screens that display secrets, mnemonic phrases, private keys, account credentials or
+personal data.
+
 ## Emulator acceptance profiles
 
 The profile helper changes Android system settings and therefore refuses to run on a
