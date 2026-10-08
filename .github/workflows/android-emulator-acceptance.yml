@@ -159,6 +159,7 @@ jobs:
                   name: android-acceptance-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
                   path: ${{ steps.capture.outputs.dir }}
                   if-no-files-found: error
+                  retention-days: 90
 
             - name: Capture UI diagnostics on failure
               if: failure()
@@ -177,6 +178,7 @@ jobs:
                   name: android-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
                   path: ${{ runner.temp }}/android-failure
                   if-no-files-found: ignore
+                  retention-days: 30
 
             - name: Print diagnostics on failure
               if: failure()
@@ -323,6 +325,7 @@ jobs:
                   name: android-acceptance-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
                   path: ${{ steps.capture.outputs.dir }}
                   if-no-files-found: error
+                  retention-days: 90
 
             - name: Capture UI diagnostics on failure
               if: failure()
@@ -341,6 +344,7 @@ jobs:
                   name: android-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
                   path: ${{ runner.temp }}/android-failure
                   if-no-files-found: ignore
+                  retention-days: 30
 
             - name: Print diagnostics on failure
               if: failure()
