@@ -27,8 +27,14 @@ function createBundle() {
             2,
         ),
     );
-    fs.writeFileSync(path.join(dir, 'screenshot.png'), Buffer.concat([pngSignature, Buffer.from('fixture')]));
-    fs.writeFileSync(path.join(dir, 'window.xml'), '<?xml version="1.0"?><hierarchy><node text="Preview"/></hierarchy>');
+    fs.writeFileSync(
+        path.join(dir, 'screenshot.png'),
+        Buffer.concat([pngSignature, Buffer.from('fixture')]),
+    );
+    fs.writeFileSync(
+        path.join(dir, 'window.xml'),
+        '<?xml version="1.0"?><hierarchy><node text="Preview"/></hierarchy>',
+    );
     fs.writeFileSync(
         path.join(dir, 'manifest.json'),
         JSON.stringify(
