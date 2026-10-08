@@ -135,11 +135,11 @@ jobs:
 
                   adb shell input keyevent KEYCODE_BACK
                   sleep 2
-                  tap_label "Settings tab"
+                  tap_label "Settings"
                   sleep 2
                   tap_label "Language, 简体中文"
                   sleep 2
-                  tap_label "Home tab"
+                  tap_label "首页"
                   sleep 2
                   wait_for_text "主钱包"
 
