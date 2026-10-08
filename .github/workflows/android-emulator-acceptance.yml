@@ -156,7 +156,7 @@ jobs:
             - name: Upload acceptance evidence
               uses: actions/upload-artifact@v7
               with:
-                  name: android-acceptance-${{ github.run_id }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
+                  name: android-acceptance-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
                   path: ${{ steps.capture.outputs.dir }}
                   if-no-files-found: error
 
@@ -174,7 +174,7 @@ jobs:
               if: failure()
               uses: actions/upload-artifact@v7
               with:
-                  name: android-failure-${{ github.run_id }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
+                  name: android-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
                   path: ${{ runner.temp }}/android-failure
                   if-no-files-found: ignore
 
@@ -320,7 +320,7 @@ jobs:
             - name: Upload acceptance evidence
               uses: actions/upload-artifact@v7
               with:
-                  name: android-acceptance-${{ github.run_id }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
+                  name: android-acceptance-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
                   path: ${{ steps.capture.outputs.dir }}
                   if-no-files-found: error
 
@@ -338,7 +338,7 @@ jobs:
               if: failure()
               uses: actions/upload-artifact@v7
               with:
-                  name: android-failure-${{ github.run_id }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
+                  name: android-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
                   path: ${{ runner.temp }}/android-failure
                   if-no-files-found: ignore
 
