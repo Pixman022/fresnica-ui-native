@@ -58,7 +58,7 @@ The command creates a timestamped directory under `artifacts/android-acceptance/
 - `device.json` with the same device context as `example:device-info`
 - `screenshot.png` with the current Android display
 - `window.xml` with the current UIAutomator hierarchy
-- `manifest.json` with capture metadata
+- `manifest.json` with capture metadata, Git commit and working-tree dirty state
 
 The evidence directory is ignored by Git. The capture command does not change display,
 font, theme or app settings; UIAutomator uses a temporary device file that is removed

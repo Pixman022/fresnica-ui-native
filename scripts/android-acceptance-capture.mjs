@@ -64,8 +64,15 @@ try {
     runText(adb, ['shell', 'rm', '-f', remoteHierarchyPath], true);
 }
 
+const sourceCommit = runText('git', ['rev-parse', 'HEAD'], true);
+const sourceStatus = runText('git', ['status', '--porcelain'], true);
+
 const manifest = {
     capturedAt: new Date().toISOString(),
+    source: {
+        commit: sourceCommit,
+        dirty: sourceStatus === null ? null : sourceStatus.length > 0,
+    },
     files: ['device.json', 'screenshot.png', 'window.xml'],
 };
 fs.writeFileSync(path.join(outputDir, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
