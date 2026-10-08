@@ -107,6 +107,16 @@ jobs:
                       adb exec-out cat /sdcard/fresnica-product-window.xml
                   }
 
+                  wait_for_text() {
+                      for attempt in $(seq 1 60); do
+                          if dump_ui | grep -Fq "$1"; then
+                              return 0
+                          fi
+                          sleep 2
+                      done
+                      return 1
+                  }
+
                   tap_label() {
                       for attempt in $(seq 1 45); do
                           if npm run example:tap-label -- "$1"; then
@@ -117,11 +127,11 @@ jobs:
                       return 1
                   }
 
-                  dump_ui | grep -Fq "Main wallet"
+                  wait_for_text "Main wallet"
 
                   tap_label "Send"
                   sleep 2
-                  dump_ui | grep -Fq "Recipient"
+                  wait_for_text "Recipient"
 
                   adb shell input keyevent KEYCODE_BACK
                   sleep 2
@@ -131,12 +141,11 @@ jobs:
                   sleep 2
                   tap_label "Home tab"
                   sleep 2
-                  dump_ui | grep -Fq "主钱包"
+                  wait_for_text "主钱包"
 
                   adb shell am force-stop com.fresnicawallet
                   adb shell monkey -p com.fresnicawallet -c android.intent.category.LAUNCHER 1
-                  sleep 5
-                  dump_ui | grep -Fq "主钱包"
+                  wait_for_text "主钱包"
 
             - name: Capture product acceptance evidence
               id: capture
