@@ -20,7 +20,9 @@ The flow verifies:
 6. an evidence bundle can be captured and validated for the exact source revision.
 
 The acceptance profile uses 320dp, font scale 1.3 and Dark system appearance so the product
-slice is exercised under the existing narrow/large-text stress baseline.
+slice is exercised under the existing narrow/large-text stress baseline. CI deliberately does
+not fund wallets, invoke device authentication or submit a transaction; those actions are kept
+out of automated evidence runs.
 
 ## Implemented host responsibilities
 
@@ -35,6 +37,7 @@ slice is exercised under the existing narrow/large-text stress baseline.
 - reduced-motion preference observation
 - Android Back handling through the navigation stack
 - scrollable transfer fields for keyboard reachability
+- Testnet Horizon account preparation and local-authenticated transaction submission path
 
 ## Security boundary
 
@@ -45,6 +48,7 @@ The selected architecture is non-custodial and Testnet-first.
 - public wallet metadata may be stored outside the secure secret store;
 - local signing rejects transactions whose source does not match the local key;
 - secret material is not exposed through the product UI, logs, analytics or clipboard helpers;
+- Testnet signing requires device authentication and occurs locally before Horizon submission;
 - Mainnet signing/submission is disabled;
 - the Home balances remain demo data and are not authoritative wallet balances.
 
