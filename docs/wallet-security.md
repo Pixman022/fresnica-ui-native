@@ -34,7 +34,10 @@ The signing API retrieves the secret only from the secure store under device-aut
 control. Before signing, the wallet core parses the XDR with the Stellar Testnet network passphrase
 and verifies that the transaction source matches the local public key derived from the secret.
 
-The UI does not submit transactions in this slice. Network submission is a later Testnet flow.
+The Send flow loads the source sequence from Stellar Testnet Horizon, builds an unsigned native-XLM
+payment, shows a review screen, then retrieves the local secret only after device authentication.
+The signed transaction is submitted directly to Stellar Testnet Horizon. The UI does not expose the
+secret or signed XDR, and Mainnet endpoints are not available in this slice.
 
 ## Mainnet gate
 
@@ -58,6 +61,7 @@ The smoke check proves:
 - Testnet key generation/import round-trips;
 - a locally owned Testnet payment XDR can be signed;
 - a transaction owned by another source is rejected;
-- invalid Stellar secret seeds are rejected.
+- invalid Stellar secret seeds are rejected;
+- zero, negative and values with more than seven XLM decimal places are rejected.
 
 Biometric/passcode prompts and secure-store behavior still require physical-device acceptance.
