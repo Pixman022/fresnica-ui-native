@@ -1,12 +1,4 @@
-import {
-    Account,
-    Asset,
-    BASE_FEE,
-    Keypair,
-    Networks,
-    Operation,
-    TransactionBuilder,
-} from '@stellar/stellar-sdk';
+import { Account, Asset, BASE_FEE, Keypair, Networks, Operation, TransactionBuilder } from '@stellar/stellar-sdk';
 
 export const TESTNET_NETWORK = {
     id: 'testnet',
