@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import type { TextInputProps } from 'react-native';
 import type { AppTheme, FieldState } from '../tokens';
 
 export type FieldProps = {
@@ -12,6 +13,8 @@ export type FieldProps = {
     state?: FieldState;
     leading?: ReactNode;
     secureTextEntry?: boolean;
+    autoCapitalize?: TextInputProps['autoCapitalize'];
+    autoCorrect?: boolean;
 };
 
 export function Field({
@@ -24,6 +27,8 @@ export function Field({
     state = 'default',
     leading,
     secureTextEntry,
+    autoCapitalize,
+    autoCorrect,
 }: FieldProps) {
     const disabled = state === 'disabled';
     const borderColor =
@@ -59,6 +64,8 @@ export function Field({
                     placeholder={placeholder}
                     placeholderTextColor={theme.colors.contentMuted}
                     secureTextEntry={secureTextEntry}
+                    autoCapitalize={autoCapitalize}
+                    autoCorrect={autoCorrect}
                     style={[styles.input, { color: theme.colors.contentPrimary, fontSize: theme.typography.body }]}
                 />
             </View>
