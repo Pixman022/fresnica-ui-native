@@ -43,6 +43,8 @@ jobs:
                   "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"                       "platform-tools"                       "emulator"                       "platforms;android-37.0"                       "build-tools;37.0.0"                       "ndk;27.1.12297006"                       "system-images;android-35;google_apis;x86_64"
                   ln -sfn "$ANDROID_HOME/platforms/android-37.0" "$ANDROID_HOME/platforms/android-37"
                   echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
+                  mkdir -p "$RUNNER_TEMP/android-avd"
+                  echo "ANDROID_AVD_HOME=$RUNNER_TEMP/android-avd" >> "$GITHUB_ENV"
                   if [ -e /dev/kvm ]; then
                       sudo chmod 666 /dev/kvm
                   fi
