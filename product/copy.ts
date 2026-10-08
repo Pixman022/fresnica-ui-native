@@ -28,7 +28,8 @@ export const copy = {
         cameraGranted: 'Camera permission granted',
         cameraDenied: 'Camera permission not granted',
         exploreTitle: 'Explore',
-        exploreDescription: 'Network-aware discovery will live here. The shell currently reports connection state only.',
+        exploreDescription:
+            'Network-aware discovery will live here. The shell currently reports connection state only.',
         settingsTitle: 'Settings',
         themeGroup: 'Theme',
         languageGroup: 'Language',
