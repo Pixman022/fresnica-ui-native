@@ -45,12 +45,24 @@ for (const filename of expectedFiles) {
 }
 
 const device = readJson(path.join(bundleDir, 'device.json'), 'device.json');
-for (const key of ['model', 'apiLevel', 'androidVersion', 'locale', 'windowSize', 'density', 'fontScale', 'nightMode']) {
+for (const key of [
+    'model',
+    'apiLevel',
+    'androidVersion',
+    'locale',
+    'windowSize',
+    'density',
+    'fontScale',
+    'nightMode',
+]) {
     requireNonEmptyString(device[key], `device.json field ${key}`);
 }
 
 const screenshot = fs.readFileSync(path.join(bundleDir, 'screenshot.png'));
-if (screenshot.length < pngSignature.length || !screenshot.subarray(0, pngSignature.length).equals(pngSignature)) {
+if (
+    screenshot.length < pngSignature.length ||
+    !screenshot.subarray(0, pngSignature.length).equals(pngSignature)
+) {
     fail('screenshot.png does not have a valid PNG signature');
 }
 
