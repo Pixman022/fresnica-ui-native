@@ -14,6 +14,9 @@ The shell uses the approved Android-first baseline:
 - AsyncStorage for theme/locale preferences
 - NetInfo for connection state
 - Android camera permission requested only from the Scan route
+- Stellar Testnet wallet core
+- Android Keystore-backed local secret storage
+- device-authenticated local signing boundary
 
 Run:
 
@@ -34,9 +37,15 @@ The root stack contains the five primary wallet destinations defined by the Fres
 navigation hierarchy: Home, Activity, Scan, Explore and Settings. A secondary Send route is
 implemented as the first focused task flow.
 
-The Home route intentionally uses demo wallet data. No secret material, signing, key
-management, transaction submission or production networking is implemented in this slice.
-Those capabilities require explicit product and security specifications before implementation.
+The Home route still uses demo balances. Settings now exposes a Testnet-only non-custodial
+wallet setup surface. A generated Testnet wallet is disposable and is not exported; an existing
+Stellar Testnet secret may be imported through a secure field. Secret material is written to
+Android Keystore-backed storage and is never returned by the UI.
 
-See [product app acceptance](../docs/product-app-acceptance.md) for the automated and manual
-acceptance boundary.
+The committed wallet core can build and locally sign Testnet payment XDR, but the product UI
+does not submit transactions yet. Mainnet signing and submission remain disabled until the
+remaining release security decisions and physical-device checks are complete.
+
+See [product app acceptance](../docs/product-app-acceptance.md) and
+[wallet security](../docs/wallet-security.md) for the automated/manual acceptance and security
+boundaries.
