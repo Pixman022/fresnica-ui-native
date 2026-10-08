@@ -309,9 +309,7 @@ function WalletSecurityPanel() {
                     />
                 </>
             )}
-            {failed ? (
-                <InlineMessage theme={theme} message={labels.walletOperationFailed} tone="error" />
-            ) : null}
+            {failed ? <InlineMessage theme={theme} message={labels.walletOperationFailed} tone="error" /> : null}
         </View>
     );
 }
