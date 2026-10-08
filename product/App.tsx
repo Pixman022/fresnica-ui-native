@@ -29,6 +29,8 @@ import {
 } from '@fresnica/ui-native';
 import type { AppTheme, ThemeMode } from '@fresnica/ui-native';
 import { copy, type Locale } from './copy';
+import { createTestnetWallet, deleteTestnetWallet, importTestnetWallet, loadTestnetWallet } from './secure-wallet';
+import type { WalletAccountMetadata } from './wallet-core';
 
 type RootStackParamList = {
     Tabs: undefined;
@@ -214,6 +216,104 @@ function ExploreScreen() {
     );
 }
 
+function abbreviatePublicKey(publicKey: string) {
+    return `${publicKey.slice(0, 8)}…${publicKey.slice(-8)}`;
+}
+
+function WalletSecurityPanel() {
+    const { theme, locale } = useSettings();
+    const labels = copy[locale];
+    const [wallet, setWallet] = useState<WalletAccountMetadata | null>(null);
+    const [secret, setSecret] = useState('');
+    const [busy, setBusy] = useState(false);
+    const [failed, setFailed] = useState(false);
+
+    useEffect(() => {
+        void loadTestnetWallet()
+            .then(setWallet)
+            .catch(() => setFailed(true));
+    }, []);
+
+    async function runWalletAction(action: () => Promise<WalletAccountMetadata>) {
+        setBusy(true);
+        setFailed(false);
+        try {
+            const nextWallet = await action();
+            setWallet(nextWallet);
+            setSecret('');
+        } catch {
+            setFailed(true);
+        } finally {
+            setBusy(false);
+        }
+    }
+
+    async function removeWallet() {
+        setBusy(true);
+        setFailed(false);
+        try {
+            await deleteTestnetWallet();
+            setWallet(null);
+            setSecret('');
+        } catch {
+            setFailed(true);
+        } finally {
+            setBusy(false);
+        }
+    }
+
+    return (
+        <View style={styles.section}>
+            <Typography theme={theme} variant="sectionTitle">
+                {labels.walletSecurity}
+            </Typography>
+            <ListRow
+                theme={theme}
+                title={labels.testnetWallet}
+                description={wallet ? abbreviatePublicKey(wallet.publicKey) : labels.noWalletConfigured}
+                trailing={<StatusBadge theme={theme} label={labels.testnet} tone="warning" />}
+            />
+            <InlineMessage theme={theme} message={labels.walletSecurityHint} tone="warning" />
+            {wallet ? (
+                <Button
+                    theme={theme}
+                    label={labels.removeTestnetWallet}
+                    variant="danger"
+                    disabled={busy}
+                    onPress={() => void removeWallet()}
+                />
+            ) : (
+                <>
+                    <Button
+                        theme={theme}
+                        label={labels.createTestnetWallet}
+                        disabled={busy}
+                        onPress={() => void runWalletAction(createTestnetWallet)}
+                    />
+                    <Field
+                        theme={theme}
+                        label={labels.secretSeed}
+                        value={secret}
+                        onChangeText={setSecret}
+                        placeholder={labels.secretPlaceholder}
+                        secureTextEntry
+                        autoCapitalize="characters"
+                        autoCorrect={false}
+                    />
+                    <Button
+                        theme={theme}
+                        label={labels.importTestnetWallet}
+                        variant="secondary"
+                        disabled={busy || secret.trim().length === 0}
+                        onPress={() => void runWalletAction(() => importTestnetWallet(secret))}
+                    />
+                </>
+            )}
+            {failed ? <InlineMessage theme={theme} message={labels.walletOperationFailed} tone="error" /> : null}
+        </View>
+    );
+}
+
 function SettingsScreen() {
     const { theme, locale, mode, reduceMotion, setLocale, setMode } = useSettings();
     const labels = copy[locale];
@@ -249,6 +349,7 @@ function SettingsScreen() {
                 tone="info"
                 message={reduceMotion ? labels.reducedMotionOn : labels.reducedMotionOff}
             />
+            <WalletSecurityPanel />
         </Surface>
     );
 }

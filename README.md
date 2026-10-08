@@ -76,14 +76,16 @@ See [`example/README.md`](example/README.md) for details.
 
 The `product/` directory contains the first Android product shell and wallet Home slice.
 It uses React Navigation 7, App-owned theme/localization preferences, AsyncStorage,
-NetInfo and a user-initiated Android camera permission path while keeping wallet secrets,
-signing and production transaction submission out of scope until their security contracts
-are approved.
+NetInfo and a user-initiated Android camera permission path. The selected wallet architecture
+is non-custodial: the first security slice adds Testnet-only Stellar key generation/import,
+Android Keystore-backed secret storage and a device-local signing boundary while Mainnet
+signing/submission remains disabled pending release security review.
 
 Run `npm run product:bootstrap` to generate the ignored React Native host,
 `npm run product:android` to launch it and `npm run product:android:build` for a compile-only
 check. See [`product/README.md`](product/README.md) and
-[`docs/product-app-acceptance.md`](docs/product-app-acceptance.md).
+[`docs/product-app-acceptance.md`](docs/product-app-acceptance.md) and
+[`docs/wallet-security.md`](docs/wallet-security.md).
 
 Component behavior and the phase-one acceptance matrix are documented in
 [`docs/component-contracts.md`](docs/component-contracts.md).

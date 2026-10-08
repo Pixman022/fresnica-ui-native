@@ -7,8 +7,8 @@ component package and from the primitive-only Preview host.
 
 `.github/workflows/android-product-acceptance.yml` generates a clean React Native 0.87
 host, installs the current local `@fresnica/ui-native` build plus the approved App-shell
-dependencies, typechecks the host, builds the Android APK, starts a headless emulator and
-runs a focused product flow.
+dependencies, typechecks the host, runs the pure wallet-core smoke check, builds the Android
+APK, starts a headless emulator and runs a focused product flow.
 
 The flow verifies:
 
@@ -38,12 +38,17 @@ slice is exercised under the existing narrow/large-text stress baseline.
 
 ## Security boundary
 
-The first wallet route contains non-sensitive demo balances and an abbreviated demo address.
-It does not create or import wallets, hold mnemonic phrases or private keys, sign payloads,
-submit transactions or connect to a production wallet backend.
+The selected architecture is non-custodial and Testnet-first.
 
-Those behaviors must not be added until their domain model, secure storage, signing boundary,
-network/API contract and recovery policy are explicitly approved.
+- generated/imported Testnet secret seeds are stored through Android Keystore-backed secure storage;
+- secret retrieval requires the configured device-authentication access control;
+- public wallet metadata may be stored outside the secure secret store;
+- local signing rejects transactions whose source does not match the local key;
+- secret material is not exposed through the product UI, logs, analytics or clipboard helpers;
+- Mainnet signing/submission is disabled;
+- the Home balances remain demo data and are not authoritative wallet balances.
+
+See [wallet security](wallet-security.md) for the exact implementation and release boundary.
 
 ## Manual device checks still required before a product release
 

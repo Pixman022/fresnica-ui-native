@@ -70,6 +70,7 @@ jobs:
                   npm run product:bootstrap
                   cd product/FresnicaWallet
                   npx tsc --noEmit
+                  node --experimental-strip-types wallet-core-smoke.mts
                   cd ../..
                   node scripts/build-product-android.mjs
 
