@@ -37,6 +37,7 @@ jobs:
               with:
                   distribution: temurin
                   java-version: '17'
+                  cache: gradle
 
             - name: Install Android SDK and emulator
               run: |
@@ -148,6 +149,24 @@ jobs:
                   name: android-acceptance-${{ github.run_id }}
                   path: ${{ steps.capture.outputs.dir }}
                   if-no-files-found: error
+
+            - name: Capture UI diagnostics on failure
+              if: failure()
+              run: |
+                  DIAG_DIR="$RUNNER_TEMP/android-failure"
+                  mkdir -p "$DIAG_DIR"
+                  adb exec-out screencap -p > "$DIAG_DIR/screenshot.png" || true
+                  adb shell uiautomator dump /sdcard/fresnica-failure-window.xml || true
+                  adb pull /sdcard/fresnica-failure-window.xml "$DIAG_DIR/window.xml" || true
+                  adb shell rm -f /sdcard/fresnica-failure-window.xml || true
+
+            - name: Upload UI diagnostics on failure
+              if: failure()
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-failure-${{ github.run_id }}
+                  path: ${{ runner.temp }}/android-failure
+                  if-no-files-found: ignore
 
             - name: Print diagnostics on failure
               if: failure()
