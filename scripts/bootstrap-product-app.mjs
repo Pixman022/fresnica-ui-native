@@ -13,8 +13,8 @@ const hostDependencies = [
     '@react-navigation/bottom-tabs@7.4.7',
     '@react-navigation/native@7.1.17',
     '@react-navigation/native-stack@7.3.26',
-    'react-native-safe-area-context@5.6.1',
-    'react-native-screens@4.16.0',
+    'react-native-safe-area-context@5.8.1',
+    'react-native-screens@4.27.0',
 ];
 
 function run(command, args, cwd) {
