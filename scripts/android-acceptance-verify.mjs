@@ -59,10 +59,7 @@ for (const key of [
 }
 
 const screenshot = fs.readFileSync(path.join(bundleDir, 'screenshot.png'));
-if (
-    screenshot.length < pngSignature.length ||
-    !screenshot.subarray(0, pngSignature.length).equals(pngSignature)
-) {
+if (screenshot.length < pngSignature.length || !screenshot.subarray(0, pngSignature.length).equals(pngSignature)) {
     fail('screenshot.png does not have a valid PNG signature');
 }
 
