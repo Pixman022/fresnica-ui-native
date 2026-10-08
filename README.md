@@ -80,6 +80,10 @@ Component behavior and the phase-one acceptance matrix are documented in
 The Android shell boundary and build order are documented in
 [`docs/android-shell-plan.md`](docs/android-shell-plan.md).
 
+The real-device-style Android Emulator acceptance workflow, evidence bundle and review
+expectations are documented in
+[`docs/android-emulator-acceptance.md`](docs/android-emulator-acceptance.md).
+
 Product-app integration boundaries are documented in
 [`docs/integration-guide.md`](docs/integration-guide.md).
 
