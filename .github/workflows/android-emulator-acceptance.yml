@@ -62,7 +62,7 @@ jobs:
               run: |
                   echo no | "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd                       --force                       --name fresnica-ci                       --package "system-images;android-35;google_apis;x86_64"
                   nohup "$ANDROID_HOME/emulator/emulator"                       -avd fresnica-ci                       -no-window                       -no-audio                       -no-boot-anim                       -no-snapshot                       -wipe-data                       -gpu swiftshader_indirect                       > "$RUNNER_TEMP/fresnica-emulator.log" 2>&1 &
-                  adb wait-for-device
+                  timeout 180 adb wait-for-device
                   timeout 300 bash -c 'until [ "$(adb shell getprop sys.boot_completed | tr -d "\r")" = "1" ]; do sleep 2; done'
                   adb shell settings put global window_animation_scale 0
                   adb shell settings put global transition_animation_scale 0
@@ -118,6 +118,7 @@ jobs:
                   test -f "$EVIDENCE_DIR/screenshot.png"
                   test -f "$EVIDENCE_DIR/window.xml"
                   test -f "$EVIDENCE_DIR/manifest.json"
+                  npm run example:verify -- "$EVIDENCE_DIR"
                   grep -Fq "Fresnica 原生预览" "$EVIDENCE_DIR/window.xml"
                   grep -Fq "压力测试" "$EVIDENCE_DIR/window.xml"
                   echo "dir=$EVIDENCE_DIR" >> "$GITHUB_OUTPUT"
