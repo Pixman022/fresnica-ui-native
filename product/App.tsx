@@ -1,20 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {
-    NavigationContainer,
-    type NavigationProp,
-    useNavigation,
-} from '@react-navigation/native';
+import { NavigationContainer, type NavigationProp, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {
-    createContext,
-    type ReactNode,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react';
+import { createContext, type ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import {
     AccessibilityInfo,
     PermissionsAndroid,
@@ -81,7 +70,10 @@ function useSettings() {
 function Surface({ children, scroll = true }: { children: ReactNode; scroll?: boolean }) {
     const { theme } = useSettings();
     return (
-        <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]} edges={['top']}>
+        <SafeAreaView
+            style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
+            edges={['top']}
+        >
             <Screen theme={theme} scroll={scroll}>
                 {children}
             </Screen>
@@ -135,11 +127,7 @@ function HomeScreen() {
                 </Typography>
                 <View style={styles.actions}>
                     <View style={styles.action}>
-                        <Button
-                            theme={theme}
-                            label={labels.send}
-                            onPress={() => rootNavigation.navigate('Transfer')}
-                        />
+                        <Button theme={theme} label={labels.send} onPress={() => rootNavigation.navigate('Transfer')} />
                     </View>
                     <View style={styles.action}>
                         <Button theme={theme} label={labels.swap} variant="secondary" disabled />
@@ -167,11 +155,7 @@ function ActivityScreen() {
     const labels = copy[locale];
     return (
         <Surface scroll={false}>
-            <StateView
-                theme={theme}
-                title={labels.noActivity}
-                description={labels.noActivityDescription}
-            />
+            <StateView theme={theme} title={labels.noActivity} description={labels.noActivityDescription} />
         </Surface>
     );
 }
@@ -281,7 +265,10 @@ function TransferScreen() {
     const ready = recipient.trim().length > 0 && amount.trim().length > 0;
 
     return (
-        <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]} edges={['top', 'bottom']}>
+        <SafeAreaView
+            style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
+            edges={['top', 'bottom']}
+        >
             <Header
                 theme={theme}
                 title={labels.transferTitle}
@@ -387,10 +374,7 @@ function AppShell() {
 
     return (
         <SettingsContext.Provider value={settings}>
-            <StatusBar
-                barStyle={theme.systemBars.statusBarStyle}
-                backgroundColor={theme.colors.statusBar}
-            />
+            <StatusBar barStyle={theme.systemBars.statusBarStyle} />
             <NavigationContainer
                 theme={{
                     dark: theme.mode === 'dark',
