@@ -21,6 +21,36 @@ The workflow creates a headless Android emulator, builds the Preview host, start
 installs the debug APK, launches the app, and selects the required language and scenario by
 accessibility label.
 
+## Automated cadence
+
+Pull requests keep the core acceptance profile only so review feedback stays focused and
+reasonably fast:
+
+- 320dp
+- font scale 1.3
+- Dark
+- Simplified Chinese
+- Stress scenario
+
+A scheduled regression runs every Monday at 09:00 UTC with four profiles:
+
+- 320dp / 1.0 / Light
+- 360dp / 1.0 / Dark
+- 390dp / 1.3 / Light
+- 430dp / 1.3 / Dark
+
+The scheduled jobs run independently with `fail-fast: false`, so one failing profile does
+not hide results from the other profiles.
+
+`workflow_dispatch` can also run one manually selected profile. Supported inputs are:
+
+- width: 320, 360, 390, 393 or 430dp
+- font scale: 1.0 or 1.3
+- theme: Light or Dark
+
+The language and content scenario remain Simplified Chinese + Stress so manually selected
+display profiles stay comparable with PR and scheduled evidence.
+
 ## Evidence bundle
 
 A successful run captures an evidence directory containing:
@@ -47,6 +77,12 @@ The workflow also requires the UI hierarchy to contain both:
 
 Only a verified bundle is uploaded as a GitHub Actions artifact named
 `android-acceptance-<run-id>`.
+
+## Artifact retention
+
+Acceptance evidence artifacts are retained for 90 days. Failure-only diagnostic artifacts
+are retained for 30 days so broken runs remain debuggable without keeping transient
+diagnostics as long as successful acceptance evidence.
 
 ## Local commands
 

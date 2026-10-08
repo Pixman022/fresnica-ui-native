@@ -9,18 +9,45 @@ on:
             - 'scripts/android-tap-accessibility-label.mjs'
             - 'scripts/bootstrap-example.mjs'
             - 'scripts/build-example-android.mjs'
+            - 'scripts/start-android-emulator-ci.sh'
             - 'package.json'
             - 'package-lock.json'
             - '.github/workflows/android-emulator-acceptance.yml'
     workflow_dispatch:
+        inputs:
+            width:
+                description: Acceptance width in dp
+                required: false
+                default: '320'
+                type: choice
+                options: ['320', '360', '390', '393', '430']
+            font_scale:
+                description: Android font scale
+                required: false
+                default: '1.3'
+                type: choice
+                options: ['1.0', '1.3']
+            theme:
+                description: Theme mode
+                required: false
+                default: dark
+                type: choice
+                options: [light, dark]
+    schedule:
+        - cron: '0 9 * * 1'
 
 permissions:
     contents: read
 
 jobs:
     acceptance:
+        if: github.event_name != 'schedule'
         runs-on: ubuntu-latest
         timeout-minutes: 45
+        env:
+            ACCEPTANCE_WIDTH: ${{ inputs.width || '320' }}
+            ACCEPTANCE_FONT_SCALE: ${{ inputs.font_scale || '1.3' }}
+            ACCEPTANCE_THEME: ${{ inputs.theme || 'dark' }}
 
         steps:
             - name: Checkout repository
@@ -37,10 +64,18 @@ jobs:
               with:
                   distribution: temurin
                   java-version: '17'
+                  cache: gradle
+                  cache-dependency-path: package-lock.json
 
             - name: Install Android SDK and emulator
               run: |
-                  "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"                       "platform-tools"                       "emulator"                       "platforms;android-37.0"                       "build-tools;37.0.0"                       "ndk;27.1.12297006"                       "system-images;android-35;google_apis;x86_64"
+                  "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
+                      "platform-tools" \
+                      "emulator" \
+                      "platforms;android-37.0" \
+                      "build-tools;37.0.0" \
+                      "ndk;27.1.12297006" \
+                      "system-images;android-35;google_apis;x86_64"
                   ln -sfn "$ANDROID_HOME/platforms/android-37.0" "$ANDROID_HOME/platforms/android-37"
                   echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
                   mkdir -p "$RUNNER_TEMP/android-avd"
@@ -61,34 +96,10 @@ jobs:
                   node scripts/build-example-android.mjs
 
             - name: Create and start emulator
-              run: |
-                  printf "no\n" | timeout 60 "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd                       --force                       --name fresnica-ci                       --package "system-images;android-35;google_apis;x86_64"                       --device "pixel"
-                  "$ANDROID_HOME/emulator/emulator" -list-avds | grep -Fxq fresnica-ci
-                  nohup "$ANDROID_HOME/emulator/emulator"                       -avd fresnica-ci                       -no-window                       -no-audio                       -no-boot-anim                       -no-snapshot                       -wipe-data                       -gpu swiftshader_indirect                       > "$RUNNER_TEMP/fresnica-emulator.log" 2>&1 &
-                  EMULATOR_PID=$!
-                  for attempt in $(seq 1 90); do
-                      if ! kill -0 "$EMULATOR_PID" 2>/dev/null; then
-                          echo "Android emulator exited before adb detected a device."
-                          tail -n 200 "$RUNNER_TEMP/fresnica-emulator.log" || true
-                          exit 1
-                      fi
-                      if adb devices | awk 'NR > 1 && $2 == "device" { found=1 } END { exit found ? 0 : 1 }'; then
-                          break
-                      fi
-                      if [ "$attempt" -eq 90 ]; then
-                          echo "Timed out waiting for adb to detect the Android emulator."
-                          tail -n 200 "$RUNNER_TEMP/fresnica-emulator.log" || true
-                          exit 1
-                      fi
-                      sleep 2
-                  done
-                  timeout 300 bash -c 'until [ "$(adb shell getprop sys.boot_completed | tr -d "\r")" = "1" ]; do sleep 2; done'
-                  adb shell settings put global window_animation_scale 0
-                  adb shell settings put global transition_animation_scale 0
-                  adb shell settings put global animator_duration_scale 0
+              run: bash scripts/start-android-emulator-ci.sh
 
             - name: Apply acceptance profile
-              run: npm run example:profile -- --width 320 --font-scale 1.3 --theme dark
+              run: npm run example:profile -- --width "$ACCEPTANCE_WIDTH" --font-scale "$ACCEPTANCE_FONT_SCALE" --theme "$ACCEPTANCE_THEME"
 
             - name: Start Metro
               working-directory: example/FresnicaPreview
@@ -145,9 +156,195 @@ jobs:
             - name: Upload acceptance evidence
               uses: actions/upload-artifact@v7
               with:
-                  name: android-acceptance-${{ github.run_id }}
+                  name: android-acceptance-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
                   path: ${{ steps.capture.outputs.dir }}
                   if-no-files-found: error
+                  retention-days: 90
+
+            - name: Capture UI diagnostics on failure
+              if: failure()
+              run: |
+                  DIAG_DIR="$RUNNER_TEMP/android-failure"
+                  mkdir -p "$DIAG_DIR"
+                  adb exec-out screencap -p > "$DIAG_DIR/screenshot.png" || true
+                  adb shell uiautomator dump /sdcard/fresnica-failure-window.xml || true
+                  adb pull /sdcard/fresnica-failure-window.xml "$DIAG_DIR/window.xml" || true
+                  adb shell rm -f /sdcard/fresnica-failure-window.xml || true
+
+            - name: Upload UI diagnostics on failure
+              if: failure()
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
+                  path: ${{ runner.temp }}/android-failure
+                  if-no-files-found: ignore
+                  retention-days: 30
+
+            - name: Print diagnostics on failure
+              if: failure()
+              run: |
+                  tail -n 200 "$RUNNER_TEMP/fresnica-emulator.log" || true
+                  tail -n 200 "$RUNNER_TEMP/fresnica-metro.log" || true
+                  adb devices -l || true
+                  ps -ef | grep '[e]mulator' || true
+                  "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" list avd || true
+                  timeout 20 adb logcat -d -t 200 || true
+
+    weekly-matrix:
+        if: github.event_name == 'schedule'
+        runs-on: ubuntu-latest
+        timeout-minutes: 45
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - width: '320'
+                      font_scale: '1.0'
+                      theme: light
+                    - width: '360'
+                      font_scale: '1.0'
+                      theme: dark
+                    - width: '390'
+                      font_scale: '1.3'
+                      theme: light
+                    - width: '430'
+                      font_scale: '1.3'
+                      theme: dark
+        env:
+            ACCEPTANCE_WIDTH: ${{ matrix.width }}
+            ACCEPTANCE_FONT_SCALE: ${{ matrix.font_scale }}
+            ACCEPTANCE_THEME: ${{ matrix.theme }}
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Set up Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22.13.0
+                  cache: npm
+
+            - name: Set up Java
+              uses: actions/setup-java@v6
+              with:
+                  distribution: temurin
+                  java-version: '17'
+                  cache: gradle
+                  cache-dependency-path: package-lock.json
+
+            - name: Install Android SDK and emulator
+              run: |
+                  "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
+                      "platform-tools" \
+                      "emulator" \
+                      "platforms;android-37.0" \
+                      "build-tools;37.0.0" \
+                      "ndk;27.1.12297006" \
+                      "system-images;android-35;google_apis;x86_64"
+                  ln -sfn "$ANDROID_HOME/platforms/android-37.0" "$ANDROID_HOME/platforms/android-37"
+                  echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
+                  mkdir -p "$RUNNER_TEMP/android-avd"
+                  echo "ANDROID_AVD_HOME=$RUNNER_TEMP/android-avd" >> "$GITHUB_ENV"
+                  if [ -e /dev/kvm ]; then
+                      sudo chmod 666 /dev/kvm
+                  fi
+
+            - name: Install package dependencies
+              run: npm ci
+
+            - name: Bootstrap and build Preview
+              run: |
+                  npm run example:bootstrap
+                  cd example/FresnicaPreview
+                  npx tsc --noEmit
+                  cd ../..
+                  node scripts/build-example-android.mjs
+
+            - name: Create and start emulator
+              run: bash scripts/start-android-emulator-ci.sh
+
+            - name: Apply acceptance profile
+              run: npm run example:profile -- --width "$ACCEPTANCE_WIDTH" --font-scale "$ACCEPTANCE_FONT_SCALE" --theme "$ACCEPTANCE_THEME"
+
+            - name: Start Metro
+              working-directory: example/FresnicaPreview
+              run: |
+                  nohup npm start -- --port 8081 > "$RUNNER_TEMP/fresnica-metro.log" 2>&1 &
+                  for attempt in $(seq 1 60); do
+                      if curl -fsS http://127.0.0.1:8081/status | grep -q 'packager-status:running'; then
+                          exit 0
+                      fi
+                      sleep 2
+                  done
+                  cat "$RUNNER_TEMP/fresnica-metro.log"
+                  exit 1
+
+            - name: Install and launch Preview
+              run: |
+                  adb reverse tcp:8081 tcp:8081
+                  adb install -r example/FresnicaPreview/android/app/build/outputs/apk/debug/app-debug.apk
+                  adb shell am force-stop com.fresnicapreview || true
+                  adb shell monkey -p com.fresnicapreview -c android.intent.category.LAUNCHER 1
+
+            - name: Select Simplified Chinese Stress scenario
+              run: |
+                  tap_label() {
+                      for attempt in $(seq 1 45); do
+                          if npm run example:tap-label -- "$1"; then
+                              return 0
+                          fi
+                          sleep 2
+                      done
+                      return 1
+                  }
+
+                  tap_label "Language, 简体中文"
+                  sleep 2
+                  tap_label "内容场景, 压力测试"
+                  sleep 2
+
+            - name: Capture acceptance evidence
+              id: capture
+              run: |
+                  npm run example:capture
+                  EVIDENCE_DIR=$(find artifacts/android-acceptance -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)
+                  test -n "$EVIDENCE_DIR"
+                  test -f "$EVIDENCE_DIR/device.json"
+                  test -f "$EVIDENCE_DIR/screenshot.png"
+                  test -f "$EVIDENCE_DIR/window.xml"
+                  test -f "$EVIDENCE_DIR/manifest.json"
+                  npm run example:verify -- "$EVIDENCE_DIR"
+                  grep -Fq "Fresnica 原生预览" "$EVIDENCE_DIR/window.xml"
+                  grep -Fq "压力测试" "$EVIDENCE_DIR/window.xml"
+                  echo "dir=$EVIDENCE_DIR" >> "$GITHUB_OUTPUT"
+
+            - name: Upload acceptance evidence
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-acceptance-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
+                  path: ${{ steps.capture.outputs.dir }}
+                  if-no-files-found: error
+                  retention-days: 90
+
+            - name: Capture UI diagnostics on failure
+              if: failure()
+              run: |
+                  DIAG_DIR="$RUNNER_TEMP/android-failure"
+                  mkdir -p "$DIAG_DIR"
+                  adb exec-out screencap -p > "$DIAG_DIR/screenshot.png" || true
+                  adb shell uiautomator dump /sdcard/fresnica-failure-window.xml || true
+                  adb pull /sdcard/fresnica-failure-window.xml "$DIAG_DIR/window.xml" || true
+                  adb shell rm -f /sdcard/fresnica-failure-window.xml || true
+
+            - name: Upload UI diagnostics on failure
+              if: failure()
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-failure-${{ github.run_id }}-${{ github.run_attempt }}-${{ env.ACCEPTANCE_WIDTH }}-${{ env.ACCEPTANCE_FONT_SCALE }}-${{ env.ACCEPTANCE_THEME }}
+                  path: ${{ runner.temp }}/android-failure
+                  if-no-files-found: ignore
+                  retention-days: 30
 
             - name: Print diagnostics on failure
               if: failure()
