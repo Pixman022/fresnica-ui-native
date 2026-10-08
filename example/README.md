@@ -64,6 +64,15 @@ The evidence directory is ignored by Git. The capture command does not change di
 font, theme or app settings; UIAutomator uses a temporary device file that is removed
 after the hierarchy is pulled.
 
+Before sharing or reviewing a bundle, verify that its files are complete and parseable:
+
+```bash
+npm run example:verify -- artifacts/android-acceptance/<timestamp>
+```
+
+The verifier is read-only. It checks the required files, device/manifest JSON fields,
+PNG signature and UIAutomator hierarchy without contacting the Android device.
+
 The screenshot and UIAutomator hierarchy can contain visible text from the current screen.
 Use this helper only on the Preview or other non-sensitive test screens; do not capture
 screens that display secrets, mnemonic phrases, private keys, account credentials or
