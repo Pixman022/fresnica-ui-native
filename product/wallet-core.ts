@@ -16,6 +16,27 @@ export type WalletSecretMaterial = WalletAccountMetadata & {
     secret: string;
 };
 
+const MAX_STROOPS = 9_223_372_036_854_775_807n;
+const STROOPS_PER_XLM = 10_000_000n;
+
+export function validateXlmAmount(amountInput: string): string {
+    const amount = amountInput.trim();
+    const match = /^(\d+)(?:\.(\d{1,7}))?$/.exec(amount);
+    if (!match) {
+        throw new Error('Amount must be a positive XLM value with at most 7 decimal places.');
+    }
+
+    const whole = BigInt(match[1]);
+    const fraction = BigInt((match[2] ?? '').padEnd(7, '0') || '0');
+    const stroops = whole * STROOPS_PER_XLM + fraction;
+
+    if (stroops <= 0n || stroops > MAX_STROOPS) {
+        throw new Error('Amount is outside the Stellar XLM range.');
+    }
+
+    return amount;
+}
+
 export function createTestnetWalletMaterial(): WalletSecretMaterial {
     const keypair = Keypair.random();
     return {
@@ -57,6 +78,7 @@ export function buildUnsignedTestnetPaymentXdr(input: {
 }): string {
     Keypair.fromPublicKey(input.sourcePublicKey);
     Keypair.fromPublicKey(input.destinationPublicKey);
+    const amount = validateXlmAmount(input.amount);
 
     const sourceAccount = new Account(input.sourcePublicKey, input.sourceSequence);
     return new TransactionBuilder(sourceAccount, {
@@ -67,7 +89,7 @@ export function buildUnsignedTestnetPaymentXdr(input: {
             Operation.payment({
                 destination: input.destinationPublicKey,
                 asset: Asset.native(),
-                amount: input.amount,
+                amount,
             }),
         )
         .setTimeout(180)
