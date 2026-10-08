@@ -135,4 +135,6 @@ jobs:
               run: |
                   tail -n 200 "$RUNNER_TEMP/fresnica-emulator.log" || true
                   tail -n 200 "$RUNNER_TEMP/fresnica-metro.log" || true
-                  adb logcat -d -t 200 || true
+                  adb devices -l || true
+                  ps -ef | grep '[e]mulator' || true
+                  timeout 20 adb logcat -d -t 200 || true
