@@ -139,9 +139,7 @@ jobs:
                   sleep 2
                   tap_label "Language, 简体中文"
                   sleep 2
-                  tap_label "首页"
-                  sleep 2
-                  wait_for_text "主钱包"
+                  wait_for_text "设置"
 
                   adb shell am force-stop com.fresnicawallet
                   adb shell monkey -p com.fresnicawallet -c android.intent.category.LAUNCHER 1
