@@ -29,12 +29,7 @@ import {
 } from '@fresnica/ui-native';
 import type { AppTheme, ThemeMode } from '@fresnica/ui-native';
 import { copy, type Locale } from './copy';
-import {
-    createTestnetWallet,
-    deleteTestnetWallet,
-    importTestnetWallet,
-    loadTestnetWallet,
-} from './secure-wallet';
+import { createTestnetWallet, deleteTestnetWallet, importTestnetWallet, loadTestnetWallet } from './secure-wallet';
 import type { WalletAccountMetadata } from './wallet-core';
 
 type RootStackParamList = {
@@ -314,7 +309,9 @@ function WalletSecurityPanel() {
                     />
                 </>
             )}
-            {failed ? <InlineMessage theme={theme} message={labels.walletOperationFailed} tone="error" /> : null}
+            {failed ? (
+                <InlineMessage theme={theme} message={labels.walletOperationFailed} tone="error" />
+            ) : null}
         </View>
     );
 }
