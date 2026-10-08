@@ -13,6 +13,9 @@ const hostDependencies = [
     '@react-navigation/bottom-tabs@7.4.7',
     '@react-navigation/native@7.1.17',
     '@react-navigation/native-stack@7.3.26',
+    '@stellar/stellar-sdk@17.2.1',
+    'react-native-get-random-values@2.0.0',
+    'react-native-keychain@10.0.0',
     'react-native-safe-area-context@5.8.1',
     'react-native-screens@4.27.0',
 ];
@@ -28,6 +31,16 @@ function run(command, args, cwd) {
 
     if (result.status !== 0) {
         process.exit(result.status ?? 1);
+    }
+}
+
+function applyRandomValuesPolyfill() {
+    const indexPath = path.join(projectDir, 'index.js');
+    const index = fs.readFileSync(indexPath, 'utf8');
+    const polyfill = "import 'react-native-get-random-values';";
+
+    if (!index.includes(polyfill)) {
+        fs.writeFileSync(indexPath, `${polyfill}\n${index}`);
     }
 }
 
@@ -60,6 +73,7 @@ if (!fs.existsSync(projectDir)) {
 }
 
 applyAndroidBaseline();
+applyRandomValuesPolyfill();
 
 fs.mkdirSync(cacheDir, { recursive: true });
 for (const entry of fs.readdirSync(cacheDir)) {
@@ -78,5 +92,8 @@ if (!packageArchive) {
 run('npm', ['install', '--save-exact', path.join(cacheDir, packageArchive), ...hostDependencies], projectDir);
 fs.copyFileSync(path.join(productRoot, 'App.tsx'), path.join(projectDir, 'App.tsx'));
 fs.copyFileSync(path.join(productRoot, 'copy.ts'), path.join(projectDir, 'copy.ts'));
+fs.copyFileSync(path.join(productRoot, 'wallet-core.ts'), path.join(projectDir, 'wallet-core.ts'));
+fs.copyFileSync(path.join(productRoot, 'secure-wallet.ts'), path.join(projectDir, 'secure-wallet.ts'));
+fs.copyFileSync(path.join(productRoot, 'wallet-core-smoke.mts'), path.join(projectDir, 'wallet-core-smoke.mts'));
 
 console.log('FresnicaWallet is ready at ' + projectDir);
