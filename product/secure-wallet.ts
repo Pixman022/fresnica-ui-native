@@ -18,10 +18,15 @@ const secretOptions = {
     storage: Keychain.STORAGE_TYPE.AES_GCM,
 } as const;
 
-const defaultAuthenticationPrompt = {
+type AuthenticationPrompt = {
+    title: string;
+    cancel: string;
+};
+
+const defaultAuthenticationPrompt: AuthenticationPrompt = {
     title: 'Authenticate to use Fresnica wallet',
     cancel: 'Cancel',
-} as const;
+};
 
 function toMetadata(material: WalletSecretMaterial): WalletAccountMetadata {
     return {
