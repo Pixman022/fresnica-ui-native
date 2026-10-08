@@ -47,10 +47,7 @@ function applyAndroidBaseline() {
     const permission = '<uses-permission android:name="android.permission.CAMERA" />';
 
     if (!manifest.includes(permission)) {
-        fs.writeFileSync(
-            manifestPath,
-            manifest.replace('<application', `${permission}\n    <application`),
-        );
+        fs.writeFileSync(manifestPath, manifest.replace('<application', `${permission}\n    <application`));
     }
 }
 
