@@ -9,6 +9,7 @@ on:
             - 'scripts/android-tap-accessibility-label.mjs'
             - 'scripts/bootstrap-example.mjs'
             - 'scripts/build-example-android.mjs'
+            - 'scripts/start-android-emulator-ci.sh'
             - 'package.json'
             - 'package-lock.json'
             - '.github/workflows/android-emulator-acceptance.yml'
@@ -89,31 +90,7 @@ jobs:
                   node scripts/build-example-android.mjs
 
             - name: Create and start emulator
-              run: |
-                  printf "no\n" | timeout 60 "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd                       --force                       --name fresnica-ci                       --package "system-images;android-35;google_apis;x86_64"                       --device "pixel"
-                  "$ANDROID_HOME/emulator/emulator" -list-avds | grep -Fxq fresnica-ci
-                  nohup "$ANDROID_HOME/emulator/emulator"                       -avd fresnica-ci                       -no-window                       -no-audio                       -no-boot-anim                       -no-snapshot                       -wipe-data                       -gpu swiftshader_indirect                       > "$RUNNER_TEMP/fresnica-emulator.log" 2>&1 &
-                  EMULATOR_PID=$!
-                  for attempt in $(seq 1 90); do
-                      if ! kill -0 "$EMULATOR_PID" 2>/dev/null; then
-                          echo "Android emulator exited before adb detected a device."
-                          tail -n 200 "$RUNNER_TEMP/fresnica-emulator.log" || true
-                          exit 1
-                      fi
-                      if adb devices | awk 'NR > 1 && $2 == "device" { found=1 } END { exit found ? 0 : 1 }'; then
-                          break
-                      fi
-                      if [ "$attempt" -eq 90 ]; then
-                          echo "Timed out waiting for adb to detect the Android emulator."
-                          tail -n 200 "$RUNNER_TEMP/fresnica-emulator.log" || true
-                          exit 1
-                      fi
-                      sleep 2
-                  done
-                  timeout 300 bash -c 'until [ "$(adb shell getprop sys.boot_completed | tr -d "\r")" = "1" ]; do sleep 2; done'
-                  adb shell settings put global window_animation_scale 0
-                  adb shell settings put global transition_animation_scale 0
-                  adb shell settings put global animator_duration_scale 0
+              run: bash scripts/start-android-emulator-ci.sh
 
             - name: Apply acceptance profile
               run: npm run example:profile -- --width "$ACCEPTANCE_WIDTH" --font-scale "$ACCEPTANCE_FONT_SCALE" --theme "$ACCEPTANCE_THEME"
@@ -271,31 +248,7 @@ jobs:
                   node scripts/build-example-android.mjs
 
             - name: Create and start emulator
-              run: |
-                  printf "no\n" | timeout 60 "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd                       --force                       --name fresnica-ci                       --package "system-images;android-35;google_apis;x86_64"                       --device "pixel"
-                  "$ANDROID_HOME/emulator/emulator" -list-avds | grep -Fxq fresnica-ci
-                  nohup "$ANDROID_HOME/emulator/emulator"                       -avd fresnica-ci                       -no-window                       -no-audio                       -no-boot-anim                       -no-snapshot                       -wipe-data                       -gpu swiftshader_indirect                       > "$RUNNER_TEMP/fresnica-emulator.log" 2>&1 &
-                  EMULATOR_PID=$!
-                  for attempt in $(seq 1 90); do
-                      if ! kill -0 "$EMULATOR_PID" 2>/dev/null; then
-                          echo "Android emulator exited before adb detected a device."
-                          tail -n 200 "$RUNNER_TEMP/fresnica-emulator.log" || true
-                          exit 1
-                      fi
-                      if adb devices | awk 'NR > 1 && $2 == "device" { found=1 } END { exit found ? 0 : 1 }'; then
-                          break
-                      fi
-                      if [ "$attempt" -eq 90 ]; then
-                          echo "Timed out waiting for adb to detect the Android emulator."
-                          tail -n 200 "$RUNNER_TEMP/fresnica-emulator.log" || true
-                          exit 1
-                      fi
-                      sleep 2
-                  done
-                  timeout 300 bash -c 'until [ "$(adb shell getprop sys.boot_completed | tr -d "\r")" = "1" ]; do sleep 2; done'
-                  adb shell settings put global window_animation_scale 0
-                  adb shell settings put global transition_animation_scale 0
-                  adb shell settings put global animator_duration_scale 0
+              run: bash scripts/start-android-emulator-ci.sh
 
             - name: Apply acceptance profile
               run: npm run example:profile -- --width "$ACCEPTANCE_WIDTH" --font-scale "$ACCEPTANCE_FONT_SCALE" --theme "$ACCEPTANCE_THEME"
