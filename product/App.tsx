@@ -70,10 +70,7 @@ function useSettings() {
 function Surface({ children, scroll = true }: { children: ReactNode; scroll?: boolean }) {
     const { theme } = useSettings();
     return (
-        <SafeAreaView
-            style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
-            edges={['top']}
-        >
+        <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]} edges={['top']}>
             <Screen theme={theme} scroll={scroll}>
                 {children}
             </Screen>
@@ -265,10 +262,7 @@ function TransferScreen() {
     const ready = recipient.trim().length > 0 && amount.trim().length > 0;
 
     return (
-        <SafeAreaView
-            style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
-            edges={['top', 'bottom']}
-        >
+        <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]} edges={['top', 'bottom']}>
             <Header
                 theme={theme}
                 title={labels.transferTitle}
