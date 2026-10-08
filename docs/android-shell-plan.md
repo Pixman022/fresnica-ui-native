@@ -1,34 +1,39 @@
 # Android App Shell Plan
 
-This repository now contains an on-demand React Native 0.87 Preview Host under `example/`.
-It validates the component package against a real Android build without turning
-`@fresnica/ui-native` into a product App.
+This repository contains two on-demand React Native 0.87 hosts:
 
-The eventual product shell may remain in this repository or be extracted later, but its
-product responsibilities stay separate from the reusable component package.
+- `example/` is the primitive Preview Host.
+- `product/` is the first product App shell and wallet slice.
+
+Both consume `@fresnica/ui-native` without moving product responsibilities into the
+component package.
 
 ## Boundary
 
 - The product App owns `NavigationContainer`, native stack/bottom tabs, persistence and feature routes.
 - `react-native-safe-area-context` owns insets; screens must not guess status-bar heights.
-- `StatusBar` and Android navigation-bar appearance are driven from `AppTheme.systemBars`.
+- `StatusBar` appearance is driven from `AppTheme.systemBars`; product release acceptance must also verify the Android navigation bar on a physical device.
 - `Appearance` resolves the platform result passed to `resolveTheme('system', mode)`.
 - The product localization layer owns English/Simplified Chinese labels and accessibility copy.
 - Android permissions, keyboard policy and hardware integration remain product-App responsibilities.
 
-## Current build order
+## Current implementation
 
-1. Generate the Preview Host from the approved React Native/Android baseline.
-2. Install the current local `@fresnica/ui-native` package into that host.
-3. Run package CI, Preview TypeScript validation and Android `assembleDebug`.
-4. Exercise Standard/Stress Preview scenarios across the Android acceptance matrix.
-5. Start product navigation and wallet routes only after reusable primitive defects are resolved.
+1. The reusable package and Preview Host remain independently buildable.
+2. `product/App.tsx` owns the primary Home / Activity / Scan / Explore / Settings tabs.
+3. A native-stack Send route provides the first secondary wallet flow.
+4. Theme and locale preferences persist through AsyncStorage.
+5. NetInfo supplies connection state and the Scan route owns the user-initiated camera permission request.
+6. Android Product Acceptance builds and exercises the product shell on a headless emulator.
 
-See [`android-host-acceptance.md`](android-host-acceptance.md) for the device matrix and evidence requirements.
+See [`product-app-acceptance.md`](product-app-acceptance.md) for the automated gate and
+manual release boundary.
 
 ## Product-App Acceptance Checklist
 
-The final Android product App repeats the host checks once real routes and feature state exist.
+The emulator workflow now covers launch, primary/secondary navigation, Android Back,
+locale persistence and evidence capture. The following remain physical-device release
+acceptance because CI cannot credibly claim human assistive-technology behavior:
 
 - [ ] TalkBack focus order is logical.
 - [ ] All icon-only actions have localized labels.
