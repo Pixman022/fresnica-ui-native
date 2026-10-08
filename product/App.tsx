@@ -383,11 +383,7 @@ function TransferScreen() {
             .catch(() => setFailed(true));
     }, []);
 
-    const ready =
-        wallet !== null &&
-        recipient.trim().length > 0 &&
-        amount.trim().length > 0 &&
-        !busy;
+    const ready = wallet !== null && recipient.trim().length > 0 && amount.trim().length > 0 && !busy;
 
     async function prepareTransfer() {
         if (!wallet) {
@@ -485,7 +481,9 @@ function TransferScreen() {
                     </View>
                 ) : (
                     <View style={styles.section}>
-                        {!wallet ? <InlineMessage theme={theme} tone="warning" message={labels.walletRequired} /> : null}
+                        {!wallet ? (
+                            <InlineMessage theme={theme} tone="warning" message={labels.walletRequired} />
+                        ) : null}
                         <Field
                             theme={theme}
                             label={labels.recipient}
