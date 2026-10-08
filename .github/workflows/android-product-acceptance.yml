@@ -1,0 +1,185 @@
+name: Android Product Acceptance
+
+on:
+    pull_request:
+        paths:
+            - 'src/**'
+            - 'product/**'
+            - 'scripts/android-acceptance-*.mjs'
+            - 'scripts/android-tap-accessibility-label.mjs'
+            - 'scripts/bootstrap-product-app.mjs'
+            - 'scripts/build-product-android.mjs'
+            - 'scripts/start-android-emulator-ci.sh'
+            - 'package.json'
+            - 'package-lock.json'
+            - '.github/workflows/android-product-acceptance.yml'
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    acceptance:
+        runs-on: ubuntu-latest
+        timeout-minutes: 45
+        env:
+            ACCEPTANCE_WIDTH: '320'
+            ACCEPTANCE_FONT_SCALE: '1.3'
+            ACCEPTANCE_THEME: dark
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Set up Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22.13.0
+                  cache: npm
+
+            - name: Set up Java
+              uses: actions/setup-java@v6
+              with:
+                  distribution: temurin
+                  java-version: '17'
+                  cache: gradle
+                  cache-dependency-path: package-lock.json
+
+            - name: Install Android SDK and emulator
+              run: |
+                  "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
+                      "platform-tools" \
+                      "emulator" \
+                      "platforms;android-37.0" \
+                      "build-tools;37.0.0" \
+                      "ndk;27.1.12297006" \
+                      "system-images;android-35;google_apis;x86_64"
+                  ln -sfn "$ANDROID_HOME/platforms/android-37.0" "$ANDROID_HOME/platforms/android-37"
+                  echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
+                  mkdir -p "$RUNNER_TEMP/android-avd"
+                  echo "ANDROID_AVD_HOME=$RUNNER_TEMP/android-avd" >> "$GITHUB_ENV"
+                  if [ -e /dev/kvm ]; then
+                      sudo chmod 666 /dev/kvm
+                  fi
+
+            - name: Install package dependencies
+              run: npm ci
+
+            - name: Bootstrap and build product App
+              run: |
+                  npm run product:bootstrap
+                  cd product/FresnicaWallet
+                  npx tsc --noEmit
+                  cd ../..
+                  node scripts/build-product-android.mjs
+
+            - name: Create and start emulator
+              run: bash scripts/start-android-emulator-ci.sh
+
+            - name: Apply product acceptance profile
+              run: npm run example:profile -- --width "$ACCEPTANCE_WIDTH" --font-scale "$ACCEPTANCE_FONT_SCALE" --theme "$ACCEPTANCE_THEME"
+
+            - name: Start Metro
+              working-directory: product/FresnicaWallet
+              run: |
+                  nohup npm start -- --port 8081 > "$RUNNER_TEMP/fresnica-product-metro.log" 2>&1 &
+                  for attempt in $(seq 1 60); do
+                      if curl -fsS http://127.0.0.1:8081/status | grep -q 'packager-status:running'; then
+                          exit 0
+                      fi
+                      sleep 2
+                  done
+                  cat "$RUNNER_TEMP/fresnica-product-metro.log"
+                  exit 1
+
+            - name: Install and launch product App
+              run: |
+                  adb reverse tcp:8081 tcp:8081
+                  adb install -r product/FresnicaWallet/android/app/build/outputs/apk/debug/app-debug.apk
+                  adb shell am force-stop com.fresnicawallet || true
+                  adb shell monkey -p com.fresnicawallet -c android.intent.category.LAUNCHER 1
+                  sleep 5
+
+            - name: Exercise product navigation and persistence
+              run: |
+                  dump_ui() {
+                      adb shell uiautomator dump /sdcard/fresnica-product-window.xml >/dev/null
+                      adb exec-out cat /sdcard/fresnica-product-window.xml
+                  }
+
+                  tap_label() {
+                      for attempt in $(seq 1 45); do
+                          if npm run example:tap-label -- "$1"; then
+                              return 0
+                          fi
+                          sleep 2
+                      done
+                      return 1
+                  }
+
+                  dump_ui | grep -Fq "Main wallet"
+
+                  tap_label "Send"
+                  sleep 2
+                  dump_ui | grep -Fq "Recipient"
+
+                  adb shell input keyevent KEYCODE_BACK
+                  sleep 2
+                  tap_label "Settings tab"
+                  sleep 2
+                  tap_label "Language, 简体中文"
+                  sleep 2
+                  tap_label "Home tab"
+                  sleep 2
+                  dump_ui | grep -Fq "主钱包"
+
+                  adb shell am force-stop com.fresnicawallet
+                  adb shell monkey -p com.fresnicawallet -c android.intent.category.LAUNCHER 1
+                  sleep 5
+                  dump_ui | grep -Fq "主钱包"
+
+            - name: Capture product acceptance evidence
+              id: capture
+              run: |
+                  npm run example:capture
+                  EVIDENCE_DIR=$(find artifacts/android-acceptance -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)
+                  test -n "$EVIDENCE_DIR"
+                  npm run example:verify -- "$EVIDENCE_DIR"
+                  grep -Fq "主钱包" "$EVIDENCE_DIR/window.xml"
+                  echo "dir=$EVIDENCE_DIR" >> "$GITHUB_OUTPUT"
+
+            - name: Upload product acceptance evidence
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-product-acceptance-${{ github.run_id }}-${{ github.run_attempt }}
+                  path: ${{ steps.capture.outputs.dir }}
+                  if-no-files-found: error
+                  retention-days: 90
+
+            - name: Capture UI diagnostics on failure
+              if: failure()
+              run: |
+                  DIAG_DIR="$RUNNER_TEMP/android-product-failure"
+                  mkdir -p "$DIAG_DIR"
+                  adb exec-out screencap -p > "$DIAG_DIR/screenshot.png" || true
+                  adb shell uiautomator dump /sdcard/fresnica-product-failure.xml || true
+                  adb pull /sdcard/fresnica-product-failure.xml "$DIAG_DIR/window.xml" || true
+                  adb shell rm -f /sdcard/fresnica-product-failure.xml || true
+
+            - name: Upload UI diagnostics on failure
+              if: failure()
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-product-failure-${{ github.run_id }}-${{ github.run_attempt }}
+                  path: ${{ runner.temp }}/android-product-failure
+                  if-no-files-found: ignore
+                  retention-days: 30
+
+            - name: Print diagnostics on failure
+              if: failure()
+              run: |
+                  tail -n 200 "$RUNNER_TEMP/fresnica-emulator.log" || true
+                  tail -n 200 "$RUNNER_TEMP/fresnica-product-metro.log" || true
+                  adb devices -l || true
+                  ps -ef | grep '[e]mulator' || true
+                  timeout 20 adb logcat -d -t 200 || true
