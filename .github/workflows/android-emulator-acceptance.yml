@@ -60,7 +60,7 @@ jobs:
 
             - name: Create and start emulator
               run: |
-                  echo no | "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd                       --force                       --name fresnica-ci                       --package "system-images;android-35;google_apis;x86_64"
+                  echo no | timeout 60 "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd                       --force                       --name fresnica-ci                       --package "system-images;android-35;google_apis;x86_64"
                   nohup "$ANDROID_HOME/emulator/emulator"                       -avd fresnica-ci                       -no-window                       -no-audio                       -no-boot-anim                       -no-snapshot                       -wipe-data                       -gpu swiftshader_indirect                       > "$RUNNER_TEMP/fresnica-emulator.log" 2>&1 &
                   EMULATOR_PID=$!
                   for attempt in $(seq 1 90); do
@@ -153,4 +153,5 @@ jobs:
                   tail -n 200 "$RUNNER_TEMP/fresnica-metro.log" || true
                   adb devices -l || true
                   ps -ef | grep '[e]mulator' || true
+                  "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" list avd || true
                   timeout 20 adb logcat -d -t 200 || true
