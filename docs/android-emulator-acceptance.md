@@ -78,6 +78,13 @@ The workflow also requires the UI hierarchy to contain both:
 Only a verified bundle is uploaded as a GitHub Actions artifact named
 `android-acceptance-<run-id>`.
 
+
+## Artifact retention
+
+Acceptance evidence artifacts are retained for 90 days. Failure-only diagnostic artifacts
+are retained for 30 days so broken runs remain debuggable without keeping transient
+diagnostics as long as successful acceptance evidence.
+
 ## Local commands
 
 With an Android emulator already running:
