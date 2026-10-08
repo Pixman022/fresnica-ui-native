@@ -16,8 +16,8 @@ own licenses.
 These dependencies are installed only into the generated `product/FresnicaWallet` host. Their
 exact versions are pinned in `scripts/bootstrap-product-app.mjs`.
 
-| Dependency                        | Use                                       | License    |
-| --------------------------------- | ----------------------------------------- | ---------- |
+| Dependency                       | Use                                       | License    |
+| -------------------------------- | ----------------------------------------- | ---------- |
 | `@stellar/stellar-sdk`           | Stellar Testnet keys/XDR/signing          | Apache-2.0 |
 | `react-native-get-random-values` | React Native Web Crypto random-value shim | MIT        |
 | `react-native-keychain`          | Android Keystore-backed secret storage    | MIT        |
