@@ -28,6 +28,39 @@ This records tasks DS-09/10/11 in the
   this is visible in the screenshot and warrants continued narrow-screen
   review rather than being assumed to pass at every scaling factor.
 
+## PR #35 additional reviewed evidence
+
+- [Android Emulator Acceptance #37879358007](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37879358007)
+  completed/success for PR head `d43fd3878945de1ee5f662d7609a5847b46da6d4`,
+  subsequently squash-merged as `2519eb6b7795ccac4203310a80e2bd1baf81b0a4`.
+- All three ZIP bundles were downloaded and checked for `device.json`,
+  `screenshot.png`, `window.xml`, and `manifest.json`. Their manifests
+  consistently report the clean PR test merge checkout
+  `20c8d4dba8f3e78b3e58b9334db2ef3d999a8fac` (not the PR head or squash commit).
+- [Original 320dp Dark zh-CN Stress](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37879358007):
+  `android-acceptance-37879358007-1-320-1.3-dark` (artifact `11593888236`).
+  The screenshot still shows the segmented theme controls and Chinese stress text;
+  the app's locale is selected independently of the emulator device locale.
+- **393dp / 1.3 / Light / English / Stress first viewport**:
+  `android-acceptance-37879358007-1-393-1.3-light-en-top`
+  (artifact `11593499366`). Screenshot inspected: long English supporting
+  text wraps, the input error and long list description appear, and the
+  controls stay within the visible viewport.
+- **393dp / 1.3 / Light / English / Stress shared-component gallery**:
+  `android-acceptance-37879358007-1-393-1.3-light-en-gallery`
+  (artifact `11593642602`). Screenshot inspected: long primary action label
+  wraps to two lines; disabled/loading states are present; `Header`,
+  `Divider`, `IconButton`, and `Skeleton` can be seen after scrolling.
+  The long Header deliberately truncates after two lines. No horizontal
+  overflow was visible **in this screenshot**, but truncation and contrast
+  are not approved as visual or accessibility sign-off.
+- Emulator metadata: Android 15 / API 35, `sdk_gphone64_x86_64`,
+  physical density 420dpi, font scale 1.3. It reports device locale `en-US`;
+  the Preview itself selects Chinese or English. Light screenshots report
+  `Night mode: no`, and the 320dp screenshot reports `Night mode: yes`.
+- All three uploaded artifacts were present and not expired during review.
+  No binary screenshots have been committed to the component package.
+
 ## Coverage matrix
 
 The current Android emulator workflow enforces on relevant UI PRs:
@@ -45,14 +78,12 @@ The existing Monday automated matrix is configured to cover:
 
 Additional acceptance work before a complete visual sign-off:
 
-- **393dp / 1.3 / Light / English / Stress** and a screenshot scrolled to
-  the shared-component gallery are now included in the **PR-triggered** emulator
-  acceptance steps, reusing the existing Android build. These are **pending
-  evidence until a successful workflow run and inspected artifact exist**.
-  The original 320dp / Dark / Simplified Chinese profile is unchanged.
-- Scroll to capture controls below the initial viewport, including the
-  added Header, IconButton, Divider and Skeleton examples. The current
-  screenshot does **not** show all 15 primitives at once.
+- **393dp / 1.3 / Light / English / Stress**, including the below-fold
+  shared-component gallery, now has reviewed screenshot evidence from PR #35.
+  The original 320dp / Dark / Simplified Chinese profile remains unchanged.
+- The gallery screenshot includes Header, IconButton, Divider and Skeleton
+  but does **not** display every one of the 15 primitives at once, and
+  deliberate Header truncation still needs visual-baseline approval.
 - Check error/disabled/loading/selected/pressed states, focus and keyboard
   accessibility through the host, including modal dismissal. An APK build
   and a top-viewport screenshot alone do not prove these visually.
@@ -79,8 +110,12 @@ Additional acceptance work before a complete visual sign-off:
 
 ## Next acceptance action
 
-Review the 320dp screenshot beyond the initial viewport, then link the next
-weekly matrix evidence to this document. Until the pending combinations and
-a human-approved baseline are available, DS-09 and DS-11 remain **open**;
-DS-10 records the evidence and repeatable matrix without claiming complete
-visual acceptance.
+Link the next successful scheduled four-profile matrix artifacts to
+[Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37)
+and this document. Continue to review offscreen component interaction states,
+keyboard/modal behavior and consistent Web/Native semantics. Until the
+pending configurations and a design-owner-approved baseline are available,
+DS-09 and DS-11 remain **open**; DS-10 documents repeatable evidence,
+not complete visual or WCAG AA acceptance. The owner has chosen to retain
+the original brand greens and light button text for now; see the
+[documented contrast gaps](native-contrast-audit.md).

@@ -7,7 +7,7 @@
 - Web 规范源：[Pixman022/fresnica-ui](https://github.com/Pixman022/fresnica-ui)，
   当前 `main@9ad32c41be7eaf96662d2e8bacb1c9f957ba087b`。
 - Native 消费包：[Pixman022/fresnica-ui-native](https://github.com/Pixman022/fresnica-ui-native)，
-  此次工程状态基线 `main@36d7c23d6891d03e669472fcba66384f6f45c4f4`。
+  此次工程状态基线 `main@2519eb6b7795ccac4203310a80e2bd1baf81b0a4`。
 - 对外交付是 `src/` UI 组件、共享 Token 契约、`example/` 中性 Preview、测试和集成文档。
   `product/` 是保留的历史钱包原型，不属于 UI 库的交付或测试门槛。
 
@@ -33,7 +33,7 @@
   安装、宿主类型检查、Web 更新后手动校验 Native CI 的路径。
 - **CI：** 上述 PR 在其最新测试 SHA 的三个 UI 验证工作流已成功。
   截至本报告基线，最新 Native `main` CI
-  [#37879034678](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37879034678) 为成功。
+  [#37881640684](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37881640684) 为成功。
 
 ## 尚未完成，不应关闭的工作
 
@@ -44,22 +44,28 @@
    这意味着**可试集成不等于 WCAG AA 达标**。后续若需无障碍合规声明，
    须另行批准配色修复并验证；详见[原配色及候选方案记录](native-primary-button-color-review.md)
    和[对比度审计](native-contrast-audit.md)。
-2. **DS-09 多配置实测：** 当前 320dp / 1.3 / Dark / zh-CN / Stress
-   有成功证据；计划中的 320 Light、360 Dark、390 Light、430 Dark 周期矩阵
-   及 English 长文案、393dp 和滚动到视口下方的组件尚缺完整独立证据。
+2. **DS-09 多配置实测：** 原 320dp / 1.3 / Dark / zh-CN / Stress
+   与新增 393dp / 1.3 / Light / English / Stress、滚动后的组件区，
+   已在 [PR #35](https://github.com/Pixman022/fresnica-ui-native/pull/35)
+   的 [模拟器验收 #37879358007](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37879358007)
+   成功并由截图复核。**320 Light、360 Dark、390 Light、430 Dark**
+   周期矩阵尚待独立证据；更多交互与键盘/弹窗场景仍待验收。
+   详见 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37)。
 3. **DS-11 视觉基准：** 尚未批准固定的设备、系统字体和多主题视觉基准；
    目前不应使用未经审核的图像进行自动像素差异强制判定。
-4. **DS-14 正式交付批准：** 本报告是状态交接草案；颜色问题及视觉矩阵完成后，
-   需要再确认 DoD、验收截图和版本/来源指纹。公开 npm 发布非必要条件。
+4. **DS-14 工程交接与正式视觉批准分离：** 本报告记录了阶段一
+   UI 包的现有版本、验证提交、集成方式和剩余限制；工程交接可进行，
+   但**设计基准与无障碍合规未批准**，不得将状态报告作为正式
+   视觉签核。公开 npm 发布非必要条件。
 
 ## 下一步验收顺序
 
 1. 按当前决定**保留原按钮配色**。暂不处理候选的改色方案，保留上述
    对比度不合格记录，不对外声明全部配色已符合 WCAG AA。
-2. 继续累积 Android 中性 Preview 的多宽度/主题证据，
-   [PR #35](https://github.com/Pixman022/fresnica-ui-native/pull/35)
-   正增加 393dp / Light / English / Stress 和视口下方组件截图；
-   只有其实际工作流成功且证据经复核后才能算已验证。
+2. 已复核 PR #35 新增的 English Light 393dp 截图与下方组件区；
+   继续跟踪 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37)
+   计划的周期矩阵和其它交互状态。当前收集的截图仍未获
+   **设计所有者的视觉基准批准**。
 3. 审核视觉差异并明确批准基准，随后更新 DoD 和固定提交的消费方安装记录。
 4. 保留真机/iOS/钱包业务/Mainnet 安全评估为独立未来产品工作；
    不把模拟器成功结果等同于上述验收。
