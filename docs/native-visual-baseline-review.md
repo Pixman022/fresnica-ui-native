@@ -10,12 +10,12 @@
 
 - **320dp / 1.3 / Dark / zh-CN / Stress（修复前）：** [PR #35 运行 #37879358007](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37879358007)，artifact `11593888236`。当时「跟随系统」分成两行。
 - **320dp / 1.3 / Dark / zh-CN / Stress（修复后）：** [PR #45 验收 #37900891035](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37900891035)，artifact `11601878335`。中性 Preview 在窄屏上将视觉标签缩写为「系统」；真实截图与窗口层级确认单行显示，其他两个主题选项仍完整。**工程修复成功，不等于设计负责人已批准正式基准。**
-- **393dp / 1.3 / Light / English / Stress 首屏：** 同一运行，artifact `11593499366`。已经看到英文长文案自然换行。
-- **393dp / 1.3 / Light / English / Stress 滚动组件区：** 同一运行，artifact `11593642602`。有按钮状态、`Header`、`Divider`、`IconButton`、`Skeleton`；长 Header 最多两行并省略，需设计确认。
+- **393dp / 1.3 / Light / English / Stress 首屏：** [PR #35 运行 #37879358007](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37879358007)，artifact `11593499366`。已经看到英文长文案自然换行。
+- **393dp / 1.3 / Light / English / Stress 滚动组件区：** 同一 PR #35 运行，artifact `11593642602`。有按钮状态、`Header`、`Divider`、`IconButton`、`Skeleton`；长 Header 最多两行并省略，需设计确认。
 - **320dp / 1.0 / Light / zh-CN / Stress：** [PR #39 运行 #37889383234](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37889383234)，artifact `11597572552`。
-- **360dp / 1.0 / Dark / zh-CN / Stress：** 同一运行，artifact `11598081033`。
-- **390dp / 1.3 / Light / zh-CN / Stress：** 同一运行，artifact `11598151724`。
-- **430dp / 1.3 / Dark / zh-CN / Stress：** 同一运行，artifact `11597522664`。
+- **360dp / 1.0 / Dark / zh-CN / Stress：** 同一 PR #39 运行，artifact `11598081033`。
+- **390dp / 1.3 / Light / zh-CN / Stress：** 同一 PR #39 运行，artifact `11598151724`。
+- **430dp / 1.3 / Dark / zh-CN / Stress：** 同一 PR #39 运行，artifact `11597522664`。
 
 四组矩阵的已审核首屏没有发现明显横向溢出。但首屏截图不证明所有下方组件、焦点、键盘或 Modal 交互正常，也不代表已获批的参考图。
 
@@ -43,6 +43,19 @@
 项目所有者已明确暂时**保留原品牌绿和浅色按钮文字**。普通按钮白字对比度为 Light **3.06:1**、Dark **2.14:1**，低于 WCAG AA 普通文字 **4.5:1**。详见 [对比度审计](native-contrast-audit.md)。保持配色不等于无障碍豁免，也不允许声明全部 WCAG AA 达标。
 
 本次可审核布局和设计还原一致性，不能在未处理颜色不足的情况下签署色彩无障碍合规声明。
+
+## 与 Web 移动端基线的验收边界
+
+[Web 移动端实施基线](https://github.com/Pixman022/fresnica-ui/blob/main/docs/design-system/mobile-native-baseline.md)
+将 Android TalkBack、键盘、安全区、系统栏、减少动画和动态字体的手工验收列为
+**完整移动端阶段门槛**。当前此仓库的 [阶段一组件库交付计划](ui-library-delivery-plan.md)
+仅把中性 Preview 的模拟器布局及必要交互列入 **DS-09 工程验收**；
+真机 TalkBack、完整焦点顺序、减少动画和产品 App 验收**没有被证明通过**。
+
+这是**两个不同交付范围**，不能以 DS-09 的成功替代 Web 基线所要求的完整移动端验收。
+如需要将交付范围扩展为完整原生客户端的无障碍签核，应单独制定具备
+测试设备、实际用例和人工审核人的后续验收计划，不在此页自动补齐。
+目前 DS-11 只等待布局视觉基准的明确批准，不包含 WCAG AA 或 TalkBack 的批准。
 
 ## 审核决定（待人工填写）
 

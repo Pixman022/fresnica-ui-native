@@ -7,9 +7,13 @@
 - Web 规范源：[Pixman022/fresnica-ui](https://github.com/Pixman022/fresnica-ui)，
   当前 `main@9ad32c41be7eaf96662d2e8bacb1c9f957ba087b`。
 - Native 消费包：[Pixman022/fresnica-ui-native](https://github.com/Pixman022/fresnica-ui-native)，
-  此次工程状态基线 `main@87c3fc92f57c9660fd7d7aa9fa995648a8e4fb5c`。
+  此次工程状态基线 `main@e3cef28c9bb007c52780dc02f4e020dfaf11392b`（本次记录前的验证提交）。
 - 对外交付是 `src/` UI 组件、共享 Token 契约、`example/` 中性 Preview、测试和集成文档。
   `product/` 是保留的历史钱包原型，不属于 UI 库的交付或测试门槛。
+  完整移动客户端的无障碍手工验收仍需遵守
+  [Web 移动端实施基线](https://github.com/Pixman022/fresnica-ui/blob/main/docs/design-system/mobile-native-baseline.md)
+  的单独门槛；本报告的中性 Preview 工程通过记录不替代真实 TalkBack、
+  焦点顺序和真机产品验收。
 
 ## 已完成的工程能力和证据
 
@@ -33,7 +37,7 @@
   安装、宿主类型检查、Web 更新后手动校验 Native CI 的路径。
 - **CI：** 上述 PR 在其最新测试 SHA 的三个 UI 验证工作流已成功。
   截至本报告基线，最新 Native `main` CI
-  [#37899358856](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37899358856) 为成功。
+  [#37902216015](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37902216015) 为成功。
 
 ## 尚未完成，不应关闭的工作
 
