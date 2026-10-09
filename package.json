@@ -29,7 +29,7 @@
     },
     "scripts": {
         "typecheck": "tsc --noEmit",
-        "format:check": "prettier --check .",
+        "format:check": "prettier scripts/assert-keyboard-feedback-above-action.mjs && prettier --check .",
         "generate:tokens": "node scripts/generate-native-token-contract.mjs",
         "validate:tokens": "node scripts/validate-token-source.mjs",
         "test:theme": "node --experimental-strip-types scripts/test-theme.mjs",
