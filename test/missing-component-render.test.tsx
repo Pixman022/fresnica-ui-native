@@ -18,7 +18,7 @@ describe('native component render coverage', () => {
 
     it('renders StateView with localized copy, summary semantics and a caller-provided action', () => {
         const onPress = jest.fn();
-        render(
+        const stateView = render(
             <StateView
                 theme={themes.light}
                 tone="error"
@@ -26,9 +26,9 @@ describe('native component render coverage', () => {
                 description="请重试"
                 action={<Button theme={themes.light} label="重试" onPress={onPress} />}
             />,
-        );
+        ).toJSON();
 
-        expect(screen.getByRole('summary')).toBeTruthy();
+        expect(stateView).toHaveProperty('props.accessibilityRole', 'summary');
         expect(screen.getByText('无法加载')).toBeTruthy();
         expect(screen.getByText('请重试')).toBeTruthy();
         fireEvent.press(screen.getByRole('button', { name: '重试' }));
