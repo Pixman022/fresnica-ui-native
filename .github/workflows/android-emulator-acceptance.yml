@@ -161,6 +161,80 @@ jobs:
                   if-no-files-found: error
                   retention-days: 90
 
+            # Reuse the installed Preview and emulator: no second Android build is needed.
+            # This covers English long copy and the offscreen component gallery without
+            # changing the regular Chinese/Dark PR acceptance baseline.
+            - name: Capture 393dp English Light Stress viewport
+              if: github.event_name == 'pull_request'
+              id: english_top
+              run: |
+                  npm run example:profile -- --width 393 --font-scale 1.3 --theme light
+                  adb shell am force-stop com.fresnicapreview
+                  adb shell monkey -p com.fresnicapreview -c android.intent.category.LAUNCHER 1
+
+                  tap_label() {
+                      for attempt in $(seq 1 45); do
+                          if npm run example:tap-label -- "$1"; then
+                              return 0
+                          fi
+                          sleep 2
+                      done
+                      return 1
+                  }
+
+                  tap_label "Content scenario, Stress"
+                  sleep 2
+                  npm run example:capture
+                  EVIDENCE_DIR=$(find artifacts/android-acceptance -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)
+                  test -n "$EVIDENCE_DIR"
+                  npm run example:verify -- "$EVIDENCE_DIR"
+                  grep -Fq "Fresnica Native Preview" "$EVIDENCE_DIR/window.xml"
+                  grep -Fq "Stress" "$EVIDENCE_DIR/window.xml"
+                  echo "dir=$EVIDENCE_DIR" >> "$GITHUB_OUTPUT"
+
+            - name: Upload 393dp English Light viewport
+              if: github.event_name == 'pull_request'
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-acceptance-${{ github.run_id }}-${{ github.run_attempt }}-393-1.3-light-en-top
+                  path: ${{ steps.english_top.outputs.dir }}
+                  if-no-files-found: error
+                  retention-days: 90
+
+            - name: Capture English shared-component gallery
+              if: github.event_name == 'pull_request'
+              id: english_gallery
+              run: |
+                  # Scroll only within this non-sensitive Preview, stopping as soon as
+                  # the previously offscreen gallery heading is visible.
+                  for attempt in $(seq 1 8); do
+                      adb shell uiautomator dump /sdcard/fresnica-gallery-window.xml >/dev/null
+                      adb exec-out cat /sdcard/fresnica-gallery-window.xml > "$RUNNER_TEMP/fresnica-gallery-window.xml"
+                      if grep -Fq "More shared primitives" "$RUNNER_TEMP/fresnica-gallery-window.xml"; then
+                          break
+                      fi
+                      adb shell input swipe 460 1120 460 360 500
+                      sleep 2
+                  done
+                  grep -Fq "More shared primitives" "$RUNNER_TEMP/fresnica-gallery-window.xml"
+                  adb shell rm -f /sdcard/fresnica-gallery-window.xml
+
+                  npm run example:capture
+                  EVIDENCE_DIR=$(find artifacts/android-acceptance -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)
+                  test -n "$EVIDENCE_DIR"
+                  npm run example:verify -- "$EVIDENCE_DIR"
+                  grep -Fq "More shared primitives" "$EVIDENCE_DIR/window.xml"
+                  echo "dir=$EVIDENCE_DIR" >> "$GITHUB_OUTPUT"
+
+            - name: Upload English shared-component gallery
+              if: github.event_name == 'pull_request'
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-acceptance-${{ github.run_id }}-${{ github.run_attempt }}-393-1.3-light-en-gallery
+                  path: ${{ steps.english_gallery.outputs.dir }}
+                  if-no-files-found: error
+                  retention-days: 90
+
             - name: Capture UI diagnostics on failure
               if: failure()
               run: |
