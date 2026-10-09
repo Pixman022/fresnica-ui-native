@@ -45,8 +45,11 @@ The existing Monday automated matrix is configured to cover:
 
 Additional acceptance work before a complete visual sign-off:
 
-- **393dp**, a larger font scale where available and **English long-copy**
-  states are supported by Preview but not evidenced in this run.
+- **393dp / 1.3 / Light / English / Stress** and a screenshot scrolled to
+  the shared-component gallery are now included in the **PR-triggered** emulator
+  acceptance steps, reusing the existing Android build. These are **pending
+  evidence until a successful workflow run and inspected artifact exist**.
+  The original 320dp / Dark / Simplified Chinese profile is unchanged.
 - Scroll to capture controls below the initial viewport, including the
   added Header, IconButton, Divider and Skeleton examples. The current
   screenshot does **not** show all 15 primitives at once.
