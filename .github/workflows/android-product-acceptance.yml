@@ -74,6 +74,11 @@ jobs:
                   cd ../..
                   node scripts/build-product-android.mjs
 
+            - name: Audit Android product runtime dependencies (report only)
+              working-directory: product/FresnicaWallet
+              continue-on-error: true
+              run: npm audit --omit=dev --audit-level=moderate
+
             - name: Create and start emulator
               run: bash scripts/start-android-emulator-ci.sh
 
