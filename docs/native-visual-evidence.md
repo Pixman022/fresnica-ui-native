@@ -68,20 +68,40 @@ The current Android emulator workflow enforces on relevant UI PRs:
 - **320dp / font scale 1.3 / Dark / zh-CN / Stress** — PR #29 run passed;
   artifact present and reviewed for provenance and the visible first viewport.
 
-The existing Monday automated matrix is configured to cover:
+The four-profile matrix has now been **executed and reviewed** on
+[PR #39](https://github.com/Pixman022/fresnica-ui-native/pull/39) in
+[Android Emulator Acceptance #37889383234](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37889383234):
 
-- **320dp / 1.0 / Light / zh-CN / Stress** — configured; current evidence
-  still to be linked after a successful scheduled run.
-- **360dp / 1.0 / Dark / zh-CN / Stress** — configured; evidence pending.
-- **390dp / 1.3 / Light / zh-CN / Stress** — configured; evidence pending.
-- **430dp / 1.3 / Dark / zh-CN / Stress** — configured; evidence pending.
+- **320dp / 1.0 / Light / zh-CN / Stress** — success; artifact
+  `android-acceptance-37889383234-1-320-1.0-light` (ID `11597572552`).
+- **360dp / 1.0 / Dark / zh-CN / Stress** — success; artifact
+  `android-acceptance-37889383234-1-360-1.0-dark` (ID `11598081033`).
+- **390dp / 1.3 / Light / zh-CN / Stress** — success; artifact
+  `android-acceptance-37889383234-1-390-1.3-light` (ID `11598151724`).
+- **430dp / 1.3 / Dark / zh-CN / Stress** — success; artifact
+  `android-acceptance-37889383234-1-430-1.3-dark` (ID `11597522664`).
 
-The same four profiles can now be **explicitly requested** using the Android
-Emulator Acceptance workflow's `run_matrix: true` manual input or a trusted
-PR whose title begins `[visual-matrix]`; see the
-[emulator acceptance guide](android-emulator-acceptance.md). This does **not**
-change the four pending items above to verified: each needs its actual run,
-artifact ID, source SHA, device metadata and screenshot review first.
+The four jobs and package CI completed successfully for PR head
+`1c83f81fa7d71a9efd53000e7120c0b1b9f0e814`. All four ZIPs were
+downloaded and checked to contain `device.json`, `screenshot.png`,
+`window.xml` and `manifest.json`. Each reported the same clean test
+checkout `72c25c7ce62a624bb81e420dc5a5fa3902619107`, Android
+15/API 35 and physical density 420dpi. Screenshot widths match the declared
+dp profiles, font scales and Light/Dark night modes; in-app Simplified
+Chinese and Stress labels appear in each UI hierarchy.
+
+Screenshots were visually inspected: error-supporting text and long row
+content wrap without obvious horizontal overflow **within the initial
+viewport** at the four sizes. Parts of the scrolling content lie below
+the viewport, so these screenshots do **not** independently verify the
+complete page, keyboard visibility, modal dismissal or focus order.
+The PR was squash-merged as
+`4cacbd0b2d458619d460d9f30ab5d4944d19fdda`.
+
+The existing Monday schedule remains in place. To run the same profiles
+on demand, use `run_matrix: true` or a trusted PR title beginning
+`[visual-matrix]`; see the
+[emulator acceptance guide](android-emulator-acceptance.md).
 
 Additional acceptance work before a complete visual sign-off:
 
@@ -117,12 +137,13 @@ Additional acceptance work before a complete visual sign-off:
 
 ## Next acceptance action
 
-Link the next successful scheduled four-profile matrix artifacts to
-[Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37)
-and this document. Continue to review offscreen component interaction states,
-keyboard/modal behavior and consistent Web/Native semantics. Until the
-pending configurations and a design-owner-approved baseline are available,
-DS-09 and DS-11 remain **open**; DS-10 documents repeatable evidence,
-not complete visual or WCAG AA acceptance. The owner has chosen to retain
-the original brand greens and light button text for now; see the
-[documented contrast gaps](native-contrast-audit.md).
+The four previously missing size/theme profiles now have verified,
+reviewed first-viewport artifacts and are recorded in
+[Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37).
+Next, finish emulator-level modal/keyboard and below-fold interaction
+inspection, and obtain design-owner approval of fixed visual references.
+DS-09 remains **partially open** for those interactions; DS-11 remains
+**open** pending explicit visual-baseline approval. Evidence collection
+does not imply complete WCAG AA compliance: the owner has chosen to
+retain the original brand greens and light button text, with the
+[known contrast gaps](native-contrast-audit.md) documented.
