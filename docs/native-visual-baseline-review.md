@@ -8,7 +8,8 @@
 
 ## 待审的真实截图
 
-- **320dp / 1.3 / Dark / zh-CN / Stress：** [PR #35 运行 #37879358007](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37879358007)，artifact `11593888236`。需要决定极窄屏下 `System` 主题分段选项换行是否符合预期。
+- **320dp / 1.3 / Dark / zh-CN / Stress（修复前）：** [PR #35 运行 #37879358007](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37879358007)，artifact `11593888236`。当时「跟随系统」分成两行。
+- **320dp / 1.3 / Dark / zh-CN / Stress（修复后）：** [PR #45 验收 #37900891035](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37900891035)，artifact `11601878335`。中性 Preview 在窄屏上将视觉标签缩写为「系统」；真实截图与窗口层级确认单行显示，其他两个主题选项仍完整。**工程修复成功，不等于设计负责人已批准正式基准。**
 - **393dp / 1.3 / Light / English / Stress 首屏：** 同一运行，artifact `11593499366`。已经看到英文长文案自然换行。
 - **393dp / 1.3 / Light / English / Stress 滚动组件区：** 同一运行，artifact `11593642602`。有按钮状态、`Header`、`Divider`、`IconButton`、`Skeleton`；长 Header 最多两行并省略，需设计确认。
 - **320dp / 1.0 / Light / zh-CN / Stress：** [PR #39 运行 #37889383234](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37889383234)，artifact `11597572552`。
@@ -24,12 +25,13 @@
 - **PR #35：** head `d43fd3878945de1ee5f662d7609a5847b46da6d4`；Actions checkout `20c8d4dba8f3e78b3e58b9334db2ef3d999a8fac`；squash commit `2519eb6b7795ccac4203310a80e2bd1baf81b0a4`。
 - **PR #39：** head `1c83f81fa7d71a9efd53000e7120c0b1b9f0e814`；Actions checkout `72c25c7ce62a624bb81e420dc5a5fa3902619107`；squash commit `4cacbd0b2d458619d460d9f30ab5d4944d19fdda`。
 - **PR #42 交互：** [模拟器 #37896975342](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37896975342)，head `b0ad718db2d754ac75efe8f1dec339256a765f95`；Actions checkout `4c1f5575768878d2b73ac2256b22a8df724dabd5`；squash commit `87c3fc92f57c9660fd7d7aa9fa995648a8e4fb5c`。对应 Modal/键盘工件 ID：`11600614336`、`11600494850`、`11601495636`、`11601405854`。
+- **PR #45 窄屏主题标签：** [模拟器 #37900891035](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37900891035)，head `a81a15a2a91eb76d1e91ae6b52f527243543fff5`；Actions checkout `bc110766630b83bbe42c190f84c3ee1d1e8eeac2`；squash commit `cd4a171c065df4cf83ad2cc16e1c06161d3c30c7`。320dp 修复后 artifact `11601878335`；CI、Android Preview、模拟器验收均通过。
 - **工件内容：** 每份均有 `device.json`、`screenshot.png`、`window.xml`、`manifest.json`；GitHub Actions 通常保留 90 天，不宜仅凭临时工件作为长期 Golden Baseline。
 
 ## 设计负责人逐项审查
 
 - [ ] 对照 Web 语义设计规则，逐张确认布局密度、内边距、文字层级、组件间距和系统栏。
-- [ ] 判断 320dp 下 `System` 分段选项换行是否可接受。
+- [ ] 对比旧版 320dp「跟随系统」两行与 [PR #45](https://github.com/Pixman022/fresnica-ui-native/pull/45) 修复后「系统」单行，确认缩写是否符合设计语言。工程已复核单行显示；**设计负责人批准仍待填写**。
 - [ ] 判断 393dp 英文 `Header` 的两行截断是否符合设计规则。
 - [ ] 确认按钮默认、禁用、加载、错误提示与状态色在实际截图中的视觉关系。
 - [ ] 设计负责人审阅下方组件与交互差异。工程侧 [PR #42](https://github.com/Pixman022/fresnica-ui-native/pull/42) 已在真实模拟器验证弹窗 Android Back 关闭、键盘打开后按钮可见且可点击；但一般焦点顺序与 TalkBack 未验证，操作反馈文案也并未在键盘打开时完整可见。
