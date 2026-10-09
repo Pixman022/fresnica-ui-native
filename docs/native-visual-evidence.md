@@ -154,6 +154,36 @@ This verifies the phase-one **scripted Preview interactions**, not
 general focus-navigation order, real-device TalkBack, physical-keyboard
 navigation, design-owner-approved Golden Baselines, or WCAG AA compliance.
 
+## PR #45 320dp Chinese System-theme label refinement
+
+[PR #45](https://github.com/Pixman022/fresnica-ui-native/pull/45) changed
+only the neutral Preview's 320dp Chinese *visual* theme label from
+**跟随系统** to **系统**. Wider Chinese screens retain the original text,
+English remains **System**, and the shared `SegmentedControl`, colors,
+spacing tokens, and 44dp touch targets are unchanged.
+
+- **Before**: [PR #35 emulator run #37879358007](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37879358007),
+  artifact `11593888236`, shows the four-character text split after
+  `跟随系`.
+- **After**: [PR #45 emulator run #37900891035](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37900891035),
+  artifact `11601878335`, shows the two-character label **系统**
+  entirely on one line, with **浅色** and **深色** still intact.
+- Exact PR head `a81a15a2a91eb76d1e91ae6b52f527243543fff5`;
+  clean checkout `bc110766630b83bbe42c190f84c3ee1d1e8eeac2`;
+  squash merge `cd4a171c065df4cf83ad2cc16e1c06161d3c30c7`.
+- Same capture profile: Android 15/API 35, 420dpi, 320 × 569dp,
+  fontScale 1.3, Dark, in-app zh-CN / Stress; `device.json`,
+  `screenshot.png`, `window.xml`, `manifest.json` inspected.
+  `window.xml` contains accessibility label `主题, 系统`.
+- CI, Android Preview and Android Emulator Acceptance all completed
+  successfully on the same PR head. The emulator run also repeated
+  English/Light gallery, modal/back and keyboard-button interaction checks.
+
+The screenshot confirms a **layout improvement**, not a new Golden Baseline.
+Design-owner acceptance of the concise label and full visual parity still
+requires an explicit decision; this evidence does not waive known contrast
+or TalkBack gaps.
+
 ## Baseline policy
 
 1. A verified screenshot bundle is **evidence**, not automatic proof of visual
