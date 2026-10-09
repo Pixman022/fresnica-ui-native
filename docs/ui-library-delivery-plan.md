@@ -70,7 +70,7 @@
 
 **验收**：新消费方有可执行的安装步骤；可复现 `npm test`、Token 同步检查和 `npm run build`；说明不包含的产品功能。
 
-> 进度记录（2026-10-09）：DS-01/02/03 已通过 PR #26/#27 和 Issue #21/#22 的范围说明完成；DS-04 的 Web→Native 完整映射检查及 DS-05 的可复现对比度**审计能力**已通过 PR #30，DS-06 的布局 Token 规范化已通过 PR #32，三项均在最新 SHA 的 CI、Android Preview 与模拟器验收成功后合并。**DS-05 勾选代表测量和记录已完成，不代表按钮、状态字色与边框的所有组合均满足 WCAG；设计修正尚未获得批准。** DS-07/08 的 15 个组件测试和 Preview 已由 PR #29 合并；DS-12/13 的固定提交打包安装指南和手动 Token 校验由 PR #31 合并。DS-10 已建立 [模拟器证据与验收矩阵](native-visual-evidence.md)，；DS-09 的限定工程验收已通过，DS-11 的正式视觉基准仍未批准。DS-14 的[工程交接状态报告](ui-library-phase-one-status.md)与仓库[内部变更记录](../CHANGELOG.md)已交付；原配色已按用户决定保持，正式视觉基准及 WCAG 符合性**尚未获得批准**。DS-09/11 继续由 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37) 跟踪，PR #35 提供实测 393dp 英文浅色首屏和下方组件区证据；PR #39 的四组按需模拟器矩阵已全部通过并核对截图，PR #40 已加强 Modal 返回与滚动键盘配置的组件单测。PR #42 补齐模拟器级弹窗/键盘点击证据，仍缺焦点无障碍专门验收和设计基准审批。
+> 进度记录（2026-10-09）：DS-01/02/03 已通过 PR #26/#27 和 Issue #21/#22 的范围说明完成；DS-04 的 Web→Native 完整映射检查及 DS-05 的可复现对比度**审计能力**已通过 PR #30，DS-06 的布局 Token 规范化已通过 PR #32，三项均在最新 SHA 的 CI、Android Preview 与模拟器验收成功后合并。**DS-05 勾选代表测量和记录已完成，不代表按钮、状态字色与边框的所有组合均满足 WCAG；设计修正尚未获得批准。** DS-07/08 的 15 个组件测试和 Preview 已由 PR #29 合并；DS-12/13 的固定提交打包安装指南和手动 Token 校验由 PR #31 合并。DS-10 已建立 [模拟器证据与验收矩阵](native-visual-evidence.md)；DS-09 的限定工程验收已通过，DS-11 的正式视觉基准仍未批准。DS-14 的[工程交接状态报告](ui-library-phase-one-status.md)与仓库[内部变更记录](../CHANGELOG.md)已交付；原配色已按用户决定保持，正式视觉基准及 WCAG 符合性**尚未获得批准**。DS-11 与尚未覆盖的无障碍事项继续由 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37) 跟踪，PR #35 提供实测 393dp 英文浅色首屏和下方组件区证据；PR #39 的四组按需模拟器矩阵已全部通过并核对截图，PR #40 已加强 Modal 返回与滚动键盘配置的组件单测。PR #42 补齐模拟器级弹窗/键盘点击证据，仍缺焦点无障碍专门验收和设计基准审批。
 
 已按用户决定维持原品牌绿和白色按钮文字，不调整 Web/Native 共享 Token。对比度不足与历史候选色值只作为[设计记录](native-primary-button-color-review.md)，不是本轮视觉变更授权。
 
