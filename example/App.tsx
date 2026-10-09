@@ -164,7 +164,7 @@ export default function App() {
                                 {labels.subtitle}
                             </Typography>
                         </View>
-    
+
                         <View style={styles.section}>
                             <Typography theme={theme} variant="sectionTitle">
                                 {labels.environment}
@@ -174,7 +174,7 @@ export default function App() {
                                 {theme.mode}
                             </Typography>
                         </View>
-    
+
                         <View style={styles.section}>
                             <SegmentedControl
                                 theme={theme}
@@ -208,7 +208,7 @@ export default function App() {
                                 ]}
                             />
                         </View>
-    
+
                         <View style={styles.section}>
                             <Field
                                 theme={theme}
@@ -234,14 +234,14 @@ export default function App() {
                                 tone={stress ? 'error' : 'info'}
                             />
                         </View>
-    
+
                         <View style={styles.section}>
                             <Typography theme={theme} variant="sectionTitle">
                                 {labels.progress}
                             </Typography>
                             <Progress theme={theme} value={0.64} accessibilityLabel={labels.progress} />
                         </View>
-    
+
                         <View style={styles.section}>
                             <Typography theme={theme} variant="sectionTitle">
                                 {labels.componentStates}
@@ -250,7 +250,7 @@ export default function App() {
                             <Button theme={theme} label={labels.disabledAction} disabled />
                             <Button theme={theme} label={labels.loadingAction} loading />
                         </View>
-    
+
                         <View style={styles.section}>
                             <Typography theme={theme} variant="sectionTitle">
                                 {labels.otherComponents}
@@ -275,14 +275,16 @@ export default function App() {
                                 <InlineMessage theme={theme} tone="success" message={labels.iconFeedback} />
                             ) : null}
                         </View>
-    
+
                         <StateView
                             theme={theme}
                             title={labels.emptyTitle}
                             description={labels.emptyDescription}
-                            action={<Button theme={theme} label={labels.modalOpen} onPress={() => setModalVisible(true)} />}
+                            action={
+                                <Button theme={theme} label={labels.modalOpen} onPress={() => setModalVisible(true)} />
+                            }
                         />
-    
+
                         <View style={styles.section}>
                             <Typography theme={theme} variant="sectionTitle">
                                 {labels.keyboardTitle}
@@ -304,7 +306,7 @@ export default function App() {
                                 <InlineMessage theme={theme} tone="success" message={labels.keyboardFeedback} />
                             ) : null}
                         </View>
-    
+
                         <Modal
                             theme={theme}
                             visible={modalVisible}
