@@ -111,13 +111,48 @@ Additional acceptance work before a complete visual sign-off:
 - The gallery screenshot includes Header, IconButton, Divider and Skeleton
   but does **not** display every one of the 15 primitives at once, and
   deliberate Header truncation still needs visual-baseline approval.
-- Check error/disabled/loading/selected/pressed states, focus and keyboard
-  accessibility through the host, including modal dismissal. An APK build
-  and a top-viewport screenshot alone do not prove these visually.
+- The PR #42 Android emulator now verifies modal Back dismissal and
+  keyboard-open button click with before/after evidence. **General focus
+  navigation** and real TalkBack remain unverified; an APK screenshot
+  alone cannot establish their spoken order.
 - Compare the same theme and semantic roles against the approved Web
   design-system baseline, noting Native platform override reasons.
 - Real TalkBack and physical-device safe-area/keyboard behavior remain
   explicitly outside this phase-one evidence.
+
+## PR #42 verified emulator interactions
+
+The neutral Preview's keyboard occlusion was reproduced, then corrected in
+[PR #42](https://github.com/Pixman022/fresnica-ui-native/pull/42)
+without changing shared Native components or brand colors.
+[Android Emulator Acceptance #37896975342](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37896975342)
+and both package CI and Android Preview passed at head
+`b0ad718db2d754ac75efe8f1dec339256a765f95`.
+Clean Actions checkout: `4c1f5575768878d2b73ac2256b22a8df724dabd5`;
+squash merge: `87c3fc92f57c9660fd7d7aa9fa995648a8e4fb5c`.
+
+Seven distinct non-expired ZIP bundles were downloaded. Each contained
+`device.json`, `screenshot.png`, `window.xml`, and `manifest.json`;
+all report the same clean source checkout. On Android 15/API 35 and 420dpi,
+fontScale 1.3, Light/English, the interactive captures show:
+
+- **Modal open**: artifact `11600614336`, actual dialog titled
+  `Preview modal` visible in screenshot/hierarchy.
+- **Android Back dismissal**: artifact `11600494850`, dialog absent
+  after sending `KEYCODE_BACK`; the original `Open modal` action returns.
+- **IME plus button before tap**: artifact `11601495636`, soft keyboard
+  visible and the complete `Primary action below keyboard field`
+  is now visibly **above** it (UI node bounds `[42,883][990,1009]`).
+- **Actual tap and feedback**: artifact `11601405854`, real emulator
+  click succeeds and `Keyboard action was pressed` appears in the
+  hierarchy. The feedback text itself is partly obscured at the bottom
+  of this screenshot, so its full **visual readability is not certified**.
+- Existing Chinese/Dark first view `11600413203`, English/Light first
+  view `11601395724` and scrolled gallery `11601525300` also passed.
+
+This verifies the phase-one **scripted Preview interactions**, not
+general focus-navigation order, real-device TalkBack, physical-keyboard
+navigation, design-owner-approved Golden Baselines, or WCAG AA compliance.
 
 ## Baseline policy
 
@@ -140,10 +175,11 @@ Additional acceptance work before a complete visual sign-off:
 The four previously missing size/theme profiles now have verified,
 reviewed first-viewport artifacts and are recorded in
 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37).
-Next, finish emulator-level modal/keyboard and below-fold interaction
-inspection, and obtain design-owner approval of fixed visual references.
-DS-09 remains **partially open** for those interactions; DS-11 remains
-**open** pending explicit visual-baseline approval. Evidence collection
+The scoped emulator Back/keyboard interactions now have reviewed evidence
+from PR #42. DS-09 engineering acceptance is complete, but real TalkBack
+and general focus order have **not** been tested and must not be assumed.
+Next, obtain design-owner approval of fixed visual references. DS-11 remains
+**open** pending explicit visual-baseline sign-off. Evidence collection
 does not imply complete WCAG AA compliance: the owner has chosen to
 retain the original brand greens and light button text, with the
 [known contrast gaps](native-contrast-audit.md) documented.
