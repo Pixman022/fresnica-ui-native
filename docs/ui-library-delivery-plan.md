@@ -9,7 +9,7 @@
 - 复核基线：Web `main@9ad32c41be7eaf96662d2e8bacb1c9f957ba087b`；Native `main@1973007f6f019793473e0752aa81019f2df34671`。
 - 已有能力：两仓库 MIT 许可；Web 48 个组件与三层 Token；Native 独立包、15 个共享组件、Light/Dark/System 解析、Token 生成和来源校验、Jest、Android Preview 及模拟器验收。
 - 已解决的历史阻塞：商业使用许可、Web 组件不能直接作为 RN 组件使用、第一阶段共享 Token 的平台输出、基础国际化注入。
-- 当前遗留限制：15 个 Native 组件的基础测试、Preview 展示、Token 对比度检测和消费者安装说明已补齐；还缺四组周期模拟器证据、完整组件交互检查及正式批准的视觉基准。原品牌配色当前保持不变，已记录的文字对比度短板不视为达标。
+- 当前遗留限制：15 个 Native 组件的基础测试、Preview 展示、Token 对比度检测、消费者安装说明及四组模拟器尺寸/主题首屏证据已补齐；仍缺模拟器级键盘/弹窗/焦点交互验收及正式批准的视觉基准。原品牌配色保持不变，已有文字对比度短板不视为达标。
 - 限定：已有 Android 自动化验证并不等于真机 TalkBack、键盘、安全区或未来钱包产品验收通过。
 
 ## 2. 产品边界与交付物
@@ -51,7 +51,7 @@
 
 - [x] **DS-07**：补齐全部 15 个组件的最基本直接渲染测试。当前 `test/components.test.tsx` 没有直接测试 `Divider` 和 `StateView`；优先补足，再覆盖适用的状态、无障碍属性及回调。
 - [x] **DS-08**：扩展 `example/`，让所有 15 个已导出组件都有可见、可操作或可检查的示例；补齐目前未展示的 `Header`、`IconButton`、`Divider`、`Skeleton`。
-- [ ] **DS-09**：执行窄屏 320dp、常见尺寸、Light/Dark、英文/简体中文长文案与较大字体的回归检查；复用现有 Android Preview/Emulator Acceptance，不以产品 App 为宿主。
+- [ ] **DS-09**：执行窄屏 320dp、常见尺寸、Light/Dark、英文/简体中文长文案与较大字体的回归检查；复用现有 Android Preview/Emulator Acceptance，不以产品 App 为宿主。**四组尺寸/主题首屏已通过 PR #39；还需完成必要的模拟器级交互检查才能关闭任务。**
 
 **验收**：导出组件清单、渲染测试矩阵和 Preview 清单一一对应；CI、Android Preview 与受影响的模拟器验收通过；无新增业务依赖。
 
@@ -70,7 +70,7 @@
 
 **验收**：新消费方有可执行的安装步骤；可复现 `npm test`、Token 同步检查和 `npm run build`；说明不包含的产品功能。
 
-> 进度记录（2026-10-09）：DS-01/02/03 已通过 PR #26/#27 和 Issue #21/#22 的范围说明完成；DS-04 的 Web→Native 完整映射检查及 DS-05 的可复现对比度**审计能力**已通过 PR #30，DS-06 的布局 Token 规范化已通过 PR #32，三项均在最新 SHA 的 CI、Android Preview 与模拟器验收成功后合并。**DS-05 勾选代表测量和记录已完成，不代表按钮、状态字色与边框的所有组合均满足 WCAG；设计修正尚未获得批准。** DS-07/08 的 15 个组件测试和 Preview 已由 PR #29 合并；DS-12/13 的固定提交打包安装指南和手动 Token 校验由 PR #31 合并。DS-10 已建立 [模拟器证据与验收矩阵](native-visual-evidence.md)，但 DS-09/11 的多配置视觉验收和已批准基准仍未完成。DS-14 的[工程交接状态报告](ui-library-phase-one-status.md)与仓库[内部变更记录](../CHANGELOG.md)已交付；原配色已按用户决定保持，正式视觉基准及 WCAG 符合性**尚未获得批准**。DS-09/11 继续由 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37) 跟踪，PR #35 已提供实测 393dp 英文浅色首屏及下方组件区证据；其余四组周期矩阵仍待运行与审阅。
+> 进度记录（2026-10-09）：DS-01/02/03 已通过 PR #26/#27 和 Issue #21/#22 的范围说明完成；DS-04 的 Web→Native 完整映射检查及 DS-05 的可复现对比度**审计能力**已通过 PR #30，DS-06 的布局 Token 规范化已通过 PR #32，三项均在最新 SHA 的 CI、Android Preview 与模拟器验收成功后合并。**DS-05 勾选代表测量和记录已完成，不代表按钮、状态字色与边框的所有组合均满足 WCAG；设计修正尚未获得批准。** DS-07/08 的 15 个组件测试和 Preview 已由 PR #29 合并；DS-12/13 的固定提交打包安装指南和手动 Token 校验由 PR #31 合并。DS-10 已建立 [模拟器证据与验收矩阵](native-visual-evidence.md)，但 DS-09 的完整交互验收和 DS-11 的正式视觉基准仍未完成。DS-14 的[工程交接状态报告](ui-library-phase-one-status.md)与仓库[内部变更记录](../CHANGELOG.md)已交付；原配色已按用户决定保持，正式视觉基准及 WCAG 符合性**尚未获得批准**。DS-09/11 继续由 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37) 跟踪，PR #35 提供实测 393dp 英文浅色首屏和下方组件区证据；PR #39 的四组按需模拟器矩阵已全部通过并核对截图，PR #40 已加强 Modal 返回与滚动键盘配置的组件单测。仍需模拟器级弹窗/键盘、焦点与设计基准审批。
 
 已按用户决定维持原品牌绿和白色按钮文字，不调整 Web/Native 共享 Token。对比度不足与历史候选色值只作为[设计记录](native-primary-button-color-review.md)，不是本轮视觉变更授权。
 
