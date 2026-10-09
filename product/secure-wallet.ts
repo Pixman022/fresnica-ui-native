@@ -4,6 +4,7 @@ import {
     createTestnetWalletMaterial,
     importTestnetWalletMaterial,
     signTestnetTransactionXdr as signXdr,
+    type TestnetPaymentIntent,
     type WalletAccountMetadata,
     type WalletSecretMaterial,
 } from './wallet-core';
@@ -89,6 +90,7 @@ export async function deleteTestnetWallet(): Promise<void> {
 
 export async function signTestnetTransactionXdr(
     transactionXdr: string,
+    intent: TestnetPaymentIntent,
     authenticationPrompt = defaultAuthenticationPrompt,
 ): Promise<string> {
     const credentials = await Keychain.getGenericPassword({
@@ -99,5 +101,5 @@ export async function signTestnetTransactionXdr(
         throw new Error('Local signing key is unavailable.');
     }
 
-    return signXdr(transactionXdr, credentials.password);
+    return signXdr(transactionXdr, credentials.password, intent);
 }

@@ -16,6 +16,11 @@ export type WalletSecretMaterial = WalletAccountMetadata & {
     secret: string;
 };
 
+export type TestnetPaymentIntent = {
+    destinationPublicKey: string;
+    amount: string;
+};
+
 const MAX_STROOPS = 9_223_372_036_854_775_807n;
 const STROOPS_PER_XLM = 10_000_000n;
 
@@ -58,12 +63,38 @@ export function importTestnetWalletMaterial(secretInput: string): WalletSecretMa
     };
 }
 
-export function signTestnetTransactionXdr(transactionXdr: string, secret: string): string {
+function xlmToStroops(amountInput: string): bigint {
+    const [whole, fraction = ''] = validateXlmAmount(amountInput).split('.');
+    return BigInt(whole) * STROOPS_PER_XLM + BigInt(fraction.padEnd(7, '0') || '0');
+}
+
+export function signTestnetTransactionXdr(
+    transactionXdr: string,
+    secret: string,
+    intent: TestnetPaymentIntent,
+): string {
     const keypair = Keypair.fromSecret(secret);
     const transaction = TransactionBuilder.fromXDR(transactionXdr, TESTNET_NETWORK.passphrase);
 
     if (!('source' in transaction) || transaction.source !== keypair.publicKey()) {
         throw new Error('Transaction source does not match the local wallet.');
+    }
+    if (!('operations' in transaction) || transaction.operations.length !== 1) {
+        throw new Error('Only a single native XLM payment can be signed.');
+    }
+
+    const payment = transaction.operations[0];
+    if (
+        payment.type !== 'payment' ||
+        (payment.source !== undefined && payment.source !== keypair.publicKey()) ||
+        !payment.asset.isNative() ||
+        payment.destination !== intent.destinationPublicKey ||
+        xlmToStroops(payment.amount) !== xlmToStroops(intent.amount)
+    ) {
+        throw new Error('Transaction does not match the reviewed Testnet payment.');
+    }
+    if (transaction.fee !== BASE_FEE) {
+        throw new Error('Transaction fee differs from the approved Testnet fee.');
     }
 
     transaction.sign(keypair);

@@ -414,10 +414,11 @@ function TransferScreen() {
         setBusy(true);
         setFailed(false);
         try {
-            const signedXdr = await signTestnetTransactionXdr(prepared.unsignedXdr, {
-                title: labels.authenticateWallet,
-                cancel: labels.cancel,
-            });
+            const signedXdr = await signTestnetTransactionXdr(
+                prepared.unsignedXdr,
+                { destinationPublicKey: prepared.destinationPublicKey, amount: prepared.amount },
+                { title: labels.authenticateWallet, cancel: labels.cancel },
+            );
             const hash = await submitSignedTestnetTransactionXdr(signedXdr);
             setTransactionHash(hash);
         } catch {
