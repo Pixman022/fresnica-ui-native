@@ -33,6 +33,7 @@ const copy = {
         languageGroup: 'Language',
         scenarioGroup: 'Content scenario',
         system: 'System',
+        systemCompact: 'System',
         light: 'Light',
         dark: 'Dark',
         english: 'English',
@@ -86,6 +87,7 @@ const copy = {
         languageGroup: '语言',
         scenarioGroup: '内容场景',
         system: '跟随系统',
+        systemCompact: '系统',
         light: '浅色',
         dark: '深色',
         english: 'English',
@@ -143,6 +145,7 @@ export default function App() {
     const [iconActionActive, setIconActionActive] = useState(false);
 
     const labels = copy[locale];
+    const systemSegmentLabel = width <= 320 ? labels.systemCompact : labels.system;
     const stress = scenario === 'stress';
     const resolvedSystemMode = systemScheme === 'dark' ? 'dark' : 'light';
     const theme = useMemo(() => resolveTheme(mode, resolvedSystemMode), [mode, resolvedSystemMode]);
@@ -182,7 +185,7 @@ export default function App() {
                                 selectedKey={mode}
                                 onChange={(key) => setMode(key as ThemeMode)}
                                 segments={[
-                                    { key: 'system', label: labels.system },
+                                    { key: 'system', label: systemSegmentLabel },
                                     { key: 'light', label: labels.light },
                                     { key: 'dark', label: labels.dark },
                                 ]}
