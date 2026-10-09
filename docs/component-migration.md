@@ -11,6 +11,20 @@ application. It does not own wallet features.
 contracts define props, visual states, callbacks, accessibility roles and
 minimum-width behavior. Product copy and business state are injected by the host app.
 
+## Current readiness verdict — 2026-10-09
+
+The [five-page coverage review](wallet-ui-component-coverage.md) maps the current Web
+Wallet Home, Transfer, Activity, Settings and Swap examples to these primitives. No
+shared primitive is currently required to start wallet UI integration.
+
+- Search remains composable with `Field.leading`; Home exposes a search entry action,
+  while Activity is the only reviewed inline search field, so `SearchField` does not yet
+  meet the two-Feature promotion rule.
+- `Field` already supports `secureTextEntry`, `autoCapitalize` and `autoCorrect`;
+  no current Web Import/Unlock example exists, so `SecureField` is not justified yet.
+- Wallet asset rows, transaction rows, amount panels and selectors remain Feature-local.
+- Image-derived theming is not required for the current product direction.
+
 ## Next candidates
 
 | Candidate                     | Recommendation                     | Entry criteria                                                             |
