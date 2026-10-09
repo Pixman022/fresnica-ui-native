@@ -176,7 +176,7 @@ describe('native components', () => {
         expect(onRequestClose).toHaveBeenCalledTimes(1);
     });
 
-    it('reports selected SegmentedControl tab and changes selection' () => {
+    it('reports selected SegmentedControl tab and changes selection', () => {
         const onChange = jest.fn();
         render(
             <SegmentedControl
