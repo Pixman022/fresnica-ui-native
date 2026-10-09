@@ -67,8 +67,4 @@ The smoke check proves:
 - invalid Stellar secret seeds are rejected;
 - zero, negative and values with more than seven XLM decimal places are rejected.
 
-Native CI and Android Product Acceptance also report npm dependency advisories for the root
-workspace and generated product host. These audit steps are non-blocking: a green CI run does not
-mean the dependencies are free of vulnerabilities or that release security review is complete.
-
 Biometric/passcode prompts and secure-store behavior still require physical-device acceptance.
