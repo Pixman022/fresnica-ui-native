@@ -161,6 +161,10 @@ jobs:
                   npm run example:verify -- "$EVIDENCE_DIR"
                   grep -Fq "Fresnica 原生预览" "$EVIDENCE_DIR/window.xml"
                   grep -Fq "压力测试" "$EVIDENCE_DIR/window.xml"
+                  # Narrow Chinese theme labels should not wrap at 320dp.
+                  if [ "$ACCEPTANCE_WIDTH" = 320 ]; then
+                      grep -Fq "主题, 系统" "$EVIDENCE_DIR/window.xml"
+                  fi
                   echo "dir=$EVIDENCE_DIR" >> "$GITHUB_OUTPUT"
 
             - name: Upload acceptance evidence
@@ -576,6 +580,10 @@ jobs:
                   npm run example:verify -- "$EVIDENCE_DIR"
                   grep -Fq "Fresnica 原生预览" "$EVIDENCE_DIR/window.xml"
                   grep -Fq "压力测试" "$EVIDENCE_DIR/window.xml"
+                  # Narrow Chinese theme labels should not wrap at 320dp.
+                  if [ "$ACCEPTANCE_WIDTH" = 320 ]; then
+                      grep -Fq "主题, 系统" "$EVIDENCE_DIR/window.xml"
+                  fi
                   echo "dir=$EVIDENCE_DIR" >> "$GITHUB_OUTPUT"
 
             - name: Upload acceptance evidence
