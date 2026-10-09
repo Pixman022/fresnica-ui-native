@@ -23,7 +23,7 @@ accessibility label.
 
 ## Automated cadence
 
-Pull requests keep the core acceptance profile only so review feedback stays focused and
+Ordinary pull requests keep the core acceptance profile so review feedback stays focused and
 reasonably fast:
 
 - 320dp
@@ -32,24 +32,33 @@ reasonably fast:
 - Simplified Chinese
 - Stress scenario
 
-A scheduled regression runs every Monday at 09:00 UTC with four profiles:
+A four-profile regression runs every Monday at 09:00 UTC (and can be requested on demand):
 
 - 320dp / 1.0 / Light
 - 360dp / 1.0 / Dark
 - 390dp / 1.3 / Light
 - 430dp / 1.3 / Dark
 
-The scheduled jobs run independently with `fail-fast: false`, so one failing profile does
-not hide results from the other profiles.
+The matrix jobs run independently with `fail-fast: false`, so one failing profile
+does not hide results from the other profiles.
 
-`workflow_dispatch` can also run one manually selected profile. Supported inputs are:
+To run **all four configurations before the next Monday**:
 
-- width: 320, 360, 390, 393 or 430dp
-- font scale: 1.0 or 1.3
-- theme: Light or Dark
+- From GitHub Actions, run **Android Emulator Acceptance** using
+  `workflow_dispatch` and select `run_matrix: true`; width, font scale and
+  theme inputs are ignored in this mode.
+- Or open an in-repository PR whose title starts with `[visual-matrix]`.
+  Only PRs whose head is in this same repository may opt in this way.
+  The PR CI still runs; the normal single-profile acceptance job is skipped
+  to avoid building the same app a fifth time.
+- Leave `run_matrix` unchecked to run a single manually selected profile.
+  Inputs: width 320/360/390/393/430dp; font scale 1.0/1.3; theme Light/Dark.
 
-The language and content scenario remain Simplified Chinese + Stress so manually selected
-display profiles stay comparable with PR and scheduled evidence.
+The four-profile path preserves the existing Monday schedule and the ordinary
+PR acceptance checks. Its UI language/content scenario remains Simplified
+Chinese + Stress so screenshots can be compared across configurations.
+Inspect all four uploaded artifact bundles for the **same workflow run** before
+marking DS-09 evidence collected; a successful build alone is insufficient.
 
 ## Additional PR evidence: English and lower-screen gallery
 

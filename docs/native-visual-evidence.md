@@ -76,6 +76,13 @@ The existing Monday automated matrix is configured to cover:
 - **390dp / 1.3 / Light / zh-CN / Stress** — configured; evidence pending.
 - **430dp / 1.3 / Dark / zh-CN / Stress** — configured; evidence pending.
 
+The same four profiles can now be **explicitly requested** using the Android
+Emulator Acceptance workflow's `run_matrix: true` manual input or a trusted
+PR whose title begins `[visual-matrix]`; see the
+[emulator acceptance guide](android-emulator-acceptance.md). This does **not**
+change the four pending items above to verified: each needs its actual run,
+artifact ID, source SHA, device metadata and screenshot review first.
+
 Additional acceptance work before a complete visual sign-off:
 
 - **393dp / 1.3 / Light / English / Stress**, including the below-fold

@@ -33,6 +33,11 @@ on:
                 default: dark
                 type: choice
                 options: [light, dark]
+            run_matrix:
+                description: Run the full four-profile visual matrix instead of one profile
+                required: false
+                default: false
+                type: boolean
     schedule:
         - cron: '0 9 * * 1'
 
@@ -41,7 +46,12 @@ permissions:
 
 jobs:
     acceptance:
-        if: github.event_name != 'schedule'
+        if: >-
+            github.event_name != 'schedule' &&
+            !(github.event_name == 'workflow_dispatch' && inputs.run_matrix) &&
+            !(github.event_name == 'pull_request' &&
+              github.event.pull_request.head.repo.full_name == github.repository &&
+              startsWith(github.event.pull_request.title, '[visual-matrix]'))
         runs-on: ubuntu-latest
         timeout-minutes: 45
         env:
@@ -265,7 +275,13 @@ jobs:
                   timeout 20 adb logcat -d -t 200 || true
 
     weekly-matrix:
-        if: github.event_name == 'schedule'
+        # Explicit opt-in for a trusted PR, manual full-matrix dispatch, or Monday schedule.
+        if: >-
+            github.event_name == 'schedule' ||
+            (github.event_name == 'workflow_dispatch' && inputs.run_matrix) ||
+            (github.event_name == 'pull_request' &&
+             github.event.pull_request.head.repo.full_name == github.repository &&
+             startsWith(github.event.pull_request.title, '[visual-matrix]'))
         runs-on: ubuntu-latest
         timeout-minutes: 45
         strategy:
