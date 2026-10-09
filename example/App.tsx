@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { StatusBar, StyleSheet, View, useColorScheme, useWindowDimensions } from 'react-native';
+import { KeyboardAvoidingView, StatusBar, StyleSheet, View, useColorScheme, useWindowDimensions } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
     Button,
@@ -154,167 +154,169 @@ export default function App() {
                 edges={['top', 'bottom']}
             >
                 <StatusBar barStyle={theme.systemBars.statusBarStyle} />
-                <Screen theme={theme} scroll>
-                    <View style={styles.section}>
-                        <Typography theme={theme} variant="screenTitle">
-                            {labels.title}
-                        </Typography>
-                        <Typography theme={theme} muted>
-                            {labels.subtitle}
-                        </Typography>
-                    </View>
-
-                    <View style={styles.section}>
-                        <Typography theme={theme} variant="sectionTitle">
-                            {labels.environment}
-                        </Typography>
-                        <Typography theme={theme} muted>
-                            {Math.round(width)} × {Math.round(height)} dp · fontScale {fontScale.toFixed(2)} ·{' '}
-                            {theme.mode}
-                        </Typography>
-                    </View>
-
-                    <View style={styles.section}>
-                        <SegmentedControl
-                            theme={theme}
-                            accessibilityLabel={labels.themeGroup}
-                            selectedKey={mode}
-                            onChange={(key) => setMode(key as ThemeMode)}
-                            segments={[
-                                { key: 'system', label: labels.system },
-                                { key: 'light', label: labels.light },
-                                { key: 'dark', label: labels.dark },
-                            ]}
-                        />
-                        <SegmentedControl
-                            theme={theme}
-                            accessibilityLabel={labels.languageGroup}
-                            selectedKey={locale}
-                            onChange={(key) => setLocale(key as Locale)}
-                            segments={[
-                                { key: 'en', label: labels.english },
-                                { key: 'zh-CN', label: labels.chinese },
-                            ]}
-                        />
-                        <SegmentedControl
-                            theme={theme}
-                            accessibilityLabel={labels.scenarioGroup}
-                            selectedKey={scenario}
-                            onChange={(key) => setScenario(key as Scenario)}
-                            segments={[
-                                { key: 'standard', label: labels.standard },
-                                { key: 'stress', label: labels.stress },
-                            ]}
-                        />
-                    </View>
-
-                    <View style={styles.section}>
-                        <Field
-                            theme={theme}
-                            label={labels.amount}
-                            value={amount}
-                            onChangeText={setAmount}
-                            placeholder={labels.amountPlaceholder}
-                            state={stress ? 'error' : 'default'}
-                            supportingText={stress ? labels.stressAmountError : undefined}
-                        />
-                        <ListRow
-                            theme={theme}
-                            title={stress ? labels.stressNetworkTitle : labels.networkTitle}
-                            description={stress ? labels.stressNetworkDescription : labels.networkDescription}
-                            trailing={<StatusBadge theme={theme} label={labels.status} tone="positive" />}
-                        />
-                        {stress ? (
-                            <ListRow theme={theme} title={labels.addressTitle} description={labels.address} />
-                        ) : null}
-                        <InlineMessage
-                            theme={theme}
-                            message={stress ? labels.stressInfo : labels.info}
-                            tone={stress ? 'error' : 'info'}
-                        />
-                    </View>
-
-                    <View style={styles.section}>
-                        <Typography theme={theme} variant="sectionTitle">
-                            {labels.progress}
-                        </Typography>
-                        <Progress theme={theme} value={0.64} accessibilityLabel={labels.progress} />
-                    </View>
-
-                    <View style={styles.section}>
-                        <Typography theme={theme} variant="sectionTitle">
-                            {labels.componentStates}
-                        </Typography>
-                        <Button theme={theme} label={stress ? labels.stressAction : labels.enabledAction} />
-                        <Button theme={theme} label={labels.disabledAction} disabled />
-                        <Button theme={theme} label={labels.loadingAction} loading />
-                    </View>
-
-                    <View style={styles.section}>
-                        <Typography theme={theme} variant="sectionTitle">
-                            {labels.otherComponents}
-                        </Typography>
-                        <Header theme={theme} title={stress ? labels.stressHeader : labels.sampleHeader} />
-                        <Divider theme={theme} />
-                        <View style={styles.componentRow}>
-                            <IconButton
+                <KeyboardAvoidingView style={styles.keyboardContainer} behavior="padding">
+                    <Screen theme={theme} scroll>
+                        <View style={styles.section}>
+                            <Typography theme={theme} variant="screenTitle">
+                                {labels.title}
+                            </Typography>
+                            <Typography theme={theme} muted>
+                                {labels.subtitle}
+                            </Typography>
+                        </View>
+    
+                        <View style={styles.section}>
+                            <Typography theme={theme} variant="sectionTitle">
+                                {labels.environment}
+                            </Typography>
+                            <Typography theme={theme} muted>
+                                {Math.round(width)} × {Math.round(height)} dp · fontScale {fontScale.toFixed(2)} ·{' '}
+                                {theme.mode}
+                            </Typography>
+                        </View>
+    
+                        <View style={styles.section}>
+                            <SegmentedControl
                                 theme={theme}
-                                label={labels.iconAction}
-                                icon={<Typography theme={theme}>+</Typography>}
-                                onPress={() => setIconActionActive((active) => !active)}
+                                accessibilityLabel={labels.themeGroup}
+                                selectedKey={mode}
+                                onChange={(key) => setMode(key as ThemeMode)}
+                                segments={[
+                                    { key: 'system', label: labels.system },
+                                    { key: 'light', label: labels.light },
+                                    { key: 'dark', label: labels.dark },
+                                ]}
                             />
-                            <Skeleton
+                            <SegmentedControl
                                 theme={theme}
-                                accessibilityLabel={labels.loadingPlaceholder}
-                                width="65%"
-                                height={18}
+                                accessibilityLabel={labels.languageGroup}
+                                selectedKey={locale}
+                                onChange={(key) => setLocale(key as Locale)}
+                                segments={[
+                                    { key: 'en', label: labels.english },
+                                    { key: 'zh-CN', label: labels.chinese },
+                                ]}
+                            />
+                            <SegmentedControl
+                                theme={theme}
+                                accessibilityLabel={labels.scenarioGroup}
+                                selectedKey={scenario}
+                                onChange={(key) => setScenario(key as Scenario)}
+                                segments={[
+                                    { key: 'standard', label: labels.standard },
+                                    { key: 'stress', label: labels.stress },
+                                ]}
                             />
                         </View>
-                        {iconActionActive ? (
-                            <InlineMessage theme={theme} tone="success" message={labels.iconFeedback} />
-                        ) : null}
-                    </View>
-
-                    <StateView
-                        theme={theme}
-                        title={labels.emptyTitle}
-                        description={labels.emptyDescription}
-                        action={<Button theme={theme} label={labels.modalOpen} onPress={() => setModalVisible(true)} />}
-                    />
-
-                    <View style={styles.section}>
-                        <Typography theme={theme} variant="sectionTitle">
-                            {labels.keyboardTitle}
-                        </Typography>
-                        <Field
+    
+                        <View style={styles.section}>
+                            <Field
+                                theme={theme}
+                                label={labels.amount}
+                                value={amount}
+                                onChangeText={setAmount}
+                                placeholder={labels.amountPlaceholder}
+                                state={stress ? 'error' : 'default'}
+                                supportingText={stress ? labels.stressAmountError : undefined}
+                            />
+                            <ListRow
+                                theme={theme}
+                                title={stress ? labels.stressNetworkTitle : labels.networkTitle}
+                                description={stress ? labels.stressNetworkDescription : labels.networkDescription}
+                                trailing={<StatusBadge theme={theme} label={labels.status} tone="positive" />}
+                            />
+                            {stress ? (
+                                <ListRow theme={theme} title={labels.addressTitle} description={labels.address} />
+                            ) : null}
+                            <InlineMessage
+                                theme={theme}
+                                message={stress ? labels.stressInfo : labels.info}
+                                tone={stress ? 'error' : 'info'}
+                            />
+                        </View>
+    
+                        <View style={styles.section}>
+                            <Typography theme={theme} variant="sectionTitle">
+                                {labels.progress}
+                            </Typography>
+                            <Progress theme={theme} value={0.64} accessibilityLabel={labels.progress} />
+                        </View>
+    
+                        <View style={styles.section}>
+                            <Typography theme={theme} variant="sectionTitle">
+                                {labels.componentStates}
+                            </Typography>
+                            <Button theme={theme} label={stress ? labels.stressAction : labels.enabledAction} />
+                            <Button theme={theme} label={labels.disabledAction} disabled />
+                            <Button theme={theme} label={labels.loadingAction} loading />
+                        </View>
+    
+                        <View style={styles.section}>
+                            <Typography theme={theme} variant="sectionTitle">
+                                {labels.otherComponents}
+                            </Typography>
+                            <Header theme={theme} title={stress ? labels.stressHeader : labels.sampleHeader} />
+                            <Divider theme={theme} />
+                            <View style={styles.componentRow}>
+                                <IconButton
+                                    theme={theme}
+                                    label={labels.iconAction}
+                                    icon={<Typography theme={theme}>+</Typography>}
+                                    onPress={() => setIconActionActive((active) => !active)}
+                                />
+                                <Skeleton
+                                    theme={theme}
+                                    accessibilityLabel={labels.loadingPlaceholder}
+                                    width="65%"
+                                    height={18}
+                                />
+                            </View>
+                            {iconActionActive ? (
+                                <InlineMessage theme={theme} tone="success" message={labels.iconFeedback} />
+                            ) : null}
+                        </View>
+    
+                        <StateView
                             theme={theme}
-                            label={labels.keyboardTitle}
-                            value={keyboardValue}
-                            onChangeText={setKeyboardValue}
-                            placeholder={labels.keyboardPlaceholder}
-                            supportingText={labels.keyboardHint}
+                            title={labels.emptyTitle}
+                            description={labels.emptyDescription}
+                            action={<Button theme={theme} label={labels.modalOpen} onPress={() => setModalVisible(true)} />}
                         />
-                        <Button
+    
+                        <View style={styles.section}>
+                            <Typography theme={theme} variant="sectionTitle">
+                                {labels.keyboardTitle}
+                            </Typography>
+                            <Field
+                                theme={theme}
+                                label={labels.keyboardTitle}
+                                value={keyboardValue}
+                                onChangeText={setKeyboardValue}
+                                placeholder={labels.keyboardPlaceholder}
+                                supportingText={labels.keyboardHint}
+                            />
+                            <Button
+                                theme={theme}
+                                label={labels.keyboardAction}
+                                onPress={() => setKeyboardActionActive(true)}
+                            />
+                            {keyboardActionActive ? (
+                                <InlineMessage theme={theme} tone="success" message={labels.keyboardFeedback} />
+                            ) : null}
+                        </View>
+    
+                        <Modal
                             theme={theme}
-                            label={labels.keyboardAction}
-                            onPress={() => setKeyboardActionActive(true)}
-                        />
-                        {keyboardActionActive ? (
-                            <InlineMessage theme={theme} tone="success" message={labels.keyboardFeedback} />
-                        ) : null}
-                    </View>
-
-                    <Modal
-                        theme={theme}
-                        visible={modalVisible}
-                        title={labels.modalTitle}
-                        closeAccessibilityLabel={labels.modalClose}
-                        onRequestClose={() => setModalVisible(false)}
-                    >
-                        <Typography theme={theme}>{labels.modalBody}</Typography>
-                        <Button theme={theme} label={labels.modalClose} onPress={() => setModalVisible(false)} />
-                    </Modal>
-                </Screen>
+                            visible={modalVisible}
+                            title={labels.modalTitle}
+                            closeAccessibilityLabel={labels.modalClose}
+                            onRequestClose={() => setModalVisible(false)}
+                        >
+                            <Typography theme={theme}>{labels.modalBody}</Typography>
+                            <Button theme={theme} label={labels.modalClose} onPress={() => setModalVisible(false)} />
+                        </Modal>
+                    </Screen>
+                </KeyboardAvoidingView>
             </SafeAreaView>
         </SafeAreaProvider>
     );
@@ -322,6 +324,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
     safeArea: { flex: 1 },
+    keyboardContainer: { flex: 1 },
     section: { gap: 12 },
     componentRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
 });
