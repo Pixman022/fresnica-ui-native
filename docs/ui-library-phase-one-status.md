@@ -41,6 +41,12 @@
   截至本报告基线，最新 Native `main` CI
   [#37903416816](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37903416816) 为成功。
 
+## 后续维护补记（2026-10-09）
+
+- [PR #50](https://github.com/Pixman022/fresnica-ui-native/pull/50) 已修复中性 Preview 键盘开启时反馈文案的可见性，并取得模拟器截图证据。下文第 2 项描述的「被键盘部分遮住」是**阶段一当时的历史观察**，不再代表现行 Preview 的已知模拟器问题；但仍不能据此宣称真实设备、TalkBack 或软键盘的无障碍验收通过。
+- [PR #51](https://github.com/Pixman022/fresnica-ui-native/pull/51) 已提供 [人工设备验收手册](native-accessibility-device-acceptance.md)；12 项真机测试仍待实际操作与记录，由 [Issue #49](https://github.com/Pixman022/fresnica-ui-native/issues/49) 独立追踪。
+- 本报告保留阶段一原始验证的提交、工件和限制，不把后续修复倒填为阶段一时已经完成的证据；原品牌色与浅色按钮文字保持不变。
+
 ## 已批准交付之外的独立限制与未验收事项
 
 1. **当前保持原配色（已确认范围约束）：** 暂不修改品牌绿、白字或
