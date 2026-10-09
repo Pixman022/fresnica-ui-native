@@ -13,16 +13,22 @@ Mainnet creation, signing and submission remain out of scope and disabled.
 
 ## Threats, current controls and remaining risk
 
-| Threat | Existing control | Remaining release work |
-| --- | --- | --- |
-| Extracting a stored secret | Android Keystore-backed Keychain and biometric/passcode access control | Confirm hardware/device behavior and backup/recovery policy |
-| Substituting a payment or changing the approved amount | Signing verifies the local source, one native-XLM payment, reviewed recipient/amount and expected fee | Physical-device verification of review readability; formal security review |
-| Exposing an imported secret through screen capture or recents | Import uses a secure text input and avoids logging the secret | Decide and verify screenshot/recents protection, including import-screen backgrounding |
-| Duplicate payments after uncertain network responses | Each prepared transaction has a Stellar sequence number; the App does not automatically retry submission | Define retry, transaction-status reconciliation and duplicate-submission policy |
-| Compromised or unavailable Horizon endpoint | Current implementation uses the fixed Stellar Testnet HTTPS Horizon endpoint | Approve production node trust, failover, availability and custom endpoint policy |
-| Device loss or App uninstall | Generated accounts are explicitly disposable Testnet wallets without export | Decide secure backup/export/recovery before any Mainnet wallet |
-| Faulty device authentication or insecure system UI | Android Keychain requests device authentication before secret retrieval | Complete physical-device biometric/passcode and accessibility acceptance |
-| Unsafe dependency or build changes | GitHub CI and Android Product Acceptance validate build and hostless wallet tests | Review dependencies and threat model independently before release |
+- **Stored secret extraction:** Android Keystore-backed Keychain requests biometric/passcode access.
+  Physical-device behavior and production backup/recovery still require acceptance.
+- **Payment substitution:** signing checks the local source, one native-XLM payment, reviewed recipient/amount
+  and expected fee. Review readability and independent security approval are outstanding.
+- **Import screen leakage:** import uses a secure text input without logging the secret.
+  Screenshot/recents behavior, including backgrounding, still needs a policy and verification.
+- **Duplicate submission after a network error:** prepared transactions use Stellar sequence numbers
+  and the App has no automatic submission retry. Reconciliation and safe retry remain undecided.
+- **Untrusted or unavailable Horizon:** the current endpoint is the fixed Stellar Testnet HTTPS server.
+  Production node trust, failover, availability and custom endpoint policy still need approval.
+- **Device loss or App uninstall:** generated Testnet wallets are disposable and lack export.
+  Secure backup and recovery must be designed before Mainnet creation.
+- **Authentication or system UI failure:** Android Keychain requests local authentication.
+  Physical-device passcode/biometric and accessibility acceptance are still required.
+- **Unsafe dependencies or build changes:** CI and Android Product Acceptance check builds and wallet smoke tests.
+  Release dependency review and independent threat-model sign-off are not yet complete.
 
 ## Verification boundaries
 
