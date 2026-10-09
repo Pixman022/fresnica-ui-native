@@ -7,7 +7,7 @@
 - Web 规范源：[Pixman022/fresnica-ui](https://github.com/Pixman022/fresnica-ui)，
   当前 `main@9ad32c41be7eaf96662d2e8bacb1c9f957ba087b`。
 - Native 消费包：[Pixman022/fresnica-ui-native](https://github.com/Pixman022/fresnica-ui-native)，
-  此次审查 `main@65f917c069e1e39551d44924b7107eca41540760`。
+  此次工程状态基线 `main@36d7c23d6891d03e669472fcba66384f6f45c4f4`。
 - 对外交付是 `src/` UI 组件、共享 Token 契约、`example/` 中性 Preview、测试和集成文档。
   `product/` 是保留的历史钱包原型，不属于 UI 库的交付或测试门槛。
 
@@ -33,15 +33,17 @@
   安装、宿主类型检查、Web 更新后手动校验 Native CI 的路径。
 - **CI：** 上述 PR 在其最新测试 SHA 的三个 UI 验证工作流已成功。
   截至本报告基线，最新 Native `main` CI
-  [#37878757967](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37878757967) 为成功。
+  [#37879034678](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37879034678) 为成功。
 
 ## 尚未完成，不应关闭的工作
 
-1. **设计确认：** 原生主按钮浅色/深色模式的白字对比度分别为
-   3.06:1 和 2.14:1，低于普通文字 4.5:1；浅色 muted、
-   部分状态字色和必要控件边框也需审查。
-   详见[浅色按钮字色候选方案](native-primary-button-color-review.md)与
-   [对比度审计](native-contrast-audit.md)。
+1. **当前保持原配色（已确认范围约束）：** 暂不修改品牌绿、白字或
+   Light/Dark Token。主按钮普通白字对比度分别为 **3.06:1**（Light）和
+   **2.14:1**（Dark），仍低于普通文字 **4.5:1**；浅色 muted、
+   部分状态字色及必要控件边框也有未解决的评审项。
+   这意味着**可试集成不等于 WCAG AA 达标**。后续若需无障碍合规声明，
+   须另行批准配色修复并验证；详见[原配色及候选方案记录](native-primary-button-color-review.md)
+   和[对比度审计](native-contrast-audit.md)。
 2. **DS-09 多配置实测：** 当前 320dp / 1.3 / Dark / zh-CN / Stress
    有成功证据；计划中的 320 Light、360 Dark、390 Light、430 Dark 周期矩阵
    及 English 长文案、393dp 和滚动到视口下方的组件尚缺完整独立证据。
@@ -52,10 +54,12 @@
 
 ## 下一步验收顺序
 
-1. 由设计负责人选择浅色字体所需的绿色按钮底色方案，先通过 Web/Native
-   语义角色审查，不自动改动原 Web 1.0.0 品牌色。
-2. 继续累积 Android 中性 Preview 的多宽度/主题证据，补 English 长文案和
-   初始可视区域之外的 Header/IconButton/Skeleton/Divider 等组件状态。
+1. 按当前决定**保留原按钮配色**。暂不处理候选的改色方案，保留上述
+   对比度不合格记录，不对外声明全部配色已符合 WCAG AA。
+2. 继续累积 Android 中性 Preview 的多宽度/主题证据，
+   [PR #35](https://github.com/Pixman022/fresnica-ui-native/pull/35)
+   正增加 393dp / Light / English / Stress 和视口下方组件截图；
+   只有其实际工作流成功且证据经复核后才能算已验证。
 3. 审核视觉差异并明确批准基准，随后更新 DoD 和固定提交的消费方安装记录。
 4. 保留真机/iOS/钱包业务/Mainnet 安全评估为独立未来产品工作；
    不把模拟器成功结果等同于上述验收。
