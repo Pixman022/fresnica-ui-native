@@ -60,8 +60,12 @@
    操作反馈文案在最后一张截图中也被键盘部分遮住，不将其完整可读性
    声明为已验收。详见 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37)。
 3. **DS-11 视觉基准：** 尚未批准固定的设备、系统字体和多主题视觉基准；
-   已整理 [Native 视觉基准审核单](native-visual-baseline-review.md)
-   供设计负责人逐项审阅，审核人和结果仍待填写。
+   [PR #45](https://github.com/Pixman022/fresnica-ui-native/pull/45)
+   已针对 320dp 大字体「跟随系统」换行问题，在中性 Preview 上使用
+   单行短标签「系统」，新旧实测图已记录于
+   [Native 视觉证据文档](native-visual-evidence.md)，不修改品牌配色。
+   [Native 视觉基准审核单](native-visual-baseline-review.md)
+   已补充该差异供设计负责人逐项审阅，审核人和结果仍待填写。
    目前不应使用未经审核的图像进行自动像素差异强制判定。
 4. **DS-14 工程交接与正式视觉批准分离：** 本报告记录了阶段一
    UI 包的现有版本、验证提交、集成方式和剩余限制；工程交接可进行，
