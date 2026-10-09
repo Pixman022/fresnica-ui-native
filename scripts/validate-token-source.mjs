@@ -101,10 +101,14 @@ if (
         console.error(`Missing Native semantic role targets: ${missingRoleTargets.join(', ')}`);
     }
     if (unmappedNativeColors.length > 0 || unknownNativeRoles.length > 0) {
-        console.error(`Invalid Native color-to-role mappings: ${[...unmappedNativeColors, ...unknownNativeRoles].join(', ')}`);
+        console.error(
+            `Invalid Native color-to-role mappings: ${[...unmappedNativeColors, ...unknownNativeRoles].join(', ')}`,
+        );
     }
     if (overridesWithoutReasons.length > 0 || unknownOverrideRoles.length > 0) {
-        console.error(`Invalid platform overrides: ${overridesWithoutReasons.join(', ')}; unknown roles: ${unknownOverrideRoles.join(', ')}`);
+        console.error(
+            `Invalid platform overrides: ${overridesWithoutReasons.join(', ')}; unknown roles: ${unknownOverrideRoles.join(', ')}`,
+        );
     }
     process.exitCode = 1;
 } else {
