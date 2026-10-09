@@ -36,8 +36,9 @@ assert.throws(
     () => signTestnetTransactionXdr(unsignedXdr, created.secret, { ...reviewedPayment, amount: '2' }),
     /Transaction does not match the reviewed Testnet payment/,
 );
+const alteredRecipient = { ...reviewedPayment, destinationPublicKey: other.publicKey };
 assert.throws(
-    () => signTestnetTransactionXdr(unsignedXdr, created.secret, { ...reviewedPayment, destinationPublicKey: other.publicKey }),
+    () => signTestnetTransactionXdr(unsignedXdr, created.secret, alteredRecipient),
     /Transaction does not match the reviewed Testnet payment/,
 );
 
