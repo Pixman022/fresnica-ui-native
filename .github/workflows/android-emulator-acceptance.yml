@@ -254,9 +254,17 @@ jobs:
                   opened=0
                   for attempt in $(seq 1 10); do
                       if npm run example:tap-label -- "Open modal"; then
-                          opened=1
-                          break
+                          sleep 2
+                          adb shell uiautomator dump /sdcard/fresnica-modal-window.xml >/dev/null
+                          adb exec-out cat /sdcard/fresnica-modal-window.xml > "$RUNNER_TEMP/fresnica-modal-open.xml"
+                          if grep -Fq "Preview modal" "$RUNNER_TEMP/fresnica-modal-open.xml"; then
+                              opened=1
+                              break
+                          fi
                       fi
+                      # A partially visible button may report a successful tap while
+                      # its center is behind the navigation bar. Retry only after
+                      # checking that the modal actually appeared.
                       adb shell input swipe 460 1120 460 360 500
                       sleep 2
                   done
@@ -324,7 +332,16 @@ jobs:
                   done
                   test "$focused" = 1
                   sleep 2
-                  adb shell input text fresnica
+                  typed=0
+                  for attempt in $(seq 1 12); do
+                      if [ "$(adb get-state 2>/dev/null)" = device ] && adb shell input text fresnica; then
+                          typed=1
+                          break
+                      fi
+                      echo "Waiting for ADB to recover before typing (attempt $attempt)" >&2
+                      sleep 3
+                  done
+                  test "$typed" = 1
                   sleep 2
 
                   reachable=0
