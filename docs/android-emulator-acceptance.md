@@ -79,6 +79,29 @@ The workflow checks artifact completeness and relevant visible labels. Human
 inspection is still required to judge text wrapping, overflow, spacing,
 component rendering and consistency with the approved design reference.
 
+## PR interaction evidence (Android emulator only)
+
+After the English/Light 393dp gallery capture, pull-request runs additionally
+exercise the **neutral Preview** (no wallet functionality):
+
+- Scroll to the App-owned **Open modal** action, capture its visible title,
+  press the actual Android `KEYCODE_BACK`, then capture and verify the modal
+  title is no longer present. Upload separate open/dismissed evidence.
+- Focus the bottom **Keyboard visibility check** field, enter sample text,
+  scroll until the button below it is visible and check Android input-method
+  state before uploading keyboard/scroll evidence.
+
+The workflow reuses the *already installed* Preview and 393dp emulator: no
+second Android build. Each capture includes the same normal device/PNG/window/
+manifest bundle and runs `example:verify`; these steps fail if expected labels
+or required keyboard state cannot be confirmed. Artifacts are stored for 90 days.
+
+**This is a newly added check, pending proof from a successful run.** Even if it
+passes, it establishes emulator interaction evidence, not TalkBack focus-order
+certification, physical-phone keyboard behavior, formal design baseline approval
+or WCAG AA color compliance. Any failure requires investigation of the actual
+job logs and capture, not a silent workaround or a palette change.
+
 ## Evidence bundle
 
 A successful run captures an evidence directory containing:
