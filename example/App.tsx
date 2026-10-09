@@ -70,6 +70,7 @@ const copy = {
         keyboardPlaceholder: 'Focus this field near the bottom of the screen',
         keyboardHint: 'With the keyboard open, this field and the action below should remain reachable.',
         keyboardAction: 'Primary action below keyboard field',
+        keyboardFeedback: 'Keyboard action was pressed',
         modalOpen: 'Open modal',
         modalTitle: 'Preview modal',
         modalClose: 'Close modal',
@@ -119,6 +120,7 @@ const copy = {
         keyboardPlaceholder: '聚焦这个位于页面底部附近的输入框',
         keyboardHint: '键盘打开后，这个输入框和下面的主要操作仍应可以滚动到并保持可见。',
         keyboardAction: '位于键盘测试输入框下方的主要操作',
+        keyboardFeedback: '键盘下方操作已触发',
         modalOpen: '打开弹窗',
         modalTitle: '预览弹窗',
         modalClose: '关闭弹窗',
@@ -136,6 +138,7 @@ export default function App() {
     const [scenario, setScenario] = useState<Scenario>('standard');
     const [amount, setAmount] = useState('');
     const [keyboardValue, setKeyboardValue] = useState('');
+    const [keyboardActionActive, setKeyboardActionActive] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [iconActionActive, setIconActionActive] = useState(false);
 
@@ -291,7 +294,14 @@ export default function App() {
                             placeholder={labels.keyboardPlaceholder}
                             supportingText={labels.keyboardHint}
                         />
-                        <Button theme={theme} label={labels.keyboardAction} />
+                        <Button
+                            theme={theme}
+                            label={labels.keyboardAction}
+                            onPress={() => setKeyboardActionActive(true)}
+                        />
+                        {keyboardActionActive ? (
+                            <InlineMessage theme={theme} tone="success" message={labels.keyboardFeedback} />
+                        ) : null}
                     </View>
 
                     <Modal
