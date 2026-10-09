@@ -3,13 +3,17 @@ import { StatusBar, StyleSheet, View, useColorScheme, useWindowDimensions } from
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
     Button,
+    Divider,
     Field,
+    Header,
+    IconButton,
     InlineMessage,
     ListRow,
     Modal,
     Progress,
     Screen,
     SegmentedControl,
+    Skeleton,
     StateView,
     StatusBadge,
     Typography,
@@ -52,6 +56,12 @@ const copy = {
             'Stress mode uses long content, error states and large accessible labels so narrow Android windows and font scaling can be inspected before product flows are added.',
         progress: 'Sync progress',
         componentStates: 'Control states',
+        otherComponents: 'More shared primitives',
+        sampleHeader: 'Sample screen header',
+        stressHeader: 'A longer localized screen heading that must fit without horizontal overflow',
+        iconAction: 'Toggle sample feedback',
+        iconFeedback: 'Icon action was pressed',
+        loadingPlaceholder: 'Loading placeholder',
         enabledAction: 'Continue',
         stressAction: 'Continue with an intentionally long action label',
         disabledAction: 'Unavailable action',
@@ -95,6 +105,12 @@ const copy = {
         stressInfo: '压力测试会显示长文案、错误状态和较长的无障碍标签，用于在接入产品流程前检查窄屏和字体缩放。',
         progress: '同步进度',
         componentStates: '控件状态',
+        otherComponents: '其他共享基础组件',
+        sampleHeader: '示例页面标题',
+        stressHeader: '用于验证狭窄屏幕和较大字体换行的较长示例页面标题',
+        iconAction: '切换示例反馈',
+        iconFeedback: '图标按钮已触发',
+        loadingPlaceholder: '内容加载占位符',
         enabledAction: '继续',
         stressAction: '使用一段故意加长的操作按钮文案继续',
         disabledAction: '不可用操作',
@@ -121,6 +137,7 @@ export default function App() {
     const [amount, setAmount] = useState('');
     const [keyboardValue, setKeyboardValue] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
+    const [iconActionActive, setIconActionActive] = useState(false);
 
     const labels = copy[locale];
     const stress = scenario === 'stress';
@@ -230,6 +247,24 @@ export default function App() {
                         <Button theme={theme} label={labels.loadingAction} loading />
                     </View>
 
+                    <View style={styles.section}>
+                        <Typography theme={theme} variant="sectionTitle">
+                            {labels.otherComponents}
+                        </Typography>
+                        <Header theme={theme} title={stress ? labels.stressHeader : labels.sampleHeader} />
+                        <Divider theme={theme} />
+                        <View style={styles.componentRow}>
+                            <IconButton
+                                theme={theme}
+                                label={labels.iconAction}
+                                icon={<Typography theme={theme}>+</Typography>}
+                                onPress={() => setIconActionActive((active) => !active)}
+                            />
+                            <Skeleton theme={theme} accessibilityLabel={labels.loadingPlaceholder} width="65%" height={18} />
+                        </View>
+                        {iconActionActive ? <InlineMessage theme={theme} tone="success" message={labels.iconFeedback} /> : null}
+                    </View>
+
                     <StateView
                         theme={theme}
                         title={labels.emptyTitle}
@@ -271,4 +306,5 @@ export default function App() {
 const styles = StyleSheet.create({
     safeArea: { flex: 1 },
     section: { gap: 12 },
+    componentRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
 });
