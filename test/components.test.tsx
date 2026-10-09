@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
+import { Modal as NativeModal, ScrollView } from 'react-native';
 import { Button } from '../src/components/Button';
 import { Field } from '../src/components/Field';
 import { Header } from '../src/components/Header';
@@ -122,6 +123,7 @@ describe('native components', () => {
             </Screen>,
         );
         expect(screen.getByRole('button', { name: 'Continue' })).toBeTruthy();
+        expect(screen.UNSAFE_getByType(ScrollView).props.keyboardShouldPersistTaps).toBe('handled');
     });
 
     it('renders Typography content', () => {
@@ -133,7 +135,7 @@ describe('native components', () => {
         expect(screen.getByText('Overview')).toBeTruthy();
     });
 
-    it('calls Modal close callback from the Android close request', () => {
+    it('calls Modal close callback from the accessible close control', () => {
         const onRequestClose = jest.fn();
         render(
             <Modal
@@ -152,7 +154,29 @@ describe('native components', () => {
         expect(onRequestClose).toHaveBeenCalledTimes(1);
     });
 
-    it('reports selected SegmentedControl tab and changes selection', () => {
+    it('routes the Android Back request through the native Modal close callback', () => {
+        const onRequestClose = jest.fn();
+        render(
+            <Modal
+                theme={theme}
+                visible
+                title="Preview modal"
+                closeAccessibilityLabel="Close modal"
+                onRequestClose={onRequestClose}
+            >
+                <Button label="Continue" theme={theme} />
+            </Modal>,
+        );
+
+        const nativeModal = screen.UNSAFE_getByType(NativeModal);
+        expect(nativeModal.props.accessibilityViewIsModal).toBe(true);
+        expect(screen.UNSAFE_getByType(ScrollView).props.keyboardShouldPersistTaps).toBe('handled');
+
+        fireEvent(nativeModal, 'requestClose');
+        expect(onRequestClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('reports selected SegmentedControl tab and changes selection' () => {
         const onChange = jest.fn();
         render(
             <SegmentedControl
