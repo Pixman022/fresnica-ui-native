@@ -154,6 +154,18 @@ This verifies the phase-one **scripted Preview interactions**, not
 general focus-navigation order, real-device TalkBack, physical-keyboard
 navigation, design-owner-approved Golden Baselines, or WCAG AA compliance.
 
+## PR #45 320dp Chinese System-theme label refinement
+
+[PR #45](https://github.com/Pixman022/fresnica-ui-native/pull/45) changes only the neutral Preview's narrow Chinese System-theme label from **跟随系统** to **系统**. Wider Chinese screens retain the original wording; English remains **System**. Shared `SegmentedControl`, colors, spacing tokens and 44dp touch targets are unchanged.
+
+- **Before:** [PR #35 emulator #37879358007](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37879358007), artifact `11593888236`. Four characters split into `跟随系` and `统` on separate lines.
+- **After:** [PR #45 emulator #37900891035](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37900891035), artifact `11601878335`. **系统** fits on one line while **浅色** and **深色** remain intact.
+- **Source:** PR head `a81a15a2a91eb76d1e91ae6b52f527243543fff5`, clean checkout `bc110766630b83bbe42c190f84c3ee1d1e8eeac2`, squash commit `cd4a171c065df4cf83ad2cc16e1c06161d3c30c7`.
+- **Environment:** Android 15/API 35, 420dpi, 320 × 569dp, fontScale 1.3, Dark, in-app zh-CN / Stress. `device.json`, `screenshot.png`, `window.xml` and `manifest.json` inspected. The accessibility label is `主题, 系统`.
+- **Validation:** CI, Android Preview and Android Emulator Acceptance passed on the same head; the run also repeated the English/Light gallery and the modal/keyboard interaction checks.
+
+The verified screenshot demonstrates a layout improvement, **not an approved Golden Baseline**. Explicit design-owner acceptance is still required. Existing contrast and TalkBack gaps are unchanged.
+
 ## Baseline policy
 
 1. A verified screenshot bundle is **evidence**, not automatic proof of visual
