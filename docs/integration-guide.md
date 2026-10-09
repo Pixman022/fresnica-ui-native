@@ -48,6 +48,19 @@ transaction submission, backup and release requirements must be managed by the c
 - Platform overrides require a recorded reason and accessibility review.
 - The package does not provide a navigation container or app-level localization provider.
 
+## Wallet UI readiness
+
+Before adding a new shared primitive, review the current
+[wallet UI component coverage matrix](wallet-ui-component-coverage.md). The current
+five-page evidence set concludes that the existing 15 primitives are sufficient to
+**start** wallet UI integration; wallet-domain rows, amount panels, asset selectors and
+transaction presentation remain Feature-local until stable reuse is proven.
+
+The [integration readiness plan](wallet-ui-integration-readiness-plan.md) records the
+approved product decisions: image-derived theming is not required, shared components
+are not expanded by count, and real-device accessibility becomes a hard gate for the
+first actual wallet App integration.
+
 ## Recommended Integration Order
 
 1. Install and link `@fresnica/ui-native`.
@@ -56,10 +69,28 @@ transaction submission, backup and release requirements must be managed by the c
 4. Create the localization labels in the App layer.
 5. Pass `theme` and localized labels into components.
 6. Keep wallet state and business actions outside the component library.
-7. Run product-level Android accessibility acceptance.
+7. Run product-level Android accessibility acceptance. **Do not mark the wallet UI integration complete until the real-device integration gate below passes.**
 
 The `example/` Preview host exercises the UI-only integration order. Wallet product acceptance is separate
 from component package delivery.
+
+## First wallet integration hard gate
+
+Package CI and emulator evidence are not substitutes for product-level physical-device
+acceptance. Before the first consuming wallet App is marked UI-integration complete,
+verify on a real supported Android device:
+
+- TalkBack reading and focus order for primary flows;
+- button, icon-button and field labels/states, including modal focus restoration;
+- real soft-keyboard avoidance and Android system Back behavior;
+- safe-area and status/navigation-bar legibility in Light and Dark;
+- at least 1.3× system font scale without critical clipping or hidden actions;
+- 44dp touch targets and status/error communication that does not rely on color alone;
+- English and Simplified Chinese long-content behavior.
+
+Full multi-device coverage, final contrast release review and complete reduced-motion
+reassessment remain release-stage work. The existing Modal fade deferral is not a
+reduced-motion compliance claim.
 
 ## Host Responsibilities
 
