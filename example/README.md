@@ -123,3 +123,16 @@ visibility scenario.
 The preview covers Light, Dark and System themes, English and Simplified Chinese,
 Safe Area handling, core component states and accessibility labels. Product navigation,
 wallet state, networking and persistence remain outside this preview host.
+
+## Physical-device accessibility review (not yet completed)
+
+The [manual Android accessibility acceptance matrix](../docs/native-accessibility-device-acceptance.md)
+defines reproducible TalkBack, keyboard focus, Dynamic Type, touch target,
+system-bar/safe-area and reduced-motion tests with an **unfilled operator,
+device and results template**. These checks require an actual test operator
+on a supported physical device.
+
+CI and Android UIAutomator screenshots cover the **neutral Preview emulator**
+only. They do not certify TalkBack spoken order, real-device accessibility
+or WCAG AA. The original brand colors remain unchanged, and the outstanding
+work is tracked in [Issue #49](https://github.com/Pixman022/fresnica-ui-native/issues/49).
