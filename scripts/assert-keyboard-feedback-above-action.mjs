@@ -17,9 +17,13 @@ function visibleBounds(label) {
 
     const close = hierarchy.indexOf('>', index);
     const match = /bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"/.exec(hierarchy.slice(index, close));
-    if (!match) throw new Error(`Missing bounds for ${label}`);
+    if (!match) {
+        throw new Error(`Missing bounds for ${label}`);
+    }
     const [left, top, right, bottom] = match.slice(1).map(Number);
-    if (left >= right || top >= bottom) throw new Error(`Empty bounds for ${label}`);
+    if (left >= right || top >= bottom) {
+        throw new Error(`Empty bounds for ${label}`);
+    }
     return { top, bottom };
 }
 
@@ -30,4 +34,4 @@ if (feedback.bottom > button.top) {
         `Feedback extends below the action (feedback bottom ${feedback.bottom}, action top ${button.top})`,
     );
 }
-console.log(`Feedback is above the action (feedback bottom ${feedback.bottom}, action top ${button.top}).`);
+console.log(`Visible feedback ends at ${feedback.bottom}; action begins at ${button.top}.`);
