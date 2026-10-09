@@ -100,6 +100,19 @@ Reset display size, font scale and night mode after acceptance:
 npm run example:profile:reset
 ```
 
+## Component inventory
+
+The neutral Preview includes all 15 current exports from the shared Native component layer:
+
+- Controls: `Button`, `Field`, `IconButton`, `SegmentedControl`.
+- Containers and structure: `Screen`, `Header`, `ListRow`, `Modal`, `Divider`.
+- Content and feedback: `Typography`, `StateView`, `StatusBadge`, `InlineMessage`, `Skeleton`, `Progress`.
+
+The additional-primitives gallery demonstrates the header's narrow/long-title layout, a decorative
+separator, an accessible icon-only button with host-managed feedback, and a labeled loading
+placeholder. Long-title variants are shown in Stress mode. The demo buttons never invoke wallet,
+network or security operations.
+
 ## Acceptance scenarios
 
 The Preview page shows its current logical width, height and font scale. Use the
