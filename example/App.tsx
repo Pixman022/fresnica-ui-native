@@ -260,9 +260,16 @@ export default function App() {
                                 icon={<Typography theme={theme}>+</Typography>}
                                 onPress={() => setIconActionActive((active) => !active)}
                             />
-                            <Skeleton theme={theme} accessibilityLabel={labels.loadingPlaceholder} width="65%" height={18} />
+                            <Skeleton
+                                theme={theme}
+                                accessibilityLabel={labels.loadingPlaceholder}
+                                width="65%"
+                                height={18}
+                            />
                         </View>
-                        {iconActionActive ? <InlineMessage theme={theme} tone="success" message={labels.iconFeedback} /> : null}
+                        {iconActionActive ? (
+                            <InlineMessage theme={theme} tone="success" message={labels.iconFeedback} />
+                        ) : null}
                     </View>
 
                     <StateView
