@@ -56,6 +56,12 @@ for the complete boundary and acceptance contract.
 
 ## Local development
 
+For reproducible consumption by a future App, follow the
+[pinned archive installation and Web Token handoff guide](docs/consumer-handoff.md).
+This package is not currently published to npm. The standalone `example/`
+Preview is used to verify that a generated archive can be installed and typed
+in an independent React Native host.
+
 This repository is the standalone native component package; it deliberately does not add
 React Native dependencies to the Web workspace. `npm test` runs type, formatting, theme,
 component-contract and hostless render checks using only this repository.
