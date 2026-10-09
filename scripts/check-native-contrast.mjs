@@ -82,9 +82,7 @@ for (const [mode, colors] of Object.entries(nativeThemeColors)) {
         const result = contrast(colors[pair.foreground], colors[pair.background]);
         const passes = result >= pair.minimum;
         const status = passes ? 'PASS' : pair.reviewOnly ? 'REVIEW' : 'FAIL';
-        console.log(
-            `[${status}] ${mode}: ${pair.label} = ${result.toFixed(2)}:1 (target ${pair.minimum}:1)`,
-        );
+        console.log(`[${status}] ${mode}: ${pair.label} = ${result.toFixed(2)}:1 (target ${pair.minimum}:1)`);
         if (!passes && pair.reviewOnly) reviewItems++;
         if (!passes && !pair.reviewOnly) failures++;
     }
