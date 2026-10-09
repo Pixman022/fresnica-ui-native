@@ -7,7 +7,7 @@
 - Web 规范源：[Pixman022/fresnica-ui](https://github.com/Pixman022/fresnica-ui)，
   当前 `main@9ad32c41be7eaf96662d2e8bacb1c9f957ba087b`。
 - Native 消费包：[Pixman022/fresnica-ui-native](https://github.com/Pixman022/fresnica-ui-native)，
-  此次工程状态基线 `main@4cacbd0b2d458619d460d9f30ab5d4944d19fdda`。
+  此次工程状态基线 `main@87c3fc92f57c9660fd7d7aa9fa995648a8e4fb5c`。
 - 对外交付是 `src/` UI 组件、共享 Token 契约、`example/` 中性 Preview、测试和集成文档。
   `product/` 是保留的历史钱包原型，不属于 UI 库的交付或测试门槛。
 
@@ -33,7 +33,7 @@
   安装、宿主类型检查、Web 更新后手动校验 Native CI 的路径。
 - **CI：** 上述 PR 在其最新测试 SHA 的三个 UI 验证工作流已成功。
   截至本报告基线，最新 Native `main` CI
-  [#37890225115](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37890225115) 为成功。
+  [#37899358856](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37899358856) 为成功。
 
 ## 尚未完成，不应关闭的工作
 
@@ -44,18 +44,21 @@
    这意味着**可试集成不等于 WCAG AA 达标**。后续若需无障碍合规声明，
    须另行批准配色修复并验证；详见[原配色及候选方案记录](native-primary-button-color-review.md)
    和[对比度审计](native-contrast-audit.md)。
-2. **DS-09 多配置截图已补齐，交互验收未结束：**
-   [PR #35](https://github.com/Pixman022/fresnica-ui-native/pull/35)
-   已验证 320dp Dark 中文、393dp Light 英文首屏与下方组件区。
-   [PR #39](https://github.com/Pixman022/fresnica-ui-native/pull/39)
-   的 [模拟器矩阵 #37889383234](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37889383234)
-   已成功采集并审核 **320 Light、360 Dark、390 Light、430 Dark**
-   四组中文压力测试首屏；四份不同的 artifact、截图、字体/主题、
-   设备和来源提交均已记录。[PR #40](https://github.com/Pixman022/fresnica-ui-native/pull/40)
-   还补充 Android Back 回调及键盘点击的组件级测试。
-   **真正在模拟器中打开/关闭弹窗、键盘覆盖、焦点顺序和页面
-   下方的更多交互仍待独立验收**；不能从首屏截图或单元测试推断。
-   详见 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37)。
+2. **DS-09 限定工程验收已完成，深层无障碍仍未验证：**
+   [PR #35](https://github.com/Pixman022/fresnica-ui-native/pull/35) 已验证
+   320dp Dark 中文、393dp Light 英文首屏与下方组件区。
+   [PR #39](https://github.com/Pixman022/fresnica-ui-native/pull/39) 的
+   [四组矩阵 #37889383234](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37889383234)
+   实测 320 Light、360 Dark、390 Light、430 Dark 中文压力测试首屏。
+   [PR #40](https://github.com/Pixman022/fresnica-ui-native/pull/40)
+   验证组件 Back 回调与滚动键盘点击配置。
+   [PR #42](https://github.com/Pixman022/fresnica-ui-native/pull/42) 的
+   [模拟器验收 #37896975342](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37896975342)
+   新增真实 Android 返回键关闭弹窗、软键盘可见及其上方按钮可点击的
+   截图、UI 层级和来源提交证据，且 CI、Preview 和模拟器均通过。
+   **一般焦点导航顺序、TalkBack、真机键盘行为仍未验证**；
+   操作反馈文案在最后一张截图中也被键盘部分遮住，不将其完整可读性
+   声明为已验收。详见 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37)。
 3. **DS-11 视觉基准：** 尚未批准固定的设备、系统字体和多主题视觉基准；
    已整理 [Native 视觉基准审核单](native-visual-baseline-review.md)
    供设计负责人逐项审阅，审核人和结果仍待填写。
@@ -69,11 +72,10 @@
 
 1. 按当前决定**保留原按钮配色**。暂不处理候选的改色方案，保留上述
    对比度不合格记录，不对外声明全部配色已符合 WCAG AA。
-2. PR #35 的英文首屏/组件区和 PR #39 的四组多尺寸中文截图
-   已完成工程审查；继续在
-   [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37)
-   验证弹窗、键盘与焦点等交互。
-   当前截图仍未获**设计所有者的视觉基准批准**。
+2. PR #35/#39 的多尺寸中文/英文截图及 PR #42 的模拟器弹窗和
+   键盘按钮实际点击证据已完成工程审查。完整焦点顺序和
+   真机 TalkBack 尚未验证；当前截图仍未获
+   **设计所有者的视觉基准批准**。
 3. 审核视觉差异并明确批准基准，随后更新 DoD 和固定提交的消费方安装记录。
 4. 保留真机/iOS/钱包业务/Mainnet 安全评估为独立未来产品工作；
    不把模拟器成功结果等同于上述验收。
