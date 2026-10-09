@@ -375,7 +375,8 @@ jobs:
                               fi
                           fi
                       fi
-                      adb shell input swipe 460 1040 460 480 450
+                      # Keep both gesture endpoints above the IME's top edge.
+                      adb shell input swipe 460 760 460 280 450
                       sleep 2
                   done
                   if [ "$reached" != 1 ]; then
