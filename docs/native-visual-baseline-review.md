@@ -23,6 +23,7 @@
 - **环境：** Android 15/API 35，`sdk_gphone64_x86_64`，420dpi；由 Preview 配置宽度、fontScale 和 Light/Dark，App 内切换 `zh-CN` / English。模拟器设备 locale 为 `en-US`。
 - **PR #35：** head `d43fd3878945de1ee5f662d7609a5847b46da6d4`；Actions checkout `20c8d4dba8f3e78b3e58b9334db2ef3d999a8fac`；squash commit `2519eb6b7795ccac4203310a80e2bd1baf81b0a4`。
 - **PR #39：** head `1c83f81fa7d71a9efd53000e7120c0b1b9f0e814`；Actions checkout `72c25c7ce62a624bb81e420dc5a5fa3902619107`；squash commit `4cacbd0b2d458619d460d9f30ab5d4944d19fdda`。
+- **PR #42 交互：** [模拟器 #37896975342](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37896975342)，head `b0ad718db2d754ac75efe8f1dec339256a765f95`；Actions checkout `4c1f5575768878d2b73ac2256b22a8df724dabd5`；squash commit `87c3fc92f57c9660fd7d7aa9fa995648a8e4fb5c`。对应 Modal/键盘工件 ID：`11600614336`、`11600494850`、`11601495636`、`11601405854`。
 - **工件内容：** 每份均有 `device.json`、`screenshot.png`、`window.xml`、`manifest.json`；GitHub Actions 通常保留 90 天，不宜仅凭临时工件作为长期 Golden Baseline。
 
 ## 设计负责人逐项审查
@@ -31,7 +32,7 @@
 - [ ] 判断 320dp 下 `System` 分段选项换行是否可接受。
 - [ ] 判断 393dp 英文 `Header` 的两行截断是否符合设计规则。
 - [ ] 确认按钮默认、禁用、加载、错误提示与状态色在实际截图中的视觉关系。
-- [ ] 检查下方组件、焦点顺序、软键盘可见性和 Android Back 关闭弹窗；[PR #42](https://github.com/Pixman022/fresnica-ui-native/pull/42) 的新模拟器交互证据尚待通过和审阅。
+- [ ] 设计负责人审阅下方组件与交互差异。工程侧 [PR #42](https://github.com/Pixman022/fresnica-ui-native/pull/42) 已在真实模拟器验证弹窗 Android Back 关闭、键盘打开后按钮可见且可点击；但一般焦点顺序与 TalkBack 未验证，操作反馈文案也并未在键盘打开时完整可见。
 - [ ] 核对每份截图的设备、主题、字号、语言、来源 SHA 和具体例外。
 - [ ] 人工选定获批的参考截图及其持久保管位置；如果需自动像素差异检查，应先单独审定稳定环境和误报阈值。
 
@@ -54,6 +55,6 @@
 
 ## 交付边界
 
-当前代码可以用于内部组件库试集成和视觉审阅；真实 Android 手机、TalkBack、iOS、钱包产品、安全与 Mainnet 均不在当前交付签核内。DS-09 的多尺寸首屏证据已齐备，模拟器交互仍待验证；**DS-11 保持未完成**，直到设计负责人审核并记录决定。
+当前代码可以用于内部组件库试集成和视觉审阅；真实 Android 手机、TalkBack、iOS、钱包产品、安全与 Mainnet 均不在当前交付签核内。DS-09 的多尺寸首屏与核心模拟器弹窗／键盘交互工程证据已齐备；**DS-11 保持未完成**，直到设计负责人审核并记录决定。
 
 审批后再通过 PR 更新本审核单、[视觉证据矩阵](native-visual-evidence.md)、[阶段交付报告](ui-library-phase-one-status.md) 与 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37)，不直接更改已冻结的 Web/Native Token。
