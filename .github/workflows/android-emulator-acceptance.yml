@@ -397,6 +397,9 @@ jobs:
                   EVIDENCE_DIR=$(find artifacts/android-acceptance -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)
                   npm run example:verify -- "$EVIDENCE_DIR"
                   grep -Fq "Keyboard action was pressed" "$EVIDENCE_DIR/window.xml"
+                  # UI hierarchy can include text covered by IME. Its bounds
+                  # must be above the button that was tappable with IME open.
+                  node scripts/assert-keyboard-feedback-above-action.mjs "$EVIDENCE_DIR/window.xml"
                   echo "dir=$EVIDENCE_DIR" >> "$GITHUB_OUTPUT"
                   adb shell rm -f /sdcard/fresnica-keyboard-window.xml
 

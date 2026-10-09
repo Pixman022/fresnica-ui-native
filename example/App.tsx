@@ -298,16 +298,16 @@ export default function App() {
                                 value={keyboardValue}
                                 onChangeText={setKeyboardValue}
                                 placeholder={labels.keyboardPlaceholder}
-                                supportingText={labels.keyboardHint}
+                                supportingText={keyboardActionActive ? undefined : labels.keyboardHint}
                             />
+                            {keyboardActionActive ? (
+                                <InlineMessage theme={theme} tone="success" message={labels.keyboardFeedback} />
+                            ) : null}
                             <Button
                                 theme={theme}
                                 label={labels.keyboardAction}
                                 onPress={() => setKeyboardActionActive(true)}
                             />
-                            {keyboardActionActive ? (
-                                <InlineMessage theme={theme} tone="success" message={labels.keyboardFeedback} />
-                            ) : null}
                         </View>
 
                         <Modal
