@@ -35,6 +35,16 @@ jobs:
               working-directory: fresnica-ui-native
               run: npm ci
 
+            - name: Audit native dependencies (report only)
+              working-directory: fresnica-ui-native
+              continue-on-error: true
+              run: npm audit --audit-level=moderate
+
+            - name: Audit native production dependencies (report only)
+              working-directory: fresnica-ui-native
+              continue-on-error: true
+              run: npm audit --omit=dev --audit-level=moderate
+
             - name: Run standalone tests
               working-directory: fresnica-ui-native
               run: npm test
