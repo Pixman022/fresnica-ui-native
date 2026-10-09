@@ -16,7 +16,7 @@ function visibleBounds(label) {
     }
 
     const close = hierarchy.indexOf('>', index);
-    const match = /bounds="\\[(\\d+),(\\d+)\\]\\[(\\d+),(\\d+)\\]"/.exec(hierarchy.slice(index, close));
+    const match = /bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"/.exec(hierarchy.slice(index, close));
     if (!match) throw new Error(`Missing bounds for ${label}`);
     const [left, top, right, bottom] = match.slice(1).map(Number);
     if (left >= right || top >= bottom) throw new Error(`Empty bounds for ${label}`);
