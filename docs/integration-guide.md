@@ -11,7 +11,10 @@ See [the UI library delivery plan](ui-library-delivery-plan.md) for the current 
 
 ## Package usage
 
-1. Install the package in the product app after the native repository is published or linked.
+Follow [the pinned package install and token handoff guide](consumer-handoff.md) to build,
+pack and install the currently private Native package from an approved commit.
+
+1. Install the prebuilt archive in the consuming App; do not install raw Git sources.
 2. Resolve the app's selected mode with `resolveTheme`; for `system`, pass the platform
    appearance result (`light` or `dark`).
 3. Pass the resulting `AppTheme` to each component.
@@ -94,5 +97,5 @@ const labels = {
 
 const theme = resolveTheme(preference, systemAppearance);
 
-return <Button theme={theme} label={labels.continue} accessibilityLabel={labels.continue} onPress={submit} />;
+return <Button theme={theme} label={labels.continue} onPress={submit} />;
 ```
