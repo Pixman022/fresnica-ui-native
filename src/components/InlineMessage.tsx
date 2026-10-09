@@ -19,7 +19,16 @@ export function InlineMessage({ theme, message, tone = 'info', icon }: InlineMes
             accessible
             accessibilityRole={tone === 'error' ? 'alert' : 'text'}
             accessibilityLabel={message}
-            style={[styles.container, { borderColor: color }]}
+            style={[
+                styles.container,
+                {
+                    borderColor: color,
+                    padding: theme.spacing.md,
+                    borderWidth: theme.sizes.border,
+                    borderRadius: theme.radii.control,
+                    gap: theme.spacing.sm,
+                },
+            ]}
         >
             {icon}
             <Text style={{ color: theme.colors.contentPrimary, fontSize: theme.typography.supporting, flex: 1 }}>
@@ -31,11 +40,7 @@ export function InlineMessage({ theme, message, tone = 'info', icon }: InlineMes
 const styles = StyleSheet.create({
     container: {
         minHeight: 44,
-        padding: 12,
-        borderWidth: 1,
-        borderRadius: 12,
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 8,
     },
 });

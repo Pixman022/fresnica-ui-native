@@ -15,7 +15,10 @@ export function StateView({ theme, tone = 'empty', title, description, action, i
     const accent =
         tone === 'error' ? theme.colors.negative : tone === 'success' ? theme.colors.positive : theme.colors.primary;
     return (
-        <View style={styles.container} accessibilityRole="summary">
+        <View
+            style={[styles.container, { padding: theme.spacing.xl, gap: theme.spacing.sm }]}
+            accessibilityRole="summary"
+        >
             {icon}
             <Text
                 style={[styles.title, { color: theme.colors.contentPrimary, fontSize: theme.typography.sectionTitle }]}
@@ -32,14 +35,16 @@ export function StateView({ theme, tone = 'empty', title, description, action, i
                     {description}
                 </Text>
             ) : null}
-            {action ? <View style={[styles.action, { borderColor: accent }]}>{action}</View> : null}
+            {action ? (
+                <View style={[styles.action, { borderColor: accent, marginTop: theme.spacing.sm }]}>{action}</View>
+            ) : null}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { alignItems: 'center', justifyContent: 'center', padding: 24, gap: 8 },
+    container: { alignItems: 'center', justifyContent: 'center' },
     title: { textAlign: 'center', fontWeight: '700' },
     description: { textAlign: 'center', lineHeight: 22 },
-    action: { marginTop: 8, maxWidth: '100%' },
+    action: { maxWidth: '100%' },
 });

@@ -14,7 +14,13 @@ export function StatusBadge({ theme, label, tone = 'neutral' }: StatusBadgeProps
                 ? theme.colors.warning
                 : theme.colors.contentSecondary;
     return (
-        <View accessibilityRole="text" style={[styles.badge, { borderColor: color }]}>
+        <View
+            accessibilityRole="text"
+            style={[
+                styles.badge,
+                { borderColor: color, borderWidth: theme.sizes.border, borderRadius: theme.radii.pill },
+            ]}
+        >
             <Text style={{ color, fontSize: theme.typography.supporting, fontWeight: '600' }}>{label}</Text>
         </View>
     );
@@ -23,8 +29,6 @@ const styles = StyleSheet.create({
     badge: {
         minHeight: 28,
         paddingHorizontal: 10,
-        borderWidth: 1,
-        borderRadius: 9999,
         alignItems: 'center',
         justifyContent: 'center',
     },

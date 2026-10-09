@@ -10,6 +10,8 @@ assert.match(button, /accessibilityRole="button"/);
 assert.match(button, /accessibilityState=\{\{ disabled: isDisabled, busy: loading \}\}/);
 assert.match(button, /theme\.sizes\.controlBase/);
 assert.match(button, /theme\.radii\.base/);
+assert.match(button, /theme\.spacing\.lg/);
+assert.match(button, /theme\.spacing\.sm/);
 assert.match(button, /minHeight: heights\[size\]/);
 assert.doesNotMatch(button, /\bheight: heights\[size\]/);
 assert.match(button, /flexShrink: 1/);
@@ -36,6 +38,8 @@ assert.match(listRow, /minWidth: 0/);
 const stateView = read('src/components/StateView.tsx');
 assert.match(stateView, /action \?/);
 assert.match(stateView, /maxWidth: '100%'/);
+assert.match(stateView, /theme\.spacing\.xl/);
+assert.match(stateView, /theme\.spacing\.sm/);
 
 const modal = read('src/components/Modal.tsx');
 assert.match(modal, /accessibilityViewIsModal/);
@@ -63,5 +67,14 @@ assert.match(progress, /Number\.isNaN\(value\) \? 0 : value/);
 assert.match(progress, /Math\.max\(0, Math\.min\(1, normalized\)\)/);
 assert.match(progress, /Math\.round\(clamped \* 100\)/);
 assert.match(progress, /accessibilityValue=\{\{ min: 0, max: 100, now: percentage \}\}/);
+
+const inlineMessage = read('src/components/InlineMessage.tsx');
+assert.match(inlineMessage, /theme\.spacing\.md/);
+assert.match(inlineMessage, /theme\.radii\.control/);
+assert.match(inlineMessage, /theme\.sizes\.border/);
+
+const statusBadge = read('src/components/StatusBadge.tsx');
+assert.match(statusBadge, /theme\.sizes\.border/);
+assert.match(statusBadge, /theme\.radii\.pill/);
 
 console.log('Native component contract checks passed');
