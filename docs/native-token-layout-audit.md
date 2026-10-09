@@ -7,12 +7,12 @@ This work does not change palette values, API props or Web Token 1.0.0.
 
 ## Mapped to existing shared dimensions
 
-| Primitive | Previous local numbers | Mapped Native roles |
-| --- | --- | --- |
-| Button | horizontal 16, vertical 8, gap 8 | `spacing.lg`, `spacing.sm` |
+| Primitive     | Previous local numbers                 | Mapped Native roles                                         |
+| ------------- | -------------------------------------- | ----------------------------------------------------------- |
+| Button        | horizontal 16, vertical 8, gap 8       | `spacing.lg`, `spacing.sm`                                  |
 | InlineMessage | padding 12, gap 8, radius 12, border 1 | `spacing.md`, `spacing.sm`, `radii.control`, `sizes.border` |
-| StatusBadge | border 1, pill radius 9999 | `sizes.border`, `radii.pill` |
-| StateView | padding 24, gap 8, action top 8 | `spacing.xl`, `spacing.sm` |
+| StatusBadge   | border 1, pill radius 9999             | `sizes.border`, `radii.pill`                                |
+| StateView     | padding 24, gap 8, action top 8        | `spacing.xl`, `spacing.sm`                                  |
 
 The approved Native token values produce **the same dimensions** as the
 previous local constants. Source-based component contract checks now guard
