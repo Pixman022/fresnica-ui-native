@@ -71,11 +71,24 @@ const missingNativeRoles = requiredNativeRoles.filter((name) => !nativeRoleMap[n
 const missingRoleTargets = Object.entries(nativeRoleMap)
     .filter(([, semanticName]) => !semantic[semanticName])
     .map(([nativeName, semanticName]) => `${nativeName}=${semanticName}`);
+const unmappedNativeColors = colorKeys.filter((key) => !nativeRoleMap[key]);
+const unknownNativeRoles = Object.keys(nativeRoleMap).filter((key) => !colorKeys.includes(key));
+const overrides = platformSource.native?.platformOverrides ?? [];
+const overridesWithoutReasons = overrides.flatMap((override, index) =>
+    typeof override.reason !== 'string' || !override.reason.trim() ? [index] : [],
+);
+const unknownOverrideRoles = overrides.flatMap((override) =>
+    (override.roles ?? []).filter((key) => !colorKeys.includes(key)),
+);
 if (
     missing.length > 0 ||
     missingColorValues.length > 0 ||
     missingNativeRoles.length > 0 ||
-    missingRoleTargets.length > 0
+    missingRoleTargets.length > 0 ||
+    unmappedNativeColors.length > 0 ||
+    unknownNativeRoles.length > 0 ||
+    overridesWithoutReasons.length > 0 ||
+    unknownOverrideRoles.length > 0
 ) {
     console.error(`Missing semantic tokens: ${missing.join(', ')}`);
     if (missingColorValues.length > 0) {
@@ -86,6 +99,16 @@ if (
     }
     if (missingRoleTargets.length > 0) {
         console.error(`Missing Native semantic role targets: ${missingRoleTargets.join(', ')}`);
+    }
+    if (unmappedNativeColors.length > 0 || unknownNativeRoles.length > 0) {
+        console.error(
+            `Invalid Native color-to-role mappings: ${[...unmappedNativeColors, ...unknownNativeRoles].join(', ')}`,
+        );
+    }
+    if (overridesWithoutReasons.length > 0 || unknownOverrideRoles.length > 0) {
+        console.error(
+            `Invalid platform overrides: ${overridesWithoutReasons.join(', ')}; unknown roles: ${unknownOverrideRoles.join(', ')}`,
+        );
     }
     process.exitCode = 1;
 } else {
