@@ -23,7 +23,7 @@ acceptance must use its own Preview host rather than depend on product wallet ac
 
 See [the scoped UI library delivery plan](docs/ui-library-delivery-plan.md) for priorities, verification criteria
 and explicit non-goals. [Phase-one engineering handoff status](docs/ui-library-phase-one-status.md)
-tracks verified work and explicitly unresolved visual-accessibility acceptance.
+records the owner-approved phase-one visual layout separately from unresolved full accessibility acceptance.
 The [internal change record](CHANGELOG.md) documents the unreleased `1.0.0` source baseline
 and its known limitations. The package is currently private/not published to npm; build and local packaging remain
 available for consumer integration.
