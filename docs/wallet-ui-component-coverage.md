@@ -21,16 +21,16 @@
 
 当前 Web 示例包含：品牌/网络区、钱包摘要、复制地址、Send/Swap/Receive 快捷操作、资产列表、资产搜索入口和底部产品导航。
 
-| UI | 建议映射 | 分类 | 结论 |
-| --- | --- | --- | --- |
-| 页面容器/标题/文案 | `Screen` + `Typography` | Direct | 已覆盖 |
-| 快捷操作 | `Button` / `IconButton` | Direct/Compose | 已覆盖 |
-| 复制地址 | `Typography` + `IconButton` | Compose | 已覆盖 |
-| 网络状态/标签 | `StatusBadge` + Feature 状态 | Compose | 已覆盖 |
-| 钱包摘要卡 | token + `View` + `Typography` | Feature-local | 钱包语义，不建立共享 Card 也可实现 |
-| Asset row | `ListRow` 作为布局基础，资产图标/余额为 Feature 内容 | Feature-local | 不升为通用 AssetRow |
-| 资产搜索入口 | `Button` / `IconButton` | Direct | 当前不是 inline search field |
-| 底部导航 | App shell navigation | Feature/App-shell | 不属于组件包 |
+| UI                 | 建议映射                                             | 分类              | 结论                               |
+| ------------------ | ---------------------------------------------------- | ----------------- | ---------------------------------- |
+| 页面容器/标题/文案 | `Screen` + `Typography`                              | Direct            | 已覆盖                             |
+| 快捷操作           | `Button` / `IconButton`                              | Direct/Compose    | 已覆盖                             |
+| 复制地址           | `Typography` + `IconButton`                          | Compose           | 已覆盖                             |
+| 网络状态/标签      | `StatusBadge` + Feature 状态                         | Compose           | 已覆盖                             |
+| 钱包摘要卡         | token + `View` + `Typography`                        | Feature-local     | 钱包语义，不建立共享 Card 也可实现 |
+| Asset row          | `ListRow` 作为布局基础，资产图标/余额为 Feature 内容 | Feature-local     | 不升为通用 AssetRow                |
+| 资产搜索入口       | `Button` / `IconButton`                              | Direct            | 当前不是 inline search field       |
+| 底部导航           | App shell navigation                                 | Feature/App-shell | 不属于组件包                       |
 
 **共享缺口：无。**
 
@@ -38,14 +38,14 @@
 
 当前 Web 示例包含：返回/标题/网络状态、来源地址、资产选择、金额输入、余额/法币提示、Back / Next。
 
-| UI | 建议映射 | 分类 | 结论 |
-| --- | --- | --- | --- |
-| 顶栏 | `Header` | Direct | 已覆盖 |
-| 来源地址显示 | `Typography` + Feature wrapper | Compose | 地址格式属于钱包领域 |
-| 资产选择 | `ListRow` + Feature asset content | Feature-local | 不升为通用钱包组件 |
-| 金额输入 | `Field` + Feature amount formatting/max action | Compose/Feature-local | 基础输入已覆盖，货币语义留 Feature |
-| 错误/说明 | `InlineMessage` / `Field.supportingText` | Direct | 已覆盖 |
-| Back / Next | `Button` | Direct | 已覆盖 |
+| UI           | 建议映射                                       | 分类                  | 结论                               |
+| ------------ | ---------------------------------------------- | --------------------- | ---------------------------------- |
+| 顶栏         | `Header`                                       | Direct                | 已覆盖                             |
+| 来源地址显示 | `Typography` + Feature wrapper                 | Compose               | 地址格式属于钱包领域               |
+| 资产选择     | `ListRow` + Feature asset content              | Feature-local         | 不升为通用钱包组件                 |
+| 金额输入     | `Field` + Feature amount formatting/max action | Compose/Feature-local | 基础输入已覆盖，货币语义留 Feature |
+| 错误/说明    | `InlineMessage` / `Field.supportingText`       | Direct                | 已覆盖                             |
+| Back / Next  | `Button`                                       | Direct                | 已覆盖                             |
 
 **共享缺口：无。** 现有 `Field` 不需要为了金额业务增加钱包专属 props。
 
@@ -53,13 +53,13 @@
 
 当前 Web 示例包含：标题、Filter、搜索、按日期分组的交易列表、方向/金额状态。
 
-| UI | 建议映射 | 分类 | 结论 |
-| --- | --- | --- | --- |
-| 标题/Filter | `Header` + `IconButton` | Direct | 已覆盖 |
-| 搜索 | `Field` + leading search icon | Compose | 现有 Field 已支持 `leading` |
-| Clear action | Feature-local wrapper | Compose | 只有一个明确 inline search 场景，不足以立项 SearchField |
-| 交易行 | `ListRow` + Feature transaction content | Feature-local | 交易状态/资产属于领域语义 |
-| 空/错误状态 | `StateView` | Direct | 已覆盖 |
+| UI           | 建议映射                                | 分类          | 结论                                                    |
+| ------------ | --------------------------------------- | ------------- | ------------------------------------------------------- |
+| 标题/Filter  | `Header` + `IconButton`                 | Direct        | 已覆盖                                                  |
+| 搜索         | `Field` + leading search icon           | Compose       | 现有 Field 已支持 `leading`                             |
+| Clear action | Feature-local wrapper                   | Compose       | 只有一个明确 inline search 场景，不足以立项 SearchField |
+| 交易行       | `ListRow` + Feature transaction content | Feature-local | 交易状态/资产属于领域语义                               |
+| 空/错误状态  | `StateView`                             | Direct        | 已覆盖                                                  |
 
 **SearchField 判定：暂不立项。** Home 当前只是搜索入口按钮；Activity 才是明确 inline search，两者交互并不相同，尚未满足“至少两个 Feature 同一搜索语义”的门槛。
 
@@ -67,13 +67,13 @@
 
 当前 Web 示例包含：Accounts、Address book、General、Advanced、Security、Support、Terms、About 等设置行和分组。
 
-| UI | 建议映射 | 分类 | 结论 |
-| --- | --- | --- | --- |
-| 页面标题 | `Header` / `Typography` | Direct | 已覆盖 |
-| 设置项 | `ListRow` | Direct | 已覆盖 |
-| 分组分隔 | `Divider` | Direct | 已覆盖 |
-| 主题/语言切换（未来） | `SegmentedControl` | Direct | 已覆盖 |
-| 二级设置页面 | App shell navigation + 同一 primitives | Compose | 无新共享组件 |
+| UI                    | 建议映射                               | 分类    | 结论         |
+| --------------------- | -------------------------------------- | ------- | ------------ |
+| 页面标题              | `Header` / `Typography`                | Direct  | 已覆盖       |
+| 设置项                | `ListRow`                              | Direct  | 已覆盖       |
+| 分组分隔              | `Divider`                              | Direct  | 已覆盖       |
+| 主题/语言切换（未来） | `SegmentedControl`                     | Direct  | 已覆盖       |
+| 二级设置页面          | App shell navigation + 同一 primitives | Compose | 无新共享组件 |
 
 **共享缺口：无。**
 
@@ -81,14 +81,14 @@
 
 当前 Web 示例包含：返回/标题、From/To 资产选择、金额输入、反转、汇率/费用详情、Review Swap。
 
-| UI | 建议映射 | 分类 | 结论 |
-| --- | --- | --- | --- |
-| 顶栏 | `Header` | Direct | 已覆盖 |
-| From/To 输入 | `Field` + Feature amount panel | Compose/Feature-local | 业务格式留 Feature |
-| 资产选择 | `ListRow` / Feature selector | Feature-local | 不引入钱包业务到共享层 |
-| Switch | `Button` / `IconButton` | Direct | 已覆盖 |
-| 汇率/费用详情 | `Typography` + `Divider` + `View` | Compose | 已覆盖 |
-| Review | `Button` | Direct | 已覆盖 |
+| UI            | 建议映射                          | 分类                  | 结论                   |
+| ------------- | --------------------------------- | --------------------- | ---------------------- |
+| 顶栏          | `Header`                          | Direct                | 已覆盖                 |
+| From/To 输入  | `Field` + Feature amount panel    | Compose/Feature-local | 业务格式留 Feature     |
+| 资产选择      | `ListRow` / Feature selector      | Feature-local         | 不引入钱包业务到共享层 |
+| Switch        | `Button` / `IconButton`           | Direct                | 已覆盖                 |
+| 汇率/费用详情 | `Typography` + `Divider` + `View` | Compose               | 已覆盖                 |
+| Review        | `Button`                          | Direct                | 已覆盖                 |
 
 **共享缺口：无。**
 
@@ -110,13 +110,13 @@
 
 ## 4. 当前候选组件判定
 
-| Candidate | 当前结论 | 原因 |
-| --- | --- | --- |
-| `SearchField` | 不立项 | 仅 Activity 有明确 inline search；Home 是搜索入口，语义不同 |
-| `SecureField` | 不立项 | 现有 Field 已有 secureTextEntry；尚无真实 Import/Unlock UI 证据 |
-| `Toast / Announcement` | 不立项 | 当前示例没有证明跨 Feature 统一时序/队列需求 |
-| `BottomSheet / ActionSheet` | 不立项 | 当前代表页面可由现有布局/Modal/导航完成；未证明同一原生手势模式重复出现 |
-| Generic `Card` | 不立项 | 当前卡片/面板可用 token + View 组合；没有共享行为或语义需要封装 |
+| Candidate                   | 当前结论 | 原因                                                                    |
+| --------------------------- | -------- | ----------------------------------------------------------------------- |
+| `SearchField`               | 不立项   | 仅 Activity 有明确 inline search；Home 是搜索入口，语义不同             |
+| `SecureField`               | 不立项   | 现有 Field 已有 secureTextEntry；尚无真实 Import/Unlock UI 证据         |
+| `Toast / Announcement`      | 不立项   | 当前示例没有证明跨 Feature 统一时序/队列需求                            |
+| `BottomSheet / ActionSheet` | 不立项   | 当前代表页面可由现有布局/Modal/导航完成；未证明同一原生手势模式重复出现 |
+| Generic `Card`              | 不立项   | 当前卡片/面板可用 token + View 组合；没有共享行为或语义需要封装         |
 
 ## 5. 结论
 
