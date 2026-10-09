@@ -1,6 +1,6 @@
 # Fresnica UI 设计系统交付计划（阶段一）
 
-> 状态：执行中 · 2026-10-09 · 责任范围：仅 `Pixman022/fresnica-ui` 与 `Pixman022/fresnica-ui-native`。
+> 状态：阶段一已完成（14/14）· 2026-10-09 · 责任范围：仅 `Pixman022/fresnica-ui` 与 `Pixman022/fresnica-ui-native`。
 > 本计划是 UI 设计规范和可复用组件库的交付计划，不是钱包 App 的开发或上线计划。
 
 ## 1. 依据与现状
@@ -9,7 +9,7 @@
 - 复核基线：Web `main@9ad32c41be7eaf96662d2e8bacb1c9f957ba087b`；Native `main@1973007f6f019793473e0752aa81019f2df34671`。
 - 已有能力：两仓库 MIT 许可；Web 48 个组件与三层 Token；Native 独立包、15 个共享组件、Light/Dark/System 解析、Token 生成和来源校验、Jest、Android Preview 及模拟器验收。
 - 已解决的历史阻塞：商业使用许可、Web 组件不能直接作为 RN 组件使用、第一阶段共享 Token 的平台输出、基础国际化注入。
-- 当前遗留限制：15 个 Native 组件的基础测试、Preview、Token 对比度审计、消费方文档、四组尺寸/主题首屏及模拟器级弹窗 Back / 软键盘按钮可达性已完成。仍缺设计负责人批准的稳定视觉基准；焦点顺序与 TalkBack 未经过真实无障碍验收。原品牌配色保持不变，已有文字对比度短板不视为达标。
+- 当前遗留限制：15 个 Native 组件的基础测试、Preview、Token 对比度审计、消费方文档、四组尺寸/主题首屏及模拟器级弹窗 Back / 软键盘按钮可达性已完成。稳定视觉布局基准已于 2026-10-09 获项目所有者批准；焦点顺序与 TalkBack 仍未经过真实设备无障碍验收。原品牌配色保持不变，已有文字对比度短板不视为达标。
 - 限定：已有 Android 自动化验证并不等于真机 TalkBack、键盘、安全区或未来钱包产品验收通过。
 
 ## 2. 产品边界与交付物
@@ -70,7 +70,7 @@
 
 **验收**：新消费方有可执行的安装步骤；可复现 `npm test`、Token 同步检查和 `npm run build`；说明不包含的产品功能。
 
-> 进度记录（2026-10-09）：DS-01/02/03 已通过 PR #26/#27 和 Issue #21/#22 的范围说明完成；DS-04 的 Web→Native 完整映射检查及 DS-05 的可复现对比度**审计能力**已通过 PR #30，DS-06 的布局 Token 规范化已通过 PR #32，三项均在最新 SHA 的 CI、Android Preview 与模拟器验收成功后合并。**DS-05 勾选代表测量和记录已完成，不代表按钮、状态字色与边框的所有组合均满足 WCAG；设计修正尚未获得批准。** DS-07/08 的 15 个组件测试和 Preview 已由 PR #29 合并；DS-12/13 的固定提交打包安装指南和手动 Token 校验由 PR #31 合并。DS-10 已建立 [模拟器证据与验收矩阵](native-visual-evidence.md)；DS-09 的限定工程验收已通过，DS-11 的代表性视觉布局基准已由项目所有者于 2026-10-09 批准。DS-14 的[工程交接状态报告](ui-library-phase-one-status.md)与仓库[内部变更记录](../CHANGELOG.md)已交付；原配色已按用户决定保持，阶段一代表性视觉布局**已获批准**，WCAG AA / TalkBack 合规性**尚未获得批准**。DS-11 审批记录由 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37) 归档，尚未覆盖的无障碍能力需独立后续验收，PR #35 提供实测 393dp 英文浅色首屏和下方组件区证据；PR #39 的四组按需模拟器矩阵已全部通过并核对截图，PR #40 已加强 Modal 返回与滚动键盘配置的组件单测。PR #42 补齐模拟器级弹窗/键盘点击证据，仍缺焦点无障碍专门验收和设计基准审批。
+> 进度记录（2026-10-09）：DS-01/02/03 已通过 PR #26/#27 和 Issue #21/#22 的范围说明完成；DS-04 的 Web→Native 完整映射检查及 DS-05 的可复现对比度**审计能力**已通过 PR #30，DS-06 的布局 Token 规范化已通过 PR #32，三项均在最新 SHA 的 CI、Android Preview 与模拟器验收成功后合并。**DS-05 勾选代表测量和记录已完成，不代表按钮、状态字色与边框的所有组合均满足 WCAG；设计修正尚未获得批准。** DS-07/08 的 15 个组件测试和 Preview 已由 PR #29 合并；DS-12/13 的固定提交打包安装指南和手动 Token 校验由 PR #31 合并。DS-10 已建立 [模拟器证据与验收矩阵](native-visual-evidence.md)；DS-09 的限定工程验收已通过，DS-11 的代表性视觉布局基准已由项目所有者于 2026-10-09 批准。DS-14 的[工程交接状态报告](ui-library-phase-one-status.md)与仓库[内部变更记录](../CHANGELOG.md)已交付；原配色已按用户决定保持，阶段一代表性视觉布局**已获批准**，WCAG AA / TalkBack 合规性**尚未获得批准**。DS-11 审批记录由 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37) 归档，尚未覆盖的无障碍能力由 [Issue #49](https://github.com/Pixman022/fresnica-ui-native/issues/49) 独立跟进，并已有 [人工验收手册](native-accessibility-device-acceptance.md)（未执行）；PR #35 提供实测 393dp 英文浅色首屏和下方组件区证据；PR #39 的四组按需模拟器矩阵已全部通过并核对截图，PR #40 已加强 Modal 返回与滚动键盘配置的组件单测。PR #42 补齐模拟器级弹窗/键盘点击证据，PR #50 修复键盘反馈可读性，PR #51 建立真机无障碍人工验收手册；视觉基准已批准，焦点/TalkBack 和真机验收仍未完成。
 
 已按用户决定维持原品牌绿和白色按钮文字，不调整 Web/Native 共享 Token。对比度不足与历史候选色值只作为[设计记录](native-primary-button-color-review.md)，不是本轮视觉变更授权。
 
