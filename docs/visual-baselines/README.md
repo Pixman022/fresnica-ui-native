@@ -1,31 +1,64 @@
-# Approved Native phase-one **visual-layout** baselines
+# Approved Native phase-one visual layout baselines
 
-> **Design-owner decision: approved on 2026-10-09.** Approval was explicitly given in the project conversation immediately after the DS-11 approval question and applies **only** to the neutral `example/` Preview's layout, representative component states, and current Light/Dark visual consistency.
->
-> **Not approved:** WCAG AA compliance, original brand-green/light-text contrast, full accessibility focus order, TalkBack, reduced-motion, physical device/iOS behavior, wallet production flows, Mainnet, or pixel-perfect automatic diff thresholds.
+**Status:** The project owner explicitly approved the current visual layout on 2026-10-09.
+This applies only to the neutral `example/` Preview's representative layouts
+and visible shared-component states. It does not approve mobile-product release,
+WCAG AA, TalkBack, physical-device behavior or automated pixel comparison.
 
-## Accepted layout decisions
+## Approved design decisions
 
-1. **320dp**, `fontScale=1.3`, Dark, zh-CN/Stress: compact **系统** theme label stays on a single line after [PR #45](https://github.com/Pixman022/fresnica-ui-native/pull/45); the old **跟随系统** two-line presentation is **superseded**.
-2. **393dp**, `fontScale=1.3`, Light, English/Stress: the deliberately long sample `Header` may be truncated with a two-line ellipsis. English long supporting text may wrap naturally.
-3. Existing representative **320 / 360 / 390 / 393 / 430dp** Light/Dark layouts and visible Button/Field/Status/Header/IconButton/Divider/Skeleton states are accepted as a *visual layout* baseline, with existing theme tokens unchanged.
+- At 320dp, the Chinese System-theme tab uses the short label **系统** on one line.
+  The old **跟随系统** two-line presentation is superseded by PR #45.
+- At 393dp, the deliberately long English `Header` may end with a two-line ellipsis.
+- The reviewed 320, 360, 390, 393 and 430dp Light/Dark Preview layouts are accepted
+  as a representative manual visual-layout baseline. Existing design tokens stay unchanged.
 
-This approval is a **layout decision**, not a claim that the actual screenshots meet all WCAG contrast thresholds, cover every component state, or pass TalkBack. Keep all known issues and platform acceptance boundaries in [the human checklist](../native-visual-baseline-review.md) and [the phase-one report](../ui-library-phase-one-status.md).
+## Pinned reference evidence
 
-## Reference policy
+The versioned [approved-manifest.json](approved-manifest.json) contains seven PNG
+SHA-256 values and their GitHub Actions run/artifact IDs, original clean source
+checkout SHAs, emulator configuration, screenshot pixel dimensions and capture time.
+The 320dp Light reference was newly captured after PR #45, in the successful
+[PR #48 visual matrix](https://github.com/Pixman022/fresnica-ui-native/pull/48).
+It replaces the older PR #39 screenshot that still displayed the previous label.
 
-- Pin the **run ID, GitHub artifact ID, source checkout SHA, Android API/density/fontScale/theme/locale, screenshot dimensions and SHA-256** for each approved screenshot in `approved-manifest.json`. Never equate a squash commit to the PR test checkout recorded in `manifest.json`.
-- Android 15/API 35, emulator `sdk_gphone64_x86_64`, density **420dpi**, system locale `en-US`, with Preview-selected `zh-CN` or English/Stress. Preserve viewport-specific width/height, theme and font scale.
-- GitHub Actions screenshots are **90-day evidence**, not permanently hosted Golden PNG assets. Screenshot hashes and pinned source/environment remain durable in this repository, but the original binary images must be archived externally before the Actions artifacts expire if future exact screenshot comparisons are required.
-- The available workflow reproduces the Preview and captures a fresh PNG/UI hierarchy/device manifest. Regenerated PNGs can differ in system-bar clock or emulator rendering. **No automated pixel-diff gate or threshold is authorized**. Review diffs manually and request a new owner approval for intentional changes.
-- A **320dp / 1.0 / Light** screenshot from [PR #39](https://github.com/Pixman022/fresnica-ui-native/pull/39) predates the [PR #45](https://github.com/Pixman022/fresnica-ui-native/pull/45) compact label. It remains historical evidence and **must not be copied into the new post-fix approved reference manifest unchanged**. Recollect this configuration before pinning it as the approved version.
+Android profiles use Android 15/API 35, `sdk_gphone64_x86_64`, 420dpi and
+device locale `en-US`. Each Preview selects its own zh-CN or English language,
+Stress scenario, font scale and Light/Dark theme.
 
-## How to reproduce evidence
+GitHub Actions screenshot binaries normally expire after 90 days. This repository
+preserves their SHA-256 fingerprints and the source/environment needed for a
+reviewable manual baseline, **not permanent PNG copies**. Archive the original
+binary evidence separately before the workflow artifacts expire if exact image
+comparison is needed later.
 
-1. Check out the *source checkout SHA* from the reference manifest, install Node.js and Android toolchain versions from [the Web mobile baseline](https://github.com/Pixman022/fresnica-ui/blob/main/docs/design-system/mobile-native-baseline.md) and [Native Preview setup](../../example/README.md).
-2. On Android 15/API 35 emulator at 420dpi, use `npm run example:profile -- --width <dp> --font-scale <scale> --theme <light|dark>`.
-3. Use the Preview's in-app language/scenario selections. For English gallery capture, scroll to the actual shared-primitives section.
-4. Run `npm run example:capture`, then `npm run example:verify -- <bundle_dir>`, and compare observed text/layout and device metadata with this approved manifest. Archive the new ZIP if a permanent asset is required.
-5. For regression, use the existing **Android Emulator Acceptance** workflow's `run_matrix` option or PR title prefix `[visual-matrix]`. It collects **four** different width/font/theme variants, not 393dp English or full-device accessibility.
+## Reproduce and review
 
-This directory is source-controlled *review metadata*, not runtime or package assets. No files here are included in the `@fresnica/ui-native` consumer tarball.
+1. Check out the source checkout SHA in the manifest. Install the pinned
+   [toolchain](https://github.com/Pixman022/fresnica-ui/blob/main/docs/design-system/mobile-native-baseline.md)
+   and follow the [Preview guide](../../example/README.md).
+2. Configure the Android emulator using `npm run example:profile` with the
+   reference width, font scale and theme. Select the Preview language and Stress.
+3. For an English gallery reference, scroll to the shared-primitives section.
+   Capture with `npm run example:capture` and verify via `npm run example:verify`.
+4. Compare actual layout and component states against the approved decisions.
+   Record differences and seek explicit owner approval before updating a baseline.
+
+The Android Emulator Acceptance workflow can capture the four-profile matrix on
+demand, but a passing workflow is **not** a pixel-parity approval.
+No automatic pixel-diff threshold is enabled. Capture-time status bars and
+emulator details may differ across otherwise equivalent screenshots.
+
+## Explicit limitations
+
+- Original brand-green primary buttons and light lettering remain unchanged.
+  Known Light/Dark contrast deficits are **not WCAG AA compliant**.
+- No general focus-traversal or TalkBack sign-off, reduced-motion sign-off,
+  iOS/physical-device acceptance, wallet-product or Mainnet release approval.
+- In PR #42, after-tap feedback appears in the UI hierarchy but is partly
+  obscured by the keyboard in the screenshot. That full-text readability
+  is not included in this approval.
+
+These documents are design review metadata, not `@fresnica/ui-native`
+runtime/package files. See the [approved review form](../native-visual-baseline-review.md)
+for the exact user decision and remaining exceptions.
