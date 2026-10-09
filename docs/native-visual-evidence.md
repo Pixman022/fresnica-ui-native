@@ -1,6 +1,6 @@
 # Native Preview visual evidence and acceptance matrix
 
-Status: **evidence recorded; visual baseline not approved**. Scope: the neutral
+Status: **representative manual visual-layout baseline approved by the project owner on 2026-10-09**. Scope: the neutral
 `@fresnica/ui-native` Preview host, **not** a wallet product or physical device.
 This records tasks DS-09/10/11 in the
 [UI component library delivery plan](ui-library-delivery-plan.md).
@@ -164,7 +164,42 @@ navigation, design-owner-approved Golden Baselines, or WCAG AA compliance.
 - **Environment:** Android 15/API 35, 420dpi, 320 × 569dp, fontScale 1.3, Dark, in-app zh-CN / Stress. `device.json`, `screenshot.png`, `window.xml` and `manifest.json` inspected. The accessibility label is `主题, 系统`.
 - **Validation:** CI, Android Preview and Android Emulator Acceptance passed on the same head; the run also repeated the English/Light gallery and the modal/keyboard interaction checks.
 
-The verified screenshot demonstrates a layout improvement, **not an approved Golden Baseline**. Explicit design-owner acceptance is still required. Existing contrast and TalkBack gaps are unchanged.
+The repaired label is **approved as the phase-one visual layout** by the project owner on 2026-10-09. The selected screenshot's source and SHA-256 are now in the approved manifest. Original color-contrast and TalkBack gaps remain unapproved.
+
+## DS-11 project-owner-approved layout reference set
+
+On **2026-10-09**, the project owner approved the current representative
+Light/Dark Native Preview **visual layout**. This accepts the PR #45 320dp
+Chinese short theme label **系统** and the deliberate two-line English Header
+ellipsis at 393dp. It does not accept unresolved WCAG AA colors, physical
+device behavior, TalkBack, iOS, or full product release.
+
+[PR #48](https://github.com/Pixman022/fresnica-ui-native/pull/48)
+ran the on-demand four-profile Android matrix on the post-fix layout:
+[run #37904497820](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37904497820),
+all four jobs successful on head
+`3436aff96f814f2c19e9a68f3aaf7852218f99c3`,
+clean source checkout `dfbcdcf322f8bcaafadc3395a8a6f0a275eac238`.
+The refreshed artifacts were downloaded and their PNGs/device manifests
+inspected, replacing **historical** PR #39 screenshots for the approved set.
+
+- 320dp / 1.0 / Light / zh-CN / Stress: artifact `11604366210`;
+  **系统** is now the one-line theme label.
+- 360dp / 1.0 / Dark / zh-CN / Stress: artifact `11603933870`.
+- 390dp / 1.3 / Light / zh-CN / Stress: artifact `11604018736`.
+- 430dp / 1.3 / Dark / zh-CN / Stress: artifact `11603908991`.
+- The remaining three approved references are PR #45's 320dp / 1.3
+  Dark zh-CN and 393dp / 1.3 Light English top/gallery:
+  artifacts `11601878335`, `11602721487`, `11602037743`.
+
+The [approved-manifest.json](visual-baselines/approved-manifest.json)
+pins the complete seven-image SHA-256, exact profile, original source
+checkout SHA, run/artifact IDs, capture time and screenshot dimensions.
+GitHub Actions archives typically expire after 90 days, so a permanent
+byte-for-byte image baseline requires separate binary archiving.
+The reference decision is **manual visual-layout acceptance**; there is
+**no automated pixel-diff gate**, no hidden threshold, and no WCAG AA
+or full mobile accessibility claim.
 
 ## Baseline policy
 
@@ -182,16 +217,18 @@ The verified screenshot demonstrates a layout improvement, **not an approved Gol
 5. Keep automated pixel-diff gating **deferred** until stable fixed-environment
    reference screenshots and an acceptable false-positive rate exist.
 
-## Next acceptance action
+## Next steps beyond the scoped phase one
 
-The four previously missing size/theme profiles now have verified,
-reviewed first-viewport artifacts and are recorded in
-[Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37).
-The scoped emulator Back/keyboard interactions now have reviewed evidence
-from PR #42. DS-09 engineering acceptance is complete, but real TalkBack
-and general focus order have **not** been tested and must not be assumed.
-Next, obtain design-owner approval of fixed visual references. DS-11 remains
-**open** pending explicit visual-baseline sign-off. Evidence collection
-does not imply complete WCAG AA compliance: the owner has chosen to
-retain the original brand greens and light button text, with the
-[known contrast gaps](native-contrast-audit.md) documented.
+DS-09 engineering acceptance and DS-11 **visual-layout owner approval**
+are now recorded, with real Android evidence and a versioned SHA-256
+reference set. Package and documentation can be used for internal trial
+integration.
+
+Keep a separate follow-up for actual TalkBack/focus order, reduced-motion,
+physical-device keyboard and product acceptance if that broader scope is
+authorized. The owner has chosen to retain the original brand greens and
+light button text, with the known
+[contrast gaps](native-contrast-audit.md) **not WCAG AA compliant**.
+Future automatic pixel comparisons require a durable binary snapshot
+repository, a stable emulator environment and an explicitly approved
+difference threshold.

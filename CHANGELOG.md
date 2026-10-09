@@ -34,6 +34,12 @@ production UI release.
 - **Current visual policy:** [PR #36](https://github.com/Pixman022/fresnica-ui-native/pull/36)
   documents the decision to retain the existing brand-green/white-text
   palette until separately reviewed.
+- **Native phase-one visual layout approval:** [PR #45](https://github.com/Pixman022/fresnica-ui-native/pull/45)
+  fixed narrow Chinese theme-label wrapping. The project owner approved the
+  resulting layout on 2026-10-09. [PR #48](https://github.com/Pixman022/fresnica-ui-native/pull/48)
+  pinned seven reviewed screenshots to stable device/source profiles and PNG
+  SHA-256 values in [approved-manifest.json](docs/visual-baselines/approved-manifest.json).
+  This is a **manual layout sign-off**, not an accessibility or product release.
 
 The exact source SHA for a consuming App must be pinned and recorded.
 See [consumer handoff](docs/consumer-handoff.md) and
@@ -44,10 +50,14 @@ See [consumer handoff](docs/consumer-handoff.md) and
 - The original green primary buttons with white text measure 3.06:1 in
   Light and 2.14:1 in Dark, below WCAG AA's 4.5:1 normal-text target.
   Palette is **unchanged by request**; no color-accessibility sign-off.
-- The four scheduled Android width/theme profiles, additional interaction
-  states, and design-owner-approved visual baseline remain tracked by
-  [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37).
-  A green CI run is not visual parity or physical-device acceptance.
+- Four Android width/theme profiles, core modal/keyboard interactions and
+  the owner-approved representative **visual layout** now have source-linked
+  evidence. Real TalkBack/focus order, physical-device behavior, reduced
+  motion and full mobile accessibility certification remain **unverified**.
+  A green CI run is not a general accessibility or product release sign-off.
+- Approved reference PNGs remain in time-limited GitHub Actions artifacts.
+  The repository records SHA-256 and reproducible profile metadata, not
+  permanently hosted image binaries or an automated pixel-diff threshold.
 - The UI component package does not ship wallet features, Stellar
   transactions, Mainnet, production security approval, iOS, or a public
   npm registry release.

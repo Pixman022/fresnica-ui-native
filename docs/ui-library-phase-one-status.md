@@ -1,13 +1,13 @@
-# Fresnica UI 阶段一交付状态报告（待视觉验收版）
+# Fresnica UI 阶段一交付状态报告（视觉布局已批准）
 
-> 记录日期：2026-10-09。**工程基础可供试集成，但本报告不是视觉无障碍通过声明，也不是钱包 App 生产发布批准。**
+> 记录日期：2026-10-09。**全部 14 项限定范围内的设计系统工程/视觉布局任务已完成，可供内部试集成；本报告不是 WCAG AA、TalkBack 或钱包 App 生产发布批准。**
 
 ## 项目边界
 
 - Web 规范源：[Pixman022/fresnica-ui](https://github.com/Pixman022/fresnica-ui)，
   当前 `main@9ad32c41be7eaf96662d2e8bacb1c9f957ba087b`。
 - Native 消费包：[Pixman022/fresnica-ui-native](https://github.com/Pixman022/fresnica-ui-native)，
-  此次工程状态基线 `main@e3cef28c9bb007c52780dc02f4e020dfaf11392b`（本次记录前的验证提交）。
+  阶段一获批布局的代码基线 `main@14c4bd3f255d7b0d1edf27c7db6c1a3b109f6ffe`；PR #48 仅更新审核/交付文档。
 - 对外交付是 `src/` UI 组件、共享 Token 契约、`example/` 中性 Preview、测试和集成文档。
   `product/` 是保留的历史钱包原型，不属于 UI 库的交付或测试门槛。
   完整移动客户端的无障碍手工验收仍需遵守
@@ -30,16 +30,18 @@
 - **15 个组件直接渲染测试及 Preview（DS-07/08）：**
   [PR #29](https://github.com/Pixman022/fresnica-ui-native/pull/29) 已通过 CI、
   Android Preview 和模拟器 320dp / fontScale 1.3 / Dark / 简体中文 / Stress 验收。
-- **视觉证据基础（DS-10）：** [Native 视觉证据文档](native-visual-evidence.md)
-  明确当前截图、设备/窗口层级/manifest 和来源 SHA，并列出未覆盖的视口。
+- **视觉证据与批准（DS-10/11）：** [Native 视觉证据文档](native-visual-evidence.md)
+  记录截图、设备/窗口层级/manifest 和来源 SHA；项目所有者于 2026-10-09
+  批准代表性视觉布局，[七组固定参考](visual-baselines/approved-manifest.json)
+  保留设备参数、真实工件 ID 和 PNG SHA-256。原图在 90 天 Actions 工件中，长期二进制归档与自动像素差异检测未启用。
 - **消费方交付和下游复核（DS-12/13）：**
   [固定提交安装与 Token 交接说明](consumer-handoff.md)描述本地 `npm pack`
   安装、宿主类型检查、Web 更新后手动校验 Native CI 的路径。
 - **CI：** 上述 PR 在其最新测试 SHA 的三个 UI 验证工作流已成功。
   截至本报告基线，最新 Native `main` CI
-  [#37902216015](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37902216015) 为成功。
+  [#37903416816](https://github.com/Pixman022/fresnica-ui-native/actions/runs/37903416816) 为成功。
 
-## 尚未完成，不应关闭的工作
+## 已批准交付之外的独立限制与未验收事项
 
 1. **当前保持原配色（已确认范围约束）：** 暂不修改品牌绿、白字或
    Light/Dark Token。主按钮普通白字对比度分别为 **3.06:1**（Light）和
@@ -63,28 +65,29 @@
    **一般焦点导航顺序、TalkBack、真机键盘行为仍未验证**；
    操作反馈文案在最后一张截图中也被键盘部分遮住，不将其完整可读性
    声明为已验收。详见 [Issue #37](https://github.com/Pixman022/fresnica-ui-native/issues/37)。
-3. **DS-11 视觉基准：** 尚未批准固定的设备、系统字体和多主题视觉基准；
-   [PR #45](https://github.com/Pixman022/fresnica-ui-native/pull/45)
-   已针对 320dp 大字体「跟随系统」换行问题，在中性 Preview 上使用
-   单行短标签「系统」，新旧实测图已记录于
-   [Native 视觉证据文档](native-visual-evidence.md)，不修改品牌配色。
-   [Native 视觉基准审核单](native-visual-baseline-review.md)
-   已补充该差异供设计负责人逐项审阅，审核人和结果仍待填写。
-   目前不应使用未经审核的图像进行自动像素差异强制判定。
+3. **DS-11 代表性视觉布局已批准：** 项目所有者于 **2026-10-09** 接受
+   [PR #45](https://github.com/Pixman022/fresnica-ui-native/pull/45) 的 320dp「系统」单行、
+   393dp 英文长 Header 两行省略及已审阅的 Light/Dark 布局；
+   [PR #48](https://github.com/Pixman022/fresnica-ui-native/pull/48) 重新采集
+   修复后的 320dp 浅色等四个场景，七份 PNG 的 SHA-256 和设备配置已归档。
+   [正式签核单](native-visual-baseline-review.md)限定该批准仅为**布局视觉**；
+   不代表 WCAG AA 或 TalkBack 通过。未启用像素差异门禁，永久 PNG 归档仍待独立安排。
 4. **DS-14 工程交接与正式视觉批准分离：** 本报告记录了阶段一
    UI 包的现有版本、验证提交、集成方式和剩余限制；工程交接可进行，
-   但**设计基准与无障碍合规未批准**，不得将状态报告作为正式
-   视觉签核。公开 npm 发布非必要条件。
+   **阶段一代表性布局基准已批准，但无障碍合规仍未批准**；
+   不能将本报告作为钱包产品的完整视觉/无障碍上线签核。
+   公开 npm 发布非必要条件。
 
 ## 下一步验收顺序
 
 1. 按当前决定**保留原按钮配色**。暂不处理候选的改色方案，保留上述
    对比度不合格记录，不对外声明全部配色已符合 WCAG AA。
-2. PR #35/#39 的多尺寸中文/英文截图及 PR #42 的模拟器弹窗和
-   键盘按钮实际点击证据已完成工程审查。完整焦点顺序和
-   真机 TalkBack 尚未验证；当前截图仍未获
-   **设计所有者的视觉基准批准**。
-3. 审核视觉差异并明确批准基准，随后更新 DoD 和固定提交的消费方安装记录。
+2. PR #35/#45 的中性 Preview 截图及 PR #48 的新四配置矩阵
+   已获得项目所有者的**阶段一布局视觉批准**，详见
+   [批准清单](visual-baselines/approved-manifest.json)。完整焦点顺序与真机 TalkBack
+   尚未验证，不能将这些截图作为全面无障碍合规结论。
+3. DS-11 签核与 DoD 已更新。消费者仍须固定完整 Git SHA、运行测试并记录打包校验值；
+   任何后续视觉变动均需新的差异记录与明确批准，永久 PNG 归档和 Pixel-diff 为独立后续决策。
 4. 保留真机/iOS/钱包业务/Mainnet 安全评估为独立未来产品工作；
    不把模拟器成功结果等同于上述验收。
 
