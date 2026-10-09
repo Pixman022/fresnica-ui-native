@@ -30,8 +30,6 @@ function visibleBounds(label) {
 const feedback = visibleBounds('Keyboard action was pressed');
 const button = visibleBounds('Primary action below keyboard field');
 if (feedback.bottom > button.top) {
-    throw new Error(
-        `Feedback extends below the action (feedback bottom ${feedback.bottom}, action top ${button.top})`,
-    );
+    throw new Error(`Feedback extends below the action (feedback bottom ${feedback.bottom}, action top ${button.top})`);
 }
 console.log(`Visible feedback ends at ${feedback.bottom}; action begins at ${button.top}.`);
