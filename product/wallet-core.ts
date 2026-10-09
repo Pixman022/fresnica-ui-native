@@ -68,7 +68,11 @@ function xlmToStroops(amountInput: string): bigint {
     return BigInt(whole) * STROOPS_PER_XLM + BigInt(fraction.padEnd(7, '0') || '0');
 }
 
-export function signTestnetTransactionXdr(transactionXdr: string, secret: string, intent: TestnetPaymentIntent): string {
+export function signTestnetTransactionXdr(
+    transactionXdr: string,
+    secret: string,
+    intent: TestnetPaymentIntent,
+): string {
     const keypair = Keypair.fromSecret(secret);
     const transaction = TransactionBuilder.fromXDR(transactionXdr, TESTNET_NETWORK.passphrase);
 
