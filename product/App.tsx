@@ -458,11 +458,7 @@ function TransferScreen() {
                         <Typography theme={theme} variant="sectionTitle">
                             {labels.reviewTestnetTransfer}
                         </Typography>
-                        <ListRow
-                            theme={theme}
-                            title={labels.destination}
-                            description={prepared.destinationPublicKey}
-                        />
+                        <ListRow theme={theme} title={labels.destination} description={prepared.destinationPublicKey} />
                         <ListRow theme={theme} title={labels.amount} description={`${prepared.amount} XLM`} />
                         <InlineMessage theme={theme} tone="warning" message={labels.transferHint} />
                         <Button
