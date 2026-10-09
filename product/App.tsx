@@ -461,7 +461,7 @@ function TransferScreen() {
                         <ListRow
                             theme={theme}
                             title={labels.destination}
-                            description={abbreviatePublicKey(prepared.destinationPublicKey)}
+                            description={prepared.destinationPublicKey}
                         />
                         <ListRow theme={theme} title={labels.amount} description={`${prepared.amount} XLM`} />
                         <InlineMessage theme={theme} tone="warning" message={labels.transferHint} />
