@@ -4,8 +4,10 @@
 the package and owns navigation, wallet state, persistence, permissions, networking and
 platform services.
 
-The reference product integration now lives under `product/`. It is intentionally kept
-outside `src/` so no product navigation or storage dependency leaks into the reusable package.
+The canonical integration reference is the neutral `example/` Preview host. An older wallet prototype
+remains under `product/` for historical reference, intentionally outside `src/` so no product navigation,
+wallet state, storage or signing dependency enters the reusable package.
+See [the UI library delivery plan](ui-library-delivery-plan.md) for the current project boundary.
 
 ## Package usage
 
@@ -22,20 +24,19 @@ const theme = resolveTheme(preference, systemAppearance);
 return <Button theme={theme} label={labels.continue} onPress={submit} />;
 ```
 
-## Reference shell
+## Reference host
 
-The committed `product/App.tsx` demonstrates the current integration contract:
+The committed `example/App.tsx` demonstrates UI-only integration:
 
-- React Navigation 7 native stack and bottom tabs
-- App-owned English/Simplified Chinese copy
+- App-owned English/Simplified Chinese labels
 - Light/Dark/System theme resolution
-- AsyncStorage theme/locale persistence
-- NetInfo connection state
-- user-initiated Android camera permission
-- safe-area composition and Android Back handling
+- responsive and long-content scenarios
+- safe-area-aware scrolling and component behavior
+- reusable primitive states without wallet accounts or network calls
 
-The Home route contains demo wallet state only. Key management, signing, secure storage,
-transaction submission and backend/API behavior require separate product/security contracts.
+The historical `product/` host does implement some Testnet wallet actions, but none of those actions
+belong to the component package or form part of its acceptance criteria. Future wallet security,
+transaction submission, backup and release requirements must be managed by the consuming product.
 
 ## Compatibility
 
@@ -54,7 +55,8 @@ transaction submission and backend/API behavior require separate product/securit
 6. Keep wallet state and business actions outside the component library.
 7. Run product-level Android accessibility acceptance.
 
-The reference shell completes this integration order for the non-sensitive product scaffold.
+The `example/` Preview host exercises the UI-only integration order. Wallet product acceptance is separate
+from component package delivery.
 
 ## Host Responsibilities
 
