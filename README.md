@@ -9,6 +9,22 @@ This package is intentionally separate from the Web `fresnica-ui` package. It co
 the shared semantic design language and exposes native-friendly theme and component
 contracts; it does not import DOM, CSS, Less, Web Portal or browser storage APIs.
 
+## Scope and delivery
+
+This repository delivers the **reusable React Native design-system adapter**, not a wallet application.
+The first-phase deliverables are `src/` (the `@fresnica/ui-native` package), `example/` (neutral component preview),
+the shared Web-to-Native token contract, component tests and integration documentation.
+The Web design-system source remains in [`Pixman022/fresnica-ui`](https://github.com/Pixman022/fresnica-ui).
+
+The `product/` directory is a **historical wallet prototype**, retained for reference and not a prerequisite for
+shipping or consuming the UI component package. No further Testnet signing, transaction submission, Mainnet
+enablement or wallet security/recovery design is in the current scope. Native package accessibility and visual
+acceptance must use its own Preview host rather than depend on product wallet acceptance.
+
+See [the scoped UI library delivery plan](docs/ui-library-delivery-plan.md) for priorities, verification criteria
+and explicit non-goals. The package is currently private/not published to npm; build and local packaging remain
+available for consumer integration.
+
 ## Baseline
 
 - React Native CLI `0.87.0` (not Expo)
@@ -72,20 +88,16 @@ The Preview App exercises theme resolution, English/Simplified Chinese copy, Saf
 core component states and accessibility roles before wallet features are introduced.
 See [`example/README.md`](example/README.md) for details.
 
-## Product App shell
+## Historical product prototype (not a library deliverable)
 
-The `product/` directory contains the first Android product shell and wallet Home slice.
-It uses React Navigation 7, App-owned theme/localization preferences, AsyncStorage,
-NetInfo and a user-initiated Android camera permission path. The selected wallet architecture
-is non-custodial: the first security slice adds Testnet-only Stellar key generation/import,
-Android Keystore-backed secret storage and a device-local signing boundary while Mainnet
-signing/submission remains disabled pending release security review.
+The existing `product/` tree contains an Android wallet prototype with App-level navigation, permissions,
+a device-local Stellar Testnet wallet and Testnet-only transaction code. It is retained unchanged as prior
+exploration; it is **not** the UI library reference host, and its wallet security or physical-device release
+decisions do not gate `@fresnica/ui-native` delivery. Mainnet signing/submission remains disabled.
 
-Run `npm run product:bootstrap` to generate the ignored React Native host,
-`npm run product:android` to launch it and `npm run product:android:build` for a compile-only
-check. See [`product/README.md`](product/README.md) and
-[`docs/product-app-acceptance.md`](docs/product-app-acceptance.md) and
-[`docs/wallet-security.md`](docs/wallet-security.md).
+Product-only scripts and their documentation remain available for reference in
+[`product/README.md`](product/README.md); new library work belongs in `src/`, `example/` and the
+design-system contract documents. Do not extend product logic as part of the UI library roadmap.
 
 Component behavior and the phase-one acceptance matrix are documented in
 [`docs/component-contracts.md`](docs/component-contracts.md).
