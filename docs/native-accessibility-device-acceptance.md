@@ -66,7 +66,13 @@ npm run example:device-info
 - **SYS-01 — 系统栏与安全区：** 切换 Light/Dark、手势与三键导航，观察 StatusBar、导航栏和安全区，记录屏幕开孔与底部导航造成的实际差异。
 - **RM-01 — 减少动画：** 在系统设置中切换「减少/移除动画」，分别打开和关闭 Modal，观察并记录实际动画。现有 Modal 固定 `animationType="fade"`，未获减少动画合规结论。
 
-### 明确的设计决策门槛
+### 已批准的设计决定：暂缓改变 Modal 动画（2026-10-09）
+
+项目所有者选择 **A：保留现有 Modal 动画，现阶段不修改共享组件**；
+见 [Issue #49 决策记录](https://github.com/Pixman022/fresnica-ui-native/issues/49)。
+这属于明确延期，**不是**减少动画合规验收通过或豁免。
+RM-01 的真机观察仍为「未测试」，不得把未修改行为当作通过；
+未来若产品集成阶段重新启动无障碍完善，应基于真机证据取得新的设计授权。
 
 当前 [共享 Modal 源码](https://github.com/Pixman022/fresnica-ui-native/blob/main/src/components/Modal.tsx)
 使用固定 `animationType="fade"`，未根据系统减少动画设置选择不同策略。
@@ -119,8 +125,8 @@ npm run example:device-info
 
 ## 6. 结论与关闭条件
 
-只有实际测试人员填完上述环境、执行结果、失败复测，
-并且设计负责人对 RM-01 的预期行为作出必要决定后，
+只有实际测试人员填完上述环境、执行结果及失败复测，
+并明确记录 RM-01 的实际观察及届时适用的无障碍验收标准后，
 才可评估关闭 [Issue #49](https://github.com/Pixman022/fresnica-ui-native/issues/49)。
 
 此次编制手册只是**增加验收准备工作**，
