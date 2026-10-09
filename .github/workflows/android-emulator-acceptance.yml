@@ -245,6 +245,175 @@ jobs:
                   if-no-files-found: error
                   retention-days: 90
 
+            # UI-only interaction evidence. Reuse the installed English/Light
+            # Preview from above; no additional Gradle build is required.
+            - name: Exercise modal Android Back and capture before/after
+              if: github.event_name == 'pull_request'
+              id: modal_interaction
+              run: |
+                  opened=0
+                  for attempt in $(seq 1 10); do
+                      if npm run example:tap-label -- "Open modal"; then
+                          sleep 2
+                          adb shell uiautomator dump /sdcard/fresnica-modal-window.xml >/dev/null
+                          adb exec-out cat /sdcard/fresnica-modal-window.xml > "$RUNNER_TEMP/fresnica-modal-open.xml"
+                          if grep -Fq "Preview modal" "$RUNNER_TEMP/fresnica-modal-open.xml"; then
+                              opened=1
+                              break
+                          fi
+                      fi
+                      # A partially visible button may report a successful tap while
+                      # its center is behind the navigation bar. Retry only after
+                      # checking that the modal actually appeared.
+                      adb shell input swipe 460 1120 460 360 500
+                      sleep 2
+                  done
+                  test "$opened" = 1
+                  sleep 2
+
+                  adb shell uiautomator dump /sdcard/fresnica-modal-window.xml >/dev/null
+                  adb exec-out cat /sdcard/fresnica-modal-window.xml > "$RUNNER_TEMP/fresnica-modal-open.xml"
+                  grep -Fq "Preview modal" "$RUNNER_TEMP/fresnica-modal-open.xml"
+                  npm run example:capture
+                  OPEN_DIR=$(find artifacts/android-acceptance -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)
+                  npm run example:verify -- "$OPEN_DIR"
+                  grep -Fq "Preview modal" "$OPEN_DIR/window.xml"
+                  echo "open=$OPEN_DIR" >> "$GITHUB_OUTPUT"
+
+                  adb shell input keyevent KEYCODE_BACK
+                  sleep 3
+                  adb shell uiautomator dump /sdcard/fresnica-modal-window.xml >/dev/null
+                  adb exec-out cat /sdcard/fresnica-modal-window.xml > "$RUNNER_TEMP/fresnica-modal-closed.xml"
+                  if grep -Fq "Preview modal" "$RUNNER_TEMP/fresnica-modal-closed.xml"; then
+                      echo "Modal remained visible after Android Back" >&2
+                      exit 1
+                  fi
+                  grep -Fq "Open modal" "$RUNNER_TEMP/fresnica-modal-closed.xml"
+                  npm run example:capture
+                  CLOSED_DIR=$(find artifacts/android-acceptance -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)
+                  npm run example:verify -- "$CLOSED_DIR"
+                  if grep -Fq "Preview modal" "$CLOSED_DIR/window.xml"; then
+                      echo "Modal still visible in dismissal evidence" >&2
+                      exit 1
+                  fi
+                  echo "closed=$CLOSED_DIR" >> "$GITHUB_OUTPUT"
+                  adb shell rm -f /sdcard/fresnica-modal-window.xml
+
+            - name: Upload modal Android Back interaction evidence
+              if: github.event_name == 'pull_request'
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-interaction-${{ github.run_id }}-${{ github.run_attempt }}-modal-open
+                  path: ${{ steps.modal_interaction.outputs.open }}
+                  if-no-files-found: error
+                  retention-days: 90
+
+            - name: Upload modal-dismissed evidence
+              if: github.event_name == 'pull_request'
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-interaction-${{ github.run_id }}-${{ github.run_attempt }}-modal-back-dismissed
+                  path: ${{ steps.modal_interaction.outputs.closed }}
+                  if-no-files-found: error
+                  retention-days: 90
+
+            - name: Exercise keyboard visibility and reachable action
+              if: github.event_name == 'pull_request'
+              id: keyboard_interaction
+              run: |
+                  focused=0
+                  for attempt in $(seq 1 10); do
+                      if npm run example:tap-label -- "Keyboard visibility check"; then
+                          focused=1
+                          break
+                      fi
+                      adb shell input swipe 460 1120 460 360 500
+                      sleep 2
+                  done
+                  test "$focused" = 1
+                  sleep 2
+                  typed=0
+                  for attempt in $(seq 1 12); do
+                      if [ "$(adb get-state 2>/dev/null)" = device ] && adb shell input text fresnica; then
+                          typed=1
+                          break
+                      fi
+                      echo "Waiting for ADB to recover before typing (attempt $attempt)" >&2
+                      sleep 3
+                  done
+                  test "$typed" = 1
+                  sleep 2
+
+                  check_ime_visible() {
+                      adb shell dumpsys input_method > "$RUNNER_TEMP/fresnica-ime-status.txt"
+                      grep -Eq 'mInputShown=true|mInputViewStarted=true|isInputViewShown=true' "$RUNNER_TEMP/fresnica-ime-status.txt"
+                  }
+                  if ! check_ime_visible; then
+                      echo "Android IME not visible after focusing the keyboard field" >&2
+                      tail -n 90 "$RUNNER_TEMP/fresnica-ime-status.txt" >&2
+                      exit 1
+                  fi
+
+                  reached=0
+                  for attempt in $(seq 1 8); do
+                      adb shell uiautomator dump /sdcard/fresnica-keyboard-window.xml >/dev/null
+                      adb exec-out cat /sdcard/fresnica-keyboard-window.xml > "$RUNNER_TEMP/fresnica-keyboard-window.xml"
+                      if grep -Fq "Primary action below keyboard field" "$RUNNER_TEMP/fresnica-keyboard-window.xml"; then
+                          # UIAutomator can report nodes covered by the IME. Only an
+                          # actual button tap followed by App feedback proves reachability.
+                          npm run example:capture
+                          BEFORE_DIR=$(find artifacts/android-acceptance -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)
+                          npm run example:verify -- "$BEFORE_DIR"
+                          if npm run example:tap-label -- "Primary action below keyboard field"; then
+                              sleep 2
+                              adb shell uiautomator dump /sdcard/fresnica-keyboard-window.xml >/dev/null
+                              adb exec-out cat /sdcard/fresnica-keyboard-window.xml > "$RUNNER_TEMP/fresnica-keyboard-window.xml"
+                              if grep -Fq "Keyboard action was pressed" "$RUNNER_TEMP/fresnica-keyboard-window.xml"; then
+                                  reached=1
+                                  echo "before=$BEFORE_DIR" >> "$GITHUB_OUTPUT"
+                                  break
+                              fi
+                          fi
+                      fi
+                      # Keep both gesture endpoints above the IME's top edge.
+                      adb shell input swipe 460 760 460 280 450
+                      sleep 2
+                  done
+                  if [ "$reached" != 1 ]; then
+                      echo "Keyboard action was present in UI tree but could not be tapped" >&2
+                      exit 1
+                  fi
+                  if ! check_ime_visible; then
+                      echo "Android IME disappeared before post-tap capture" >&2
+                      tail -n 90 "$RUNNER_TEMP/fresnica-ime-status.txt" >&2
+                      exit 1
+                  fi
+
+                  npm run example:capture
+                  EVIDENCE_DIR=$(find artifacts/android-acceptance -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)
+                  npm run example:verify -- "$EVIDENCE_DIR"
+                  grep -Fq "Keyboard action was pressed" "$EVIDENCE_DIR/window.xml"
+                  echo "dir=$EVIDENCE_DIR" >> "$GITHUB_OUTPUT"
+                  adb shell rm -f /sdcard/fresnica-keyboard-window.xml
+
+            - name: Upload keyboard before-tap interaction evidence
+              if: github.event_name == 'pull_request'
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-interaction-${{ github.run_id }}-${{ github.run_attempt }}-keyboard-before-tap
+                  path: ${{ steps.keyboard_interaction.outputs.before }}
+                  if-no-files-found: error
+                  retention-days: 90
+
+            - name: Upload keyboard interaction evidence
+              if: github.event_name == 'pull_request'
+              uses: actions/upload-artifact@v7
+              with:
+                  name: android-interaction-${{ github.run_id }}-${{ github.run_attempt }}-keyboard-reachable
+                  path: ${{ steps.keyboard_interaction.outputs.dir }}
+                  if-no-files-found: error
+                  retention-days: 90
+
             - name: Capture UI diagnostics on failure
               if: failure()
               run: |
