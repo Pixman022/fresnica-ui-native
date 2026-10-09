@@ -51,6 +51,25 @@ not hide results from the other profiles.
 The language and content scenario remain Simplified Chinese + Stress so manually selected
 display profiles stay comparable with PR and scheduled evidence.
 
+## Additional PR evidence: English and lower-screen gallery
+
+After the normal 320dp / 1.3 / Dark / 简体中文 / Stress capture, pull-request
+runs reuse the already built and installed Preview for an additional **393dp /
+1.3 / Light / English / Stress** scenario. The App restarts to use its
+initial English locale, the Stress control is selected by its accessibility
+label, and a verified screenshot bundle is uploaded.
+
+A second capture scrolls to the previously offscreen **More shared
+primitives** heading and uploads a separate, verified artifact. The job
+requires the target heading to be present in the UIAutomator hierarchy;
+failure to reach it is a CI failure rather than being called a passed
+gallery review. These extra captures run on pull requests, not during the
+four-profile scheduled matrix or manual workflow dispatch.
+
+The workflow checks artifact completeness and relevant visible labels. Human
+inspection is still required to judge text wrapping, overflow, spacing,
+component rendering and consistency with the approved design reference.
+
 ## Evidence bundle
 
 A successful run captures an evidence directory containing:
