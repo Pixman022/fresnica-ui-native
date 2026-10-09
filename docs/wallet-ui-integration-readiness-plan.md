@@ -1,6 +1,6 @@
 # Fresnica 钱包 UI 集成准备工作计划
 
-> 状态：执行中 · 2026-10-09  
+> 状态：本阶段完成 · 2026-10-09  
 > 范围：仅 `Pixman022/fresnica-ui` 与 `Pixman022/fresnica-ui-native` 的设计系统 / UI 集成准备。  
 > 不包含钱包密钥、签名、链上交易、Mainnet 启用或产品安全实现。
 
@@ -81,9 +81,18 @@
 
 ## 5. 完成定义
 
-- [ ] 真实页面组件覆盖矩阵完成；
-- [ ] 现有 15 个 primitive 是否够用有明确结论；
-- [ ] 新组件候选有可验证的立项门槛，没有无证据立项；
-- [ ] 首个钱包 App 真机无障碍硬门槛被文档化；
-- [ ] 图片取色主题从当前路线中移除；
-- [ ] 文档变更通过现有 CI 并合并。
+- [x] 真实页面组件覆盖矩阵完成；
+- [x] 现有 15 个 primitive 是否够用有明确结论；
+- [x] 新组件候选有可验证的立项门槛，没有无证据立项；
+- [x] 首个钱包 App 真机无障碍硬门槛被文档化；
+- [x] 图片取色主题从当前路线中移除；
+- [x] 文档变更通过现有 CI 并合并。
+
+
+## 6. 完成记录
+
+- Native 覆盖矩阵、集成门槛与迁移结论：PR #55，合并提交 `ee62fc77b88701f9f2aa2e12ee0c75bf1e6a5765`。
+- Web 移动端基线同步：`Pixman022/fresnica-ui` PR #1，合并提交 `aa9670abbfd0c648d7f615a9033c2c5c7c582be0`。
+- 当前结论：15 个 Native primitive 足以启动钱包 UI 集成；本阶段不新增 SearchField、SecureField、Toast/Announcement、BottomSheet/ActionSheet 或 Generic Card。
+- Import / Unlock 尚无当前 Web 示例，因此保持“未来真实产品出现后再评估”；不将其标记为已验收。
+- 真机无障碍不是当前组件库返工项，但在首个真实钱包 App 标记 UI 集成完成前必须执行规定的 Android 真机门槛。
