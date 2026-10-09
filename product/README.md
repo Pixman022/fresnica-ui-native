@@ -42,9 +42,13 @@ wallet setup surface. A generated Testnet wallet is disposable and is not export
 Stellar Testnet secret may be imported through a secure field. Secret material is written to
 Android Keystore-backed storage and is never returned by the UI.
 
-The committed wallet core can build and locally sign Testnet payment XDR, but the product UI
-does not submit transactions yet. Mainnet signing and submission remain disabled until the
-remaining release security decisions and physical-device checks are complete.
+The Send route can now prepare a native-XLM payment by loading the local account sequence from
+Stellar Testnet Horizon. Review is separated from signing: the final action requests device
+authentication, signs locally with the Keystore-protected secret and submits the signed transaction
+to Stellar Testnet Horizon. Raw secrets and signed XDR are never displayed.
+
+Mainnet signing and submission remain disabled until the remaining release security decisions and
+physical-device checks are complete.
 
 See [product app acceptance](../docs/product-app-acceptance.md) and
 [wallet security](../docs/wallet-security.md) for the automated/manual acceptance and security

@@ -16,11 +16,17 @@ const secretOptions = {
     accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_CURRENT_SET_OR_DEVICE_PASSCODE,
     securityLevel: Keychain.SECURITY_LEVEL.SECURE_SOFTWARE,
     storage: Keychain.STORAGE_TYPE.AES_GCM,
-    authenticationPrompt: {
-        title: 'Authenticate to use Fresnica wallet',
-        cancel: 'Cancel',
-    },
 } as const;
+
+type AuthenticationPrompt = {
+    title: string;
+    cancel: string;
+};
+
+const defaultAuthenticationPrompt: AuthenticationPrompt = {
+    title: 'Authenticate to use Fresnica wallet',
+    cancel: 'Cancel',
+};
 
 function toMetadata(material: WalletSecretMaterial): WalletAccountMetadata {
     return {
@@ -31,7 +37,10 @@ function toMetadata(material: WalletSecretMaterial): WalletAccountMetadata {
 }
 
 async function persistWallet(material: WalletSecretMaterial): Promise<WalletAccountMetadata> {
-    const stored = await Keychain.setGenericPassword(material.publicKey, material.secret, secretOptions);
+    const stored = await Keychain.setGenericPassword(material.publicKey, material.secret, {
+        ...secretOptions,
+        authenticationPrompt: defaultAuthenticationPrompt,
+    });
     if (!stored) {
         throw new Error('Secure wallet storage is unavailable.');
     }
@@ -78,8 +87,14 @@ export async function deleteTestnetWallet(): Promise<void> {
     await AsyncStorage.removeItem(METADATA_KEY);
 }
 
-export async function signTestnetTransactionXdr(transactionXdr: string): Promise<string> {
-    const credentials = await Keychain.getGenericPassword(secretOptions);
+export async function signTestnetTransactionXdr(
+    transactionXdr: string,
+    authenticationPrompt = defaultAuthenticationPrompt,
+): Promise<string> {
+    const credentials = await Keychain.getGenericPassword({
+        ...secretOptions,
+        authenticationPrompt,
+    });
     if (!credentials) {
         throw new Error('Local signing key is unavailable.');
     }

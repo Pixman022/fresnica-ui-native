@@ -5,6 +5,7 @@ import {
     createTestnetWalletMaterial,
     importTestnetWalletMaterial,
     signTestnetTransactionXdr,
+    validateXlmAmount,
 } from './wallet-core.ts';
 
 const created = createTestnetWalletMaterial();
@@ -30,6 +31,10 @@ assert.throws(
     () => signTestnetTransactionXdr(unsignedXdr, other.secret),
     /Transaction source does not match the local wallet/,
 );
+assert.equal(validateXlmAmount('1.2345678'), '1.2345678');
+assert.throws(() => validateXlmAmount('0'));
+assert.throws(() => validateXlmAmount('-1'));
+assert.throws(() => validateXlmAmount('1.23456789'));
 assert.throws(() => importTestnetWalletMaterial('not-a-stellar-secret'));
 
 console.log('wallet core smoke passed');

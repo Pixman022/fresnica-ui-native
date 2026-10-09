@@ -94,6 +94,7 @@ fs.copyFileSync(path.join(productRoot, 'App.tsx'), path.join(projectDir, 'App.ts
 fs.copyFileSync(path.join(productRoot, 'copy.ts'), path.join(projectDir, 'copy.ts'));
 fs.copyFileSync(path.join(productRoot, 'wallet-core.ts'), path.join(projectDir, 'wallet-core.ts'));
 fs.copyFileSync(path.join(productRoot, 'secure-wallet.ts'), path.join(projectDir, 'secure-wallet.ts'));
+fs.copyFileSync(path.join(productRoot, 'testnet-horizon.ts'), path.join(projectDir, 'testnet-horizon.ts'));
 fs.copyFileSync(path.join(productRoot, 'wallet-core-smoke.mts'), path.join(projectDir, 'wallet-core-smoke.mts'));
 
 console.log('FresnicaWallet is ready at ' + projectDir);
