@@ -22,7 +22,8 @@ enablement or wallet security/recovery design is in the current scope. Native pa
 acceptance must use its own Preview host rather than depend on product wallet acceptance.
 
 See [the scoped UI library delivery plan](docs/ui-library-delivery-plan.md) for priorities, verification criteria
-and explicit non-goals. The package is currently private/not published to npm; build and local packaging remain
+and explicit non-goals. [Phase-one engineering handoff status](docs/ui-library-phase-one-status.md)
+tracks verified work and explicitly unresolved visual-accessibility acceptance. The package is currently private/not published to npm; build and local packaging remain
 available for consumer integration.
 
 ## Baseline
@@ -51,7 +52,7 @@ available for consumer integration.
 
 Navigation, system bars, safe areas, persistence and product routes belong to the App
 shell. Wallet flows remain Feature-local. See
-[`../fresnica-ui/docs/design-system/mobile-native-baseline.md`](../fresnica-ui/docs/design-system/mobile-native-baseline.md)
+[Web mobile/native baseline](https://github.com/Pixman022/fresnica-ui/blob/main/docs/design-system/mobile-native-baseline.md)
 for the complete boundary and acceptance contract.
 
 ## Local development
