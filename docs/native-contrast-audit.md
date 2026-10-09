@@ -27,15 +27,15 @@ an essential control boundary.
 The following ratios were calculated from the current generated Native colors;
 run the script after any token-source update to get the latest figures.
 
-| Combination | Light | Dark | Target |
-| --- | ---: | ---: | ---: |
-| Primary button white text / brand green | 3.06:1 | 2.14:1 | 4.5:1 |
-| Pressed primary button white text / green | 4.10:1 | 3.06:1 | 4.5:1 |
-| Muted supporting copy / surface | 3.13:1 | 5.96:1 | 4.5:1 |
-| Positive status label / surface | 3.06:1 | 8.13:1 | 4.5:1 |
-| Negative status label / surface | 5.12:1 | 3.40:1 | 4.5:1 |
-| Warning status label / surface | 4.03:1 | 8.10:1 | 4.5:1 |
-| Default border / surface | 1.28:1 | 1.46:1 | 3:1 if essential |
+| Combination                               |  Light |   Dark | Target           |
+| ----------------------------------------- | -----: | -----: | ---------------- |
+| Primary button white text / brand green   | 3.06:1 | 2.14:1 | 4.5:1            |
+| Pressed primary button white text / green | 4.10:1 | 3.06:1 | 4.5:1            |
+| Muted supporting copy / surface           | 3.13:1 | 5.96:1 | 4.5:1            |
+| Positive status label / surface           | 3.06:1 | 8.13:1 | 4.5:1            |
+| Negative status label / surface           | 5.12:1 | 3.40:1 | 4.5:1            |
+| Warning status label / surface            | 4.03:1 | 8.10:1 | 4.5:1            |
+| Default border / surface                  | 1.28:1 | 1.46:1 | 3:1 if essential |
 
 ## Decisions still needed before declaring all visual states accessible
 
