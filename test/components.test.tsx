@@ -49,6 +49,15 @@ describe('native components', () => {
         expect(screen.getByText('Enter a valid amount')).toBeTruthy();
     });
 
+    it('exposes disabled Field semantics without allowing input edits', () => {
+        render(<Field label="Disabled amount" theme={theme} state="disabled" value="123" />);
+
+        const field = screen.getByLabelText('Disabled amount');
+        expect(field).toBeDisabled();
+        expect(field.props.accessibilityState).toEqual({ disabled: true });
+        expect(field.props.editable).toBe(false);
+    });
+
     it('exposes IconButton label and disabled state', () => {
         render(
             <IconButton
