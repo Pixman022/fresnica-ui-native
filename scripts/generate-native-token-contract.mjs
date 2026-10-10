@@ -3,8 +3,12 @@ import path from 'node:path';
 import prettier from 'prettier';
 import { readLockedTokenSources } from './token-source-lock.mjs';
 
-const { tokenPath: sourcePath, platformTokenPath: platformSourcePath, source, platformSource } =
-    readLockedTokenSources();
+const {
+    tokenPath: sourcePath,
+    platformTokenPath: platformSourcePath,
+    source,
+    platformSource,
+} = readLockedTokenSources();
 const outputPath = path.join(import.meta.dirname, '..', 'src', 'generated-token-contract.ts');
 const checkOnly = process.argv.includes('--check');
 const primitive = source.primitive ?? {};
