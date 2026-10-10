@@ -15,7 +15,10 @@ export type IconButtonProps = {
     nativeID?: string;
 };
 
-export const IconButton: ForwardRefExoticComponent<IconButtonProps & RefAttributes<PressableRef>> = forwardRef<PressableRef, IconButtonProps>(function IconButton(
+export const IconButton: ForwardRefExoticComponent<IconButtonProps & RefAttributes<PressableRef>> = forwardRef<
+    PressableRef,
+    IconButtonProps
+>(function IconButton(
     { theme, label, icon, onPress, disabled = false, testID, nativeID },
     ref,
 ) {
