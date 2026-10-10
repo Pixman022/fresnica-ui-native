@@ -91,6 +91,7 @@ export const Field: ForwardRefExoticComponent<FieldProps & RefAttributes<TextInp
                     {...inputProps}
                     ref={ref}
                     accessible
+                    accessibilityRole={undefined}
                     accessibilityLabel={accessibilityLabel ?? label}
                     accessibilityHint={accessibilityHint ?? (visualState === 'error' ? supportingText : undefined)}
                     accessibilityState={{ ...accessibilityState, disabled }}
