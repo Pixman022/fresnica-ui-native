@@ -28,6 +28,12 @@ The [internal change record](CHANGELOG.md) documents the unreleased `1.0.0` sour
 and its known limitations. The package is currently private/not published to npm; build and local packaging remain
 available for consumer integration.
 
+The post-phase-one [wallet UI integration readiness plan](docs/wallet-ui-integration-readiness-plan.md)
+and [component coverage matrix](docs/wallet-ui-component-coverage.md) conclude that the current
+15 shared primitives are sufficient to **start** wallet UI integration. New shared primitives are
+added only when real product Features demonstrate stable cross-Feature reuse; wallet-domain rows,
+amount panels, selectors and transaction presentation remain Feature-local by default.
+
 ## Baseline
 
 - React Native CLI `0.87.0` (not Expo)
@@ -40,7 +46,7 @@ available for consumer integration.
 - The baseline has no generic secondary action color: `contentSecondary` is supporting text,
   while `accentBlue` is network information. Secondary controls use their component's neutral
   surface and border roles until a product-wide action role is approved.
-- Image-derived theme generation is deferred
+- Image-derived theme generation is not required for the current Fresnica product direction
 
 ## First implementation slice
 
