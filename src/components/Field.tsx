@@ -89,9 +89,7 @@ export const Field = forwardRef<TextInputRef, FieldProps>(function Field(
                     ref={ref}
                     accessible
                     accessibilityLabel={accessibilityLabel ?? label}
-                    accessibilityHint={
-                        accessibilityHint ?? (visualState === 'error' ? supportingText : undefined)
-                    }
+                    accessibilityHint={accessibilityHint ?? (visualState === 'error' ? supportingText : undefined)}
                     accessibilityState={{ ...accessibilityState, disabled }}
                     editable={effectiveEditable}
                     onFocus={handleFocus}
