@@ -57,7 +57,7 @@ return (
 <FresnicaUiProvider theme={theme}>
     <Button label="Default provider theme" />
     <Button theme={alternateTheme} label="Local override" />
-</FresnicaUiProvider>
+</FresnicaUiProvider>;
 ```
 
 The override applies only to that component subtree usage; it does not mutate provider state.
@@ -155,7 +155,7 @@ const amountRef = useRef<TextInput>(null);
     maxLength={18}
     autoCorrect={false}
     onSubmitEditing={submit}
-/>
+/>;
 ```
 
 ## Button and IconButton boundaries
@@ -188,10 +188,10 @@ The host retains the trigger ref and restores it after closing.
 ```tsx
 const triggerRef = useRef<View>(null);
 
-<Button ref={triggerRef} label="Open modal" onPress={() => setVisible(true)} />
+<Button ref={triggerRef} label="Open modal" onPress={() => setVisible(true)} />;
 <Modal visible={visible} title="Details" onRequestClose={() => setVisible(false)}>
     ...
-</Modal>
+</Modal>;
 ```
 
 The close button and Android system Back use the same `onRequestClose` contract. Device-level
