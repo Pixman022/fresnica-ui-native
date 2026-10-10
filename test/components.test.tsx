@@ -41,6 +41,13 @@ describe('native components', () => {
         });
     });
 
+    it('forwards Button test and native identifiers to its pressable node', () => {
+        render(<Button label="Continue" theme={theme} testID="continue-button" nativeID="continue-native" />);
+        const button = screen.getByTestId('continue-button');
+        expect(button.props.nativeID).toBe('continue-native');
+        expect(button).toHaveAccessibilityState({ disabled: false, busy: false });
+    });
+
     it('renders Field with an accessible label and error text', () => {
         render(<Field label="Amount" theme={theme} state="error" supportingText="Enter a valid amount" />);
         const field = screen.getByLabelText('Amount');
@@ -49,8 +56,8 @@ describe('native components', () => {
         expect(screen.getByText('Enter a valid amount')).toBeTruthy();
     });
 
-    it('exposes disabled Field semantics without allowing input edits', () => {
-        render(<Field label="Disabled amount" theme={theme} state="disabled" value="123" />);
+    it('exposes disabled Field semantics without allowing passthrough props to re-enable input', () => {
+        render(<Field label="Disabled amount" theme={theme} state="disabled" editable value="123" />);
 
         const field = screen.getByLabelText('Disabled amount');
         expect(field).toBeDisabled();
@@ -58,16 +65,98 @@ describe('native components', () => {
         expect(field.props.editable).toBe(false);
     });
 
-    it('exposes IconButton label and disabled state', () => {
+    it('forwards native Field props, styles, identifiers and input events to the TextInput node', () => {
+        const onFocus = jest.fn();
+        const onBlur = jest.fn();
+        const onSubmitEditing = jest.fn();
+
+        render(
+            <Field
+                label="Amount"
+                theme={theme}
+                value="12"
+                autoCapitalize="none"
+                autoComplete="email"
+                autoCorrect={false}
+                spellCheck={false}
+                inputMode="decimal"
+                keyboardType="decimal-pad"
+                returnKeyType="done"
+                maxLength={18}
+                multiline
+                testID="amount-input"
+                nativeID="amount-native"
+                containerTestID="amount-field"
+                accessibilityLabel="Transfer amount"
+                accessibilityHint="Amount hint"
+                accessibilityState={{ busy: true }}
+                style={{ opacity: 0.9 }}
+                containerStyle={{ marginTop: 4 }}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                onSubmitEditing={onSubmitEditing}
+            />,
+        );
+
+        const field = screen.getByTestId('amount-input');
+        expect(field.props.nativeID).toBe('amount-native');
+        expect(field.props.autoComplete).toBe('email');
+        expect(field.props.spellCheck).toBe(false);
+        expect(field.props.inputMode).toBe('decimal');
+        expect(field.props.keyboardType).toBe('decimal-pad');
+        expect(field.props.returnKeyType).toBe('done');
+        expect(field.props.maxLength).toBe(18);
+        expect(field.props.multiline).toBe(true);
+        expect(field.props.accessibilityLabel).toBe('Transfer amount');
+        expect(field.props.accessibilityHint).toBe('Amount hint');
+        expect(field.props.accessibilityState).toEqual({ busy: true, disabled: false });
+        expect(field.props.style).toEqual(expect.arrayContaining([{ opacity: 0.9 }]));
+        expect(screen.getByTestId('amount-field').props.style).toEqual(expect.arrayContaining([{ marginTop: 4 }]));
+
+        const focusEvent = { nativeEvent: {} };
+        const blurEvent = { nativeEvent: {} };
+        const submitEvent = { nativeEvent: { text: '12' } };
+        fireEvent(field, 'focus', focusEvent);
+        fireEvent(field, 'blur', blurEvent);
+        fireEvent(field, 'submitEditing', submitEvent);
+
+        expect(onFocus).toHaveBeenCalledWith(focusEvent);
+        expect(onBlur).toHaveBeenCalledWith(blurEvent);
+        expect(onSubmitEditing).toHaveBeenCalledWith(submitEvent);
+    });
+
+    it('treats native editable=false as disabled even when an error state is requested', () => {
+        render(
+            <Field
+                label="Read-only amount"
+                theme={theme}
+                state="error"
+                editable={false}
+                supportingText="Old validation error"
+            />,
+        );
+
+        const field = screen.getByLabelText('Read-only amount');
+        expect(field).toBeDisabled();
+        expect(field.props.editable).toBe(false);
+        expect(field.props.accessibilityState).toEqual({ disabled: true });
+        expect(field.props.accessibilityHint).toBeUndefined();
+    });
+
+    it('exposes IconButton label, disabled state and native identifiers', () => {
         render(
             <IconButton
                 label="Open settings"
                 theme={theme}
                 icon={<Typography theme={theme}>gear</Typography>}
                 disabled
+                testID="settings-button"
+                nativeID="settings-native"
             />,
         );
-        expect(screen.getByRole('button', { name: 'Open settings' })).toBeDisabled();
+        const button = screen.getByTestId('settings-button');
+        expect(button).toBeDisabled();
+        expect(button.props.nativeID).toBe('settings-native');
     });
 
     it('exposes Header back action and title', () => {
