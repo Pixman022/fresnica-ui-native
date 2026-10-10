@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
 export type InlineMessageTone = 'info' | 'success' | 'warning' | 'error';
-export type InlineMessageProps = { theme: AppTheme; message: string; tone?: InlineMessageTone; icon?: ReactNode };
+export type InlineMessageProps = { theme?: AppTheme; message: string; tone?: InlineMessageTone; icon?: ReactNode };
 
-export function InlineMessage({ theme, message, tone = 'info', icon }: InlineMessageProps) {
+export function InlineMessage({ theme: themeOverride, message, tone = 'info', icon }: InlineMessageProps) {
+    const theme = useUiTheme(themeOverride);
     const color =
         tone === 'success'
             ? theme.colors.positive
