@@ -6,6 +6,10 @@ const root = path.resolve(import.meta.dirname, '..');
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), 'utf8');
 
 const button = read('src/components/Button.tsx');
+assert.match(button, /forwardRef<View, ButtonProps>/);
+assert.match(button, /ref=\{ref\}/);
+assert.match(button, /testID=\{testID\}/);
+assert.match(button, /nativeID=\{nativeID\}/);
 assert.match(button, /accessibilityRole="button"/);
 assert.match(button, /accessibilityState=\{\{ disabled: isDisabled, busy: loading \}\}/);
 assert.match(button, /theme\.sizes\.controlBase/);
@@ -18,10 +22,25 @@ assert.match(button, /flexShrink: 1/);
 assert.match(button, /hitSlop=\{size === 'sm' \? \{ top: 4, bottom: 4, left: 0, right: 0 \} : undefined\}/);
 
 const field = read('src/components/Field.tsx');
-assert.match(field, /accessibilityLabel=\{label\}/);
-assert.match(field, /editable=\{!disabled\}/);
+assert.match(field, /forwardRef<TextInput, FieldProps>/);
+assert.match(field, /Omit<TextInputProps, 'accessible' \| 'accessibilityRole' \| 'style'>/);
+assert.match(field, /\.\.\.inputProps/);
+assert.match(field, /ref=\{ref\}/);
+assert.match(field, /containerStyle/);
+assert.match(field, /containerTestID/);
+assert.match(field, /accessibilityLabel=\{accessibilityLabel \?\? label\}/);
+assert.match(field, /accessibilityState=\{\{ \.\.\.accessibilityState, disabled \}\}/);
+assert.match(field, /editable=\{effectiveEditable\}/);
+assert.match(field, /onFocus=\{handleFocus\}/);
+assert.match(field, /onBlur=\{handleBlur\}/);
 assert.match(field, /theme\.sizes\.border/);
 assert.match(field, /theme\.radii\.control/);
+
+const iconButton = read('src/components/IconButton.tsx');
+assert.match(iconButton, /forwardRef<View, IconButtonProps>/);
+assert.match(iconButton, /ref=\{ref\}/);
+assert.match(iconButton, /testID=\{testID\}/);
+assert.match(iconButton, /nativeID=\{nativeID\}/);
 
 const header = read('src/components/Header.tsx');
 assert.match(header, /type HeaderWithBackAction = HeaderBaseProps & \{\s*leading: ReactElement;/);
