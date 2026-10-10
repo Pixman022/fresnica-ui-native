@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
-import type { ReactNode } from 'react';
+import type { ComponentRef, ReactNode } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import type { View } from 'react-native';
+type PressableRef = ComponentRef<typeof Pressable>;
+
 import type { AppTheme } from '../tokens';
 
 export type IconButtonProps = {
@@ -14,7 +15,7 @@ export type IconButtonProps = {
     nativeID?: string;
 };
 
-export const IconButton = forwardRef<View, IconButtonProps>(function IconButton(
+export const IconButton = forwardRef<PressableRef, IconButtonProps>(function IconButton(
     { theme, label, icon, onPress, disabled = false, testID, nativeID },
     ref,
 ) {
