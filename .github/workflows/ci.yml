@@ -36,6 +36,10 @@ jobs:
               working-directory: fresnica-ui-native
               run: npm ci
 
+            - name: Print NU01 formatted contract
+              working-directory: fresnica-ui-native
+              run: npx prettier docs/public-api-contract.md
+
             - name: Audit native dependencies (report only)
               working-directory: fresnica-ui-native
               continue-on-error: true
