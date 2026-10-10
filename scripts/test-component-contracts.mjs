@@ -5,8 +5,21 @@ import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '..');
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), 'utf8');
 
+const uiContext = read('src/ui-context.tsx');
+assert.match(uiContext, /createContext<UiContextValue>/);
+assert.match(uiContext, /theme: themes\.light/);
+assert.match(uiContext, /locale: enUS/);
+assert.match(uiContext, /override \?\? context\.theme/);
+assert.match(uiContext, /runtimeLocale\.close \?\? enUS\.close/);
+assert.match(uiContext, /runtimeLocale\.loading \?\? enUS\.loading/);
+
+const locales = read('src/locales.ts');
+assert.match(locales, /export const enUS: UiLocale/);
+assert.match(locales, /export const zhCN: UiLocale/);
+
 const button = read('src/components/Button.tsx');
 assert.match(button, /forwardRef<\s*PressableRef,\s*ButtonProps\s*>/);
+assert.match(button, /useUiTheme\(themeOverride\)/);
 assert.match(button, /ref=\{ref\}/);
 assert.match(button, /testID=\{testID\}/);
 assert.match(button, /nativeID=\{nativeID\}/);
@@ -23,6 +36,7 @@ assert.match(button, /hitSlop=\{size === 'sm' \? \{ top: 4, bottom: 4, left: 0, 
 
 const field = read('src/components/Field.tsx');
 assert.match(field, /forwardRef<\s*TextInputRef,\s*FieldProps\s*>/);
+assert.match(field, /useUiTheme\(themeOverride\)/);
 assert.match(field, /Omit<TextInputProps, 'accessible' \| 'accessibilityRole' \| 'style'>/);
 assert.match(field, /\.\.\.inputProps/);
 assert.match(field, /ref=\{ref\}/);
@@ -39,6 +53,7 @@ assert.match(field, /theme\.radii\.control/);
 
 const iconButton = read('src/components/IconButton.tsx');
 assert.match(iconButton, /forwardRef<\s*PressableRef,\s*IconButtonProps\s*>/);
+assert.match(iconButton, /useUiTheme\(themeOverride\)/);
 assert.match(iconButton, /ref=\{ref\}/);
 assert.match(iconButton, /testID=\{testID\}/);
 assert.match(iconButton, /nativeID=\{nativeID\}/);
@@ -62,6 +77,9 @@ assert.match(stateView, /theme\.spacing\.xl/);
 assert.match(stateView, /theme\.spacing\.sm/);
 
 const modal = read('src/components/Modal.tsx');
+assert.match(modal, /useUiTheme\(themeOverride\)/);
+assert.match(modal, /useUiLocale\(\)/);
+assert.match(modal, /closeAccessibilityLabel \?\? locale\.close/);
 assert.match(modal, /accessibilityViewIsModal/);
 assert.match(modal, /onRequestClose=\{onRequestClose\}/);
 assert.match(modal, /closeAccessibilityLabel/);
