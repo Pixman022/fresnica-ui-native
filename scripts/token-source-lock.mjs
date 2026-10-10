@@ -8,7 +8,11 @@ const repositoryRoot = path.resolve(nativeRoot, '..');
 const lockPath = path.join(nativeRoot, 'token-source.lock.json');
 
 const gitBlobSha = (contents) =>
-    crypto.createHash('sha1').update(`blob ${Buffer.byteLength(contents)}\0`).update(contents).digest('hex');
+    crypto
+        .createHash('sha1')
+        .update(`blob ${Buffer.byteLength(contents)}\0`)
+        .update(contents)
+        .digest('hex');
 
 export function readLockedTokenSources() {
     const lock = JSON.parse(fs.readFileSync(lockPath, 'utf8'));
