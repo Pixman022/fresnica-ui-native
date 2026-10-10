@@ -45,7 +45,7 @@ describe('native components', () => {
         render(<Button label="Continue" theme={theme} testID="continue-button" nativeID="continue-native" />);
         const button = screen.getByTestId('continue-button');
         expect(button.props.nativeID).toBe('continue-native');
-        expect(button).toHaveAccessibilityState({ disabled: false, busy: false });
+        expect(button.props.accessibilityState).toEqual({ disabled: false, busy: false });
     });
 
     it('renders Field with an accessible label and error text', () => {
