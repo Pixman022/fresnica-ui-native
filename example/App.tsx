@@ -4,6 +4,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
     Button,
     Divider,
+    FresnicaUiProvider,
     Field,
     Header,
     IconButton,
@@ -20,6 +21,7 @@ import {
     resolveTheme,
 } from '@fresnica/ui-native';
 import type { ThemeMode } from '@fresnica/ui-native';
+import { enUS, zhCN } from '@fresnica/ui-native/locales';
 
 type Locale = 'en' | 'zh-CN';
 type Scenario = 'standard' | 'stress';
@@ -64,6 +66,7 @@ const copy = {
         iconFeedback: 'Icon action was pressed',
         loadingPlaceholder: 'Loading placeholder',
         enabledAction: 'Continue',
+        localThemeAction: 'Local theme override',
         stressAction: 'Continue with an intentionally long action label',
         disabledAction: 'Unavailable action',
         loadingAction: 'Loading action',
@@ -115,6 +118,7 @@ const copy = {
         iconFeedback: '图标按钮已触发',
         loadingPlaceholder: '内容加载占位符',
         enabledAction: '继续',
+        localThemeAction: '局部主题覆盖',
         stressAction: '使用一段故意加长的操作按钮文案继续',
         disabledAction: '不可用操作',
         loadingAction: '加载中的操作',
@@ -145,13 +149,19 @@ export default function App() {
     const [iconActionActive, setIconActionActive] = useState(false);
 
     const labels = copy[locale];
+    const uiLocale = locale === 'zh-CN' ? zhCN : enUS;
     const systemSegmentLabel = width <= 320 ? labels.systemCompact : labels.system;
     const stress = scenario === 'stress';
     const resolvedSystemMode = systemScheme === 'dark' ? 'dark' : 'light';
     const theme = useMemo(() => resolveTheme(mode, resolvedSystemMode), [mode, resolvedSystemMode]);
+    const localTheme = useMemo(
+        () => ({ ...theme, radii: { ...theme.radii, base: theme.radii.pill } }),
+        [theme],
+    );
 
     return (
         <SafeAreaProvider>
+            <FresnicaUiProvider theme={theme} locale={uiLocale}>
             <SafeAreaView
                 style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
                 edges={['top', 'bottom']}
@@ -160,12 +170,8 @@ export default function App() {
                 <KeyboardAvoidingView style={styles.keyboardContainer} behavior="padding">
                     <Screen theme={theme} scroll>
                         <View style={styles.section}>
-                            <Typography theme={theme} variant="screenTitle">
-                                {labels.title}
-                            </Typography>
-                            <Typography theme={theme} muted>
-                                {labels.subtitle}
-                            </Typography>
+                            <Typography variant="screenTitle">{labels.title}</Typography>
+                            <Typography muted>{labels.subtitle}</Typography>
                         </View>
 
                         <View style={styles.section}>
@@ -249,7 +255,8 @@ export default function App() {
                             <Typography theme={theme} variant="sectionTitle">
                                 {labels.componentStates}
                             </Typography>
-                            <Button theme={theme} label={stress ? labels.stressAction : labels.enabledAction} />
+                            <Button label={stress ? labels.stressAction : labels.enabledAction} />
+                            <Button theme={localTheme} variant="secondary" label={labels.localThemeAction} />
                             <Button theme={theme} label={labels.disabledAction} disabled />
                             <Button theme={theme} label={labels.loadingAction} loading />
                         </View>
@@ -311,18 +318,18 @@ export default function App() {
                         </View>
 
                         <Modal
-                            theme={theme}
                             visible={modalVisible}
                             title={labels.modalTitle}
                             closeAccessibilityLabel={labels.modalClose}
                             onRequestClose={() => setModalVisible(false)}
                         >
-                            <Typography theme={theme}>{labels.modalBody}</Typography>
-                            <Button theme={theme} label={labels.modalClose} onPress={() => setModalVisible(false)} />
+                            <Typography>{labels.modalBody}</Typography>
+                            <Button label={labels.modalClose} onPress={() => setModalVisible(false)} />
                         </Modal>
                     </Screen>
                 </KeyboardAvoidingView>
             </SafeAreaView>
+            </FresnicaUiProvider>
         </SafeAreaProvider>
     );
 }
