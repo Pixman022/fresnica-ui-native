@@ -26,7 +26,7 @@ than copying the older plan SHA.
 | NU03 Provider, theme hooks and enUS/zhCN locale          | P1       | Pending     | —                                         |
 | NU04 Button variants/pressed/loading states              | P1       | Pending     | —                                         |
 | NU05 Modal focus, announcement and ListRow contracts     | P1       | Pending     | —                                         |
-| NU06 Fixed cross-repository Token source                 | P1       | Pending     | —                                         |
+| NU06 Fixed cross-repository Token source                 | P1       | In progress | `token-source.lock.json` + CI/source checks |
 | NU07 Neutral Preview and package regression verification | P1       | Pending     | —                                         |
 | NU08 Delivery/version/document synchronization           | P2       | Pending     | —                                         |
 
