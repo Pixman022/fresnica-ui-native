@@ -9,7 +9,13 @@ export type SkeletonProps = {
     radius?: number;
     accessibilityLabel: string;
 };
-export function Skeleton({ theme: themeOverride, width = '100%', height = 16, radius = 8, accessibilityLabel }: SkeletonProps) {
+export function Skeleton({
+    theme: themeOverride,
+    width = '100%',
+    height = 16,
+    radius = 8,
+    accessibilityLabel,
+}: SkeletonProps) {
     const theme = useUiTheme(themeOverride);
     return (
         <View
