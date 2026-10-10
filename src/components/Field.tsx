@@ -1,40 +1,58 @@
+import { forwardRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import type { TextInputProps } from 'react-native';
+import type { StyleProp, TextInputProps, ViewStyle } from 'react-native';
 import type { AppTheme, FieldState } from '../tokens';
 
-export type FieldProps = {
+export type FieldProps = Omit<TextInputProps, 'accessible' | 'accessibilityRole'> & {
     label: string;
     theme: AppTheme;
-    value?: string;
-    onChangeText?: (value: string) => void;
-    placeholder?: string;
     supportingText?: string;
     state?: FieldState;
     leading?: ReactNode;
-    secureTextEntry?: boolean;
-    autoCapitalize?: TextInputProps['autoCapitalize'];
-    autoCorrect?: boolean;
+    containerStyle?: StyleProp<ViewStyle>;
+    containerTestID?: string;
 };
 
-export function Field({
-    label,
-    theme,
-    value,
-    onChangeText,
-    placeholder,
-    supportingText,
-    state = 'default',
-    leading,
-    secureTextEntry,
-    autoCapitalize,
-    autoCorrect,
-}: FieldProps) {
-    const disabled = state === 'disabled';
+export const Field = forwardRef<TextInput, FieldProps>(function Field(
+    {
+        label,
+        theme,
+        supportingText,
+        state = 'default',
+        leading,
+        containerStyle,
+        containerTestID,
+        editable = true,
+        accessibilityLabel,
+        accessibilityHint,
+        accessibilityState,
+        onFocus,
+        onBlur,
+        style,
+        ...inputProps
+    },
+    ref,
+) {
+    const [focused, setFocused] = useState(false);
+    const disabled = state === 'disabled' || editable === false;
+    const effectiveState: FieldState = disabled
+        ? 'disabled'
+        : state === 'error'
+          ? 'error'
+          : state === 'focused' || focused
+            ? 'focused'
+            : 'default';
     const borderColor =
-        state === 'error' ? theme.colors.negative : state === 'focused' ? theme.colors.primary : theme.colors.border;
+        effectiveState === 'error'
+            ? theme.colors.negative
+            : effectiveState === 'focused'
+              ? theme.colors.primary
+              : theme.colors.border;
+    const resolvedHint = accessibilityHint ?? (effectiveState === 'error' ? supportingText : undefined);
+
     return (
-        <View style={styles.wrapper}>
+        <View testID={containerTestID} style={[styles.wrapper, containerStyle]}>
             <Text
                 style={[styles.label, { color: theme.colors.contentSecondary, fontSize: theme.typography.supporting }]}
             >
@@ -54,19 +72,23 @@ export function Field({
             >
                 {leading}
                 <TextInput
+                    ref={ref}
+                    {...inputProps}
                     accessible
-                    accessibilityLabel={label}
-                    accessibilityHint={state === 'error' ? supportingText : undefined}
-                    accessibilityState={{ disabled }}
+                    accessibilityRole={undefined}
+                    accessibilityLabel={accessibilityLabel ?? label}
+                    accessibilityHint={resolvedHint}
+                    accessibilityState={{ ...accessibilityState, disabled }}
                     editable={!disabled}
-                    value={value}
-                    onChangeText={onChangeText}
-                    placeholder={placeholder}
-                    placeholderTextColor={theme.colors.contentMuted}
-                    secureTextEntry={secureTextEntry}
-                    autoCapitalize={autoCapitalize}
-                    autoCorrect={autoCorrect}
-                    style={[styles.input, { color: theme.colors.contentPrimary, fontSize: theme.typography.body }]}
+                    onFocus={(event) => {
+                        setFocused(true);
+                        onFocus?.(event);
+                    }}
+                    onBlur={(event) => {
+                        setFocused(false);
+                        onBlur?.(event);
+                    }}
+                    style={[styles.input, { color: theme.colors.contentPrimary, fontSize: theme.typography.body }, style]}
                 />
             </View>
             {supportingText ? (
@@ -74,7 +96,7 @@ export function Field({
                     style={[
                         styles.supporting,
                         {
-                            color: state === 'error' ? theme.colors.negative : theme.colors.contentMuted,
+                            color: effectiveState === 'error' ? theme.colors.negative : theme.colors.contentMuted,
                             fontSize: theme.typography.supporting,
                         },
                     ]}
@@ -84,7 +106,7 @@ export function Field({
             ) : null}
         </View>
     );
-}
+});
 
 const styles = StyleSheet.create({
     wrapper: { gap: 6 },
