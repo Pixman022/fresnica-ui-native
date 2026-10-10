@@ -19,7 +19,10 @@ export type ButtonProps = {
     nativeID?: string;
 };
 
-export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<PressableRef>> = forwardRef<PressableRef, ButtonProps>(function Button(
+export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<PressableRef>> = forwardRef<
+    PressableRef,
+    ButtonProps
+>(function Button(
     {
         label,
         theme,
