@@ -28,6 +28,7 @@ assert.match(field, /\.\.\.inputProps/);
 assert.match(field, /ref=\{ref\}/);
 assert.match(field, /containerStyle/);
 assert.match(field, /containerTestID/);
+assert.match(field, /accessibilityRole=\{undefined\}/);
 assert.match(field, /accessibilityLabel=\{accessibilityLabel \?\? label\}/);
 assert.match(field, /accessibilityState=\{\{ \.\.\.accessibilityState, disabled \}\}/);
 assert.match(field, /editable=\{effectiveEditable\}/);
