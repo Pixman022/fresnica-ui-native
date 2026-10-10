@@ -22,7 +22,7 @@ than copying the older plan SHA.
 | Task                                                     | Priority | Status   | Evidence                      |
 | -------------------------------------------------------- | -------- | -------- | ----------------------------- |
 | NU01 Public API, precedence and migration rules          | P1       | Complete | `docs/public-api-contract.md` |
-| NU02 Field native props + interaction refs/test IDs      | P1       | Pending  | —                             |
+| NU02 Field native props + interaction refs/test IDs      | P1       | In progress | `Field` / `Button` / `IconButton` + tests |
 | NU03 Provider, theme hooks and enUS/zhCN locale          | P1       | Pending  | —                             |
 | NU04 Button variants/pressed/loading states              | P1       | Pending  | —                             |
 | NU05 Modal focus, announcement and ListRow contracts     | P1       | Pending  | —                             |
