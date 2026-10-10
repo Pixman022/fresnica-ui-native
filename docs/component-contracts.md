@@ -25,8 +25,8 @@ platform-neutral; navigation, safe areas, status bars and product state stay in 
 
 Each component must be tested in light and dark themes, with long English and Simplified
 Chinese labels, disabled/loading/error states where applicable, and a 320 logical-pixel width.
-All accessibility labels for actions, loading indicators and groups are required props;
-the component package does not ship default English or Chinese UI copy.
+Product labels, field copy and validation reasons remain caller-owned. The package ships only
+generic internal `enUS` / `zhCN` copy such as close/loading fallbacks.
 The Android app shell additionally verifies TalkBack focus order, keyboard behavior, safe-area
 insets, system-bar icon contrast, reduced motion and Dynamic Type.
 
@@ -34,10 +34,13 @@ insets, system-bar icon contrast, reduced motion and Dynamic Type.
 
 ### Theme
 
-Every component receives an `AppTheme` object from the host application.
+Components resolve theme in this order: explicit component `theme`, nearest
+`FresnicaUiProvider` theme, then `themes.light`. Existing per-component
+`theme={...}` calls remain valid and override Provider context.
 
 The component library does not persist theme preferences and does not read
-Android dynamic accent colors.
+Android dynamic accent colors. The host still resolves the selected/system mode
+into an `AppTheme` before passing it to the Provider or a component.
 
 Supported modes:
 
@@ -52,15 +55,17 @@ then passes the resolved light or dark theme to the component.
 
 Components do not contain product copy.
 
-The host application provides:
+`FresnicaUiProvider` accepts a complete `UiLocale`; built-in `enUS` and `zhCN`
+packs contain only package-owned generic copy. Explicit component copy overrides the
+Provider locale, which falls back to `enUS` when a runtime key is missing.
 
-- English labels
-- Simplified Chinese labels
-- accessibility labels
-- placeholders
-- supporting text
-- error messages
-- loading messages
+The host application still provides:
+
+- business/action labels
+- field labels and placeholders
+- supporting and validation text
+- product-specific accessibility labels
+- date, number and business formatting
 
 ### Native input and interaction refs
 
