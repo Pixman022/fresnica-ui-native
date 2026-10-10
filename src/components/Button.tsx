@@ -1,5 +1,7 @@
+import { forwardRef } from 'react';
 import type { ReactNode } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
+import type { View } from 'react-native';
 import type { AppTheme, ButtonVariant, ControlSize } from '../tokens';
 
 export type ButtonProps = {
@@ -12,19 +14,26 @@ export type ButtonProps = {
     loading?: boolean;
     icon?: ReactNode;
     accessibilityHint?: string;
+    testID?: string;
+    nativeID?: string;
 };
 
-export function Button({
-    label,
-    theme,
-    onPress,
-    variant = 'primary',
-    size = 'md',
-    disabled = false,
-    loading = false,
-    icon,
-    accessibilityHint,
-}: ButtonProps) {
+export const Button = forwardRef<View, ButtonProps>(function Button(
+    {
+        label,
+        theme,
+        onPress,
+        variant = 'primary',
+        size = 'md',
+        disabled = false,
+        loading = false,
+        icon,
+        accessibilityHint,
+        testID,
+        nativeID,
+    },
+    ref,
+) {
     const isDisabled = disabled || loading;
     const heights: Record<ControlSize, number> = {
         sm: theme.sizes.controlCompact,
@@ -36,6 +45,7 @@ export function Button({
     const foreground = filled ? theme.colors.onPrimary : theme.colors.primary;
     return (
         <Pressable
+            ref={ref}
             accessible
             accessibilityRole="button"
             accessibilityState={{ disabled: isDisabled, busy: loading }}
@@ -43,7 +53,9 @@ export function Button({
             accessibilityHint={accessibilityHint}
             disabled={isDisabled}
             hitSlop={size === 'sm' ? { top: 4, bottom: 4, left: 0, right: 0 } : undefined}
+            nativeID={nativeID}
             onPress={onPress}
+            testID={testID}
             style={({ pressed }) => [
                 styles.base,
                 {
@@ -65,7 +77,7 @@ export function Button({
             </Text>
         </Pressable>
     );
-}
+});
 
 const styles = StyleSheet.create({
     base: {
