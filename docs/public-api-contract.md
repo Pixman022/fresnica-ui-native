@@ -57,7 +57,7 @@ return (
 <FresnicaUiProvider theme={theme}>
     <Button label="Default provider theme" />
     <Button theme={alternateTheme} label="Local override" />
-</FresnicaUiProvider>;
+</FresnicaUiProvider>
 ```
 
 The override applies only to that component subtree usage; it does not mutate provider state.
