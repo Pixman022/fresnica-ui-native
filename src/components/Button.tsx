@@ -1,13 +1,14 @@
 import { forwardRef } from 'react';
 import type { ComponentRef, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
+import { useUiTheme } from '../ui-context';
 import type { AppTheme, ButtonVariant, ControlSize } from '../tokens';
 
 type PressableRef = ComponentRef<typeof Pressable>;
 
 export type ButtonProps = {
     label: string;
-    theme: AppTheme;
+    theme?: AppTheme;
     onPress?: () => void;
     variant?: ButtonVariant;
     size?: ControlSize;
@@ -25,7 +26,7 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
 >(function Button(
     {
         label,
-        theme,
+        theme: themeOverride,
         onPress,
         variant = 'primary',
         size = 'md',
@@ -38,6 +39,7 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
     },
     ref,
 ) {
+    const theme = useUiTheme(themeOverride);
     const isDisabled = disabled || loading;
     const heights: Record<ControlSize, number> = {
         sm: theme.sizes.controlCompact,

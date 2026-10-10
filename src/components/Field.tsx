@@ -2,13 +2,14 @@ import { forwardRef, useState } from 'react';
 import type { ComponentRef, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import type { StyleProp, TextInputProps, ViewStyle } from 'react-native';
+import { useUiTheme } from '../ui-context';
 import type { AppTheme, FieldState } from '../tokens';
 
 type TextInputRef = ComponentRef<typeof TextInput>;
 
 export type FieldProps = Omit<TextInputProps, 'accessible' | 'accessibilityRole' | 'style'> & {
     label: string;
-    theme: AppTheme;
+    theme?: AppTheme;
     supportingText?: string;
     state?: FieldState;
     leading?: ReactNode;
@@ -23,7 +24,7 @@ export const Field: ForwardRefExoticComponent<FieldProps & RefAttributes<TextInp
 >(function Field(
     {
         label,
-        theme,
+        theme: themeOverride,
         supportingText,
         state = 'default',
         leading,
@@ -40,6 +41,7 @@ export const Field: ForwardRefExoticComponent<FieldProps & RefAttributes<TextInp
     },
     ref,
 ) {
+    const theme = useUiTheme(themeOverride);
     const [isFocused, setIsFocused] = useState(false);
     const disabled = state === 'disabled' || editable === false;
     const effectiveEditable = !disabled;

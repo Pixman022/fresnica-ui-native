@@ -1,9 +1,10 @@
 import type { ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
 export type ListRowProps = {
-    theme: AppTheme;
+    theme?: AppTheme;
     title: string;
     description?: string;
     leading?: ReactNode;
@@ -12,7 +13,16 @@ export type ListRowProps = {
     disabled?: boolean;
 };
 
-export function ListRow({ theme, title, description, leading, trailing, onPress, disabled = false }: ListRowProps) {
+export function ListRow({
+    theme: themeOverride,
+    title,
+    description,
+    leading,
+    trailing,
+    onPress,
+    disabled = false,
+}: ListRowProps) {
+    const theme = useUiTheme(themeOverride);
     const interactive = Boolean(onPress);
     const accessibilityLabel = description ? `${title}, ${description}` : title;
 

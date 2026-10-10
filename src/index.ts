@@ -1,3 +1,6 @@
+export type { UiLocale } from './locales';
+export type { FresnicaUiProviderProps } from './ui-context';
+export { FresnicaUiProvider, useUiLocale, useUiTheme } from './ui-context';
 export type { AppTheme, ColorToken, ThemeMode, ThemeResolver } from './tokens';
 export { resolveTheme, themes } from './theme';
 export type { ButtonProps } from './components/Button';

@@ -1,9 +1,10 @@
 import type { ReactElement, ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
 type HeaderBaseProps = {
-    theme: AppTheme;
+    theme?: AppTheme;
     title: string;
     trailing?: ReactNode;
 };
@@ -22,7 +23,15 @@ type HeaderWithoutBackAction = HeaderBaseProps & {
 
 export type HeaderProps = HeaderWithBackAction | HeaderWithoutBackAction;
 
-export function Header({ theme, title, leading, trailing, onBack, backAccessibilityLabel }: HeaderProps) {
+export function Header({
+    theme: themeOverride,
+    title,
+    leading,
+    trailing,
+    onBack,
+    backAccessibilityLabel,
+}: HeaderProps) {
+    const theme = useUiTheme(themeOverride);
     const start = onBack ? (
         <Pressable
             accessible
