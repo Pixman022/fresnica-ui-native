@@ -3,23 +3,23 @@
 These contracts define the first React Native component slice. They are intentionally
 platform-neutral; navigation, safe areas, status bars and product state stay in the app shell.
 
-| Component          | Required behavior                                                                              | Accessibility gate                                                                  |
-| ------------------ | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `Button`           | Primary, secondary, quiet and danger variants; disabled and loading prevent duplicate presses. | `button` role, label, disabled/busy state, minimum 44 logical px target.            |
-| `Field`            | Label, value, placeholder, supporting/error copy and disabled state.                           | Label is exposed as the input label; error copy is announced by the app form layer. |
-| `StateView`        | Empty, error and success tone with optional action.                                            | Title and description remain readable without relying on color alone.               |
-| `Screen`           | Background and optional scrolling/padding; no route ownership.                                 | Content order is preserved in the accessibility tree.                               |
-| `Header`           | Stable title, optional leading/trailing content and optional back action.                      | Back action has a localized accessible label supplied by the app.                   |
-| `ListRow`          | Title, optional description, leading and trailing content, disabled/pressed state.             | Pressable rows expose a button role and disabled state.                             |
-| `Modal`            | Native modal lifecycle, scrim, title and explicit close callback.                              | Modal is marked as a modal view; app restores focus after close.                    |
-| `Typography`       | Shared body, supporting, action, section, screen and display metrics.                          | Text can grow with Dynamic Type; callers provide translated content.                |
-| `IconButton`       | Icon-only action with a stable 44×44 target.                                                   | Caller provides the localized accessible label.                                     |
-| `Divider`          | Semantic separator using the theme separator role.                                             | Decorative/separator semantics are not used as the only state signal.               |
-| `StatusBadge`      | Positive, negative, warning and neutral status label.                                          | Status includes text, not color alone.                                              |
-| `InlineMessage`    | Info, success, warning and error message with optional icon.                                   | Alert message is readable and caller owns announcement timing.                      |
-| `Skeleton`         | Non-interactive loading placeholder.                                                           | Caller provides a localized loading label.                                          |
-| `Progress`         | Clamped 0–1 progress value.                                                                    | Progress role exposes min/max/current values.                                       |
-| `SegmentedControl` | Selectable set of short options.                                                               | Tab/list labels and selected state are exposed; caller provides group label.        |
+| Component          | Required behavior                                                                                                                          | Accessibility gate                                                                             |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| `Button`           | Primary, secondary, quiet and danger variants; disabled/loading prevent duplicate presses; ref/test identifiers target the pressable node. | `button` role, label, disabled/busy state, minimum 44 logical px target.                       |
+| `Field`            | Label/supporting copy plus typed native `TextInputProps`; input ref, events, styles and test identifiers target the native input.          | Label is exposed as the input label; disabled state cannot be re-enabled by passthrough props. |
+| `StateView`        | Empty, error and success tone with optional action.                                                                                        | Title and description remain readable without relying on color alone.                          |
+| `Screen`           | Background and optional scrolling/padding; no route ownership.                                                                             | Content order is preserved in the accessibility tree.                                          |
+| `Header`           | Stable title, optional leading/trailing content and optional back action.                                                                  | Back action has a localized accessible label supplied by the app.                              |
+| `ListRow`          | Title, optional description, leading and trailing content, disabled/pressed state.                                                         | Pressable rows expose a button role and disabled state.                                        |
+| `Modal`            | Native modal lifecycle, scrim, title and explicit close callback.                                                                          | Modal is marked as a modal view; app restores focus after close.                               |
+| `Typography`       | Shared body, supporting, action, section, screen and display metrics.                                                                      | Text can grow with Dynamic Type; callers provide translated content.                           |
+| `IconButton`       | Icon-only action with a stable 44×44 target; ref/test identifiers target the pressable node.                                               | Caller provides the localized accessible label.                                                |
+| `Divider`          | Semantic separator using the theme separator role.                                                                                         | Decorative/separator semantics are not used as the only state signal.                          |
+| `StatusBadge`      | Positive, negative, warning and neutral status label.                                                                                      | Status includes text, not color alone.                                                         |
+| `InlineMessage`    | Info, success, warning and error message with optional icon.                                                                               | Alert message is readable and caller owns announcement timing.                                 |
+| `Skeleton`         | Non-interactive loading placeholder.                                                                                                       | Caller provides a localized loading label.                                                     |
+| `Progress`         | Clamped 0–1 progress value.                                                                                                                | Progress role exposes min/max/current values.                                                  |
+| `SegmentedControl` | Selectable set of short options.                                                                                                           | Tab/list labels and selected state are exposed; caller provides group label.                   |
 
 ## Test matrix
 
@@ -61,6 +61,23 @@ The host application provides:
 - supporting text
 - error messages
 - loading messages
+
+### Native input and interaction refs
+
+`Field` accepts supported React Native `TextInputProps` such as autocomplete/spellcheck,
+capitalization, keyboard/input mode, return-key behavior, length, multiline and submit events.
+The Field `ref`, `testID` and `nativeID` target the `TextInput`; `containerStyle` and
+`containerTestID` target the outer wrapper. The normal `style` prop applies to the input.
+
+State precedence is disabled, error, focused, default. `state="disabled"` cannot be undone
+with `editable={true}`, and native `editable={false}` also produces disabled semantics.
+Caller focus/blur/submit callbacks remain observable.
+
+`Button` and `IconButton` forward their refs, `testID` and `nativeID` to the underlying
+pressable host node. Their package-owned disabled/loading behavior remains authoritative.
+
+See [the NU01 public API contract](public-api-contract.md) for the frozen prop boundaries
+and migration rules used by this implementation.
 
 ### Accessibility
 

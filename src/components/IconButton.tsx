@@ -1,6 +1,9 @@
-import type { ReactNode } from 'react';
+import { forwardRef } from 'react';
+import type { ComponentRef, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import type { AppTheme } from '../tokens';
+
+type PressableRef = ComponentRef<typeof Pressable>;
 
 export type IconButtonProps = {
     theme: AppTheme;
@@ -8,18 +11,26 @@ export type IconButtonProps = {
     icon: ReactNode;
     onPress?: () => void;
     disabled?: boolean;
+    testID?: string;
+    nativeID?: string;
 };
 
-export function IconButton({ theme, label, icon, onPress, disabled = false }: IconButtonProps) {
+export const IconButton: ForwardRefExoticComponent<IconButtonProps & RefAttributes<PressableRef>> = forwardRef<
+    PressableRef,
+    IconButtonProps
+>(function IconButton({ theme, label, icon, onPress, disabled = false, testID, nativeID }, ref) {
     return (
         <Pressable
+            ref={ref}
             accessible
             accessibilityRole="button"
             accessibilityLabel={label}
             accessibilityState={{ disabled }}
             disabled={disabled}
             hitSlop={4}
+            nativeID={nativeID}
             onPress={onPress}
+            testID={testID}
             style={({ pressed }) => [
                 styles.button,
                 { backgroundColor: pressed ? theme.colors.surfaceRaised : 'transparent', opacity: disabled ? 0.5 : 1 },
@@ -28,7 +39,7 @@ export function IconButton({ theme, label, icon, onPress, disabled = false }: Ic
             {icon}
         </Pressable>
     );
-}
+});
 
 const styles = StyleSheet.create({
     button: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 22 },
