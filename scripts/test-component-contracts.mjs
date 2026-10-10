@@ -6,6 +6,10 @@ const root = path.resolve(import.meta.dirname, '..');
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), 'utf8');
 
 const button = read('src/components/Button.tsx');
+assert.match(button, /forwardRef<View, ButtonProps>/);
+assert.match(button, /ref=\{ref\}/);
+assert.match(button, /testID=\{testID\}/);
+assert.match(button, /nativeID=\{nativeID\}/);
 assert.match(button, /accessibilityRole="button"/);
 assert.match(button, /accessibilityState=\{\{ disabled: isDisabled, busy: loading \}\}/);
 assert.match(button, /theme\.sizes\.controlBase/);
@@ -18,8 +22,18 @@ assert.match(button, /flexShrink: 1/);
 assert.match(button, /hitSlop=\{size === 'sm' \? \{ top: 4, bottom: 4, left: 0, right: 0 \} : undefined\}/);
 
 const field = read('src/components/Field.tsx');
-assert.match(field, /accessibilityLabel=\{label\}/);
+assert.match(field, /forwardRef<TextInput, FieldProps>/);
+assert.match(field, /Omit<TextInputProps, 'accessible' \| 'accessibilityRole'>/);
+assert.match(field, /state === 'disabled' \|\| editable === false/);
+assert.match(field, /accessibilityLabel=\{accessibilityLabel \?\? label\}/);
+assert.match(field, /accessibilityState=\{\{ \.\.\.accessibilityState, disabled \}\}/);
 assert.match(field, /editable=\{!disabled\}/);
+assert.match(field, /onFocus=\{\(event\) =>/);
+assert.match(field, /onBlur=\{\(event\) =>/);
+assert.match(field, /containerTestID/);
+assert.match(field, /containerStyle/);
+assert.match(field, /ref=\{ref\}/);
+assert.match(field, /\.\.\.inputProps/);
 assert.match(field, /theme\.sizes\.border/);
 assert.match(field, /theme\.radii\.control/);
 
@@ -67,6 +81,12 @@ assert.match(progress, /Number\.isNaN\(value\) \? 0 : value/);
 assert.match(progress, /Math\.max\(0, Math\.min\(1, normalized\)\)/);
 assert.match(progress, /Math\.round\(clamped \* 100\)/);
 assert.match(progress, /accessibilityValue=\{\{ min: 0, max: 100, now: percentage \}\}/);
+
+const iconButton = read('src/components/IconButton.tsx');
+assert.match(iconButton, /forwardRef<View, IconButtonProps>/);
+assert.match(iconButton, /ref=\{ref\}/);
+assert.match(iconButton, /testID=\{testID\}/);
+assert.match(iconButton, /nativeID=\{nativeID\}/);
 
 const inlineMessage = read('src/components/InlineMessage.tsx');
 assert.match(inlineMessage, /theme\.spacing\.md/);
