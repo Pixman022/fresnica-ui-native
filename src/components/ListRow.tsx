@@ -13,7 +13,15 @@ export type ListRowProps = {
     disabled?: boolean;
 };
 
-export function ListRow({ theme: themeOverride, title, description, leading, trailing, onPress, disabled = false }: ListRowProps) {
+export function ListRow({
+    theme: themeOverride,
+    title,
+    description,
+    leading,
+    trailing,
+    onPress,
+    disabled = false,
+}: ListRowProps) {
     const theme = useUiTheme(themeOverride);
     const interactive = Boolean(onPress);
     const accessibilityLabel = description ? `${title}, ${description}` : title;
