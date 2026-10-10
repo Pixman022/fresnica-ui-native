@@ -3,6 +3,10 @@
 This document records the Web-to-React-Native token contract.
 
 - Source of truth: `fresnica-ui/design-system/tokens.json` (`1.0.0`).
+- Immutable source record: `token-source.lock.json` pins Web commit
+  `15d49e0be28a232ae6de2a7285a3a77add8c87d4`.
+- Locked Git blobs: `tokens.json` = `9c4bbc478618d5a5ef5d1ecdd11d41ee8afdeb5c`;
+  `platform-token-source.json` = `6ee1c1da3a3be52e84bc8247e13bb577fdbb4cc6`.
 - Native output: `scripts/generate-native-token-contract.mjs` produces `src/generated-token-contract.ts`.
 - Native Light/Dark colors and their semantic role mapping come from
   `fresnica-ui/design-system/platform-token-source.json` and are generated with the same command.
@@ -59,3 +63,10 @@ either only after a new explicit product decision.
 The current shared `Modal` keeps its owner-approved native `fade` behavior. This token contract
 must not be read as a claim that the component package has passed reduced-motion acceptance;
 full reduced-motion behavior is reassessed at the future product integration/release gate.
+
+## Updating the locked source
+
+A Token update is an explicit two-repository change: approve the Web source first, then update
+`token-source.lock.json`, regenerate the Native contract, review the generated diff and pass
+Native CI. CI and local generation reject a sibling Web checkout whose commit or locked file
+blobs do not match the Native lock. The Native repository never silently follows Web `main`.
