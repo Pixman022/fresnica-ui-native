@@ -12,7 +12,14 @@ export type ModalProps = {
     closeAccessibilityLabel?: string;
 };
 
-export function Modal({ theme: themeOverride, visible, title, children, onRequestClose, closeAccessibilityLabel }: ModalProps) {
+export function Modal({
+    theme: themeOverride,
+    visible,
+    title,
+    children,
+    onRequestClose,
+    closeAccessibilityLabel,
+}: ModalProps) {
     const theme = useUiTheme(themeOverride);
     const locale = useUiLocale();
     const resolvedCloseAccessibilityLabel = closeAccessibilityLabel ?? locale.close;
