@@ -1,5 +1,7 @@
+import { forwardRef } from 'react';
 import type { ReactNode } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
+import type { View } from 'react-native';
 import type { AppTheme } from '../tokens';
 
 export type IconButtonProps = {
@@ -8,11 +10,19 @@ export type IconButtonProps = {
     icon: ReactNode;
     onPress?: () => void;
     disabled?: boolean;
+    testID?: string;
+    nativeID?: string;
 };
 
-export function IconButton({ theme, label, icon, onPress, disabled = false }: IconButtonProps) {
+export const IconButton = forwardRef<View, IconButtonProps>(function IconButton(
+    { theme, label, icon, onPress, disabled = false, testID, nativeID },
+    ref,
+) {
     return (
         <Pressable
+            ref={ref}
+            testID={testID}
+            nativeID={nativeID}
             accessible
             accessibilityRole="button"
             accessibilityLabel={label}
@@ -28,7 +38,7 @@ export function IconButton({ theme, label, icon, onPress, disabled = false }: Ic
             {icon}
         </Pressable>
     );
-}
+});
 
 const styles = StyleSheet.create({
     button: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 22 },
