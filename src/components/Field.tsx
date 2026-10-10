@@ -17,7 +17,10 @@ export type FieldProps = Omit<TextInputProps, 'accessible' | 'accessibilityRole'
     containerTestID?: string;
 };
 
-export const Field: ForwardRefExoticComponent<FieldProps & RefAttributes<TextInputRef>> = forwardRef<TextInputRef, FieldProps>(function Field(
+export const Field: ForwardRefExoticComponent<FieldProps & RefAttributes<TextInputRef>> = forwardRef<
+    TextInputRef,
+    FieldProps
+>(function Field(
     {
         label,
         theme,
