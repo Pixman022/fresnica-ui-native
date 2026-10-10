@@ -1,17 +1,22 @@
 import type { ReactNode } from 'react';
 import { Modal as NativeModal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useUiLocale, useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
 export type ModalProps = {
-    theme: AppTheme;
+    theme?: AppTheme;
     visible: boolean;
     title: string;
     children: ReactNode;
     onRequestClose: () => void;
-    closeAccessibilityLabel: string;
+    closeAccessibilityLabel?: string;
 };
 
-export function Modal({ theme, visible, title, children, onRequestClose, closeAccessibilityLabel }: ModalProps) {
+export function Modal({ theme: themeOverride, visible, title, children, onRequestClose, closeAccessibilityLabel }: ModalProps) {
+    const theme = useUiTheme(themeOverride);
+    const locale = useUiLocale();
+    const resolvedCloseAccessibilityLabel = closeAccessibilityLabel ?? locale.close;
+
     return (
         <NativeModal
             visible={visible}
@@ -34,7 +39,7 @@ export function Modal({ theme, visible, title, children, onRequestClose, closeAc
                         <Pressable
                             accessible
                             accessibilityRole="button"
-                            accessibilityLabel={closeAccessibilityLabel}
+                            accessibilityLabel={resolvedCloseAccessibilityLabel}
                             onPress={onRequestClose}
                             style={styles.close}
                             hitSlop={8}
