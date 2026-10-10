@@ -1,9 +1,9 @@
 import { forwardRef } from 'react';
 import type { ComponentRef, ReactNode } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-type PressableRef = ComponentRef<typeof Pressable>;
-
 import type { AppTheme } from '../tokens';
+
+type PressableRef = ComponentRef<typeof Pressable>;
 
 export type IconButtonProps = {
     theme: AppTheme;
