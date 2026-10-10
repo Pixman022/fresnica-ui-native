@@ -1,5 +1,5 @@
 import { forwardRef, useState } from 'react';
-import type { ComponentRef, ReactNode } from 'react';
+import type { ComponentRef, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import type { StyleProp, TextInputProps, ViewStyle } from 'react-native';
 import type { AppTheme, FieldState } from '../tokens';
@@ -17,7 +17,7 @@ export type FieldProps = Omit<TextInputProps, 'accessible' | 'accessibilityRole'
     containerTestID?: string;
 };
 
-export const Field = forwardRef<TextInputRef, FieldProps>(function Field(
+export const Field: ForwardRefExoticComponent<FieldProps & RefAttributes<TextInputRef>> = forwardRef<TextInputRef, FieldProps>(function Field(
     {
         label,
         theme,
