@@ -23,7 +23,14 @@ type HeaderWithoutBackAction = HeaderBaseProps & {
 
 export type HeaderProps = HeaderWithBackAction | HeaderWithoutBackAction;
 
-export function Header({ theme: themeOverride, title, leading, trailing, onBack, backAccessibilityLabel }: HeaderProps) {
+export function Header({
+    theme: themeOverride,
+    title,
+    leading,
+    trailing,
+    onBack,
+    backAccessibilityLabel,
+}: HeaderProps) {
     const theme = useUiTheme(themeOverride);
     const start = onBack ? (
         <Pressable
