@@ -24,7 +24,7 @@ override must be recorded here with an accessibility reason and native test cove
 | `border.width-default`                             |                           `1` dp | Adapt to numeric RN border width |
 | `font.size-*`                                      | `14 / 13 / 15 / 18 / 20 / 48` sp | Adopt with font scaling          |
 | `font.family-*`                                    |                  Host font stack | Adapt per platform               |
-| `motion.duration-*`                                |              Host duration in ms | Adapt and honor reduced motion   |
+| `motion.duration-*`                                |              Host duration in ms | Adapt; product gate owns reduced-motion acceptance |
 | `shadow.base`                                      |        No shared elevation token | Defer; Web baseline is `none`    |
 
 | Semantic role                               | `AppTheme.colors`                        |
@@ -52,5 +52,10 @@ override must be recorded here with an accessibility reason and native test cove
 
 CSS variable strings are never passed to React Native. Keep existing `--Fresnica-*`
 aliases in Web, and do not import DOM/CSS/Less modules into the native package.
-Native values are explicit adapter outputs, not a shared runtime theme store. Do not use
-Android dynamic accent or image-derived colors in this phase.
+Native values are explicit adapter outputs, not a shared runtime theme store. Android dynamic
+accent and image-derived colors are not part of the current Fresnica product direction; reintroduce
+either only after a new explicit product decision.
+
+The current shared `Modal` keeps its owner-approved native `fade` behavior. This token contract
+must not be read as a claim that the component package has passed reduced-motion acceptance;
+full reduced-motion behavior is reassessed at the future product integration/release gate.
