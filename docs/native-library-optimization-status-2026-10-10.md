@@ -19,17 +19,18 @@ than copying the older plan SHA.
 
 ## Engineering tasks
 
-- **NU01 · P1 · Complete** — Public API, precedence and migration rules. Evidence: `docs/public-api-contract.md`, PR #58.
-- **NU02 · P1 · Complete** — Field native props + interaction refs/test IDs. Evidence: PR #59.
-- **NU03 · P1 · Pending on this branch** — Provider, theme hooks and enUS/zhCN locale; implemented separately in PR #61.
-- **NU04 · P1 · Pending** — Button variants, pressed and loading states.
-- **NU05 · P1 · Pending** — Modal focus, announcement and ListRow contracts.
-- **NU06 · P1 · In progress** — Fixed cross-repository Token source. Evidence: `token-source.lock.json` + CI/source checks.
-- **NU07 · P1 · Pending** — Neutral Preview and package regression verification.
-- **NU08 · P2 · Pending** — Delivery/version/document synchronization.
+| Task                                                     | Priority | Status      | Evidence                                  |
+| -------------------------------------------------------- | -------- | ----------- | ----------------------------------------- |
+| NU01 Public API, precedence and migration rules          | P1       | Complete    | `docs/public-api-contract.md`             |
+| NU02 Field native props + interaction refs/test IDs      | P1       | In progress | `Field` / `Button` / `IconButton` + tests |
+| NU03 Provider, theme hooks and enUS/zhCN locale          | P1       | Pending     | —                                         |
+| NU04 Button variants/pressed/loading states              | P1       | Pending     | —                                         |
+| NU05 Modal focus, announcement and ListRow contracts     | P1       | Pending     | —                                         |
+| NU06 Fixed cross-repository Token source                 | P1       | Pending     | —                                         |
+| NU07 Neutral Preview and package regression verification | P1       | Pending     | —                                         |
+| NU08 Delivery/version/document synchronization           | P2       | Pending     | —                                         |
 
-NU01 is delivered by PR #58. NU02 is delivered by PR #59, merged as
-`872a6e8f7387e3a2f303ef3f911fb5e1e8ed35ea`.
+NU01 is delivered by PR #58 after the public contract and baseline recheck pass the repository quality gates.
 
 ## Conditional items
 
