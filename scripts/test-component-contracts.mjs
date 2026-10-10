@@ -6,7 +6,7 @@ const root = path.resolve(import.meta.dirname, '..');
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), 'utf8');
 
 const button = read('src/components/Button.tsx');
-assert.match(button, /forwardRef<View, ButtonProps>/);
+assert.match(button, /forwardRef<PressableRef, ButtonProps>/);
 assert.match(button, /ref=\{ref\}/);
 assert.match(button, /testID=\{testID\}/);
 assert.match(button, /nativeID=\{nativeID\}/);
@@ -22,7 +22,7 @@ assert.match(button, /flexShrink: 1/);
 assert.match(button, /hitSlop=\{size === 'sm' \? \{ top: 4, bottom: 4, left: 0, right: 0 \} : undefined\}/);
 
 const field = read('src/components/Field.tsx');
-assert.match(field, /forwardRef<TextInput, FieldProps>/);
+assert.match(field, /forwardRef<TextInputRef, FieldProps>/);
 assert.match(field, /Omit<TextInputProps, 'accessible' \| 'accessibilityRole' \| 'style'>/);
 assert.match(field, /\.\.\.inputProps/);
 assert.match(field, /ref=\{ref\}/);
@@ -37,7 +37,7 @@ assert.match(field, /theme\.sizes\.border/);
 assert.match(field, /theme\.radii\.control/);
 
 const iconButton = read('src/components/IconButton.tsx');
-assert.match(iconButton, /forwardRef<View, IconButtonProps>/);
+assert.match(iconButton, /forwardRef<PressableRef, IconButtonProps>/);
 assert.match(iconButton, /ref=\{ref\}/);
 assert.match(iconButton, /testID=\{testID\}/);
 assert.match(iconButton, /nativeID=\{nativeID\}/);
