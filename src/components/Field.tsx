@@ -1,8 +1,10 @@
 import { forwardRef, useState } from 'react';
-import type { ReactNode } from 'react';
+import type { ComponentRef, ReactNode } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import type { StyleProp, TextInputProps, ViewStyle } from 'react-native';
 import type { AppTheme, FieldState } from '../tokens';
+
+type TextInputRef = ComponentRef<typeof TextInput>;
 
 export type FieldProps = Omit<TextInputProps, 'accessible' | 'accessibilityRole' | 'style'> & {
     label: string;
@@ -11,10 +13,11 @@ export type FieldProps = Omit<TextInputProps, 'accessible' | 'accessibilityRole'
     state?: FieldState;
     leading?: ReactNode;
     containerStyle?: StyleProp<ViewStyle>;
+    style?: TextInputProps['style'];
     containerTestID?: string;
 };
 
-export const Field = forwardRef<TextInput, FieldProps>(function Field(
+export const Field = forwardRef<TextInputRef, FieldProps>(function Field(
     {
         label,
         theme,
