@@ -18,10 +18,7 @@ export type IconButtonProps = {
 export const IconButton: ForwardRefExoticComponent<IconButtonProps & RefAttributes<PressableRef>> = forwardRef<
     PressableRef,
     IconButtonProps
->(function IconButton(
-    { theme, label, icon, onPress, disabled = false, testID, nativeID },
-    ref,
-) {
+>(function IconButton({ theme, label, icon, onPress, disabled = false, testID, nativeID }, ref) {
     return (
         <Pressable
             ref={ref}
