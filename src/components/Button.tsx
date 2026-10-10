@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import type { ComponentRef, ReactNode } from 'react';
+import type { ComponentRef, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import type { AppTheme, ButtonVariant, ControlSize } from '../tokens';
 
@@ -19,7 +19,7 @@ export type ButtonProps = {
     nativeID?: string;
 };
 
-export const Button = forwardRef<PressableRef, ButtonProps>(function Button(
+export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<PressableRef>> = forwardRef<PressableRef, ButtonProps>(function Button(
     {
         label,
         theme,
