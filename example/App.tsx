@@ -154,20 +154,17 @@ export default function App() {
     const stress = scenario === 'stress';
     const resolvedSystemMode = systemScheme === 'dark' ? 'dark' : 'light';
     const theme = useMemo(() => resolveTheme(mode, resolvedSystemMode), [mode, resolvedSystemMode]);
-    const localTheme = useMemo(
-        () => ({ ...theme, radii: { ...theme.radii, base: theme.radii.pill } }),
-        [theme],
-    );
+    const localTheme = useMemo(() => ({ ...theme, radii: { ...theme.radii, base: theme.radii.pill } }), [theme]);
 
     return (
         <SafeAreaProvider>
             <FresnicaUiProvider theme={theme} locale={uiLocale}>
-            <SafeAreaView
+                <SafeAreaView
                 style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
                 edges={['top', 'bottom']}
-            >
-                <StatusBar barStyle={theme.systemBars.statusBarStyle} />
-                <KeyboardAvoidingView style={styles.keyboardContainer} behavior="padding">
+                >
+                    <StatusBar barStyle={theme.systemBars.statusBarStyle} />
+                    <KeyboardAvoidingView style={styles.keyboardContainer} behavior="padding">
                     <Screen theme={theme} scroll>
                         <View style={styles.section}>
                             <Typography variant="screenTitle">{labels.title}</Typography>
@@ -327,8 +324,8 @@ export default function App() {
                             <Button label={labels.modalClose} onPress={() => setModalVisible(false)} />
                         </Modal>
                     </Screen>
-                </KeyboardAvoidingView>
-            </SafeAreaView>
+                    </KeyboardAvoidingView>
+                </SafeAreaView>
             </FresnicaUiProvider>
         </SafeAreaProvider>
     );
