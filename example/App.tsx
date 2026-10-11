@@ -152,7 +152,6 @@ export default function App() {
     const stress = scenario === 'stress';
     const resolvedSystemMode = systemScheme === 'dark' ? 'dark' : 'light';
     const theme = useMemo(() => resolveTheme(mode, resolvedSystemMode), [mode, resolvedSystemMode]);
-    const localTheme = useMemo(() => ({ ...theme, radii: { ...theme.radii, base: theme.radii.pill } }), [theme]);
 
     return (
         <SafeAreaProvider>
@@ -251,7 +250,7 @@ export default function App() {
                                     {labels.componentStates}
                                 </Typography>
                                 <Button label={stress ? labels.stressAction : labels.enabledAction} />
-                                <Button theme={localTheme} variant="secondary" label={labels.disabledAction} disabled />
+                                <Button theme={theme} label={labels.disabledAction} disabled />
                                 <Button theme={theme} label={labels.loadingAction} loading />
                             </View>
 
