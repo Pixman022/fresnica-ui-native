@@ -1,12 +1,6 @@
-import fs from 'node:fs';
-import path from 'node:path';
+import { readLockedTokenSources } from './token-source-lock.mjs';
 
-const repositoryRoot = path.resolve(import.meta.dirname, '..', '..');
-const webRoot = path.join(repositoryRoot, 'fresnica-ui');
-const tokenPath = path.join(webRoot, 'design-system', 'tokens.json');
-const platformTokenPath = path.join(webRoot, 'design-system', 'platform-token-source.json');
-const source = JSON.parse(fs.readFileSync(tokenPath, 'utf8'));
-const platformSource = JSON.parse(fs.readFileSync(platformTokenPath, 'utf8'));
+const { lock, tokenPath, platformTokenPath, source, platformSource } = readLockedTokenSources();
 const semantic = source.semantic?.color ?? {};
 
 const required = [
@@ -112,6 +106,7 @@ if (
     }
     process.exitCode = 1;
 } else {
+    console.log(`Validated locked Web token source ${lock.commit}`);
     console.log(`Validated ${required.length} native semantic token roles from ${tokenPath}`);
     console.log(`Validated Native light/dark color values from ${platformTokenPath}`);
     console.log(

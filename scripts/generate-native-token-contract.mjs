@@ -1,21 +1,16 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import prettier from 'prettier';
+import { readLockedTokenSources } from './token-source-lock.mjs';
 
-const repositoryRoot = path.resolve(import.meta.dirname, '..', '..');
-const sourcePath = path.join(repositoryRoot, 'fresnica-ui', 'design-system', 'tokens.json');
-const platformSourcePath = path.join(repositoryRoot, 'fresnica-ui', 'design-system', 'platform-token-source.json');
+const {
+    tokenPath: sourcePath,
+    platformTokenPath: platformSourcePath,
+    source,
+    platformSource,
+} = readLockedTokenSources();
 const outputPath = path.join(import.meta.dirname, '..', 'src', 'generated-token-contract.ts');
 const checkOnly = process.argv.includes('--check');
-if (!fs.existsSync(sourcePath)) {
-    throw new Error(`Shared Web token source not found: ${sourcePath}`);
-}
-if (!fs.existsSync(platformSourcePath)) {
-    throw new Error(`Platform token source not found: ${platformSourcePath}`);
-}
-const source = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
-const platformSource = JSON.parse(fs.readFileSync(platformSourcePath, 'utf8'));
-
 const primitive = source.primitive ?? {};
 const dimension = (group, name, fallback) => {
     const value = primitive[group]?.[name]?.$value ?? fallback;

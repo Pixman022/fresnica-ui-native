@@ -84,23 +84,28 @@ not visual parity or physical-device accessibility.
 
 ## Cross-repository token update protocol
 
+The Native repository records its exact Web source in `token-source.lock.json`.
+The lock contains the full Web commit SHA plus Git blob SHAs for
+`design-system/tokens.json` and `design-system/platform-token-source.json`.
+
 1. Make an approved token/semantic-role change only in the Web
    `fresnica-ui/design-system/tokens.json` or
-   `design-system/platform-token-source.json`.
-2. Check out `fresnica-ui` and `fresnica-ui-native` as **sibling
-   directories**, at the exact reviewable Web and Native commits.
-3. Run `npm run test:source-contract` from the Native directory.
-4. If the check detects intentional drift, run `npm run generate:tokens`
-   in Native, review the generated diff and test both light/dark behavior.
-5. Submit a Native PR with the Web commit SHA, mapping rationale, and CI
-   evidence; do not change the approved Web visual baseline from Native.
-6. Re-run the Native CI manually through GitHub Actions **Run workflow** when
-   a Web-only source update needs validation before Native code changes.
-   Native CI checks out the current Web main branch and verifies generation;
-   a `main` push in Web alone does not automatically launch Native CI.
+   `design-system/platform-token-source.json`, and merge/approve that Web revision first.
+2. Check out `fresnica-ui` and `fresnica-ui-native` as **sibling directories**.
+   Check out Web at the exact commit recorded in `token-source.lock.json`.
+3. Run `npm run test:source-contract` from the Native directory. The check fails
+   if Web HEAD differs from the lock, either locked file has a different Git blob SHA,
+   or the committed generated Native contract is stale.
+4. For an intentional Web Token update, update the lock commit/blob SHAs in the
+   Native PR, run `npm run generate:tokens`, and review the generated diff.
+5. Test light/dark behavior and submit the Native PR with the Web commit SHA,
+   mapping rationale, generated diff and CI evidence. Do not change the approved
+   Web visual baseline from Native.
+6. Native CI uses the same immutable Web revision as the lock. A later Web `main`
+   change does not alter an existing Native CI run; updating the source requires an
+   explicit Native lock-file change.
 
-This protocol avoids adding a separate Web-to-Native synchronization service
-until a real maintenance need justifies one.
+This keeps synchronization reviewable without adding a cross-repository service.
 
 ## Deliberate non-goals
 

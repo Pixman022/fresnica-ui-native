@@ -1,0 +1,12 @@
+{
+    "repository": "Pixman022/fresnica-ui",
+    "commit": "15d49e0be28a232ae6de2a7285a3a77add8c87d4",
+    "files": {
+        "design-system/tokens.json": {
+            "gitBlobSha": "9c4bbc478618d5a5ef5d1ecdd11d41ee8afdeb5c"
+        },
+        "design-system/platform-token-source.json": {
+            "gitBlobSha": "6ee1c1da3a3be52e84bc8247e13bb577fdbb4cc6"
+        }
+    }
+}

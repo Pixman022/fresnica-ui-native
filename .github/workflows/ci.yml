@@ -23,6 +23,7 @@ jobs:
               uses: actions/checkout@v7
               with:
                   repository: Pixman022/fresnica-ui
+                  ref: 15d49e0be28a232ae6de2a7285a3a77add8c87d4
                   path: fresnica-ui
 
             - name: Set up Node
