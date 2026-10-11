@@ -152,10 +152,7 @@ export default function App() {
     const stress = scenario === 'stress';
     const resolvedSystemMode = systemScheme === 'dark' ? 'dark' : 'light';
     const theme = useMemo(() => resolveTheme(mode, resolvedSystemMode), [mode, resolvedSystemMode]);
-    const localTheme = useMemo(
-        () => ({ ...theme, radii: { ...theme.radii, base: theme.radii.pill } }),
-        [theme],
-    );
+    const localTheme = useMemo(() => ({ ...theme, radii: { ...theme.radii, base: theme.radii.pill } }), [theme]);
 
     return (
         <SafeAreaProvider>
