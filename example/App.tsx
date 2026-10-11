@@ -164,8 +164,12 @@ export default function App() {
                     <KeyboardAvoidingView style={styles.keyboardContainer} behavior="padding">
                         <Screen theme={theme} scroll>
                             <View style={styles.section}>
-                                <Typography variant="screenTitle">{labels.title}</Typography>
-                                <Typography muted>{labels.subtitle}</Typography>
+                                <Typography variant="screenTitle">
+                                    {labels.title}
+                                </Typography>
+                                <Typography muted>
+                                    {labels.subtitle}
+                                </Typography>
                             </View>
 
                             <View style={styles.section}>
