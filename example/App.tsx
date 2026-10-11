@@ -66,7 +66,6 @@ const copy = {
         iconFeedback: 'Icon action was pressed',
         loadingPlaceholder: 'Loading placeholder',
         enabledAction: 'Continue',
-        localThemeAction: 'Local theme override',
         stressAction: 'Continue with an intentionally long action label',
         disabledAction: 'Unavailable action',
         loadingAction: 'Loading action',
@@ -118,7 +117,6 @@ const copy = {
         iconFeedback: '图标按钮已触发',
         loadingPlaceholder: '内容加载占位符',
         enabledAction: '继续',
-        localThemeAction: '局部主题覆盖',
         stressAction: '使用一段故意加长的操作按钮文案继续',
         disabledAction: '不可用操作',
         loadingAction: '加载中的操作',
@@ -154,7 +152,10 @@ export default function App() {
     const stress = scenario === 'stress';
     const resolvedSystemMode = systemScheme === 'dark' ? 'dark' : 'light';
     const theme = useMemo(() => resolveTheme(mode, resolvedSystemMode), [mode, resolvedSystemMode]);
-    const localTheme = useMemo(() => ({ ...theme, radii: { ...theme.radii, base: theme.radii.pill } }), [theme]);
+    const localTheme = useMemo(
+        () => ({ ...theme, radii: { ...theme.radii, base: theme.radii.pill } }),
+        [theme],
+    );
 
     return (
         <SafeAreaProvider>
@@ -253,8 +254,7 @@ export default function App() {
                                     {labels.componentStates}
                                 </Typography>
                                 <Button label={stress ? labels.stressAction : labels.enabledAction} />
-                                <Button theme={localTheme} variant="secondary" label={labels.localThemeAction} />
-                                <Button theme={theme} label={labels.disabledAction} disabled />
+                                <Button theme={localTheme} variant="secondary" label={labels.disabledAction} disabled />
                                 <Button theme={theme} label={labels.loadingAction} loading />
                             </View>
 
