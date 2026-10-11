@@ -164,12 +164,8 @@ export default function App() {
                     <KeyboardAvoidingView style={styles.keyboardContainer} behavior="padding">
                         <Screen theme={theme} scroll>
                             <View style={styles.section}>
-                                <Typography variant="screenTitle">
-                                    {labels.title}
-                                </Typography>
-                                <Typography muted>
-                                    {labels.subtitle}
-                                </Typography>
+                                <Typography variant="screenTitle">{labels.title}</Typography>
+                                <Typography muted>{labels.subtitle}</Typography>
                             </View>
 
                             <View style={styles.section}>
@@ -288,7 +284,11 @@ export default function App() {
                                 title={labels.emptyTitle}
                                 description={labels.emptyDescription}
                                 action={
-                                    <Button theme={theme} label={labels.modalOpen} onPress={() => setModalVisible(true)} />
+                                    <Button
+                                        theme={theme}
+                                        label={labels.modalOpen}
+                                        onPress={() => setModalVisible(true)}
+                                    />
                                 }
                             />
 
