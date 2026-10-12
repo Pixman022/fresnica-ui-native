@@ -24,9 +24,9 @@ acceptance must use its own Preview host rather than depend on product wallet ac
 See [the scoped UI library delivery plan](docs/ui-library-delivery-plan.md) for priorities, verification criteria
 and explicit non-goals. [Phase-one engineering handoff status](docs/ui-library-phase-one-status.md)
 records the owner-approved phase-one visual layout separately from unresolved full accessibility acceptance.
-The [internal change record](CHANGELOG.md) documents the unreleased `1.0.0` source baseline
-and its known limitations. The package is currently private/not published to npm; build and local packaging remain
-available for consumer integration.
+The [internal change record](CHANGELOG.md) documents the phase-one `1.0.0` baseline and the current
+`1.1.0-rc.1` internal integration candidate. The package remains private/not published to npm; the candidate is
+identified by an immutable source SHA plus tarball SHA-256 rather than a floating `main` branch.
 
 The post-phase-one [wallet UI integration readiness plan](docs/wallet-ui-integration-readiness-plan.md)
 and [component coverage matrix](docs/wallet-ui-component-coverage.md) conclude that the current
@@ -40,7 +40,7 @@ amount panels, selectors and transaction presentation remain Feature-local by de
 - React `19.2.3`, TypeScript `6.0.3`, Node `>=22.13.0`
 - Hermes and New Architecture enabled
 - Android first: minSdk 26, targetSdk 36, compileSdk 37, Kotlin 2.2.0
-- English and Simplified Chinese through App-level localization injection
+- Built-in component-generic `enUS` and `zhCN` Locale packs selected through `FresnicaUiProvider`; product copy remains App-owned
 - Light, Dark and System themes. For `system`, the App shell must pass the platform-resolved
   appearance (`light` or `dark`) to `resolveTheme`; Android dynamic accent color is not consumed.
 - The baseline has no generic secondary action color: `contentSecondary` is supporting text,
@@ -81,8 +81,9 @@ source and verifies that the committed generated Native contract is current. CI 
 both repositories before running this source-contract check. `npm run generate:tokens`
 refreshes the committed Native dimension and color contract.
 
-`npm run build` emits JavaScript and TypeScript declarations to `dist/`. The package export
-keeps React and React Native as peer dependencies and does not bundle an App shell.
+`npm run build` emits JavaScript and TypeScript declarations to `dist/`. The package exports
+both the root API and `@fresnica/ui-native/locales`, keeps React and React Native as peer dependencies,
+and does not bundle an App shell.
 `npm run test:render` contains Jest/React Native Testing Library tests for component
 rendering, callbacks and accessibility state. The standalone package uses a small
 hostless Jest adapter for React Native primitives so these checks run before a product
@@ -99,8 +100,9 @@ current local package build into it. With an emulator or device available, run
 `npm run example:android`. To verify only that the Android host compiles, run
 `npm run example:android:build`.
 
-The Preview App exercises theme resolution, English/Simplified Chinese copy, Safe Area,
-core component states and accessibility roles before wallet features are introduced.
+The Preview App exercises Provider theme/Locale switching, explicit local theme overrides, English/Simplified
+Chinese copy, native Field input behavior, disabled/loading/error states, ListRow interaction patterns, Modal focus
+cooperation, Safe Area and accessibility roles before any consumer product features are introduced.
 See [`example/README.md`](example/README.md) for details.
 
 ## Historical product prototype (not a library deliverable)
