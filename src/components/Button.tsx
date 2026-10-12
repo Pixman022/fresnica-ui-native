@@ -69,7 +69,6 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
             style={({ pressed }) => {
                 const primary = variant === 'primary';
                 const danger = variant === 'danger';
-                const secondary = variant === 'secondary';
                 const backgroundColor = primary
                     ? pressed
                         ? theme.colors.primaryPressed
@@ -83,7 +82,9 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
                     ? theme.colors.negative
                     : variant === 'quiet'
                       ? 'transparent'
-                      : theme.colors.primary;
+                      : primary && pressed
+                        ? theme.colors.primaryPressed
+                        : theme.colors.primary;
 
                 return [
                     styles.base,
@@ -97,8 +98,8 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
                         paddingVertical: theme.spacing.sm,
                         gap: theme.spacing.sm,
                         opacity: isDisabled ? 0.5 : danger && pressed ? 0.82 : 1,
-                    },
-                    secondary ? styles.secondary : undefined,
+                    }
+,
                 ];
             }}
         >
@@ -114,9 +115,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    secondary: {
-        backgroundColor: 'transparent',
     },
     label: { fontWeight: '600', textAlign: 'center', flexShrink: 1 },
 });
