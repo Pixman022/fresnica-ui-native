@@ -98,13 +98,14 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
                         paddingVertical: theme.spacing.sm,
                         gap: theme.spacing.sm,
                         opacity: isDisabled ? 0.5 : danger && pressed ? 0.82 : 1,
-                    }
-,
+                    },
                 ];
             }}
         >
             {icon}
-            <Text style={[styles.label, { color: foreground, fontSize: theme.typography.action }]}>{displayLabel}</Text>
+            <Text style={[styles.label, { color: foreground, fontSize: theme.typography.action }]}>
+                {displayLabel}
+            </Text>
         </Pressable>
     );
 });
