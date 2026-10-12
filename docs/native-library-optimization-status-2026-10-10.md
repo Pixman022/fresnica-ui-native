@@ -26,7 +26,9 @@ than copying the older plan SHA.
 - **NU05 · P1 · Complete** — Modal focus, announcement and ListRow contracts. Evidence: PR #64 / `fca18a70f28bf2efaadbe3a4fe7a23e9fd04195a`.
 - **NU06 · P1 · Complete** — Fixed cross-repository Token source. Evidence: PR #62 / `7b4988d683bd79789b9ec2fca72725c51803ad5b`.
 - **NU07 · P1 · Complete** — Neutral Preview and package regression verification. Evidence: PR #65 / `764566d8912474f2e8890c7a0157f491652431c1`.
-- **NU08 · P2 · Complete** — Delivery/version/document synchronization. Evidence: PR #66 / `b51ac540646e7a798183a797bf32793e0bbcc2d7`; candidate `1.1.0-rc.1` recorded in `docs/delivery-candidate-2026-10-12.md`.
+- **NU08 · P2 · Complete** — Delivery/version/document synchronization. Evidence: PR #66 /
+  `b51ac540646e7a798183a797bf32793e0bbcc2d7`; candidate `1.1.0-rc.1` recorded in
+  `docs/delivery-candidate-2026-10-12.md`.
 
 NU01 is delivered by PR #58. NU02 is delivered by PR #59, merged as
 `872a6e8f7387e3a2f303ef3f911fb5e1e8ed35ea`; CI run `38052061625` passed after the
