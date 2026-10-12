@@ -64,7 +64,7 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
             disabled={isDisabled}
             hitSlop={size === 'sm' ? { top: 4, bottom: 4, left: 0, right: 0 } : undefined}
             nativeID={nativeID}
-            onPress={onPress}
+            onPress={isDisabled ? undefined : onPress}
             testID={testID}
             style={({ pressed }) => {
                 let backgroundColor = 'transparent';
