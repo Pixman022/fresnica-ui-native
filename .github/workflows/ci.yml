@@ -47,6 +47,14 @@ jobs:
               continue-on-error: true
               run: npm audit --omit=dev --audit-level=moderate
 
+            - name: Diagnose Button Prettier output
+              working-directory: fresnica-ui-native
+              run: |
+                  npx prettier src/components/Button.tsx --write
+                  cat src/components/Button.tsx
+                  git diff -- src/components/Button.tsx
+                  exit 1
+
             - name: Run standalone tests
               working-directory: fresnica-ui-native
               run: npm test
