@@ -67,6 +67,9 @@ const copy = {
         loadingPlaceholder: 'Loading placeholder',
         enabledAction: 'Continue',
         stressAction: 'Continue with an intentionally long action label',
+        secondaryAction: 'Secondary action',
+        quietAction: 'Quiet action',
+        dangerAction: 'Danger action',
         disabledAction: 'Unavailable action',
         loadingAction: 'Loading action',
         keyboardTitle: 'Keyboard visibility check',
@@ -118,6 +121,9 @@ const copy = {
         loadingPlaceholder: '内容加载占位符',
         enabledAction: '继续',
         stressAction: '使用一段故意加长的操作按钮文案继续',
+        secondaryAction: '次要操作',
+        quietAction: '轻量操作',
+        dangerAction: '危险操作',
         disabledAction: '不可用操作',
         loadingAction: '加载中的操作',
         keyboardTitle: '键盘可见性检查',
@@ -250,6 +256,13 @@ export default function App() {
                                     {labels.componentStates}
                                 </Typography>
                                 <Button label={stress ? labels.stressAction : labels.enabledAction} />
+                                <Button
+                                    variant="secondary"
+                                    label={labels.secondaryAction}
+                                    icon={<Typography>+</Typography>}
+                                />
+                                <Button variant="quiet" label={labels.quietAction} />
+                                <Button variant="danger" label={labels.dangerAction} />
                                 <Button theme={theme} label={labels.disabledAction} disabled />
                                 <Button theme={theme} label={labels.loadingAction} loading />
                             </View>
