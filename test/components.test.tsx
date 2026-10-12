@@ -251,13 +251,60 @@ describe('native components', () => {
         expect(screen.getByText('Testnet connected')).toBeTruthy();
     });
 
-    it('uses alert semantics only for error InlineMessage', () => {
+    it('keeps whole-row ListRow action as the only button when trailing content is presentation-only', () => {
+        render(
+            <ListRow
+                title="Network"
+                description="Testnet connected"
+                theme={theme}
+                onPress={jest.fn()}
+                trailing={<StatusBadge theme={theme} label="Connected" tone="positive" />}
+            />,
+        );
+
+        expect(screen.getAllByRole('button')).toHaveLength(1);
+        expect(screen.getByRole('button', { name: 'Network, Testnet connected' })).toBeTruthy();
+        expect(screen.getByText('Connected')).toBeTruthy();
+    });
+
+    it('keeps an independent trailing action separate when the ListRow itself is not interactive', () => {
+        render(
+            <ListRow
+                title="Account"
+                description="Primary"
+                theme={theme}
+                trailing={
+                    <IconButton
+                        theme={theme}
+                        label="Open account actions"
+                        icon={<Typography theme={theme}>•••</Typography>}
+                    />
+                }
+            />,
+        );
+
+        expect(screen.getAllByRole('button')).toHaveLength(1);
+        expect(screen.getByRole('button', { name: 'Open account actions' })).toBeTruthy();
+        expect(screen.queryByRole('button', { name: 'Account, Primary' })).toBeNull();
+    });
+
+    it('preserves error alert semantics by default and supports passive delivery', () => {
         const { rerender } = render(<InlineMessage message="Unable to connect" theme={theme} tone="error" />);
         expect(screen.getByRole('alert', { name: 'Unable to connect' })).toBeTruthy();
 
-        rerender(<InlineMessage message="Connected" theme={theme} tone="success" />);
+        rerender(
+            <InlineMessage
+                message="Unable to connect"
+                theme={theme}
+                tone="error"
+                announcementMode="passive"
+            />,
+        );
         expect(screen.queryByRole('alert')).toBeNull();
-        expect(screen.getByText('Connected')).toBeTruthy();
+        expect(screen.getByText('Unable to connect')).toBeTruthy();
+
+        rerender(<InlineMessage message="Important update" theme={theme} announcementMode="alert" />);
+        expect(screen.getByRole('alert', { name: 'Important update' })).toBeTruthy();
     });
 
     it('renders StatusBadge text', () => {
@@ -328,6 +375,33 @@ describe('native components', () => {
 
         fireEvent(nativeModal, 'requestClose');
         expect(onRequestClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('exposes Modal show timing and its built-in close control ref for host focus management', () => {
+        const onShow = jest.fn();
+        let closeButtonNode: unknown = null;
+
+        render(
+            <Modal
+                theme={theme}
+                visible
+                title="Focus modal"
+                onShow={onShow}
+                closeButtonRef={(node) => {
+                    closeButtonNode = node;
+                }}
+                onRequestClose={jest.fn()}
+            >
+                <Typography theme={theme}>Body</Typography>
+            </Modal>,
+        );
+
+        const nativeModal = screen.UNSAFE_getByType(NativeModal);
+        fireEvent(nativeModal, 'show');
+
+        expect(onShow).toHaveBeenCalledTimes(1);
+        expect(closeButtonNode).not.toBeNull();
+        expect(screen.getByRole('button', { name: 'Close' })).toBeTruthy();
     });
 
     it('reports selected SegmentedControl tab and changes selection', () => {
