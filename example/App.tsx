@@ -1,5 +1,16 @@
-import { useMemo, useState } from 'react';
-import { KeyboardAvoidingView, StatusBar, StyleSheet, View, useColorScheme, useWindowDimensions } from 'react-native';
+import { useMemo, useRef, useState } from 'react';
+import type { ComponentRef } from 'react';
+import {
+    AccessibilityInfo,
+    KeyboardAvoidingView,
+    Pressable,
+    StatusBar,
+    StyleSheet,
+    View,
+    findNodeHandle,
+    useColorScheme,
+    useWindowDimensions,
+} from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {
     Button,
@@ -25,6 +36,14 @@ import { enUS, zhCN } from '@fresnica/ui-native/locales';
 
 type Locale = 'en' | 'zh-CN';
 type Scenario = 'standard' | 'stress';
+type PressableRef = ComponentRef<typeof Pressable>;
+
+function focusAccessibilityTarget(target: PressableRef | null) {
+    const node = findNodeHandle(target);
+    if (node != null) {
+        AccessibilityInfo.setAccessibilityFocus(node);
+    }
+}
 
 const copy = {
     en: {
@@ -54,7 +73,13 @@ const copy = {
         addressTitle: 'Long address',
         address: '0x4d7F9f6A5cD1E24B89F0aD71E8b739f5A2b85cF2eC90d6Aa13E1427D9B1c6F49',
         status: 'Connected',
+        rowFeedback: 'Whole-row action was pressed',
+        accountTitle: 'Account',
+        accountDescription: 'Primary account',
+        accountAction: 'Open account actions',
+        trailingFeedback: 'Independent trailing action was pressed',
         info: 'Native components are using the current Fresnica semantic theme.',
+        passiveError: 'Passive error text for an app-owned announcement flow.',
         stressInfo:
             'Stress mode uses long content, error states and large accessible labels so narrow Android windows and font scaling can be inspected before product flows are added.',
         progress: 'Sync progress',
@@ -109,7 +134,13 @@ const copy = {
         addressTitle: '长地址',
         address: 'bc1q5r9m2g3s7t6u8w0x4zv2n6k9j8h3f5d7c4b2a1p0q9w8e7r6t5y4u3i2o1',
         status: '已连接',
+        rowFeedback: '整行操作已触发',
+        accountTitle: '账户',
+        accountDescription: '主账户',
+        accountAction: '打开账户操作',
+        trailingFeedback: '独立尾部操作已触发',
         info: '原生组件正在使用当前 Fresnica 语义主题。',
+        passiveError: '这是供应用自行控制播报时使用的被动错误文本。',
         stressInfo: '压力测试会显示长文案、错误状态和较长的无障碍标签，用于在接入产品流程前检查窄屏和字体缩放。',
         progress: '同步进度',
         componentStates: '控件状态',
@@ -151,6 +182,10 @@ export default function App() {
     const [keyboardActionActive, setKeyboardActionActive] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [iconActionActive, setIconActionActive] = useState(false);
+    const [rowActionActive, setRowActionActive] = useState(false);
+    const [trailingActionActive, setTrailingActionActive] = useState(false);
+    const modalTriggerRef = useRef<PressableRef>(null);
+    const modalCloseRef = useRef<PressableRef>(null);
 
     const labels = copy[locale];
     const uiLocale = locale === 'zh-CN' ? zhCN : enUS;
@@ -158,6 +193,11 @@ export default function App() {
     const stress = scenario === 'stress';
     const resolvedSystemMode = systemScheme === 'dark' ? 'dark' : 'light';
     const theme = useMemo(() => resolveTheme(mode, resolvedSystemMode), [mode, resolvedSystemMode]);
+
+    const closeModalAndRestoreTrigger = () => {
+        setModalVisible(false);
+        requestAnimationFrame(() => focusAccessibilityTarget(modalTriggerRef.current));
+    };
 
     return (
         <SafeAreaProvider>
@@ -233,7 +273,27 @@ export default function App() {
                                     title={stress ? labels.stressNetworkTitle : labels.networkTitle}
                                     description={stress ? labels.stressNetworkDescription : labels.networkDescription}
                                     trailing={<StatusBadge theme={theme} label={labels.status} tone="positive" />}
+                                    onPress={() => setRowActionActive((active) => !active)}
                                 />
+                                <ListRow
+                                    theme={theme}
+                                    title={labels.accountTitle}
+                                    description={labels.accountDescription}
+                                    trailing={
+                                        <IconButton
+                                            theme={theme}
+                                            label={labels.accountAction}
+                                            icon={<Typography theme={theme}>•••</Typography>}
+                                            onPress={() => setTrailingActionActive((active) => !active)}
+                                        />
+                                    }
+                                />
+                                {rowActionActive ? (
+                                    <InlineMessage theme={theme} tone="success" message={labels.rowFeedback} />
+                                ) : null}
+                                {trailingActionActive ? (
+                                    <InlineMessage theme={theme} tone="success" message={labels.trailingFeedback} />
+                                ) : null}
                                 {stress ? (
                                     <ListRow theme={theme} title={labels.addressTitle} description={labels.address} />
                                 ) : null}
@@ -241,7 +301,16 @@ export default function App() {
                                     theme={theme}
                                     message={stress ? labels.stressInfo : labels.info}
                                     tone={stress ? 'error' : 'info'}
+                                    announcementMode={stress ? 'alert' : 'passive'}
                                 />
+                                {stress ? (
+                                    <InlineMessage
+                                        theme={theme}
+                                        message={labels.passiveError}
+                                        tone="error"
+                                        announcementMode="passive"
+                                    />
+                                ) : null}
                             </View>
 
                             <View style={styles.section}>
@@ -298,6 +367,7 @@ export default function App() {
                                 description={labels.emptyDescription}
                                 action={
                                     <Button
+                                        ref={modalTriggerRef}
                                         theme={theme}
                                         label={labels.modalOpen}
                                         onPress={() => setModalVisible(true)}
@@ -331,10 +401,12 @@ export default function App() {
                                 visible={modalVisible}
                                 title={labels.modalTitle}
                                 closeAccessibilityLabel={labels.modalClose}
-                                onRequestClose={() => setModalVisible(false)}
+                                closeButtonRef={modalCloseRef}
+                                onShow={() => focusAccessibilityTarget(modalCloseRef.current)}
+                                onRequestClose={closeModalAndRestoreTrigger}
                             >
                                 <Typography>{labels.modalBody}</Typography>
-                                <Button label={labels.modalClose} onPress={() => setModalVisible(false)} />
+                                <Button label={labels.modalClose} onPress={closeModalAndRestoreTrigger} />
                             </Modal>
                         </Screen>
                     </KeyboardAvoidingView>
