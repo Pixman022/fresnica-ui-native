@@ -4,9 +4,22 @@ import { useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
 export type InlineMessageTone = 'info' | 'success' | 'warning' | 'error';
-export type InlineMessageProps = { theme?: AppTheme; message: string; tone?: InlineMessageTone; icon?: ReactNode };
+export type InlineMessageAnnouncementMode = 'alert' | 'passive';
+export type InlineMessageProps = {
+    theme?: AppTheme;
+    message: string;
+    tone?: InlineMessageTone;
+    icon?: ReactNode;
+    announcementMode?: InlineMessageAnnouncementMode;
+};
 
-export function InlineMessage({ theme: themeOverride, message, tone = 'info', icon }: InlineMessageProps) {
+export function InlineMessage({
+    theme: themeOverride,
+    message,
+    tone = 'info',
+    icon,
+    announcementMode,
+}: InlineMessageProps) {
     const theme = useUiTheme(themeOverride);
     const color =
         tone === 'success'
@@ -16,10 +29,12 @@ export function InlineMessage({ theme: themeOverride, message, tone = 'info', ic
               : tone === 'warning'
                 ? theme.colors.warning
                 : theme.colors.primary;
+    const alert = announcementMode === 'alert' || (announcementMode === undefined && tone === 'error');
+
     return (
         <View
             accessible
-            accessibilityRole={tone === 'error' ? 'alert' : 'text'}
+            accessibilityRole={alert ? 'alert' : 'text'}
             accessibilityLabel={message}
             style={[
                 styles.container,

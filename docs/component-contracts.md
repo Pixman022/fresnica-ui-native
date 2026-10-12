@@ -10,13 +10,13 @@ platform-neutral; navigation, safe areas, status bars and product state stay in 
 | `StateView`        | Empty, error and success tone with optional action.                                                                                        | Title and description remain readable without relying on color alone.                          |
 | `Screen`           | Background and optional scrolling/padding; no route ownership.                                                                             | Content order is preserved in the accessibility tree.                                          |
 | `Header`           | Stable title, optional leading/trailing content and optional back action.                                                                  | Back action has a localized accessible label supplied by the app.                              |
-| `ListRow`          | Title, optional description, leading and trailing content, disabled/pressed state.                                                         | Pressable rows expose a button role and disabled state.                                        |
-| `Modal`            | Native modal lifecycle, scrim, title and explicit close callback.                                                                          | Modal is marked as a modal view; app restores focus after close.                               |
+| `ListRow`          | Title, optional description, leading/trailing content; either whole-row action or independent trailing action.                             | Pressable rows expose one button; independent trailing actions remain separate.                |
+| `Modal`            | Native modal lifecycle, scrim, title, show/close callbacks and close-control ref.                                                          | Modal is marked modal; host chooses initial focus and restores trigger focus.                  |
 | `Typography`       | Shared body, supporting, action, section, screen and display metrics.                                                                      | Text can grow with Dynamic Type; callers provide translated content.                           |
 | `IconButton`       | Icon-only action with a stable 44×44 target; ref/test identifiers target the pressable node.                                               | Caller provides the localized accessible label.                                                |
 | `Divider`          | Semantic separator using the theme separator role.                                                                                         | Decorative/separator semantics are not used as the only state signal.                          |
 | `StatusBadge`      | Positive, negative, warning and neutral status label.                                                                                      | Status includes text, not color alone.                                                         |
-| `InlineMessage`    | Info, success, warning and error message with optional icon.                                                                               | Alert message is readable and caller owns announcement timing.                                 |
+| `InlineMessage`    | Info, success, warning and error message with optional icon and alert/passive announcement mode.                                           | Error keeps alert compatibility; passive mode avoids duplicate announcements.                  |
 | `Skeleton`         | Non-interactive loading placeholder.                                                                                                       | Caller provides a localized loading label.                                                     |
 | `Progress`         | Clamped 0–1 progress value.                                                                                                                | Progress role exposes min/max/current values.                                                  |
 | `SegmentedControl` | Selectable set of short options.                                                                                                           | Tab/list labels and selected state are exposed; caller provides group label.                   |
@@ -90,6 +90,35 @@ otherwise the current Provider locale `loading` copy.
 
 See [the NU01 public API contract](public-api-contract.md) for the frozen prop boundaries
 and migration rules used by this implementation.
+
+### Modal focus and announcement ownership
+
+`Modal` remains controlled by `visible` and `onRequestClose`; its animation remains
+`fade`. The optional `onShow` callback tells the host when native modal presentation is
+ready, and `closeButtonRef` exposes the built-in close control as a possible initial
+accessibility-focus target. The package does not keep a global trigger stack and does not
+restore arbitrary external focus automatically.
+
+A consuming host that wants focus restoration keeps the trigger ref, focuses the close
+control after `onShow`, closes through the same `onRequestClose` path for the close button
+and Android system Back, and restores the trigger after the modal has closed. Actual spoken
+focus behavior remains part of the deferred physical-device acceptance gate.
+
+`InlineMessage` supports `announcementMode="alert"` and `"passive"`. For 1.x
+compatibility an error with no explicit mode remains an alert. Use passive mode when the
+application already owns announcement timing; when alert mode is used, the application must
+not separately announce the same message.
+
+### ListRow interaction patterns
+
+Only two interaction patterns are supported:
+
+1. **Whole-row action:** set `onPress`; `trailing` must be presentation-only.
+2. **Independent trailing action:** omit row `onPress`; put the independent control in
+   `trailing`.
+
+Do not nest an independently actionable trailing control inside a ListRow that is itself one
+accessible button. No generic `trailingAction` subsystem is introduced by NU05.
 
 ### Accessibility
 

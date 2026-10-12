@@ -63,6 +63,24 @@ transaction submission, backup and release requirements must be managed by the c
 - The package provides UI configuration context only; the App still owns language/theme
   preference, persistence and product localization.
 
+## Focus and announcement collaboration
+
+The package exposes component-level hooks but does not own a global accessibility focus stack.
+
+For a modal flow, the host keeps the trigger ref and passes a ref for the built-in close control.
+Use `Modal.onShow` to request initial accessibility focus only after the native modal is visible.
+Both the close control and Android system Back route through the same `onRequestClose` callback.
+After closing, the host may restore the trigger focus. The neutral Preview demonstrates this
+coordination; actual TalkBack speech/focus restoration still belongs to physical-device acceptance.
+
+For errors, prefer one announcement owner. `InlineMessage` keeps the existing default where
+`tone="error"` is an alert. Set `announcementMode="passive"` when the app already announces
+the error; if `announcementMode="alert"` is used, do not separately announce the same message.
+
+For `ListRow`, use either a whole-row action with presentation-only trailing content, or a
+noninteractive row with an independent trailing control. Do not combine both action models in
+one accessible row.
+
 ## Wallet UI readiness
 
 Before adding a new shared primitive, review the current

@@ -25,7 +25,7 @@ export type { DividerProps } from './components/Divider';
 export { Divider } from './components/Divider';
 export type { StatusBadgeProps, StatusBadgeTone } from './components/StatusBadge';
 export { StatusBadge } from './components/StatusBadge';
-export type { InlineMessageProps, InlineMessageTone } from './components/InlineMessage';
+export type { InlineMessageAnnouncementMode, InlineMessageProps, InlineMessageTone } from './components/InlineMessage';
 export { InlineMessage } from './components/InlineMessage';
 export type { SkeletonProps } from './components/Skeleton';
 export { Skeleton } from './components/Skeleton';
