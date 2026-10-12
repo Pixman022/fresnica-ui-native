@@ -28,7 +28,8 @@ const filename = metadata[0].filename;
 const archivePath = path.join(outputDir, filename);
 const sha256 = crypto.createHash('sha256').update(fs.readFileSync(archivePath)).digest('hex');
 const sourceSha =
-    process.env.DELIVERY_SOURCE_SHA ?? execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
+    process.env.DELIVERY_SOURCE_SHA ??
+    execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
 const packageJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
 const tokenLock = JSON.parse(fs.readFileSync(path.join(root, 'token-source.lock.json'), 'utf8'));
 
