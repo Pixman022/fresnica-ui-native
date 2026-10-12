@@ -2,8 +2,9 @@
 
 `@fresnica/ui-native` is a reusable React Native UI package. It does not provide
 wallet accounts, routes, storage, network requests or key management. The package
-is currently **private and not published to npm**; version `1.0.0` is a
-repository baseline, not a published registry release.
+is currently **private and not published to npm**. The phase-one `1.0.0` version is a
+repository baseline; the current verified internal integration candidate is `1.1.0-rc.1`,
+not a published registry release.
 
 ## Supported baseline
 
@@ -30,7 +31,8 @@ npm run build
 npm pack --pack-destination .
 ```
 
-The output archive is normally named `fresnica-ui-native-1.0.0.tgz`. Copy
+For the current verified candidate, the output archive is
+`fresnica-ui-native-1.1.0-rc.1.tgz`. Copy
 that archive to the consumer's internal artifact location; do not commit
 generated `dist/` to the source repository or infer a package version from
 the changing `main` branch.
@@ -38,7 +40,7 @@ the changing `main` branch.
 In a separate React Native `0.87.0` host:
 
 ```bash
-npm install --save-exact /absolute/path/to/fresnica-ui-native-1.0.0.tgz
+npm install --save-exact /absolute/path/to/fresnica-ui-native-1.1.0-rc.1.tgz
 npx tsc --noEmit
 ```
 
@@ -114,5 +116,6 @@ This keeps synchronization reviewable without adding a cross-repository service.
 
 There is no npm registry publication requirement in phase one, no wallet App
 release gate, and no claim of device-level TalkBack acceptance or Mainnet
-security review. Continue to use the [delivery plan](ui-library-delivery-plan.md)
-for the remaining UI-only acceptance work.
+security review. The scoped optimization work is complete; use the
+[delivery candidate record](delivery-candidate-2026-10-12.md) for the pinned `1.1.0-rc.1`
+identity and keep deferred physical-device accessibility in its separate integration gate.
