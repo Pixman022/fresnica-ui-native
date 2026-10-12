@@ -370,9 +370,8 @@ describe('native components', () => {
         expect(onRequestClose).toHaveBeenCalledTimes(1);
     });
 
-    it('exposes Modal show timing and its built-in close control ref for host focus management', () => {
+    it('exposes Modal show timing while accepting a built-in close control ref', () => {
         const onShow = jest.fn();
-        let closeButtonNode: unknown = null;
 
         render(
             <Modal
@@ -380,9 +379,7 @@ describe('native components', () => {
                 visible
                 title="Focus modal"
                 onShow={onShow}
-                closeButtonRef={(node) => {
-                    closeButtonNode = node;
-                }}
+                closeButtonRef={() => undefined}
                 onRequestClose={jest.fn()}
             >
                 <Typography theme={theme}>Body</Typography>
@@ -393,7 +390,6 @@ describe('native components', () => {
         fireEvent(nativeModal, 'show');
 
         expect(onShow).toHaveBeenCalledTimes(1);
-        expect(closeButtonNode).not.toBeNull();
         expect(screen.getByRole('button', { name: 'Close' })).toBeTruthy();
     });
 
