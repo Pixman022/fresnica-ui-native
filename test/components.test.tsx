@@ -292,9 +292,7 @@ describe('native components', () => {
         const { rerender } = render(<InlineMessage message="Unable to connect" theme={theme} tone="error" />);
         expect(screen.getByRole('alert', { name: 'Unable to connect' })).toBeTruthy();
 
-        rerender(
-            <InlineMessage message="Unable to connect" theme={theme} tone="error" announcementMode="passive" />,
-        );
+        rerender(<InlineMessage message="Unable to connect" theme={theme} tone="error" announcementMode="passive" />);
         expect(screen.queryByRole('alert')).toBeNull();
         expect(screen.getByText('Unable to connect')).toBeTruthy();
 
