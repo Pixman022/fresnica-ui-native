@@ -21,10 +21,10 @@ than copying the older plan SHA.
 
 - **NU01 · P1 · Complete** — Public API, precedence and migration rules. Evidence: `docs/public-api-contract.md`, PR #58.
 - **NU02 · P1 · Complete** — Field native props + interaction refs/test IDs. Evidence: PR #59.
-- **NU03 · P1 · In progress** — Provider, theme hooks and enUS/zhCN locale. Evidence: Provider/locales/component integration branch.
-- **NU04 · P1 · Pending** — Button variants, pressed and loading states.
+- **NU03 · P1 · Complete** — Provider, theme hooks and enUS/zhCN locale. Evidence: PR #61 / `251ab13dacd3c19850e3c98663b9757623a11b84`.
+- **NU04 · P1 · In progress** — Button variants, pressed and loading states. Evidence: Button state matrix + tests + Preview.
 - **NU05 · P1 · Pending** — Modal focus, announcement and ListRow contracts.
-- **NU06 · P1 · Pending** — Fixed cross-repository Token source.
+- **NU06 · P1 · Complete** — Fixed cross-repository Token source. Evidence: PR #62 / `7b4988d683bd79789b9ec2fca72725c51803ad5b`.
 - **NU07 · P1 · Pending** — Neutral Preview and package regression verification.
 - **NU08 · P2 · Pending** — Delivery/version/document synchronization.
 

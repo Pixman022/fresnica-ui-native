@@ -81,6 +81,13 @@ Caller focus/blur/submit callbacks remain observable.
 `Button` and `IconButton` forward their refs, `testID` and `nativeID` to the underlying
 pressable host node. Their package-owned disabled/loading behavior remains authoritative.
 
+`Button` variants are `primary`, `secondary`, `quiet` and `danger`. Primary uses the
+`primaryPressed` semantic token when pressed. Secondary is outlined and quiet is borderless;
+both use `surfaceRaised` for pressed feedback without adding a secondary palette. Danger keeps
+the existing negative semantic color with pressed opacity feedback because no separate danger
+pressed token exists. Loading remains disabled/busy and displays `loadingLabel` when provided,
+otherwise the current Provider locale `loading` copy.
+
 See [the NU01 public API contract](public-api-contract.md) for the frozen prop boundaries
 and migration rules used by this implementation.
 
