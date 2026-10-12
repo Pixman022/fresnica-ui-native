@@ -55,3 +55,18 @@ out of scope.
 - Candidate CI: run `38197192843` — success
 
 NU08 is complete after PR #66 merged the verified internal integration candidate.
+
+## Post-completion maintenance
+
+After NU01–NU08 were completed, two documentation-only consistency fixes were merged without
+reopening the optimization scope:
+
+- PR #68 synchronized `docs/consumer-handoff.md` with the verified `1.1.0-rc.1` candidate
+  and removed stale wording that implied remaining UI-only engineering work.
+- PR #69 synchronized the physical-device acceptance guide with the disabled Field demo
+  already present in the neutral Preview. The device result remains untested until an actual
+  operator/device run; this correction does not claim TalkBack acceptance.
+
+Protected `main` CI passed after both maintenance merges. Open Issue #49 remains the deferred
+physical-device integration gate and does not block the component library's Complete / Maintenance
+status.
