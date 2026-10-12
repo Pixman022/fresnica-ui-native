@@ -85,7 +85,7 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
                     if (pressed) {
                         backgroundColor = theme.colors.surfaceRaised;
                     }
-                } else if (pressed) {
+                } else if (variant === 'quiet' && pressed) {
                     backgroundColor = theme.colors.surfaceRaised;
                 }
 
