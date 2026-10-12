@@ -58,3 +58,7 @@ jobs:
             - name: Build package
               working-directory: fresnica-ui-native
               run: npm run build
+
+            - name: Verify packed package contract
+              working-directory: fresnica-ui-native
+              run: npm run test:package
