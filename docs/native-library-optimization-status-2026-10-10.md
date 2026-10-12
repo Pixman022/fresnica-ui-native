@@ -23,9 +23,9 @@ than copying the older plan SHA.
 - **NU02 · P1 · Complete** — Field native props + interaction refs/test IDs. Evidence: PR #59.
 - **NU03 · P1 · Complete** — Provider, theme hooks and enUS/zhCN locale. Evidence: PR #61 / `251ab13dacd3c19850e3c98663b9757623a11b84`.
 - **NU04 · P1 · Complete** — Button variants, pressed and loading states. Evidence: PR #63 / `f594ffe2110a235964f9be7edc3a1ebdc7bc8de7`.
-- **NU05 · P1 · In progress** — Modal focus, announcement and ListRow contracts. Evidence: Modal focus hooks + announcement/ListRow tests + neutral Preview.
+- **NU05 · P1 · Complete** — Modal focus, announcement and ListRow contracts. Evidence: PR #64 / `fca18a70f28bf2efaadbe3a4fe7a23e9fd04195a`.
 - **NU06 · P1 · Complete** — Fixed cross-repository Token source. Evidence: PR #62 / `7b4988d683bd79789b9ec2fca72725c51803ad5b`.
-- **NU07 · P1 · Pending** — Neutral Preview and package regression verification.
+- **NU07 · P1 · In progress** — Neutral Preview and package regression verification. Evidence: expanded Preview + packed-package CI contract.
 - **NU08 · P2 · Pending** — Delivery/version/document synchronization.
 
 NU01 is delivered by PR #58. NU02 is delivered by PR #59, merged as

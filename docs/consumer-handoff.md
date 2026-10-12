@@ -79,8 +79,11 @@ npx tsc --noEmit
 
 On changes to package entry points or peer dependencies, review the latest
 [Android Preview workflow](../.github/workflows/android-preview.yml) result
-for the exact commit. A passing TypeScript build proves basic package imports,
-not visual parity or physical-device accessibility.
+for the exact commit. CI also runs the packed-package contract after build,
+verifying the root and `./locales` exports, React/RN peer versions, required
+distribution/license files, and exclusion of source/example/product paths.
+A passing TypeScript build proves basic package imports, not visual parity or
+physical-device accessibility.
 
 ## Cross-repository token update protocol
 
