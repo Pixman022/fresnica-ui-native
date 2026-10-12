@@ -63,6 +63,9 @@ const copy = {
         stress: 'Stress',
         amount: 'Amount',
         amountPlaceholder: 'Enter amount',
+        disabledField: 'Disabled field',
+        disabledFieldValue: 'Read-only preview value',
+        localThemeAction: 'Local theme override',
         stressAmountError:
             'Enter a valid amount. This deliberately long supporting message verifies wrapping at narrow widths and large font scale.',
         networkTitle: 'Network',
@@ -126,6 +129,9 @@ const copy = {
         stress: '压力测试',
         amount: '金额',
         amountPlaceholder: '输入金额',
+        disabledField: '禁用输入框',
+        disabledFieldValue: '只读预览值',
+        localThemeAction: '局部主题覆盖',
         stressAmountError: '请输入有效金额。这是一段故意加长的辅助说明，用于检查窄屏和大字体下是否正确换行且不被裁切。',
         networkTitle: '网络',
         networkDescription: '测试网已连接',
@@ -193,6 +199,10 @@ export default function App() {
     const stress = scenario === 'stress';
     const resolvedSystemMode = systemScheme === 'dark' ? 'dark' : 'light';
     const theme = useMemo(() => resolveTheme(mode, resolvedSystemMode), [mode, resolvedSystemMode]);
+    const localTheme = useMemo(
+        () => ({ ...theme, radii: { ...theme.radii, base: theme.radii.pill, control: theme.radii.pill } }),
+        [theme],
+    );
 
     const closeModalAndRestoreTrigger = () => {
         setModalVisible(false);
@@ -268,6 +278,11 @@ export default function App() {
                                     state={stress ? 'error' : 'default'}
                                     supportingText={stress ? labels.stressAmountError : undefined}
                                 />
+                                <Field
+                                    label={labels.disabledField}
+                                    value={labels.disabledFieldValue}
+                                    state="disabled"
+                                />
                                 <ListRow
                                     theme={theme}
                                     title={stress ? labels.stressNetworkTitle : labels.networkTitle}
@@ -325,6 +340,7 @@ export default function App() {
                                     {labels.componentStates}
                                 </Typography>
                                 <Button label={stress ? labels.stressAction : labels.enabledAction} />
+                                <Button theme={localTheme} variant="secondary" label={labels.localThemeAction} />
                                 <Button
                                     variant="secondary"
                                     label={labels.secondaryAction}
