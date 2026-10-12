@@ -106,9 +106,7 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
             }}
         >
             {icon}
-            <Text style={[styles.label, { color: foreground, fontSize: theme.typography.action }]}>
-                {displayLabel}
-            </Text>
+            <Text style={[styles.label, { color: foreground, fontSize: theme.typography.action }]}>{displayLabel}</Text>
         </Pressable>
     );
 });
