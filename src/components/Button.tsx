@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import type { ComponentRef, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
-import { useUiTheme } from '../ui-context';
+import { useUiLocale, useUiTheme } from '../ui-context';
 import type { AppTheme, ButtonVariant, ControlSize } from '../tokens';
 
 type PressableRef = ComponentRef<typeof Pressable>;
@@ -14,6 +14,7 @@ export type ButtonProps = {
     size?: ControlSize;
     disabled?: boolean;
     loading?: boolean;
+    loadingLabel?: string;
     icon?: ReactNode;
     accessibilityHint?: string;
     testID?: string;
@@ -32,6 +33,7 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
         size = 'md',
         disabled = false,
         loading = false,
+        loadingLabel,
         icon,
         accessibilityHint,
         testID,
@@ -40,15 +42,17 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
     ref,
 ) {
     const theme = useUiTheme(themeOverride);
+    const locale = useUiLocale();
     const isDisabled = disabled || loading;
+    const displayLabel = loading ? (loadingLabel ?? locale.loading) : label;
     const heights: Record<ControlSize, number> = {
         sm: theme.sizes.controlCompact,
         md: theme.sizes.controlBase,
         lg: theme.sizes.controlLg,
     };
     const filled = variant === 'primary' || variant === 'danger';
-    const background = variant === 'danger' ? theme.colors.negative : theme.colors.primary;
     const foreground = filled ? theme.colors.onPrimary : theme.colors.primary;
+
     return (
         <Pressable
             ref={ref}
@@ -62,25 +66,44 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
             nativeID={nativeID}
             onPress={onPress}
             testID={testID}
-            style={({ pressed }) => [
-                styles.base,
-                {
-                    backgroundColor: filled ? background : 'transparent',
-                    borderColor: background,
-                    borderWidth: theme.sizes.border,
-                    borderRadius: theme.radii.base,
-                    minHeight: heights[size],
-                    paddingHorizontal: theme.spacing.lg,
-                    paddingVertical: theme.spacing.sm,
-                    gap: theme.spacing.sm,
-                    opacity: isDisabled ? 0.5 : pressed ? 0.82 : 1,
-                },
-            ]}
+            style={({ pressed }) => {
+                const primary = variant === 'primary';
+                const danger = variant === 'danger';
+                const secondary = variant === 'secondary';
+                const backgroundColor = primary
+                    ? pressed
+                        ? theme.colors.primaryPressed
+                        : theme.colors.primary
+                    : danger
+                      ? theme.colors.negative
+                      : pressed
+                        ? theme.colors.surfaceRaised
+                        : 'transparent';
+                const borderColor = danger
+                    ? theme.colors.negative
+                    : variant === 'quiet'
+                      ? 'transparent'
+                      : theme.colors.primary;
+
+                return [
+                    styles.base,
+                    {
+                        backgroundColor,
+                        borderColor,
+                        borderWidth: theme.sizes.border,
+                        borderRadius: theme.radii.base,
+                        minHeight: heights[size],
+                        paddingHorizontal: theme.spacing.lg,
+                        paddingVertical: theme.spacing.sm,
+                        gap: theme.spacing.sm,
+                        opacity: isDisabled ? 0.5 : danger && pressed ? 0.82 : 1,
+                    },
+                    secondary ? styles.secondary : undefined,
+                ];
+            }}
         >
             {icon}
-            <Text style={[styles.label, { color: foreground, fontSize: theme.typography.action }]}>
-                {loading ? '…' : label}
-            </Text>
+            <Text style={[styles.label, { color: foreground, fontSize: theme.typography.action }]}>{displayLabel}</Text>
         </Pressable>
     );
 });
@@ -91,6 +114,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    secondary: {
+        backgroundColor: 'transparent',
     },
     label: { fontWeight: '600', textAlign: 'center', flexShrink: 1 },
 });
