@@ -67,24 +67,27 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
             onPress={onPress}
             testID={testID}
             style={({ pressed }) => {
-                const primary = variant === 'primary';
-                const danger = variant === 'danger';
-                const backgroundColor = primary
-                    ? pressed
-                        ? theme.colors.primaryPressed
-                        : theme.colors.primary
-                    : danger
-                      ? theme.colors.negative
-                      : pressed
-                        ? theme.colors.surfaceRaised
-                        : 'transparent';
-                const borderColor = danger
-                    ? theme.colors.negative
-                    : variant === 'quiet'
-                      ? 'transparent'
-                      : primary && pressed
-                        ? theme.colors.primaryPressed
-                        : theme.colors.primary;
+                let backgroundColor = 'transparent';
+                let borderColor = 'transparent';
+                let opacity = isDisabled ? 0.5 : 1;
+
+                if (variant === 'primary') {
+                    backgroundColor = pressed ? theme.colors.primaryPressed : theme.colors.primary;
+                    borderColor = backgroundColor;
+                } else if (variant === 'danger') {
+                    backgroundColor = theme.colors.negative;
+                    borderColor = theme.colors.negative;
+                    if (pressed && !isDisabled) {
+                        opacity = 0.82;
+                    }
+                } else if (variant === 'secondary') {
+                    borderColor = theme.colors.primary;
+                    if (pressed) {
+                        backgroundColor = theme.colors.surfaceRaised;
+                    }
+                } else if (pressed) {
+                    backgroundColor = theme.colors.surfaceRaised;
+                }
 
                 return [
                     styles.base,
@@ -97,7 +100,7 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
                         paddingHorizontal: theme.spacing.lg,
                         paddingVertical: theme.spacing.sm,
                         gap: theme.spacing.sm,
-                        opacity: isDisabled ? 0.5 : danger && pressed ? 0.82 : 1,
+                        opacity,
                     },
                 ];
             }}
