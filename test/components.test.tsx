@@ -25,10 +25,66 @@ describe('native components', () => {
     });
 
     it('exposes Button loading and disabled state', () => {
-        render(<Button label="Continue" theme={theme} loading />);
+        const onPress = jest.fn();
+        render(<Button label="Continue" theme={theme} loading onPress={onPress} />);
         const button = screen.getByRole('button', { name: 'Continue' });
         expect(button).toBeBusy();
         expect(button).toBeDisabled();
+        expect(screen.getByText('Loading')).toBeTruthy();
+
+        fireEvent.press(button);
+        expect(onPress).not.toHaveBeenCalled();
+    });
+
+    it('uses caller loading copy when provided', () => {
+        render(<Button label="Submit" theme={theme} loading loadingLabel="Submitting" />);
+        expect(screen.getByText('Submitting')).toBeTruthy();
+        expect(screen.getByRole('button', { name: 'Submit' })).toBeBusy();
+    });
+
+    it('keeps disabled Button noninteractive', () => {
+        const onPress = jest.fn();
+        render(<Button label="Disabled" theme={theme} disabled onPress={onPress} />);
+        const button = screen.getByRole('button', { name: 'Disabled' });
+        fireEvent.press(button);
+        expect(onPress).not.toHaveBeenCalled();
+    });
+
+    it('applies distinct normal and pressed styles for all Button variants', () => {
+        const variants = ['primary', 'secondary', 'quiet', 'danger'] as const;
+        for (const variant of variants) {
+            const testID = `button-${variant}`;
+            render(<Button label={variant} theme={theme} variant={variant} testID={testID} />);
+            const button = screen.getByTestId(testID);
+            const normal = button.props.style({ pressed: false });
+            const pressed = button.props.style({ pressed: true });
+
+            if (variant === 'primary') {
+                expect(normal).toEqual(
+                    expect.arrayContaining([expect.objectContaining({ backgroundColor: theme.colors.primary })]),
+                );
+                expect(pressed).toEqual(
+                    expect.arrayContaining([
+                        expect.objectContaining({
+                            backgroundColor: theme.colors.primaryPressed,
+                            borderColor: theme.colors.primaryPressed,
+                        }),
+                    ]),
+                );
+            } else if (variant === 'danger') {
+                expect(normal).toEqual(
+                    expect.arrayContaining([expect.objectContaining({ backgroundColor: theme.colors.negative })]),
+                );
+                expect(pressed).toEqual(expect.arrayContaining([expect.objectContaining({ opacity: 0.82 })]));
+            } else {
+                expect(normal).toEqual(
+                    expect.arrayContaining([expect.objectContaining({ backgroundColor: 'transparent' })]),
+                );
+                expect(pressed).toEqual(
+                    expect.arrayContaining([expect.objectContaining({ backgroundColor: theme.colors.surfaceRaised })]),
+                );
+            }
+        }
     });
 
     it('expands the compact Button touch target without changing its visual token height', () => {
