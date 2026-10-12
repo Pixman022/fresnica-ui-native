@@ -1,9 +1,10 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
 export type Segment = { key: string; label: string };
 export type SegmentedControlProps = {
-    theme: AppTheme;
+    theme?: AppTheme;
     segments: Segment[];
     selectedKey: string;
     onChange: (key: string) => void;
@@ -11,12 +12,13 @@ export type SegmentedControlProps = {
 };
 
 export function SegmentedControl({
-    theme,
+    theme: themeOverride,
     segments,
     selectedKey,
     onChange,
     accessibilityLabel,
 }: SegmentedControlProps) {
+    const theme = useUiTheme(themeOverride);
     return (
         <View
             accessible={false}

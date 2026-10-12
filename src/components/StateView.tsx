@@ -1,9 +1,10 @@
 import type { ReactNode } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { useUiTheme } from '../ui-context';
 import type { AppTheme, StateViewTone } from '../tokens';
 
 export type StateViewProps = {
-    theme: AppTheme;
+    theme?: AppTheme;
     tone?: StateViewTone;
     title: string;
     description?: string;
@@ -11,7 +12,8 @@ export type StateViewProps = {
     icon?: ReactNode;
 };
 
-export function StateView({ theme, tone = 'empty', title, description, action, icon }: StateViewProps) {
+export function StateView({ theme: themeOverride, tone = 'empty', title, description, action, icon }: StateViewProps) {
+    const theme = useUiTheme(themeOverride);
     const accent =
         tone === 'error' ? theme.colors.negative : tone === 'success' ? theme.colors.positive : theme.colors.primary;
     return (

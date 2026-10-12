@@ -1,8 +1,10 @@
 import { StyleSheet, View } from 'react-native';
+import { useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
-export type ProgressProps = { theme: AppTheme; value: number; accessibilityLabel: string };
-export function Progress({ theme, value, accessibilityLabel }: ProgressProps) {
+export type ProgressProps = { theme?: AppTheme; value: number; accessibilityLabel: string };
+export function Progress({ theme: themeOverride, value, accessibilityLabel }: ProgressProps) {
+    const theme = useUiTheme(themeOverride);
     const normalized = Number.isNaN(value) ? 0 : value;
     const clamped = Math.max(0, Math.min(1, normalized));
     const percentage = Math.round(clamped * 100);

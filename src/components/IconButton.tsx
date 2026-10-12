@@ -1,12 +1,13 @@
 import { forwardRef } from 'react';
 import type { ComponentRef, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
+import { useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
 type PressableRef = ComponentRef<typeof Pressable>;
 
 export type IconButtonProps = {
-    theme: AppTheme;
+    theme?: AppTheme;
     label: string;
     icon: ReactNode;
     onPress?: () => void;
@@ -18,7 +19,8 @@ export type IconButtonProps = {
 export const IconButton: ForwardRefExoticComponent<IconButtonProps & RefAttributes<PressableRef>> = forwardRef<
     PressableRef,
     IconButtonProps
->(function IconButton({ theme, label, icon, onPress, disabled = false, testID, nativeID }, ref) {
+>(function IconButton({ theme: themeOverride, label, icon, onPress, disabled = false, testID, nativeID }, ref) {
+    const theme = useUiTheme(themeOverride);
     return (
         <Pressable
             ref={ref}

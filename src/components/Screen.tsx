@@ -1,15 +1,17 @@
 import type { ReactNode } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
 export type ScreenProps = {
-    theme: AppTheme;
+    theme?: AppTheme;
     children: ReactNode;
     scroll?: boolean;
     padded?: boolean;
 };
 
-export function Screen({ theme, children, scroll = false, padded = true }: ScreenProps) {
+export function Screen({ theme: themeOverride, children, scroll = false, padded = true }: ScreenProps) {
+    const theme = useUiTheme(themeOverride);
     const content = <View style={[styles.content, padded && { padding: theme.spacing.lg }]}>{children}</View>;
     return scroll ? (
         <ScrollView

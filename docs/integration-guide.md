@@ -17,14 +17,28 @@ pack and install the currently private Native package from an approved commit.
 1. Install the prebuilt archive in the consuming App; do not install raw Git sources.
 2. Resolve the app's selected mode with `resolveTheme`; for `system`, pass the platform
    appearance result (`light` or `dark`).
-3. Pass the resulting `AppTheme` to each component.
-4. Inject translated labels, hints and errors from the app localization layer.
-5. Keep product routes and business state outside the component package.
+3. Pass the resulting `AppTheme` to `FresnicaUiProvider` or directly to a component.
+4. Pass `enUS`, `zhCN` or a complete custom `UiLocale` to the Provider for generic package copy.
+5. Continue injecting business labels, hints, validation reasons and formatting from the app layer.
+6. Keep product routes and business state outside the component package.
 
 ```tsx
+import { Button, FresnicaUiProvider, resolveTheme } from '@fresnica/ui-native';
+import { zhCN } from '@fresnica/ui-native/locales';
+
 const theme = resolveTheme(preference, systemAppearance);
 
-return <Button theme={theme} label={labels.continue} onPress={submit} />;
+return (
+    <FresnicaUiProvider theme={theme} locale={zhCN}>
+        <Button label={labels.continue} onPress={submit} />
+    </FresnicaUiProvider>
+);
+```
+
+Existing direct usage remains supported and has higher precedence:
+
+```tsx
+<Button theme={theme} label={labels.continue} onPress={submit} />
 ```
 
 ## Reference host
@@ -46,7 +60,8 @@ transaction submission, backup and release requirements must be managed by the c
 - Web and native share semantic role names, but native values are a separate adapter output.
 - Do not import Web DOM/CSS/Less modules into the native package.
 - Platform overrides require a recorded reason and accessibility review.
-- The package does not provide a navigation container or app-level localization provider.
+- The package provides UI configuration context only; the App still owns language/theme
+  preference, persistence and product localization.
 
 ## Wallet UI readiness
 
@@ -66,8 +81,9 @@ first actual wallet App integration.
 1. Install and link `@fresnica/ui-native`.
 2. Resolve the user's theme preference in the App shell.
 3. Convert `system` appearance to `light` or `dark`.
-4. Create the localization labels in the App layer.
-5. Pass `theme` and localized labels into components.
+4. Create product localization labels in the App layer and select a package `UiLocale`.
+5. Provide the resolved theme/locale through `FresnicaUiProvider`; use explicit component
+   props only for local overrides.
 6. Keep wallet state and business actions outside the component library.
 7. Run product-level Android accessibility acceptance. **Do not mark the wallet UI integration complete until the real-device integration gate below passes.**
 

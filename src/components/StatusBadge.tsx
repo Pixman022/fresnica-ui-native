@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
 export type StatusBadgeTone = 'positive' | 'negative' | 'warning' | 'neutral';
-export type StatusBadgeProps = { theme: AppTheme; label: string; tone?: StatusBadgeTone };
+export type StatusBadgeProps = { theme?: AppTheme; label: string; tone?: StatusBadgeTone };
 
-export function StatusBadge({ theme, label, tone = 'neutral' }: StatusBadgeProps) {
+export function StatusBadge({ theme: themeOverride, label, tone = 'neutral' }: StatusBadgeProps) {
+    const theme = useUiTheme(themeOverride);
     const color =
         tone === 'positive'
             ? theme.colors.positive
