@@ -25,8 +25,8 @@ than copying the older plan SHA.
 - **NU04 · P1 · Complete** — Button variants, pressed and loading states. Evidence: PR #63 / `f594ffe2110a235964f9be7edc3a1ebdc7bc8de7`.
 - **NU05 · P1 · Complete** — Modal focus, announcement and ListRow contracts. Evidence: PR #64 / `fca18a70f28bf2efaadbe3a4fe7a23e9fd04195a`.
 - **NU06 · P1 · Complete** — Fixed cross-repository Token source. Evidence: PR #62 / `7b4988d683bd79789b9ec2fca72725c51803ad5b`.
-- **NU07 · P1 · In progress** — Neutral Preview and package regression verification. Evidence: expanded Preview + packed-package CI contract.
-- **NU08 · P2 · Pending** — Delivery/version/document synchronization.
+- **NU07 · P1 · Complete** — Neutral Preview and package regression verification. Evidence: PR #65 / `764566d8912474f2e8890c7a0157f491652431c1`.
+- **NU08 · P2 · In progress** — Delivery/version/document synchronization. Candidate package `1.1.0-rc.1`; checksum recorded in `docs/delivery-candidate-2026-10-12.md`.
 
 NU01 is delivered by PR #58. NU02 is delivered by PR #59, merged as
 `872a6e8f7387e3a2f303ef3f911fb5e1e8ed35ea`; CI run `38052061625` passed after the
@@ -44,3 +44,15 @@ Only `Pixman022/fresnica-ui-native` and, where NU06 requires it, `Pixman022/fres
 may be changed. Wallet product logic, keys, transactions, Realm, Stellar SDK, product
 navigation, historical `product/`, image-derived theming and a new mobile repository remain
 out of scope.
+
+## NU08 delivery candidate evidence
+
+- Version: `1.1.0-rc.1`
+- Archive: `fresnica-ui-native-1.1.0-rc.1.tgz`
+- SHA-256: `54913d4c4466d3cd5744b41d878a3af54344728bda30dc3592ccef2c07fd834f`
+- Package-bearing Native SHA: `7182872be5c1557bc332d270bf3a5e7cec48c409`
+- Locked Web Token SHA: `15d49e0be28a232ae6de2a7285a3a77add8c87d4`
+- Candidate CI: run `38197192843` — success
+
+NU08 becomes Complete after the PR-level Android workflows for the package-bearing head are
+also reviewed as successful and the delivery PR is merged.

@@ -6,6 +6,22 @@ This is a repository-level change record for the reusable
 baseline**, not proof of an npm publication, a Git tag, or an approved
 production UI release.
 
+## 2026-10-12 — 1.1.0-rc.1 component-library optimization candidate
+
+- Added the frozen public API/migration contract for Provider/theme/Locale, Field native props,
+  interaction refs, focus and announcement ownership.
+- Added `FresnicaUiProvider`, `useUiTheme`, `useUiLocale`, built-in `enUS` / `zhCN`
+  packs and the stable `@fresnica/ui-native/locales` export.
+- Extended Field with typed native input props/ref behavior and explicit disabled/error/focus precedence.
+- Completed Button primary/secondary/quiet/danger states, pressed feedback and localized loading copy.
+- Added Modal focus-cooperation hooks, InlineMessage alert/passive announcement modes and the two
+  supported ListRow interaction patterns.
+- Pinned the Web Token source to an immutable commit and file blob hashes.
+- Expanded the neutral Preview and CI package regression so the built tarball, root/locales exports,
+  React/RN peer contract and Android fresh-build/emulator paths are checked together.
+- This is an **internal integration candidate**, not an npm publication, production release,
+  full accessibility certification, iOS support statement or wallet-product approval.
+
 ## 2026-10-09 — phase-one engineering handoff (unreleased)
 
 - **Shared component foundation:** the 15 exports in `src/index.ts`,

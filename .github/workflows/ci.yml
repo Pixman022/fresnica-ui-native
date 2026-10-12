@@ -62,3 +62,17 @@ jobs:
             - name: Verify packed package contract
               working-directory: fresnica-ui-native
               run: npm run test:package
+
+            - name: Create internal delivery candidate
+              working-directory: fresnica-ui-native
+              env:
+                  DELIVERY_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+              run: npm run delivery:artifact
+
+            - name: Upload internal delivery candidate
+              uses: actions/upload-artifact@v7
+              with:
+                  name: fresnica-ui-native-delivery-${{ github.sha }}
+                  path: fresnica-ui-native/artifacts/delivery
+                  if-no-files-found: error
+                  retention-days: 90
