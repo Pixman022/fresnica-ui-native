@@ -74,6 +74,7 @@ assert.match(listRow, /accessible=\{interactive\}/);
 assert.match(listRow, /accessibilityLabel=\{interactive \? accessibilityLabel : undefined\}/);
 assert.match(listRow, /description \? `\$\{title\}, \$\{description\}` : title/);
 assert.match(listRow, /minWidth: 0/);
+assert.doesNotMatch(listRow, /trailingAction/);
 
 const stateView = read('src/components/StateView.tsx');
 assert.match(stateView, /action \?/);
@@ -86,7 +87,9 @@ assert.match(modal, /useUiTheme\(themeOverride\)/);
 assert.match(modal, /useUiLocale\(\)/);
 assert.match(modal, /closeAccessibilityLabel \?\? locale\.close/);
 assert.match(modal, /accessibilityViewIsModal/);
+assert.match(modal, /onShow=\{onShow\}/);
 assert.match(modal, /onRequestClose=\{onRequestClose\}/);
+assert.match(modal, /ref=\{closeButtonRef\}/);
 assert.match(modal, /closeAccessibilityLabel/);
 assert.match(modal, /ScrollView/);
 assert.match(modal, /maxHeight: '90%'/);
@@ -115,6 +118,9 @@ const inlineMessage = read('src/components/InlineMessage.tsx');
 assert.match(inlineMessage, /theme\.spacing\.md/);
 assert.match(inlineMessage, /theme\.radii\.control/);
 assert.match(inlineMessage, /theme\.sizes\.border/);
+assert.match(inlineMessage, /announcementMode === 'alert'/);
+assert.match(inlineMessage, /announcementMode === undefined && tone === 'error'/);
+assert.match(inlineMessage, /accessibilityRole=\{alert \? 'alert' : 'text'\}/);
 
 const statusBadge = read('src/components/StatusBadge.tsx');
 assert.match(statusBadge, /theme\.sizes\.border/);
