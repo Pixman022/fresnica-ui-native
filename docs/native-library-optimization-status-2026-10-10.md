@@ -45,7 +45,6 @@ may be changed. Wallet product logic, keys, transactions, Realm, Stellar SDK, pr
 navigation, historical `product/`, image-derived theming and a new mobile repository remain
 out of scope.
 
-
 ## NU08 delivery candidate evidence
 
 - Version: `1.1.0-rc.1`
