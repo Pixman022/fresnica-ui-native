@@ -35,9 +35,9 @@ The packed-package contract verified 67 files, package root and `./locales` expo
 dependency contracts, required README/LICENSE/third-party notices, and exclusion of source,
 tests, scripts, Preview and historical product files.
 
-Android Preview, Android Emulator Acceptance and Android Product Acceptance are separate
-workflow evidence for the same package-bearing head. Their results must be reviewed before
-the PR is merged.
+Android Preview, Android Emulator Acceptance and Android Product Acceptance all passed on the
+NU08 implementation head before the delivery PR was merged. PR #66 is merged as
+`b51ac540646e7a798183a797bf32793e0bbcc2d7`.
 
 ## Scope and release meaning
 
