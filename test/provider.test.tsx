@@ -85,7 +85,7 @@ describe('FresnicaUiProvider', () => {
             expect(providerText.props.style).toEqual(
                 expect.arrayContaining([expect.objectContaining({ color: theme.colors.contentPrimary })]),
             );
-            expect(providerText.parent?.parent?.props.style).toEqual(
+            expect(providerText.parent?.parent?.parent?.props.style).toEqual(
                 expect.arrayContaining([expect.objectContaining({ backgroundColor: theme.colors.background })]),
             );
             expect(view.getByText('Explicit text').props.style).toEqual(
