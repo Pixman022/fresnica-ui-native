@@ -46,7 +46,9 @@ amount panels, selectors and transaction presentation remain Feature-local by de
 - The baseline has no generic secondary action color: `contentSecondary` is supporting text,
   while `accentBlue` is network information. Secondary controls use their component's neutral
   surface and border roles until a product-wide action role is approved.
-- Image-derived theme generation is not required for the current Fresnica product direction
+- The package accepts a complete custom `AppTheme`. Image selection, cropping, color extraction,
+  theme generation and persistence belong to the consuming application; the package does not
+  implement image processing.
 
 ## First implementation slice
 

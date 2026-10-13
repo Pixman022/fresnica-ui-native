@@ -181,6 +181,60 @@ describe('native components', () => {
         expect(onSubmitEditing).toHaveBeenCalledWith(submitEvent);
     });
 
+    it('forwards secure-input props without deriving secret copy and keeps disabled state authoritative', () => {
+        const { rerender } = render(
+            <Field
+                label="Secure input"
+                theme={theme}
+                value="test-only-secret"
+                secureTextEntry
+                autoComplete="off"
+                importantForAutofill="no"
+                textContentType="none"
+                autoCorrect={false}
+                spellCheck={false}
+                testID="secure-input"
+            />,
+        );
+
+        let field = screen.getByTestId('secure-input');
+        expect(field.props.secureTextEntry).toBe(true);
+        expect(field.props.autoComplete).toBe('off');
+        expect(field.props.importantForAutofill).toBe('no');
+        expect(field.props.textContentType).toBe('none');
+        expect(field.props.autoCorrect).toBe(false);
+        expect(field.props.spellCheck).toBe(false);
+        expect(field.props.value).toBe('test-only-secret');
+        expect(field.props.accessibilityLabel).toBe('Secure input');
+        expect(field.props.accessibilityHint).toBeUndefined();
+        expect(screen.queryByText('test-only-secret')).toBeNull();
+
+        rerender(
+            <Field
+                label="Secure input"
+                theme={theme}
+                value="test-only-secret"
+                secureTextEntry
+                autoComplete="off"
+                importantForAutofill="no"
+                textContentType="none"
+                autoCorrect={false}
+                spellCheck={false}
+                state="disabled"
+                editable
+                testID="secure-input"
+            />,
+        );
+
+        field = screen.getByTestId('secure-input');
+        expect(field).toBeDisabled();
+        expect(field.props.editable).toBe(false);
+        expect(field.props.accessibilityState).toEqual({ disabled: true });
+        expect(field.props.accessibilityLabel).toBe('Secure input');
+        expect(field.props.accessibilityHint).toBeUndefined();
+        expect(screen.queryByText('test-only-secret')).toBeNull();
+    });
+
     it('treats native editable=false as disabled even when an error state is requested', () => {
         render(
             <Field

@@ -63,8 +63,11 @@ return <Button theme={theme} label={labels.continue} onPress={onContinue} />;
 ```
 
 The host resolves the `systemAppearance` argument to `light` or `dark`,
-owns persistence and supplies translated labels. Shared components must not
-manage wallet transactions, navigation or storage.
+owns persistence and supplies translated labels. A host may instead inject any complete
+`AppTheme` into `FresnicaUiProvider` or an individual component. The component package
+does not select images, crop them, extract colors, generate themes from them or persist the
+result; those are consumer-application responsibilities. Shared components must not manage
+wallet transactions, navigation or storage.
 
 ## Independent consumer verification
 
