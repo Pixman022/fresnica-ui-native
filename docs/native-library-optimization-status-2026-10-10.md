@@ -97,6 +97,9 @@ RP01 (complete custom `AppTheme` responsibility/coverage) and RP02 (secure-input
 regression) are complete. Native PR #74 and Web PR #29 are merged and their post-merge CI passed.
 See [Native Integration Review Follow-up Status — 2026-10-13](native-integration-review-follow-up-status-2026-10-13.md).
 
-RP03/RP04 remain owner-deferred color work, O01 remains not started, and Issue #49 remains the
-deferred physical-device integration gate. These conditional/deferred items do not block the
-completed RP01/RP02 delivery.
+RP03/RP04 remain owner-deferred color work and Issue #49 remains the deferred
+physical-device integration gate. O01 is complete through Native PR #76 / merge
+`264f8b7c4abd6663cc7c392b6261b67b15719f04`; iOS Preview Fresh Build run
+`38376961891` succeeded for the neutral React Native 0.87 Preview and local packed package.
+This is an iOS Simulator fresh-build compatibility result only and does not claim physical-device
+or product-level Apple acceptance.
