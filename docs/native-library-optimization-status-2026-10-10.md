@@ -90,3 +90,14 @@ M01 of the engineering maintenance plan is complete in Native:
 
 C01 physical-device accessibility remains deferred in Issue #49, and the approved
 contrast/color decision remains unchanged.
+
+
+## Native integration review follow-up — 2026-10-13
+
+RP01 (complete custom `AppTheme` responsibility/coverage) and RP02 (secure-input boundary
+regression) are complete. Native PR #74 and Web PR #29 are merged and their post-merge CI passed.
+See [Native Integration Review Follow-up Status — 2026-10-13](native-integration-review-follow-up-status-2026-10-13.md).
+
+RP03/RP04 remain owner-deferred color work, O01 remains not started, and Issue #49 remains the
+deferred physical-device integration gate. These conditional/deferred items do not block the
+completed RP01/RP02 delivery.
