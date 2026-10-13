@@ -44,6 +44,8 @@ jobs:
 
             - name: Audit native production dependencies (gate)
               working-directory: fresnica-ui-native
+              env:
+                  NPM_CONFIG_REGISTRY: http://127.0.0.1:9
               run: npm audit --omit=dev --audit-level=moderate
 
             - name: Run standalone tests
