@@ -38,9 +38,14 @@ Components resolve theme in this order: explicit component `theme`, nearest
 `FresnicaUiProvider` theme, then `themes.light`. Existing per-component
 `theme={...}` calls remain valid and override Provider context.
 
-The component library does not persist theme preferences and does not read
-Android dynamic accent colors. The host still resolves the selected/system mode
-into an `AppTheme` before passing it to the Provider or a component.
+The component library accepts a complete custom `AppTheme` through the Provider or an explicit
+component override. Generated Light/Dark themes are the built-in defaults, not the only supported
+theme values. The library does not persist theme preferences and does not read Android dynamic
+accent colors. The host still resolves selected/system mode before passing an `AppTheme`.
+
+If a consumer chooses to build a theme from an image, image selection, cropping, color extraction,
+theme construction and persistence remain consumer responsibilities; the library only consumes the
+resulting complete `AppTheme`.
 
 Supported modes:
 
@@ -77,6 +82,12 @@ The Field `ref`, `testID` and `nativeID` target the `TextInput`; `containerStyle
 State precedence is disabled, error, focused, default. `state="disabled"` cannot be undone
 with `editable={true}`, and native `editable={false}` also produces disabled semantics.
 Caller focus/blur/submit callbacks remain observable.
+
+Secure-input props are ordinary native-input configuration: `secureTextEntry`, `autoComplete`,
+`importantForAutofill`, `textContentType`, `autoCorrect` and `spellCheck` are forwarded to
+the `TextInput`. The component does not derive visible supporting copy or accessibility
+labels/hints from the input `value`. Callers remain responsible for label/supporting/accessibility
+content and must not deliberately place sensitive values in those strings.
 
 `Button` and `IconButton` forward their refs, `testID` and `nativeID` to the underlying
 pressable host node. Their package-owned disabled/loading behavior remains authoritative.
