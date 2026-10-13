@@ -1,0 +1,53 @@
+name: iOS Preview Fresh Build
+
+on:
+    pull_request:
+        paths:
+            - 'src/**'
+            - 'example/**'
+            - 'scripts/bootstrap-example.mjs'
+            - 'scripts/build-example-ios.mjs'
+            - 'package.json'
+            - 'package-lock.json'
+            - '.github/workflows/ios-preview.yml'
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    build:
+        runs-on: macos-15
+        timeout-minutes: 45
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Set up Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22.13.0
+                  cache: npm
+
+            - name: Install package dependencies
+              run: npm ci
+
+            - name: Run package checks
+              run: npm test
+
+            - name: Build package
+              run: npm run build
+
+            - name: Bootstrap preview host from packed package
+              run: npm run example:bootstrap
+
+            - name: Record packed package checksum
+              run: shasum -a 256 example/.cache/*.tgz
+
+            - name: Typecheck preview host
+              working-directory: example/FresnicaPreview
+              run: npx tsc --noEmit
+
+            - name: Build iOS Simulator preview
+              run: npm run example:ios:build
