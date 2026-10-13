@@ -56,9 +56,10 @@ override must be recorded here with an accessibility reason and native test cove
 
 CSS variable strings are never passed to React Native. Keep existing `--Fresnica-*`
 aliases in Web, and do not import DOM/CSS/Less modules into the native package.
-Native values are explicit adapter outputs, not a shared runtime theme store. Android dynamic
-accent and image-derived colors are not part of the current Fresnica product direction; reintroduce
-either only after a new explicit product decision.
+Native values are explicit adapter outputs, not a shared runtime theme store. The package accepts a
+complete caller-provided `AppTheme`; the generated Light/Dark themes are defaults rather than the
+only valid inputs. Image selection, cropping, color extraction, theme generation and persistence are
+consumer-application responsibilities and are not implemented by the component package.
 
 The current shared `Modal` keeps its owner-approved native `fade` behavior. This token contract
 must not be read as a claim that the component package has passed reduced-motion acceptance;
