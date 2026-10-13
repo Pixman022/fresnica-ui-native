@@ -70,3 +70,23 @@ reopening the optimization scope:
 Protected `main` CI passed after both maintenance merges. Open Issue #49 remains the deferred
 physical-device integration gate and does not block the component library's Complete / Maintenance
 status.
+
+## Engineering maintenance update — 2026-10-13
+
+M01 of the engineering maintenance plan is complete in Native:
+
+- PR #71 / `48fd6e165ac2b8ec2a652d094b9288e258440faa` made the production dependency
+  audit blocking while keeping the full development audit report-only.
+- Main CI `38359310945` succeeded with **0 production vulnerabilities** and passed
+  standalone tests, fixed Web Token-source verification, build, packed-package
+  verification and internal delivery-candidate creation.
+- Temporary PR #72 intentionally forced the production audit command to return exit code 1
+  by targeting a nonexistent workspace. The required `test` job failed at that audit
+  command; the PR was closed without merge.
+- Active ruleset `Protect main` (ID `24701211`) requires the `test` status check, so a
+  failed production audit prevents the required Native check from passing.
+- The locked Web Token blobs remain `9c4bbc478618d5a5ef5d1ecdd11d41ee8afdeb5c` and
+  `6ee1c1da3a3be52e84bc8247e13bb577fdbb4cc6`; no Token lock advance is required.
+
+C01 physical-device accessibility remains deferred in Issue #49, and the approved
+contrast/color decision remains unchanged.
