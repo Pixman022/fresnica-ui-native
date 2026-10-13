@@ -26,10 +26,14 @@ The effective theme priority is:
 NU03 makes component `theme` props optional while preserving their current meaning.
 
 `FresnicaUiProvider` uses React Context only. It must support reactive updates and
-multiple independent React roots. It does not persist theme preference and does not read
-Android dynamic accent colors.
+multiple independent React roots. It accepts any complete `AppTheme`; generated Light/Dark
+themes are package defaults, not a restriction on custom themes. It does not persist theme
+preference and does not read Android dynamic accent colors.
 
 `system` continues to be resolved by the host before an `AppTheme` reaches the provider.
+If an application derives a custom theme from an image or another source, image selection,
+cropping, extraction, theme construction and persistence remain application-owned; only the
+resulting complete `AppTheme` crosses this package boundary.
 
 ### Existing usage remains valid
 
@@ -134,6 +138,11 @@ the component's internal state handling. Internal focus tracking must not swallo
 - the forwarded `ref` is a `TextInput` ref.
 - caller `accessibilityLabel` overrides the visible `label` as the spoken input label.
 - caller `accessibilityHint` overrides the automatic error/supporting hint.
+- secure/input props such as `secureTextEntry`, `autoComplete`, `importantForAutofill`,
+  `textContentType`, `autoCorrect` and `spellCheck` are forwarded to the native input.
+- the package does not derive an accessibility label, hint or supporting copy from `value`;
+  callers still own all explicit labels, hints and supporting text and must not place sensitive
+  values in those strings.
 - package-owned disabled state is merged last into `accessibilityState`.
 - `accessible` and the input role remain package-owned and are not caller-overridable.
 
@@ -247,5 +256,6 @@ NU08 records the final candidate version, tarball checksum and immutable source 
 ## Explicit non-goals for this contract
 
 NU01 does not pre-design RTL support, a default size system, a reduced-motion policy,
-iOS release support, image-derived themes, a secondary palette, wallet APIs or global
-`setTheme`/`setLocale` functions.
+iOS release support, a secondary palette, wallet APIs or global `setTheme`/`setLocale`
+functions. The package accepts complete custom `AppTheme` values, but image acquisition,
+color extraction and theme-generation pipelines remain outside the package.
