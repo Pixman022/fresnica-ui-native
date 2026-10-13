@@ -17,7 +17,8 @@ pack and install the currently private Native package from an approved commit.
 1. Install the prebuilt archive in the consuming App; do not install raw Git sources.
 2. Resolve the app's selected mode with `resolveTheme`; for `system`, pass the platform
    appearance result (`light` or `dark`).
-3. Pass the resulting `AppTheme` to `FresnicaUiProvider` or directly to a component.
+3. Pass the resulting `AppTheme`, or another complete custom `AppTheme`, to
+   `FresnicaUiProvider` or directly to a component.
 4. Pass `enUS`, `zhCN` or a complete custom `UiLocale` to the Provider for generic package copy.
 5. Continue injecting business labels, hints, validation reasons and formatting from the app layer.
 6. Keep product routes and business state outside the component package.
@@ -90,9 +91,11 @@ five-page evidence set concludes that the existing 15 primitives are sufficient 
 transaction presentation remain Feature-local until stable reuse is proven.
 
 The [integration readiness plan](wallet-ui-integration-readiness-plan.md) records the
-approved product decisions: image-derived theming is not required, shared components
-are not expanded by count, and real-device accessibility becomes a hard gate for the
-first actual wallet App integration.
+historical Fresnica decision not to implement image-derived theming in that product scope.
+The reusable package boundary is broader: it accepts a complete custom `AppTheme`, while
+image acquisition, extraction, generation and persistence stay in the consuming application.
+Shared components are not expanded by count, and real-device accessibility becomes a hard
+gate for the first actual wallet App integration.
 
 ## Recommended Integration Order
 
