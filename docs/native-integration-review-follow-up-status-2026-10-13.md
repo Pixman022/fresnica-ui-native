@@ -1,6 +1,6 @@
 # Native Integration Review Follow-up Status — 2026-10-13
 
-> **Status:** RP01 / RP02 complete; RP03 / RP04 deferred; O01 not started  
+> **Status:** RP01 / RP02 / O01 complete; RP03 / RP04 deferred; physical-device acceptance deferred  
 > **Primary repository:** `Pixman022/fresnica-ui-native`  
 > **Contract repository:** `Pixman022/fresnica-ui`
 
@@ -12,7 +12,7 @@ The independently deliverable scope from the Native integration-review follow-up
 - **RP02 · Secure-input prop/display-boundary regression — Complete**
 - **RP03 · Key color review and candidate evaluation — Deferred by owner decision**
 - **RP04 · Approved color implementation and expanded contrast gate — Deferred by owner decision**
-- **O01 · Minimum iOS Preview fresh-build gate — Not started**
+- **O01 · Minimum iOS Preview fresh-build gate — Complete**
 - **Physical-device accessibility / Issue #49 — Deferred integration gate**
 
 No wallet product flow, key/signing/transaction logic, new shared primitive, image-processing
@@ -118,7 +118,25 @@ RP03/RP04 should be reopened only after a new explicit owner decision to resume 
 
 ### O01 — iOS Preview fresh build
 
-Not started. No macOS/Xcode/CocoaPods/iOS Simulator result is claimed.
+PR #76 adds a dedicated `iOS Preview Fresh Build` workflow and reuses the existing neutral
+React Native 0.87 `FresnicaPreview` host. The workflow installs the locally packed
+`@fresnica/ui-native` tarball, records its SHA-256, typechecks the host, installs CocoaPods
+dependencies through Bundler and builds the generated workspace for a generic iOS Simulator
+with code signing disabled.
+
+Exact PR-head evidence:
+
+- source head: `0154ec64871bb7541202cde9d65f45de6f7bf94c`
+- iOS Preview Fresh Build run `38376961891`: **success**
+- package checks, package build, Preview bootstrap, tarball checksum step and host typecheck: **success**
+- iOS Simulator Xcode build: **success**
+- same-head CI run `38376961833`: **success**
+- same-head Android Preview run `38376961810`: **success**
+- same-head Android Emulator Acceptance run `38376961766`: **success**
+
+This proves the neutral package/host combination can complete a fresh iOS Simulator build on the
+recorded GitHub Actions Apple toolchain. It does not claim iPhone physical-device, Dynamic Type,
+VoiceOver, real-keyboard or production-app acceptance.
 
 ### Physical-device accessibility
 
@@ -141,5 +159,7 @@ It is therefore not a remaining task of this follow-up plan.
 The follow-up plan's current independent delivery condition is satisfied: RP01 and RP02 are
 implemented, verified and merged in the two existing Pixman022 repositories.
 
-RP03/RP04 remain intentionally deferred, O01 remains not started, and Issue #49 remains a
-future real-consumer device gate. None of those states reopens the completed RP01/RP02 work.
+RP03/RP04 remain intentionally deferred and Issue #49 remains a future real-consumer physical-device
+gate. O01 is complete from the neutral iOS Preview fresh-build evidence above. With color work and
+physical-device acceptance explicitly deferred by owner decision, there is no remaining active
+implementation item in this follow-up plan.
