@@ -58,7 +58,8 @@
         "example:verify": "node scripts/android-acceptance-verify.mjs",
         "example:tap-label": "node scripts/android-tap-accessibility-label.mjs",
         "test:package": "node scripts/test-packed-package.mjs",
-        "delivery:artifact": "node scripts/create-delivery-artifact.mjs"
+        "delivery:artifact": "node scripts/create-delivery-artifact.mjs",
+        "example:ios:build": "node scripts/build-example-ios.mjs"
     },
     "devDependencies": {
         "@react-native/babel-preset": "^0.87.0",
