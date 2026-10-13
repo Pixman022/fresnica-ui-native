@@ -91,7 +91,6 @@ M01 of the engineering maintenance plan is complete in Native:
 C01 physical-device accessibility remains deferred in Issue #49, and the approved
 contrast/color decision remains unchanged.
 
-
 ## Native integration review follow-up — 2026-10-13
 
 RP01 (complete custom `AppTheme` responsibility/coverage) and RP02 (secure-input boundary
