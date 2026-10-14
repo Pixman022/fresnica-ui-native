@@ -81,9 +81,10 @@ The package exposes component-level hooks but does not own a global accessibilit
 
 For a modal flow, the host keeps the trigger ref and passes a ref for the built-in close control.
 Use `Modal.onShow` to request initial accessibility focus only after the native modal is visible.
-Both the close control and Android system Back route through the same `onRequestClose` callback.
-After closing, the host may restore the trigger focus. The neutral Preview demonstrates this
-coordination; actual TalkBack speech/focus restoration still belongs to physical-device acceptance.
+The close control and any host/platform dismissal path route through the same `onRequestClose`
+callback. After closing, the host may restore the trigger focus. The neutral Preview demonstrates
+this coordination; actual TalkBack/VoiceOver speech and physical-device focus restoration still
+belong to device acceptance.
 
 For errors, prefer one announcement owner. `InlineMessage` keeps the existing default where
 `tone="error"` is an alert. Set `announcementMode="passive"` when the app already announces
@@ -117,28 +118,21 @@ gate for the first actual wallet App integration.
 5. Provide the resolved theme/locale through `FresnicaUiProvider`; use explicit component
    props only for local overrides.
 6. Keep wallet state and business actions outside the component library.
-7. Run product-level Android accessibility acceptance. **Do not mark the wallet UI integration complete until the real-device integration gate below passes.**
+7. Run the consuming product's platform-specific accessibility/device acceptance before product UI integration is declared complete.
 
 The `example/` Preview host exercises the UI-only integration order. Wallet product acceptance is separate
 from component package delivery.
 
-## First wallet integration hard gate
+## Product device acceptance boundary
 
-Package CI and emulator evidence are not substitutes for product-level physical-device
-acceptance. Before the first consuming wallet App is marked UI-integration complete,
-verify on a real supported Android device:
+Package CI, Android emulator evidence and iOS Simulator evidence are not substitutes for
+product-level physical-device acceptance. The consuming product owns its real-device checklist,
+including screen-reader behavior, keyboard/autofill, safe areas/system bars, platform dismissal
+behavior, larger text and long localized content.
 
-- TalkBack reading and focus order for primary flows;
-- button, icon-button and field labels/states, including modal focus restoration;
-- real soft-keyboard avoidance and Android system Back behavior;
-- safe-area and status/navigation-bar legibility in Light and Dark;
-- at least 1.3× system font scale without critical clipping or hidden actions;
-- 44dp touch targets and status/error communication that does not rely on color alone;
-- English and Simplified Chinese long-content behavior.
-
-Full multi-device coverage, final contrast release review and complete reduced-motion
-reassessment remain release-stage work. The existing Modal fade deferral is not a
-reduced-motion compliance claim.
+The current component-library round keeps physical-device acceptance deferred. Full multi-device
+coverage, final contrast release review and complete reduced-motion reassessment remain release-stage
+work. The existing Modal fade deferral is not a reduced-motion compliance claim.
 
 ## Host Responsibilities
 
@@ -155,7 +149,7 @@ The product App owns:
 - safe-area handling
 - keyboard behavior
 - system status and navigation bars
-- TalkBack and device-level acceptance
+- platform screen-reader and device-level acceptance
 
 The component library owns:
 
