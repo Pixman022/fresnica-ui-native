@@ -29,8 +29,16 @@ if (!fs.existsSync(projectDir)) {
 
 run('sw_vers', [], root);
 run('xcodebuild', ['-version'], root);
+run('xcodebuild', ['-showsdks'], root);
 run('node', ['--version'], root);
+run('ruby', ['--version'], root);
+run('bundle', ['--version'], root);
 run('bundle', ['install'], projectDir);
+const printMinimumIos =
+    "require './node_modules/react-native/scripts/react_native_pods'; " +
+    'puts "React Native min iOS: #{min_ios_version_supported}"';
+
+run('bundle', ['exec', 'ruby', '-e', printMinimumIos], projectDir);
 run('bundle', ['exec', 'pod', 'install'], iosDir);
 run('bundle', ['exec', 'pod', '--version'], iosDir);
 

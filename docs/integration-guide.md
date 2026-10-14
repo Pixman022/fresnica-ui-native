@@ -56,6 +56,17 @@ The historical `product/` host does implement some Testnet wallet actions, but n
 belong to the component package or form part of its acceptance criteria. Future wallet security,
 transaction submission, backup and release requirements must be managed by the consuming product.
 
+## iOS integration baseline
+
+See [iOS Support Baseline](ios-support-baseline.md) for the current package/toolchain support matrix.
+The first iOS delivery target is an iPhone React Native host. Build compatibility, Simulator runtime
+validation, visual review and physical-device acceptance are recorded as separate levels.
+
+Shared iOS design rules live in the Web design-system `ios-guidelines.md` page. iOS-specific
+typography, layout and presentation rules may differ from Web implementation details without
+changing shared semantic role meaning. The consuming App still owns navigation, outer safe-area
+composition, keyboard avoidance and product-level system behavior.
+
 ## Compatibility
 
 - Web and native share semantic role names, but native values are a separate adapter output.
