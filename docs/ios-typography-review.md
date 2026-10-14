@@ -6,14 +6,12 @@ Status: IOS03 review in progress. No production typography values are changed by
 
 The current generated Native typography remains Android-first:
 
-| Role | Current value |
-| --- | ---: |
-| body | 14 |
-| supporting | 13 |
-| action | 15 |
-| sectionTitle | 18 |
-| screenTitle | 20 |
-| display | 48 |
+- `body`: 14
+- `supporting`: 13
+- `action`: 15
+- `sectionTitle`: 18
+- `screenTitle`: 20
+- `display`: 48
 
 These values come from the reviewed shared token source and remain unchanged until an iOS-specific
 mapping has been validated and approved.
@@ -60,14 +58,12 @@ expects larger accessibility text sizes to remain usable.
 
 The first candidate mapping for visual review is intentionally conservative:
 
-| Fresnica role | Review candidate | Purpose |
-| --- | ---: | --- |
-| body | 17 pt | Primary readable content and field values |
-| supporting | 15 pt | Supporting copy, metadata and compact status text |
-| action | 17 pt | Button and action labels |
-| sectionTitle | 20 pt | Section and modal headings |
-| screenTitle | 22 pt | Screen-level title |
-| display | 34 pt | Large emphasis without importing Web display scale directly |
+- `body`: 17 pt — primary readable content and field values.
+- `supporting`: 15 pt — supporting copy, metadata and compact status text.
+- `action`: 17 pt — button and action labels.
+- `sectionTitle`: 20 pt — section and modal headings.
+- `screenTitle`: 22 pt — screen-level title.
+- `display`: 34 pt — large emphasis without importing the Web display scale directly.
 
 These are **review candidates, not approved package values**. IOS05 Simulator evidence and IOS03
 layout checks decide whether they are accepted, adjusted or partially applied.
