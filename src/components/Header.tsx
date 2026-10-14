@@ -50,6 +50,7 @@ export function Header({
         <View style={[styles.container, { borderBottomColor: theme.colors.separator, minHeight: 56 }]}>
             <View style={styles.side}>{start}</View>
             <Text
+                accessibilityRole="header"
                 numberOfLines={2}
                 ellipsizeMode="tail"
                 style={[styles.title, { color: theme.colors.contentPrimary, fontSize: theme.typography.screenTitle }]}
