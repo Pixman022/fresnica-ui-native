@@ -13,16 +13,29 @@ physical-device acceptance as separate conclusions.
 
 ## Task status
 
-| Task | Status | Evidence / merged work | Remaining work |
-| --- | --- | --- | --- |
-| IOS01 | Complete | Native iOS support baseline; Xcode 16.4 / iOS 18.5 Simulator baseline; Web platform baseline links | Keep runtime coverage truthful when toolchain changes |
-| IOS02 | Complete | Web iOS guidelines and Native component/platform rule priority are merged | Maintain consistency when later iOS decisions change |
-| IOS03 | In progress | Native typography review is merged; all direct typography consumers and current fixed-line-height/truncation risks are recorded | Execute larger-text Simulator scenarios, then approve/adjust the iOS role mapping and only then change runtime typography |
-| IOS04 | In progress | iOS component usage rules, Header heading semantics and iOS Field input examples are merged | Recheck IOS03-dependent layouts; fix only defects reproduced by Simulator evidence |
-| IOS05 | In progress | S01-S06 runtime matrix is merged; automated iPhone 16 / iOS 18.5 Release install+launch smoke now passes | Execute representative matrix scenarios beyond the single launch smoke and retain their results |
-| IOS06 | In progress | English/Chinese specifications for all 15 components are merged as an explicit draft | Finalize typography values, link final Native examples/evidence and remove draft wording only after IOS03/IOS05 close |
-| IOS07 | In progress | A repeatable CI build/install/launch/screenshot gate now exists and retains runtime evidence | Add durable reference-image/visual-review records and decide later whether the stable iOS check should become a required merge check |
-| IOS08 | Not started | — | Final candidate handoff, consumer docs/status synchronization and final limitation statement after IOS03-IOS07 |
+- **IOS01 — Complete.** Native iOS support baseline, Xcode 16.4 / iOS 18.5 Simulator
+  baseline and Web platform baseline links are merged. Keep runtime coverage truthful when
+  the toolchain changes.
+- **IOS02 — Complete.** Web iOS guidelines and Native component/platform rule priority are
+  merged. Maintain consistency when later iOS decisions change.
+- **IOS03 — In progress.** Native typography review is merged; all direct typography consumers
+  and current fixed-line-height/truncation risks are recorded. Next: execute larger-text
+  Simulator scenarios, then approve/adjust the iOS role mapping before changing runtime
+  typography.
+- **IOS04 — In progress.** iOS component usage rules, Header heading semantics and iOS Field
+  input examples are merged. Next: recheck IOS03-dependent layouts and fix only defects
+  reproduced by Simulator evidence.
+- **IOS05 — In progress.** S01-S06 runtime matrix is merged; automated iPhone 16 / iOS 18.5
+  Release install+launch smoke passes. Next: execute representative matrix scenarios beyond
+  the single launch smoke and retain their results.
+- **IOS06 — In progress.** English/Chinese specifications for all 15 components are merged as
+  an explicit draft. Final typography values and verified Native evidence are still required
+  before the draft wording is removed.
+- **IOS07 — In progress.** A repeatable CI build/install/launch/screenshot gate exists and
+  retains runtime evidence. Durable reference-image/visual-review records and any future
+  required-check decision remain open.
+- **IOS08 — Not started.** Final candidate handoff, consumer-document synchronization and the
+  final limitation statement wait for IOS03-IOS07.
 
 ## First successful iOS runtime smoke
 
