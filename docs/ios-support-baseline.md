@@ -41,18 +41,16 @@ image. A toolchain change needs a concrete React Native, dependency or platform 
 
 ## Support matrix
 
-| Area | Current support statement | Validation status |
-| --- | --- | --- |
-| Minimum package target | iOS 15.1 | Derived from RN 0.87 template/helper; runtime not yet exercised at this floor |
-| CI build SDK | iOS 18.5 / Xcode 16.4 | Fresh Simulator build verified by the Apple build gate |
-| Runtime | iPhone Simulator | IOS05 will record concrete runtimes/devices and launch evidence |
-| First device family | iPhone | In scope |
-| iPad | No first-round compatibility promise | Deferred unless IOS05 exposes a blocking shared-layout issue |
-| Orientation | Portrait is the first-round baseline | Landscape only where the consuming host explicitly supports it |
-| Physical iPhone | Not claimed | Deferred |
-| VoiceOver / real keyboard / real autofill | Not claimed | Deferred |
-| Dynamic Type | Component and Simulator support is in scope | IOS03/IOS05 |
-| Light / Dark / English / zh-CN | Existing package capability | iOS runtime matrix in IOS05 |
+- **Minimum package target:** iOS 15.1. Derived from the RN 0.87 template/helper; runtime has not yet been exercised at this floor.
+- **CI build SDK:** iOS 18.5 with Xcode 16.4. Fresh Simulator compilation is covered by the Apple build gate.
+- **Runtime:** iPhone Simulator. IOS05 records the concrete runtime, device and launch evidence.
+- **First device family:** iPhone.
+- **iPad:** no first-round compatibility promise. Revisit only if IOS05 exposes a blocking shared-layout issue.
+- **Orientation:** portrait is the first-round baseline. Landscape is covered only where a consuming host explicitly supports it.
+- **Physical iPhone:** not claimed; deferred.
+- **VoiceOver / real keyboard / real autofill:** not claimed; deferred.
+- **Dynamic Type:** component and Simulator support are in scope for IOS03/IOS05.
+- **Light / Dark / English / zh-CN:** existing package capabilities; iOS runtime evidence belongs to IOS05.
 
 A new SDK build must not be described as proof of the minimum runtime. IOS05 will record the exact
 Simulator runtime and device used for each scenario.
