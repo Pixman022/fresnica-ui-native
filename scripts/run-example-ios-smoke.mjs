@@ -39,8 +39,13 @@ if (process.platform !== 'darwin') {
     throw new Error('The iOS runtime smoke check requires macOS.');
 }
 
+if (!fs.existsSync(projectDir)) {
+    throw new Error('Preview host is missing. Run npm run example:bootstrap first.');
+}
+
 if (!fs.existsSync(workspace)) {
-    throw new Error('iOS workspace is missing. Run npm run example:bootstrap and pod install first.');
+    run('bundle', ['install'], projectDir);
+    run('bundle', ['exec', 'pod', 'install'], iosDir);
 }
 
 fs.rmSync(evidenceDir, { recursive: true, force: true });
