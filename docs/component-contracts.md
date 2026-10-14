@@ -164,35 +164,39 @@ The host application is responsible for:
 The Jest/React Native Testing Library suite exercises component rendering and
 accessibility props, but React Native 0.87 requires the host application's native test
 environment for those modules. The package-level checks remain runnable without an App
-shell; device rendering, TalkBack, keyboard, safe-area and system-bar behavior remain
-Android host acceptance responsibilities.
-
+shell; platform runtime, screen-reader, keyboard, safe-area and system-bar behavior remain
+host acceptance responsibilities.
 
 ## iOS usage rules
 
 These rules refine the platform-neutral contracts for the current iPhone support round. They do not
 change the public component API.
 
-- **Button / IconButton:** keep the existing action hierarchy and pressed/disabled/loading semantics.
-  The default interactive target remains at least 44×44 logical points. Long labels may grow in height;
-  do not force them into a single-line Web-style control.
-- **Header:** remains a reusable visual/action header, not a navigation controller. Back, close and done
-  semantics belong to the consuming screen. Native navigation gestures and route transitions stay in
-  the host.
-- **Field:** native `TextInputProps`, ref and submit/focus behavior remain authoritative. Keyboard type,
-  text content type/autocomplete, secure entry and return-key configuration are selected by the caller
-  for the actual input purpose. Package disabled/error precedence remains unchanged.
-- **ListRow / SegmentedControl:** retain the existing single-action model for each accessible row/control.
-  If larger text makes a horizontal arrangement unreadable, IOS03/IOS05 evidence determines whether the
-  layout needs to grow or stack; do not add a second action model to solve density.
-- **Modal:** remains appropriate for tasks that fit the current controlled modal contract. It does not
-  become a generic Sheet or full-screen task container. The host owns system presentation choices when
-  a Sheet or route is required. The existing `fade` animation remains unchanged.
-- **StateView / InlineMessage / StatusBadge:** state must remain readable from text or equivalent labels,
-  not color alone. Announcement ownership follows the existing alert/passive contract.
-- **Skeleton / Progress:** expose meaningful loading/progress state without duplicating decorative
-  placeholders in the accessibility tree.
-- **Screen / Typography / Divider:** the host owns outer safe-area and keyboard composition. Typography
-  remains system-scalable; IOS03 defines the iOS role mapping and large-text acceptance.
+- **Button / IconButton:** keep the existing action hierarchy and pressed/disabled/loading
+  semantics. The default interactive target remains at least 44×44 logical points. Long
+  labels may grow in height; do not force them into a single-line Web-style control.
+- **Header:** remains a reusable visual/action header, not a navigation controller. Back,
+  close and done semantics belong to the consuming screen. Native navigation gestures and
+  route transitions stay in the host.
+- **Field:** native `TextInputProps`, ref and submit/focus behavior remain authoritative.
+  Keyboard type, text content type/autocomplete, secure entry and return-key configuration
+  are selected by the caller for the actual input purpose. Package disabled/error
+  precedence remains unchanged.
+- **ListRow / SegmentedControl:** retain the existing single-action model for each accessible
+  row/control. If larger text makes a horizontal arrangement unreadable, IOS03/IOS05
+  evidence determines whether the layout needs to grow or stack; do not add a second action
+  model to solve density.
+- **Modal:** remains appropriate for tasks that fit the current controlled modal contract.
+  It does not become a generic Sheet or full-screen task container. The host owns system
+  presentation choices when a Sheet or route is required. The existing `fade` animation
+  remains unchanged.
+- **StateView / InlineMessage / StatusBadge:** state must remain readable from text or
+  equivalent labels, not color alone. Announcement ownership follows the existing
+  alert/passive contract.
+- **Skeleton / Progress:** expose meaningful loading/progress state without duplicating
+  decorative placeholders in the accessibility tree.
+- **Screen / Typography / Divider:** the host owns outer safe-area and keyboard
+  composition. Typography remains system-scalable; IOS03 defines the iOS role mapping and
+  large-text acceptance.
 
 Simulator evidence, screenshot review and physical-device accessibility are separate conclusions.
