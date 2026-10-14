@@ -6,12 +6,14 @@ const root = path.resolve(import.meta.dirname, '..');
 const projectDir = path.join(root, 'example', 'FresnicaPreview');
 const iosDir = path.join(projectDir, 'ios');
 const workspace = path.join(iosDir, 'FresnicaPreview.xcworkspace');
-const evidenceDir = path.join(root, 'example', 'ios-runtime-evidence');
+const evidenceDir = path.join(root, process.env.IOS_PREVIEW_EVIDENCE_DIR ?? 'example/ios-runtime-evidence');
 const derivedData = path.join(root, 'example', '.cache', 'ios-smoke-derived-data');
 const screenshotPath = path.join(evidenceDir, 'launch.png');
 const metadataPath = path.join(evidenceDir, 'metadata.json');
-const deviceName = 'iPhone 16';
-const runtimeVersion = '18.5';
+const deviceName = process.env.IOS_PREVIEW_DEVICE ?? 'iPhone 16';
+const runtimeVersion = process.env.IOS_PREVIEW_RUNTIME ?? '18.5';
+const contentSize = process.env.IOS_PREVIEW_CONTENT_SIZE ?? '';
+const appearance = process.env.IOS_PREVIEW_APPEARANCE ?? '';
 
 function run(command, args, cwd = root, capture = false) {
     const result = spawnSync(command, args, {
@@ -59,6 +61,13 @@ if (device.state !== 'Booted') {
     run('xcrun', ['simctl', 'boot', device.udid]);
 }
 run('xcrun', ['simctl', 'bootstatus', device.udid, '-b']);
+
+if (contentSize) {
+    run('xcrun', ['simctl', 'ui', device.udid, 'content_size', contentSize]);
+}
+if (appearance) {
+    run('xcrun', ['simctl', 'ui', device.udid, 'appearance', appearance]);
+}
 
 run(
     'xcodebuild',
@@ -108,6 +117,8 @@ const metadata = {
     sourceSha: process.env.GITHUB_SHA ?? 'local',
     xcode: run('xcodebuild', ['-version'], root, true),
     node: run('node', ['--version'], root, true),
+    contentSize: contentSize || 'default',
+    appearance: appearance || 'system',
     screenshot: path.relative(root, screenshotPath),
 };
 
