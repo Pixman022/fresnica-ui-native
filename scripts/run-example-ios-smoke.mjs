@@ -42,12 +42,8 @@ if (!fs.existsSync(workspace)) {
 fs.rmSync(evidenceDir, { recursive: true, force: true });
 fs.mkdirSync(evidenceDir, { recursive: true });
 
-const devices = JSON.parse(
-    run('xcrun', ['simctl', 'list', 'devices', 'available', '-j'], root, true),
-);
-const runtimeKey = Object.keys(devices.devices).find((key) =>
-    key.endsWith(`iOS-${runtimeVersion.replace('.', '-')}`),
-);
+const devices = JSON.parse(run('xcrun', ['simctl', 'list', 'devices', 'available', '-j'], root, true));
+const runtimeKey = Object.keys(devices.devices).find((key) => key.endsWith(`iOS-${runtimeVersion.replace('.', '-')}`));
 if (!runtimeKey) {
     throw new Error(`iOS ${runtimeVersion} Simulator runtime is not installed.`);
 }
