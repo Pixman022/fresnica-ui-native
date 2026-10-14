@@ -9,7 +9,7 @@ platform-neutral; navigation, safe areas, status bars and product state stay in 
 | `Field`            | Label/supporting copy plus typed native `TextInputProps`; input ref, events, styles and test identifiers target the native input.          | Label is exposed as the input label; disabled state cannot be re-enabled by passthrough props. |
 | `StateView`        | Empty, error and success tone with optional action.                                                                                        | Title and description remain readable without relying on color alone.                          |
 | `Screen`           | Background and optional scrolling/padding; no route ownership.                                                                             | Content order is preserved in the accessibility tree.                                          |
-| `Header`           | Stable title, optional leading/trailing content and optional back action.                                                                  | Title exposes heading semantics; back action has a localized accessible label supplied by the app. |
+| `Header`           | Stable title, optional leading/trailing content and optional back action.                                                                  | Back action has a localized accessible label supplied by the app.                              |
 | `ListRow`          | Title, optional description, leading/trailing content; either whole-row action or independent trailing action.                             | Pressable rows expose one button; independent trailing actions remain separate.                |
 | `Modal`            | Native modal lifecycle, scrim, title, show/close callbacks and close-control ref.                                                          | Modal is marked modal; host chooses initial focus and restores trigger focus.                  |
 | `Typography`       | Shared body, supporting, action, section, screen and display metrics.                                                                      | Text can grow with Dynamic Type; callers provide translated content.                           |
@@ -175,9 +175,9 @@ change the public component API.
 - **Button / IconButton:** keep the existing action hierarchy and pressed/disabled/loading
   semantics. The default interactive target remains at least 44×44 logical points. Long
   labels may grow in height; do not force them into a single-line Web-style control.
-- **Header:** remains a reusable visual/action header, not a navigation controller. Back,
-  close and done semantics belong to the consuming screen. Native navigation gestures and
-  route transitions stay in the host.
+- **Header:** remains a reusable visual/action header, not a navigation controller. Its
+  visible title exposes heading semantics. Back, close and done semantics belong to the
+  consuming screen. Native navigation gestures and route transitions stay in the host.
 - **Field:** native `TextInputProps`, ref and submit/focus behavior remain authoritative.
   Keyboard type, text content type/autocomplete, secure entry and return-key configuration
   are selected by the caller for the actual input purpose. Package disabled/error
