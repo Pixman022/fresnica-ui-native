@@ -54,3 +54,14 @@ jobs:
 
             - name: Build iOS Simulator preview
               run: npm run example:ios:build
+
+            - name: Run iOS Simulator launch smoke
+              run: npm run example:ios:smoke
+
+            - name: Upload iOS runtime evidence
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: ios-preview-runtime-evidence
+                  path: example/ios-runtime-evidence
+                  if-no-files-found: warn
