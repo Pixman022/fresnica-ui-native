@@ -52,7 +52,6 @@ jobs:
             - name: Bootstrap preview host from packed package
               run: npm run example:bootstrap
 
-
             - name: Capture typography probe
               env:
                   IOS_PREVIEW_DEVICE: iPhone SE (3rd generation)
