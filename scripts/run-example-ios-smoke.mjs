@@ -7,7 +7,7 @@ const projectDir = path.join(root, 'example', 'FresnicaPreview');
 const iosDir = path.join(projectDir, 'ios');
 const workspace = path.join(iosDir, 'FresnicaPreview.xcworkspace');
 const evidenceDir = path.join(root, 'example', 'ios-runtime-evidence');
-const derivedData = path.join(evidenceDir, 'DerivedData');
+const derivedData = path.join(root, 'example', '.cache', 'ios-smoke-derived-data');
 const screenshotPath = path.join(evidenceDir, 'launch.png');
 const metadataPath = path.join(evidenceDir, 'metadata.json');
 const deviceName = 'iPhone 16';
@@ -40,7 +40,9 @@ if (!fs.existsSync(workspace)) {
 }
 
 fs.rmSync(evidenceDir, { recursive: true, force: true });
+fs.rmSync(derivedData, { recursive: true, force: true });
 fs.mkdirSync(evidenceDir, { recursive: true });
+fs.mkdirSync(path.dirname(derivedData), { recursive: true });
 
 const devices = JSON.parse(run('xcrun', ['simctl', 'list', 'devices', 'available', '-j'], root, true));
 const runtimeKey = Object.keys(devices.devices).find((key) => key.endsWith(`iOS-${runtimeVersion.replace('.', '-')}`));
