@@ -181,7 +181,7 @@ change the public component API.
 - **Field:** native `TextInputProps`, ref and submit/focus behavior remain authoritative.
   Keyboard type, text content type/autocomplete, secure entry and return-key configuration
   are selected by the caller for the actual input purpose. Package disabled/error
-  precedence remains unchanged.
+  precedence remains unchanged. See [iOS Field Input Examples](ios-field-input-examples.md).
 - **ListRow / SegmentedControl:** retain the existing single-action model for each accessible
   row/control. If larger text makes a horizontal arrangement unreadable, IOS03/IOS05
   evidence determines whether the layout needs to grow or stack; do not add a second action
