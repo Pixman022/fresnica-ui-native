@@ -269,7 +269,7 @@ describe('native components', () => {
         expect(button.props.nativeID).toBe('settings-native');
     });
 
-    it('exposes Header back action and title', () => {
+    it('exposes Header back action and heading title', () => {
         render(
             <Header
                 title="Settings"
@@ -280,7 +280,7 @@ describe('native components', () => {
             />,
         );
         expect(screen.getByRole('button', { name: 'Go back' })).toBeTruthy();
-        expect(screen.getByText('Settings')).toBeTruthy();
+        expect(screen.getByRole('header', { name: 'Settings' })).toBeTruthy();
     });
 
     it('allows Header titles to use two lines before truncating', () => {
