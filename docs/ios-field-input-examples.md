@@ -10,12 +10,7 @@ Use the default native text input behavior unless the content purpose needs a mo
 keyboard, content type or capitalization rule.
 
 ```tsx
-<Field
-    label={labels.displayName}
-    value={displayName}
-    onChangeText={setDisplayName}
-    returnKeyType="next"
-/>
+<Field label={labels.displayName} value={displayName} onChangeText={setDisplayName} returnKeyType="next" />
 ```
 
 ## Email address
@@ -86,13 +81,7 @@ Use multiline only where the content model permits free-form text. Long content 
 reachable when Dynamic Type increases the text size.
 
 ```tsx
-<Field
-    label={labels.note}
-    value={note}
-    onChangeText={setNote}
-    multiline
-    returnKeyType="default"
-/>
+<Field label={labels.note} value={note} onChangeText={setNote} multiline returnKeyType="default" />
 ```
 
 ## Submit and keyboard ownership
