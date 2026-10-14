@@ -48,7 +48,7 @@ function focusAccessibilityTarget(target: PressableRef | null) {
 const copy = {
     en: {
         title: 'Fresnica Native Preview',
-        subtitle: 'Android host acceptance before wallet feature integration',
+        subtitle: 'Neutral host acceptance before product feature integration',
         environment: 'Environment',
         themeGroup: 'Theme',
         languageGroup: 'Language',
@@ -84,7 +84,7 @@ const copy = {
         info: 'Native components are using the current Fresnica semantic theme.',
         passiveError: 'Passive error text for an app-owned announcement flow.',
         stressInfo:
-            'Stress mode uses long content, error states and large accessible labels so narrow Android windows and font scaling can be inspected before product flows are added.',
+            'Stress mode uses long content, error states and large accessible labels so narrow mobile windows and font scaling can be inspected before product flows are added.',
         progress: 'Sync progress',
         componentStates: 'Control states',
         otherComponents: 'More shared primitives',
@@ -108,13 +108,13 @@ const copy = {
         modalOpen: 'Open modal',
         modalTitle: 'Preview modal',
         modalClose: 'Close modal',
-        modalBody: 'Android back and the close action should dismiss this modal.',
+        modalBody: 'The platform close path and the close action should dismiss this modal.',
         emptyTitle: 'No wallet feature loaded',
         emptyDescription: 'The preview host validates shared primitives before product flows are added.',
     },
     'zh-CN': {
         title: 'Fresnica 原生预览',
-        subtitle: '在接入钱包业务前验证 Android 宿主能力',
+        subtitle: '在接入产品业务前验证中性宿主能力',
         environment: '当前环境',
         themeGroup: '主题',
         languageGroup: '语言',
@@ -171,7 +171,7 @@ const copy = {
         modalOpen: '打开弹窗',
         modalTitle: '预览弹窗',
         modalClose: '关闭弹窗',
-        modalBody: 'Android 返回键和关闭按钮都应该能够关闭此弹窗。',
+        modalBody: '平台关闭路径和关闭按钮都应该能够关闭此弹窗。',
         emptyTitle: '尚未加载钱包功能',
         emptyDescription: '在加入产品流程之前，先通过预览宿主验证共享基础组件。',
     },
