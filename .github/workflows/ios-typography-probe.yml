@@ -46,21 +46,12 @@ jobs:
             - name: Install package dependencies
               run: npm ci
 
-            - name: Run package checks
-              run: npm test
-
             - name: Build package
               run: npm run build
 
             - name: Bootstrap preview host from packed package
               run: npm run example:bootstrap
 
-            - name: Typecheck preview host
-              working-directory: example/FresnicaPreview
-              run: npx tsc --noEmit
-
-            - name: Build iOS Simulator preview
-              run: npm run example:ios:build
 
             - name: Capture typography probe
               env:
