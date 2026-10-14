@@ -175,9 +175,9 @@ change the public component API.
 - **Button / IconButton:** keep the existing action hierarchy and pressed/disabled/loading
   semantics. The default interactive target remains at least 44×44 logical points. Long
   labels may grow in height; do not force them into a single-line Web-style control.
-- **Header:** remains a reusable visual/action header, not a navigation controller. Back,
-  close and done semantics belong to the consuming screen. Native navigation gestures and
-  route transitions stay in the host.
+- **Header:** remains a reusable visual/action header, not a navigation controller. Its
+  visible title exposes heading semantics. Back, close and done semantics belong to the
+  consuming screen. Native navigation gestures and route transitions stay in the host.
 - **Field:** native `TextInputProps`, ref and submit/focus behavior remain authoritative.
   Keyboard type, text content type/autocomplete, secure entry and return-key configuration
   are selected by the caller for the actual input purpose. Package disabled/error
