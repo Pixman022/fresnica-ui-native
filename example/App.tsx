@@ -45,12 +45,11 @@ type PreviewLaunchSettings = {
 };
 
 const previewLaunchSettings =
-    Platform.OS === 'ios'
-        ? ((NativeModules.SettingsManager?.settings ?? {}) as PreviewLaunchSettings)
-        : {};
+    Platform.OS === 'ios' ? ((NativeModules.SettingsManager?.settings ?? {}) as PreviewLaunchSettings) : {};
 
 const initialLocale: Locale = previewLaunchSettings.FresnicaPreviewLocale === 'zh-CN' ? 'zh-CN' : 'en';
-const initialScenario: Scenario = previewLaunchSettings.FresnicaPreviewScenario === 'stress' ? 'stress' : 'standard';
+const initialScenario: Scenario =
+    previewLaunchSettings.FresnicaPreviewScenario === 'stress' ? 'stress' : 'standard';
 
 function focusAccessibilityTarget(target: PressableRef | null) {
     const node = findNodeHandle(target);
