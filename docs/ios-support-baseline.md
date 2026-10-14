@@ -52,8 +52,8 @@ image. A toolchain change needs a concrete React Native, dependency or platform 
 - **Dynamic Type:** component and Simulator support are in scope for IOS03/IOS05.
 - **Light / Dark / English / zh-CN:** existing package capabilities; iOS runtime evidence belongs to IOS05.
 
-A new SDK build must not be described as proof of the minimum runtime. IOS05 will record the exact
-Simulator runtime and device used for each scenario.
+A new SDK build must not be described as proof of the minimum runtime. IOS05 records the exact
+Simulator runtime and device used for each scenario in the [iOS Preview Runtime Matrix](ios-preview-matrix.md).
 
 ## Responsibility boundary
 
