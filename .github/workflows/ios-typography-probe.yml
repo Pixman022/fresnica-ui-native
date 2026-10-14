@@ -3,6 +3,7 @@ name: iOS Typography Probe
 on:
     pull_request:
         paths:
+            - 'example/App.tsx'
             - 'scripts/run-example-ios-smoke.mjs'
             - '.github/workflows/ios-typography-probe.yml'
     workflow_dispatch:
@@ -18,12 +19,16 @@ jobs:
             fail-fast: false
             matrix:
                 include:
-                    - name: max-standard
+                    - name: s03
                       content_size: extra-extra-extra-large
                       appearance: dark
-                    - name: max-accessibility
+                      locale: zh-CN
+                      scenario: stress
+                    - name: s04
                       content_size: accessibility-extra-extra-extra-large
                       appearance: light
+                      locale: en
+                      scenario: standard
 
         steps:
             - name: Checkout repository
@@ -63,6 +68,8 @@ jobs:
                   IOS_PREVIEW_RUNTIME: '18.5'
                   IOS_PREVIEW_CONTENT_SIZE: ${{ matrix.content_size }}
                   IOS_PREVIEW_APPEARANCE: ${{ matrix.appearance }}
+                  IOS_PREVIEW_LOCALE: ${{ matrix.locale }}
+                  IOS_PREVIEW_SCENARIO: ${{ matrix.scenario }}
                   IOS_PREVIEW_EVIDENCE_DIR: example/ios-typography-evidence/${{ matrix.name }}
               run: npm run example:ios:smoke
 
