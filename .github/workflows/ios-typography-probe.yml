@@ -1,0 +1,75 @@
+name: iOS Typography Probe
+
+on:
+    pull_request:
+        paths:
+            - 'scripts/run-example-ios-smoke.mjs'
+            - '.github/workflows/ios-typography-probe.yml'
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    probe:
+        runs-on: macos-15
+        timeout-minutes: 45
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - name: max-standard
+                      content_size: extra-extra-extra-large
+                      appearance: dark
+                    - name: max-accessibility
+                      content_size: accessibility-extra-extra-extra-large
+                      appearance: light
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Select Xcode 16.4
+              run: sudo xcode-select -s /Applications/Xcode_16.4.app
+
+            - name: Set up Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22.13.0
+                  cache: npm
+
+            - name: Install package dependencies
+              run: npm ci
+
+            - name: Run package checks
+              run: npm test
+
+            - name: Build package
+              run: npm run build
+
+            - name: Bootstrap preview host from packed package
+              run: npm run example:bootstrap
+
+            - name: Typecheck preview host
+              working-directory: example/FresnicaPreview
+              run: npx tsc --noEmit
+
+            - name: Build iOS Simulator preview
+              run: npm run example:ios:build
+
+            - name: Capture typography probe
+              env:
+                  IOS_PREVIEW_DEVICE: iPhone SE (3rd generation)
+                  IOS_PREVIEW_RUNTIME: '18.5'
+                  IOS_PREVIEW_CONTENT_SIZE: ${{ matrix.content_size }}
+                  IOS_PREVIEW_APPEARANCE: ${{ matrix.appearance }}
+                  IOS_PREVIEW_EVIDENCE_DIR: example/ios-typography-evidence/${{ matrix.name }}
+              run: npm run example:ios:smoke
+
+            - name: Upload typography evidence
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: ios-typography-${{ matrix.name }}
+                  path: example/ios-typography-evidence/${{ matrix.name }}
+                  if-no-files-found: warn
