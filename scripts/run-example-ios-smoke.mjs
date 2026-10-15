@@ -104,6 +104,27 @@ if (device.state !== 'Booted') {
 }
 run('xcrun', ['simctl', 'bootstatus', device.udid, '-b']);
 
+if (previewEvidenceView === 'keyboard') {
+    const keyboardPreferenceKeys = [
+        'DidShowContinuousPathIntroduction',
+        'KeyboardDidShowProductivityTutorial',
+        'DidShowGestureKeyboardIntroduction',
+        'UIKeyboardDidShowInternationalInfoIntroduction',
+    ];
+    for (const key of keyboardPreferenceKeys) {
+        run('xcrun', [
+            'simctl',
+            'spawn',
+            device.udid,
+            'defaults',
+            'write',
+            'com.apple.keyboard.preferences',
+            key,
+            '1',
+        ]);
+    }
+}
+
 if (contentSize) {
     run('xcrun', ['simctl', 'ui', device.udid, 'content_size', contentSize]);
 }
