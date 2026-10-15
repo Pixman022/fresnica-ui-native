@@ -112,16 +112,7 @@ if (previewEvidenceView === 'keyboard') {
         'UIKeyboardDidShowInternationalInfoIntroduction',
     ];
     for (const key of keyboardPreferenceKeys) {
-        run('xcrun', [
-            'simctl',
-            'spawn',
-            device.udid,
-            'defaults',
-            'write',
-            'com.apple.keyboard.preferences',
-            key,
-            '1',
-        ]);
+        run('xcrun', ['simctl', 'spawn', device.udid, 'defaults', 'write', 'com.apple.keyboard.preferences', key, '1']);
     }
 }
 
