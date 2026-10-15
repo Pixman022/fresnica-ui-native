@@ -1,0 +1,91 @@
+{
+  "schema": "fresnica-ios-simulator-evidence/v1",
+  "status": "reviewed-simulator-evidence",
+  "reviewedAt": "2026-10-15",
+  "scope": "neutral @fresnica/ui-native Preview on iOS Simulator",
+  "doesNotApprove": [
+    "physical-device acceptance",
+    "VoiceOver speech/gesture/focus behavior",
+    "real-device keyboard/autofill",
+    "color/contrast or Increase Contrast changes",
+    "iPad support",
+    "wallet-product flows or release acceptance",
+    "automated pixel-diff parity"
+  ],
+  "environment": {
+    "xcode": "16.4 (16F6)",
+    "runtime": "iOS 18.5",
+    "packageVersion": "1.1.0-rc.1",
+    "node": "22.13.0"
+  },
+  "evidencePolicy": {
+    "metadataMustMatchVisibleState": true,
+    "artifactRetention": "GitHub Actions artifacts are temporary; source SHA, artifact ID, digest and reviewed outcome are versioned here.",
+    "pixelDiffGate": "disabled"
+  },
+  "references": [
+    {
+      "id": "s03-maximum-standard",
+      "workflowRunId": 38664206311,
+      "artifactId": 11940484492,
+      "artifactDigest": "sha256:90b8cd97d3b993cae990f2e56104599bab831beba3206f248b39255e251a02d5",
+      "pr": 89,
+      "prHeadSha": "0e36210914c0e2e826d2f58187bb2880c3c05143",
+      "mergedMainSha": "079f892159ae72baeb746c3353709f09c1f097d7",
+      "device": "iPhone SE (3rd generation)",
+      "contentSize": "maximum standard",
+      "appearance": "dark",
+      "previewLocale": "zh-CN",
+      "previewScenario": "stress",
+      "reviewedOutcome": "valid state; maximum-standard layout remains acceptable"
+    },
+    {
+      "id": "s04-maximum-accessibility",
+      "workflowRunId": 38664206311,
+      "artifactId": 11940726998,
+      "artifactDigest": "sha256:3178643961a0f975be045b42b2c7cb1988986bfb91d34e1146c19ee156a60f54",
+      "pr": 89,
+      "prHeadSha": "0e36210914c0e2e826d2f58187bb2880c3c05143",
+      "mergedMainSha": "079f892159ae72baeb746c3353709f09c1f097d7",
+      "device": "iPhone SE (3rd generation)",
+      "contentSize": "maximum accessibility",
+      "appearance": "light",
+      "previewLocale": "en",
+      "previewScenario": "standard",
+      "reviewedOutcome": "valid state; reproduced Header/ListRow failures later fixed by #94"
+    },
+    {
+      "id": "s05-modal-maximum-accessibility",
+      "workflowRunId": 38693816310,
+      "artifactId": 11953917873,
+      "artifactDigest": "sha256:228499ba7f6abc90baa63d6e16b7ed7408c33f06b3e56f058c786a09d8000fb3",
+      "pr": 96,
+      "prHeadSha": "3209b75d8fbaa0706bedb1de134e2b59b22541ed",
+      "mergedMainSha": "2224267e4853a88de775a987996fe3c2324ba237",
+      "device": "iPhone 16 Pro Max",
+      "contentSize": "accessibility-extra-extra-extra-large",
+      "appearance": "dark",
+      "previewLocale": "zh-CN",
+      "previewScenario": "stress",
+      "previewEvidenceView": "modal",
+      "reviewedOutcome": "title, content and close control visible without reproduced clipping"
+    },
+    {
+      "id": "s06-software-keyboard",
+      "workflowRunId": 38693816310,
+      "artifactId": 11953294337,
+      "artifactDigest": "sha256:d8337b2101de4e24be6164cf78984b69b3efca1bf4b0e92a5faf983bae83ce2b",
+      "pr": 96,
+      "prHeadSha": "3209b75d8fbaa0706bedb1de134e2b59b22541ed",
+      "mergedMainSha": "2224267e4853a88de775a987996fe3c2324ba237",
+      "device": "iPhone 16",
+      "contentSize": "extra-extra-extra-large",
+      "appearance": "light",
+      "previewLocale": "en",
+      "previewScenario": "standard",
+      "previewEvidenceView": "keyboard",
+      "reviewedOutcome": "software keyboard visibly present; focused Field and primary action remain reachable",
+      "supersedes": "first S06 capture from run 38690729334, which was invalid because the iOS keyboard tutorial obscured the keyboard"
+    }
+  ]
+}
