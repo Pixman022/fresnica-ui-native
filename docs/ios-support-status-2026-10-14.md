@@ -18,29 +18,31 @@ physical-device acceptance as separate conclusions.
   the toolchain changes.
 - **IOS02 — Complete.** Web iOS guidelines and Native component/platform rule priority are
   merged. Maintain consistency when later iOS decisions change.
-- **IOS03 — In progress.** Corrected S03/S04 top-frame and targeted detail evidence are available.
-  S03 maximum-standard text remains acceptable in the reviewed action slice. S04 maximum
-  accessibility text reproduced Header truncation and ListRow trailing-content squeeze; #94 fixes
-  those two layout defects without changing base typography values. Post-fix S04 action/content
-  screenshots are now reviewed and confirm the Header title can grow without ellipsis and the
-  ListRow trailing badge no longer squeezes the copy column. S03 retains the original layout at
-  ~1.35 fontScale. Modal/keyboard reachability and the final typography mapping remain open.
+- **IOS03 — Complete for the current Simulator scope.** Corrected S03/S04 top-frame and targeted
+  detail evidence are reviewed. S03 maximum-standard text remains acceptable. S04 reproduced Header
+  truncation and ListRow trailing-content squeeze; #94 fixes those layout defects without changing
+  base typography values. S05/S06 then confirm Modal content remains reachable at the maximum
+  accessibility category and the keyboard-constrained Field/action slice remains usable at ~1.35
+  fontScale. No evidence requires the proposed 17/15/17/20/22/34 iOS base-size mapping, so that
+  candidate is rejected for this release scope and the current typography values remain unchanged.
 - **IOS04 — In progress.** iOS component usage rules, Header heading semantics and iOS Field
   input examples are merged. #94 lets Header titles grow and stacks ListRow trailing content
   below the copy on iOS accessibility text sizes (fontScale >= 1.5), matching reproduced S04
   failures. The post-fix S04 screenshots visually confirm both targeted fixes; S03 shows no
   regression in the maximum-standard action slice. Remaining changes continue to require
   Simulator reproduction.
-- **IOS05 — In progress.** S01-S06 runtime matrix is merged; automated iPhone 16 / iOS 18.5
-  Release install+launch smoke passes. #92 adds focused S03/S04 action/content evidence views,
-  and #94 re-ran package/build/Android acceptance plus the detail captures successfully. The
-  post-fix S03/S04 screenshots are reviewed. PR #96 is now collecting S05 Modal and S06
-  keyboard-constrained evidence; those two reachability checks remain open until their screenshots
-  are reviewed.
-- **IOS06 — In progress.** English/Chinese specifications for all 15 components are merged as
-  an explicit draft, and Web #32 synchronizes the verified Header/ListRow accessibility-text
-  behavior. Final typography values and remaining Native evidence are still required before the
-  draft wording is removed.
+- **IOS05 — Complete for the current Simulator matrix.** S01-S06 runtime coverage is merged and the
+  automated iPhone 16 / iOS 18.5 Release install+launch smoke passes. #92/#94 cover the corrected
+  S03/S04 large-text detail slices. #96 adds S05 Modal and S06 keyboard-constrained evidence.
+  S05 is visually acceptable at the maximum accessibility category. The first S06 artifact was
+  invalid because the iOS keyboard tutorial obscured the software keyboard; #96 now suppresses that
+  first-run tutorial in Simulator evidence mode, and the final S06 capture visibly shows the software
+  keyboard with the focused Field and primary action still reachable. These are Simulator conclusions,
+  not physical-device or VoiceOver acceptance.
+- **IOS06 — In progress.** English/Chinese specifications for all 15 components are merged as an
+  explicit draft, and Web #32 synchronizes the verified Header/ListRow accessibility-text behavior.
+  Native typography and reachability decisions are now verified; the remaining work is to remove
+  stale draft wording and synchronize the final evidence-backed component-spec status in the Web repo.
 - **IOS07 — In progress.** A repeatable CI build/install/launch/screenshot gate exists and
   retains runtime evidence. PR #90 now requires visible Preview state to agree with scenario
   metadata; mismatched captures are invalid. Durable reference images, complete review records
@@ -127,6 +129,7 @@ Native:
 - #90 — iOS evidence-integrity rule
 - #92 — targeted S03/S04 action/content evidence views
 - #94 — iOS accessibility large-text Header/ListRow layout fixes
+- #96 — iOS Modal / keyboard reachability evidence and deterministic keyboard-tutorial suppression
 
 Web:
 
@@ -151,9 +154,7 @@ The existing Native Modal `fade` behavior remains unchanged.
 
 ## Next executable sequence
 
-1. Review PR #96 S05 Modal and S06 keyboard-constrained evidence.
-2. Fix only defects reproduced by those captures, if any.
-3. Approve, reject or narrow the IOS03 typography mapping from the complete larger-text evidence.
-4. Finalize IOS06 component specs from the verified Native implementation.
-5. Close IOS07 durable visual/reference evidence and regression-gate documentation.
-6. Complete IOS08 candidate handoff and cross-repository status synchronization.
+1. Finalize IOS06 component specs from the verified Native implementation and the unchanged
+   typography mapping.
+2. Close IOS07 durable visual/reference evidence and regression-gate documentation.
+3. Complete IOS08 candidate handoff and cross-repository status synchronization.
