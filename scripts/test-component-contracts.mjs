@@ -65,8 +65,9 @@ assert.match(iconButton, /nativeID=\{nativeID\}/);
 
 const header = read('src/components/Header.tsx');
 assert.match(header, /type HeaderWithBackAction = HeaderBaseProps & \{\s*leading: ReactElement;/);
-assert.match(header, /numberOfLines=\{2\}/);
-assert.match(header, /ellipsizeMode="tail"/);
+assert.match(header, /Platform\.OS === 'ios' && fontScale >= 1\.5/);
+assert.match(header, /numberOfLines=\{expandTitleForAccessibilityText \? undefined : 2\}/);
+assert.match(header, /ellipsizeMode=\{expandTitleForAccessibilityText \? undefined : 'tail'\}/);
 assert.match(header, /flexShrink: 1/);
 
 const listRow = read('src/components/ListRow.tsx');
@@ -74,6 +75,9 @@ assert.match(listRow, /accessible=\{interactive\}/);
 assert.match(listRow, /accessibilityLabel=\{interactive \? accessibilityLabel : undefined\}/);
 assert.match(listRow, /description \? `\$\{title\}, \$\{description\}` : title/);
 assert.match(listRow, /minWidth: 0/);
+assert.match(listRow, /Platform\.OS === 'ios' && fontScale >= 1\.5 && Boolean\(trailing\)/);
+assert.match(listRow, /rowAccessibilityText: \{ flexWrap: 'wrap', alignItems: 'flex-start' \}/);
+assert.match(listRow, /trailingAccessibilityText: \{ width: '100%' \}/);
 assert.doesNotMatch(listRow, /trailingAction/);
 
 const stateView = read('src/components/StateView.tsx');
