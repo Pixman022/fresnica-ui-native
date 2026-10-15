@@ -34,7 +34,9 @@ The package and neutral Preview have also been reviewed through the current iOS 
 - English and Simplified Chinese iOS component specifications are synchronized in Web #33.
 
 See `visual-baselines/ios-simulator-evidence-manifest.json` for the reviewed run/artifact/digest
-records.
+records. Original PNG/metadata files and the pending owner layout decision are linked from
+`docs/visual-baselines/ios-layout-review-2026-10-15.md`. The candidate above remains a frozen
+historical package identity; later maintenance commits do not silently change its source or checksum.
 
 ## Release meaning
 

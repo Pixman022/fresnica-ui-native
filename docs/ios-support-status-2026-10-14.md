@@ -4,11 +4,25 @@ This record tracks the current state of the iOS component/design-system support 
 first successful Simulator runtime smoke. It intentionally keeps build, runtime, visual review and
 physical-device acceptance as separate conclusions.
 
-## Current repository heads
+## Engineering closeout — 2026-10-15
 
-- Native main: `2b2bac959e4b926bf789d5fe88c36077df1f6542`
+Seven original iOS PNG/metadata pairs are retained in Git, with an integrity check in CI.
+The [layout review](visual-baselines/ios-layout-review-2026-10-15.md) names the technical reviewer
+and separates that result from the pending owner decision. Direct inspection also identified
+a clipped top-right Modal close glyph at the maximum accessibility size. The close box now uses
+minimum 44-point dimensions so scaled content can grow; the replacement S05 evidence is verified
+through the reachability workflow before final handoff.
+
+Compatible dependency maintenance removes the shell-quote critical finding and reduces the
+full Native audit from 40 to 29 (20 moderate, 9 high, 0 critical); production remains 0.
+The frozen candidate below keeps its original identity. The maintenance PR checks and subsequent
+candidate records identify the new source and artifact rather than silently changing that checksum.
+
+## Recorded candidate sources
+
+- Native candidate source: `2b2bac959e4b926bf789d5fe88c36077df1f6542`
   (`docs: finalize iOS reachability and typography review (#98)`)
-- Web main: `f1b3436f6f19043a4ac0d50e4f954c0f479913f2`
+- Web specification source: `f1b3436f6f19043a4ac0d50e4f954c0f479913f2`
   (`docs: finalize iOS component specifications (#33)`)
 
 ## Task status
@@ -42,11 +56,14 @@ physical-device acceptance as separate conclusions.
 - **IOS06 — Complete for the current design-system scope.** Web #33 finalizes the English and
   Simplified Chinese specifications for all 15 components, records the unchanged typography mapping
   and synchronizes the verified S05/S06 reachability conclusions.
-- **IOS07 — Complete for the current Simulator evidence scope.** Repeatable CI
+- **IOS07 — Engineering evidence complete; owner design decision pending.** Repeatable CI
   build/install/launch/screenshot gates exist; #90 requires visible Preview state to agree with
   scenario metadata. `docs/visual-baselines/ios-simulator-evidence-manifest.json` now versions the
   reviewed S03-S06 run IDs, artifact IDs, SHA-256 digests, source SHAs, scenarios and outcomes.
-  Artifact binaries remain temporary and no automated pixel-diff gate is claimed.
+  The 2026-10-15 engineering closeout now retains seven original PNG/metadata pairs in Git and
+  verifies individual hashes and capture metadata in CI. Technical reviewer/date and five candidate
+  frames are recorded in `visual-baselines/ios-layout-review-2026-10-15.md`. Owner design approval
+  remains pending; no automated pixel-diff or owner-approved iOS Golden Baseline is claimed.
 - **IOS08 — Complete for the current internal design-system handoff.** The final private candidate
   is recorded in `docs/delivery-candidate-ios-2026-10-15.md` with archive SHA-256
   `29fc4c244148e28326488d31f1ea6397ace9d304a62c62cdf33f4bc0adab1f8b`,
@@ -112,9 +129,9 @@ S03 visibly matches Simplified Chinese + stress + Dark at the maximum standard t
 S04 visibly matches English + standard + Light at the maximum accessibility text category.
 The visible top frames show wrapping without an obvious horizontal-overflow or overlap failure.
 
-These captures are not full-scenario visual approvals: they do not yet show the lower Header,
-long Button group, later ListRows, StateView, Modal or keyboard-constrained content. Those areas
-remain pending evidence.
+These older top-frame captures are retained as historical context. Later #94/#96 detail evidence
+covers Header, actions, ListRow, Modal and keyboard-constrained slices; see the archived manifest
+and the 2026-10-15 layout review. The owner decision still concerns only the five listed frames.
 
 ## Current merged iOS implementation/documentation slices
 
@@ -159,7 +176,9 @@ The existing Native Modal `fade` behavior remains unchanged.
 
 ## Completion boundary
 
-IOS01-IOS08 are complete for the current **Simulator-backed design-system scope**. Remaining work is
-intentionally deferred rather than incomplete: physical-device/VoiceOver acceptance, real-device
+The implementation and internal handoff for IOS01-IOS08 are delivered for the current
+**Simulator-backed design-system scope**. IOS07 original-image retention and technical-review
+records are now completed by the engineering closeout. The project-owner layout decision remains
+pending and must not be described as approved. Physical-device/VoiceOver acceptance, real-device
 keyboard/autofill, color/contrast changes, iPad support and wallet-product integration/release
-acceptance.
+acceptance retain their existing deferred/excluded status.

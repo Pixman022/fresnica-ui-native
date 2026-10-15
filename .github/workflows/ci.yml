@@ -50,6 +50,10 @@ jobs:
               working-directory: fresnica-ui-native
               run: npm test
 
+            - name: Verify archived iOS visual evidence
+              working-directory: fresnica-ui-native
+              run: node scripts/verify-ios-evidence.mjs
+
             - name: Verify shared token source
               working-directory: fresnica-ui-native
               run: npm run test:source-contract

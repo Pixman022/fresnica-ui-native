@@ -3,6 +3,7 @@ name: iOS Reachability Evidence
 on:
     pull_request:
         paths:
+            - 'src/components/Modal.tsx'
             - 'example/App.tsx'
             - 'scripts/run-example-ios-smoke.mjs'
             - '.github/workflows/ios-reachability-evidence.yml'

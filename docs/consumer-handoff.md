@@ -6,6 +6,13 @@ is currently **private and not published to npm**. The phase-one `1.0.0` version
 repository baseline; the current verified internal integration candidate is `1.1.0-rc.1`,
 not a published registry release.
 
+## Layout review and retained evidence
+
+The [iOS layout review](visual-baselines/ios-layout-review-2026-10-15.md) links original
+versioned PNG/metadata files, technical reviewer/date and the exact owner-decision scope.
+The project-owner layout decision remains pending. Color/contrast and physical-device
+acceptance retain their deferred status.
+
 ## Supported baseline
 
 - React Native CLI `0.87.0`, React `19.2.3`, Node.js `>=22.13.0`.

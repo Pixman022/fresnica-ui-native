@@ -1,0 +1,17 @@
+{
+  "device": "iPhone SE (3rd generation)",
+  "runtime": "iOS 18.5",
+  "udid": "22A3039C-6A45-47F4-82D4-80C58CA94379",
+  "bundleId": "org.reactjs.native.example.FresnicaPreview",
+  "configuration": "Release",
+  "packageVersion": "1.1.0-rc.1",
+  "sourceSha": "4f648f3cccc5116b3ee328e436a327aea71996c0",
+  "xcode": "Xcode 16.4\nBuild version 16F6",
+  "node": "v22.13.0",
+  "contentSize": "accessibility-extra-extra-extra-large",
+  "appearance": "light",
+  "previewLocale": "en",
+  "previewScenario": "standard",
+  "previewEvidenceView": "content",
+  "screenshot": "example/ios-typography-detail/s04-content/launch.png"
+}
