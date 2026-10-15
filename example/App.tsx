@@ -225,10 +225,7 @@ export default function App() {
                         <Screen theme={theme} scroll>
                             {initialEvidenceView === 'actions' ? (
                                 <>
-                                    <Header
-                                        theme={theme}
-                                        title={stress ? labels.stressHeader : labels.sampleHeader}
-                                    />
+                                    <Header theme={theme} title={stress ? labels.stressHeader : labels.sampleHeader} />
                                     <Button label={stress ? labels.stressAction : labels.enabledAction} />
                                     <StateView
                                         theme={theme}
@@ -242,12 +239,8 @@ export default function App() {
                                     <ListRow
                                         theme={theme}
                                         title={stress ? labels.stressNetworkTitle : labels.networkTitle}
-                                        description={
-                                            stress ? labels.stressNetworkDescription : labels.networkDescription
-                                        }
-                                        trailing={
-                                            <StatusBadge theme={theme} label={labels.status} tone="positive" />
-                                        }
+                                        description={stress ? labels.stressNetworkDescription : labels.networkDescription}
+                                        trailing={<StatusBadge theme={theme} label={labels.status} tone="positive" />}
                                     />
                                     <Field
                                         theme={theme}
