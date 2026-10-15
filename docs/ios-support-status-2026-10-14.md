@@ -16,18 +16,19 @@ Their originals are archived alongside the earlier evidence.
 
 The Android emulator regression exposed an offscreen input with inverted UIAutomator bounds.
 The tap helper now rejects empty/inverted rectangles, and the keyboard workflow confirms actual
-IME visibility before treating a focus attempt as successful. The final Android check validates
-this harness fix; it does not claim physical-device keyboard acceptance.
+IME visibility before treating a focus attempt as successful. Android emulator run `38711514868`
+passes and validates this harness fix; it does not claim physical-device keyboard acceptance.
 
 Compatible dependency maintenance removes the shell-quote critical finding and reduces the
 full Native audit from 40 to 29 (20 moderate, 9 high, 0 critical); production remains 0.
-The frozen candidate below keeps its original identity. The maintenance PR checks and subsequent
-candidate records identify the new source and artifact rather than silently changing that checksum.
+Native #100 is merged. Main CI run `38712835267` passes, and its downloaded delivery ZIP and
+tarball match the recorded checksums. The candidate record preserves the earlier candidate as
+superseded history and pins the new source and artifact below.
 
 ## Recorded candidate sources
 
-- Native candidate source: `2b2bac959e4b926bf789d5fe88c36077df1f6542`
-  (`docs: finalize iOS reachability and typography review (#98)`)
+- Native candidate source: `14934ce59e6009a90ca88c4e709c484bb3a36175`
+  (`fix: close iOS evidence gaps and verify keyboard reachability (#100)`)
 - Web specification source: `f1b3436f6f19043a4ac0d50e4f954c0f479913f2`
   (`docs: finalize iOS component specifications (#33)`)
 
@@ -54,7 +55,8 @@ candidate records identify the new source and artifact rather than silently chan
 - **IOS05 — Complete for the current Simulator matrix.** S01-S06 runtime coverage is merged and the
   automated iPhone 16 / iOS 18.5 Release install+launch smoke passes. #92/#94 cover the corrected
   S03/S04 large-text detail slices. #96 adds S05 Modal and S06 keyboard-constrained evidence.
-  S05 is visually acceptable at the maximum accessibility category. The first S06 artifact was
+  #100 corrects the subsequently identified clipped S05 close glyph; the archived post-fix S05
+  shows it completely at the maximum accessibility category. The first S06 artifact was
   invalid because the iOS keyboard tutorial obscured the software keyboard; #96 now suppresses that
   first-run tutorial in Simulator evidence mode, and the final S06 capture visibly shows the software
   keyboard with the focused Field and primary action still reachable. These are Simulator conclusions,
@@ -65,20 +67,21 @@ candidate records identify the new source and artifact rather than silently chan
 - **IOS07 — Engineering evidence complete; owner design decision pending.** Repeatable CI
   build/install/launch/screenshot gates exist; #90 requires visible Preview state to agree with
   scenario metadata. `docs/visual-baselines/ios-simulator-evidence-manifest.json` now versions the
-  reviewed S03-S06 run IDs, artifact IDs, SHA-256 digests, source SHAs, scenarios and outcomes.
+  reviewed S01-S06 run IDs, artifact IDs, SHA-256 digests, source SHAs, scenarios and outcomes.
   The 2026-10-15 engineering closeout now retains ten original PNG/metadata pairs in Git and
   verifies individual hashes and capture metadata in CI. Technical reviewer/date and seven candidate
   frames are recorded in `visual-baselines/ios-layout-review-2026-10-15.md`. Owner design approval
   remains pending; no automated pixel-diff or owner-approved iOS Golden Baseline is claimed.
 - **IOS08 — Complete for the current internal design-system handoff.** The final private candidate
   is recorded in `docs/delivery-candidate-ios-2026-10-15.md` with archive SHA-256
-  `29fc4c244148e28326488d31f1ea6397ace9d304a62c62cdf33f4bc0adab1f8b`,
-  Native source `2b2bac959e4b926bf789d5fe88c36077df1f6542`, CI run `38699064654`
-  and delivery artifact `11955465470`. Consumer handoff wording is synchronized.
+  `5b42564fcbc7b47a9b8609d7252de4f47377d3ed2223fbb9ec117b5de7eb5ceb`,
+  Native source `14934ce59e6009a90ca88c4e709c484bb3a36175`, CI run `38712835267`
+  and delivery artifact `11961517450`. Consumer handoff wording is synchronized, and the
+  earlier candidate identity remains in a separate historical section.
 
 ## First successful iOS runtime smoke
 
-Latest verified PR-head run:
+Historical first successful PR-head run:
 
 - PR: Native #79
 - PR head: `f2c546d966e98141ced58a0135cfcbb2b38811dd`
@@ -156,6 +159,8 @@ Native:
 - #92 — targeted S03/S04 action/content evidence views
 - #94 — iOS accessibility large-text Header/ListRow layout fixes
 - #96 — iOS Modal / keyboard reachability evidence and deterministic keyboard-tutorial suppression
+- #100 — ten original evidence pairs, seven-frame review record, evidence-integrity gate,
+  Modal close-glyph correction, S01/S02 captures, dependency maintenance and Android keyboard harness fix
 
 Web:
 
@@ -163,6 +168,7 @@ Web:
 - #31 — English/Chinese 15-component iOS specification draft
 - #32 — verified Header/ListRow large-text behavior synchronization
 - #33 — final iOS component specifications and typography/reachability status
+- #34 — compatible development dependency maintenance; full audit 23 to 11, production 0
 
 ## Deferred / excluded
 

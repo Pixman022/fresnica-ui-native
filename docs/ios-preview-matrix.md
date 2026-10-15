@@ -147,13 +147,19 @@ capture cannot be used to approve IOS03 typography, IOS05 scenario results or IO
 
 ## Automation boundary
 
-The single iPhone 16 launch smoke is the stable CI candidate because it checks build, install, launch
-and evidence generation without depending on UI-coordinate automation.
+The iPhone 16 launch smoke checks build, install, launch and evidence generation. The typography
+probe additionally captures S01-S04 with explicit Simulator text-size, appearance, locale and scenario
+settings; the reachability workflow captures the targeted S05 Modal and S06 software-keyboard views.
+S01/S02 originals come from run `38709105594`; the corrected S05 close-control original comes from
+run `38708758540`. All current references are pinned in the
+[evidence manifest](visual-baselines/ios-simulator-evidence-manifest.json).
 
-S01–S06 remain reproducible Simulator review scenarios until a stable interaction mechanism exists.
-Do not add brittle coordinate-click automation merely to mark the matrix as automated. A scenario is
-only marked passed when its required theme, locale, text-size and content state were actually
-exercised and the resulting layout was reviewed.
+These automated captures support review of specific visible frames. They do not exercise every
+interaction or prove all offscreen content is reachable. The
+[layout review](visual-baselines/ios-layout-review-2026-10-15.md) records seven current candidate
+frames, the technical reviewer and scoped outcomes; owner design approval remains pending.
+A scenario result applies only to the state actually exercised and reviewed. Broader interaction
+coverage requires its own reproducible check.
 
 ## Acceptance boundary
 
