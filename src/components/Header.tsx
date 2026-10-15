@@ -33,7 +33,7 @@ export function Header({
 }: HeaderProps) {
     const theme = useUiTheme(themeOverride);
     const { fontScale } = useWindowDimensions();
-    const expandTitleForAccessibilityText = Platform.OS === 'ios' && fontScale >= 2;
+    const expandTitleForAccessibilityText = Platform.OS === 'ios' && fontScale >= 1.5;
     const start = onBack ? (
         <Pressable
             accessible
