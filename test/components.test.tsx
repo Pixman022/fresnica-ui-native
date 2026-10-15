@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
-import { Modal as NativeModal, ScrollView } from 'react-native';
+import { Modal as NativeModal, Pressable, ScrollView } from 'react-native';
 import { Button } from '../src/components/Button';
 import { Field } from '../src/components/Field';
 import { Header } from '../src/components/Header';
@@ -14,8 +14,12 @@ import { Skeleton } from '../src/components/Skeleton';
 import { StatusBadge } from '../src/components/StatusBadge';
 import { Typography } from '../src/components/Typography';
 import { theme } from './helpers';
+import { setMockFontScale } from './react-native-mock';
 
 describe('native components', () => {
+    afterEach(() => {
+        setMockFontScale(1);
+    });
     it('renders Button and invokes onPress', () => {
         const onPress = jest.fn();
         render(<Button label="Continue" theme={theme} onPress={onPress} />);
@@ -288,6 +292,12 @@ describe('native components', () => {
         expect(screen.getByText('A deliberately long account settings title').props.numberOfLines).toBe(2);
     });
 
+    it('lets Header titles grow at iOS accessibility text sizes', () => {
+        setMockFontScale(2);
+        render(<Header title="A deliberately long account settings title" theme={theme} />);
+        expect(screen.getByText('A deliberately long account settings title').props.numberOfLines).toBeUndefined();
+    });
+
     it('exposes ListRow button and disabled state', () => {
         render(<ListRow title="Security" theme={theme} onPress={jest.fn()} disabled />);
         expect(screen.getByRole('button', { name: 'Security' })).toBeDisabled();
@@ -303,6 +313,23 @@ describe('native components', () => {
         expect(screen.queryByRole('button')).toBeNull();
         expect(screen.getByText('Network')).toBeTruthy();
         expect(screen.getByText('Testnet connected')).toBeTruthy();
+    });
+
+    it('stacks ListRow trailing content at iOS accessibility text sizes', () => {
+        setMockFontScale(2);
+        render(
+            <ListRow
+                title="Network"
+                description="Testnet connected"
+                theme={theme}
+                trailing={<StatusBadge theme={theme} label="Connected" tone="positive" />}
+            />,
+        );
+
+        const row = screen.UNSAFE_getByType(Pressable);
+        expect(row.props.style({ pressed: false })).toEqual(
+            expect.arrayContaining([expect.objectContaining({ flexWrap: 'wrap', alignItems: 'flex-start' })]),
+        );
     });
 
     it('keeps whole-row ListRow action as the only button when trailing content is presentation-only', () => {
