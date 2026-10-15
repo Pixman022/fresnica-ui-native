@@ -68,6 +68,34 @@ The first candidate mapping for visual review is intentionally conservative:
 These are **review candidates, not approved package values**. IOS05 Simulator evidence and IOS03
 layout checks decide whether they are accepted, adjusted or partially applied.
 
+## First larger-text Simulator evidence
+
+The first S03/S04 capture on PR #88 exposed an evidence-integrity defect: metadata recorded the
+requested locale/scenario while the visible Preview still rendered its default English/standard
+state. That capture is invalid for visual approval and must not be used to approve typography.
+
+PR #89 changed the generated iOS Preview host so requested launch state is injected before the
+Release build, and added a hard failure when the expected injection points drift.
+
+The corrected PR-head typography probe (workflow run `38664206311`) produced:
+
+- **S03:** iPhone SE (3rd generation), iOS 18.5, maximum standard text category, Dark,
+  Simplified Chinese, stress content. The visible top frame agrees with the recorded state.
+  The title, subtitle, environment line, SegmentedControl labels, Field label/input,
+  three-line long error/supporting copy and disabled Field are visible without an obvious
+  horizontal overflow, overlap or text clipping failure.
+- **S04:** iPhone SE (3rd generation), iOS 18.5, maximum accessibility text category, Light,
+  English, standard content. The visible top frame shows the Preview title and subtitle
+  wrapping vertically without horizontal overflow or clipped glyphs.
+
+These are **top-frame layout observations only**. They do not yet prove Header truncation,
+long Button layout, lower ListRow content, StateView, Modal, keyboard-constrained reachability or
+that every primary action can be reached by scrolling at the tested categories.
+
+The current 17/15/17/20/22/34 iOS candidate mapping therefore remains unapproved. In particular,
+S04 demonstrates how large the current fixed role sizes become under the maximum accessibility
+category, so increasing base sizes before lower-page evidence would be premature.
+
 ## Implementation constraints
 
 - Keep Android generated typography unchanged.
