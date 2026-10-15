@@ -36,7 +36,7 @@ import { enUS, zhCN } from '@fresnica/ui-native/locales';
 
 type Locale = 'en' | 'zh-CN';
 type Scenario = 'standard' | 'stress';
-type EvidenceView = 'full' | 'actions' | 'content';
+type EvidenceView = 'full' | 'actions' | 'content' | 'modal' | 'keyboard';
 type PressableRef = ComponentRef<typeof Pressable>;
 const initialLocale: Locale = 'en';
 const initialScenario: Scenario = 'standard';
@@ -190,7 +190,7 @@ export default function App() {
     const [amount, setAmount] = useState('');
     const [keyboardValue, setKeyboardValue] = useState('');
     const [keyboardActionActive, setKeyboardActionActive] = useState(false);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(initialEvidenceView === 'modal');
     const [iconActionActive, setIconActionActive] = useState(false);
     const [rowActionActive, setRowActionActive] = useState(false);
     const [trailingActionActive, setTrailingActionActive] = useState(false);
@@ -260,6 +260,22 @@ export default function App() {
                                         announcementMode="passive"
                                     />
                                 </>
+                            ) : initialEvidenceView === 'keyboard' ? (
+                                <View style={styles.section}>
+                                    <Typography theme={theme} variant="sectionTitle">
+                                        {labels.keyboardTitle}
+                                    </Typography>
+                                    <Field
+                                        theme={theme}
+                                        label={labels.keyboardTitle}
+                                        value={keyboardValue}
+                                        onChangeText={setKeyboardValue}
+                                        placeholder={labels.keyboardPlaceholder}
+                                        supportingText={labels.keyboardHint}
+                                        autoFocus
+                                    />
+                                    <Button theme={theme} label={labels.keyboardAction} />
+                                </View>
                             ) : null}
 
                             <View style={styles.section}>

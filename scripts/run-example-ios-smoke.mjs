@@ -56,7 +56,7 @@ if (!['en', 'zh-CN'].includes(previewLocale)) {
 if (!['standard', 'stress'].includes(previewScenario)) {
     throw new Error(`Unsupported Preview scenario: ${previewScenario}`);
 }
-if (!['full', 'actions', 'content'].includes(previewEvidenceView)) {
+if (!['full', 'actions', 'content', 'modal', 'keyboard'].includes(previewEvidenceView)) {
     throw new Error(`Unsupported Preview evidence view: ${previewEvidenceView}`);
 }
 
@@ -95,10 +95,26 @@ if (!device) {
     throw new Error(`${deviceName} is not available for iOS ${runtimeVersion}.`);
 }
 
+if (previewEvidenceView === 'keyboard') {
+    run('defaults', ['write', 'com.apple.iphonesimulator', 'ConnectHardwareKeyboard', '-bool', 'false']);
+}
+
 if (device.state !== 'Booted') {
     run('xcrun', ['simctl', 'boot', device.udid]);
 }
 run('xcrun', ['simctl', 'bootstatus', device.udid, '-b']);
+
+if (previewEvidenceView === 'keyboard') {
+    const keyboardPreferenceKeys = [
+        'DidShowContinuousPathIntroduction',
+        'KeyboardDidShowProductivityTutorial',
+        'DidShowGestureKeyboardIntroduction',
+        'UIKeyboardDidShowInternationalInfoIntroduction',
+    ];
+    for (const key of keyboardPreferenceKeys) {
+        run('xcrun', ['simctl', 'spawn', device.udid, 'defaults', 'write', 'com.apple.keyboard.preferences', key, '1']);
+    }
+}
 
 if (contentSize) {
     run('xcrun', ['simctl', 'ui', device.udid, 'content_size', contentSize]);
