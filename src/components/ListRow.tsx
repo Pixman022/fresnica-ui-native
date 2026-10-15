@@ -24,7 +24,7 @@ export function ListRow({
 }: ListRowProps) {
     const theme = useUiTheme(themeOverride);
     const { fontScale } = useWindowDimensions();
-    const stackTrailingForAccessibilityText = Platform.OS === 'ios' && fontScale >= 2 && Boolean(trailing);
+    const stackTrailingForAccessibilityText = Platform.OS === 'ios' && fontScale >= 1.5 && Boolean(trailing);
     const interactive = Boolean(onPress);
     const accessibilityLabel = description ? `${title}, ${description}` : title;
 
