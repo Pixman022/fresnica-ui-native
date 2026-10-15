@@ -6,8 +6,8 @@ physical-device acceptance as separate conclusions.
 
 ## Current repository heads
 
-- Native main: `079f892159ae72baeb746c3353709f09c1f097d7`
-  (`fix: make iOS Preview launch state deterministic (#89)`)
+- Native main: `50952c35dbffc33028db17726a4efbe9e4dbbcbf`
+  (`fix: preserve iOS accessibility large-text layouts (#94)`)
 - Web main: `913d991df3bbe67f80a31fd18ef648dafb018190`
   (`docs: add iOS component specifications draft (#31)`)
 
@@ -18,17 +18,19 @@ physical-device acceptance as separate conclusions.
   the toolchain changes.
 - **IOS02 — Complete.** Web iOS guidelines and Native component/platform rule priority are
   merged. Maintain consistency when later iOS decisions change.
-- **IOS03 — In progress.** S03/S04 top-frame evidence is now valid and reviewed. No obvious
-  top-frame clipping/overlap was found in the corrected captures, but lower Header/Button/ListRow,
-  Modal and action reachability are not yet covered. The candidate iOS typography mapping remains
-  unapproved and production typography values remain unchanged.
+- **IOS03 — In progress.** Corrected S03/S04 top-frame and targeted detail evidence are available.
+  S03 maximum-standard text remains acceptable in the reviewed action slice. S04 maximum
+  accessibility text reproduced Header truncation and ListRow trailing-content squeeze; #94 fixes
+  those two layout defects without changing base typography values. Post-fix detail screenshots,
+  Modal/keyboard reachability and the final typography mapping remain open.
 - **IOS04 — In progress.** iOS component usage rules, Header heading semantics and iOS Field
-  input examples are merged. Next: recheck IOS03-dependent layouts and fix only defects
-  reproduced by Simulator evidence.
+  input examples are merged. #94 now lets Header titles grow and stacks ListRow trailing content
+  below the copy on iOS accessibility text sizes (fontScale >= 1.5), matching reproduced S04
+  failures. Remaining changes continue to require Simulator reproduction.
 - **IOS05 — In progress.** S01-S06 runtime matrix is merged; automated iPhone 16 / iOS 18.5
-  Release install+launch smoke passes. Corrected S03/S04 probes now exercise their exact
-  locale/scenario/text-size/appearance launch state. Their current screenshots cover only the
-  initial viewport, so lower-page layout and reachability remain open.
+  Release install+launch smoke passes. #92 adds focused S03/S04 action/content evidence views,
+  and #94 has re-run package/build/Android acceptance successfully. Post-fix S03/S04 detail
+  screenshots are still queued; Modal and keyboard-constrained reachability remain open.
 - **IOS06 — In progress.** English/Chinese specifications for all 15 components are merged as
   an explicit draft. Final typography values and verified Native evidence are still required
   before the draft wording is removed.
@@ -116,6 +118,8 @@ Native:
 - #88 — exact S03/S04 probe state definitions
 - #89 — deterministic generated-host launch state
 - #90 — iOS evidence-integrity rule
+- #92 — targeted S03/S04 action/content evidence views
+- #94 — iOS accessibility large-text Header/ListRow layout fixes
 
 Web:
 
@@ -140,11 +144,10 @@ The existing Native Modal `fade` behavior remains unchanged.
 
 ## Next executable sequence
 
-1. Capture lower-page S03/S04 evidence for Header, long Buttons, later ListRows, StateView and
-   Modal/reachability risks without changing production typography.
-2. Use complete larger-text evidence to approve, reject or narrow the IOS03 typography mapping,
-   and fix only reproduced layout defects.
-3. Re-run affected IOS05 scenarios after each typography/layout change.
+1. Review the queued post-#94 S03/S04 detail screenshots and confirm the Header/ListRow fixes.
+2. Capture remaining Modal and keyboard-constrained reachability evidence without changing
+   production typography.
+3. Approve, reject or narrow the IOS03 typography mapping from the complete larger-text evidence.
 4. Finalize IOS06 component specs from the verified Native implementation.
 5. Close IOS07 durable visual/reference evidence and regression-gate documentation.
 6. Complete IOS08 candidate handoff and cross-repository status synchronization.
