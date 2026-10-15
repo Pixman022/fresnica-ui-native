@@ -1,5 +1,5 @@
 import type { ReactElement, ReactNode } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
@@ -32,6 +32,8 @@ export function Header({
     backAccessibilityLabel,
 }: HeaderProps) {
     const theme = useUiTheme(themeOverride);
+    const { fontScale } = useWindowDimensions();
+    const expandTitleForAccessibilityText = Platform.OS === 'ios' && fontScale >= 2;
     const start = onBack ? (
         <Pressable
             accessible
@@ -51,8 +53,8 @@ export function Header({
             <View style={styles.side}>{start}</View>
             <Text
                 accessibilityRole="header"
-                numberOfLines={2}
-                ellipsizeMode="tail"
+                numberOfLines={expandTitleForAccessibilityText ? undefined : 2}
+                ellipsizeMode={expandTitleForAccessibilityText ? undefined : 'tail'}
                 style={[styles.title, { color: theme.colors.contentPrimary, fontSize: theme.typography.screenTitle }]}
             >
                 {title}
