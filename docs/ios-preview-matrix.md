@@ -124,6 +124,8 @@ Record the following for every executed scenario:
 
 - scenario ID;
 - result: passed, failed, blocked or not tested;
+- evidence-integrity check: the visible Preview state must agree with the recorded locale, content
+  scenario, appearance and text-size settings; metadata alone is not sufficient;
 - source SHA;
 - package version;
 - packed tarball SHA-256;
@@ -139,6 +141,9 @@ Record the following for every executed scenario:
 
 Screenshots must contain only neutral Preview content. Do not use real accounts, keys, wallet data or
 other sensitive product information.
+
+If metadata and the visible Preview state disagree, mark the capture invalid and rerun it. An invalid
+capture cannot be used to approve IOS03 typography, IOS05 scenario results or IOS07 visual evidence.
 
 ## Automation boundary
 
