@@ -57,14 +57,13 @@ if (!['standard', 'stress'].includes(previewScenario)) {
 }
 
 let previewApp = fs.readFileSync(previewAppPath, 'utf8');
-previewApp = previewApp.replace(
-    "const initialLocale: Locale = 'en';",
-    `const initialLocale: Locale = '${previewLocale}';`,
-);
-previewApp = previewApp.replace(
-    "const initialScenario: Scenario = 'standard';",
-    `const initialScenario: Scenario = '${previewScenario}';`,
-);
+const defaultLocaleLine = "const initialLocale: Locale = 'en';";
+const defaultScenarioLine = "const initialScenario: Scenario = 'standard';";
+if (!previewApp.includes(defaultLocaleLine) || !previewApp.includes(defaultScenarioLine)) {
+    throw new Error('Preview launch defaults changed; update the iOS smoke injection points.');
+}
+previewApp = previewApp.replace(defaultLocaleLine, `const initialLocale: Locale = '${previewLocale}';`);
+previewApp = previewApp.replace(defaultScenarioLine, `const initialScenario: Scenario = '${previewScenario}';`);
 fs.writeFileSync(previewAppPath, previewApp);
 
 fs.rmSync(evidenceDir, { recursive: true, force: true });
