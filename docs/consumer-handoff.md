@@ -40,9 +40,12 @@ npm pack --pack-destination .
 ```
 
 For the current verified iOS-support candidate, use Native source
-`2b2bac959e4b926bf789d5fe88c36077df1f6542`. Its CI-generated output archive is
+`14934ce59e6009a90ca88c4e709c484bb3a36175`. Its CI-generated output archive is
 `fresnica-ui-native-1.1.0-rc.1.tgz` with SHA-256
-`29fc4c244148e28326488d31f1ea6397ace9d304a62c62cdf33f4bc0adab1f8b`.
+`5b42564fcbc7b47a9b8609d7252de4f47377d3ed2223fbb9ec117b5de7eb5ceb`.
+The [candidate record](delivery-candidate-ios-2026-10-15.md) pins the successful main CI run
+and delivery artifact. The same private version was used for earlier candidates; check this exact
+source and checksum when choosing the archive.
 Copy
 that archive to the consumer's internal artifact location; do not commit
 generated `dist/` to the source repository or infer a package version from

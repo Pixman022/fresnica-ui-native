@@ -173,7 +173,7 @@
             "previewLocale": "zh-CN",
             "previewScenario": "stress",
             "previewEvidenceView": "modal",
-            "reviewedOutcome": "title, content and close control visible without reproduced clipping",
+            "reviewedOutcome": "historical title/content frame; later close inspection reproduced a clipped close glyph, superseded by the #100 post-fix frame",
             "archive": {
                 "screenshot": "ios/2026-10-15/s05-modal-maximum-accessibility.png",
                 "screenshotSha256": "312274fd15a4fba6527f9f34e844444ba885b40dc66085a3606567b7ed54a993",
@@ -239,7 +239,8 @@
             "previewLocale": "zh-CN",
             "previewScenario": "stress",
             "previewEvidenceView": "modal",
-            "referenceUse": "layout-review-candidate"
+            "referenceUse": "layout-review-candidate",
+            "mergedMainSha": "14934ce59e6009a90ca88c4e709c484bb3a36175"
         },
         {
             "id": "s01-default-small",
@@ -265,7 +266,8 @@
             "previewLocale": "zh-CN",
             "previewScenario": "standard",
             "previewEvidenceView": "full",
-            "referenceUse": "layout-review-candidate"
+            "referenceUse": "layout-review-candidate",
+            "mergedMainSha": "14934ce59e6009a90ca88c4e709c484bb3a36175"
         },
         {
             "id": "s02-default-large",
@@ -291,7 +293,8 @@
             "appearance": "dark",
             "previewLocale": "en",
             "previewScenario": "standard",
-            "previewEvidenceView": "full"
+            "previewEvidenceView": "full",
+            "mergedMainSha": "14934ce59e6009a90ca88c4e709c484bb3a36175"
         }
     ],
     "technicalReview": {
