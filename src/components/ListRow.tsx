@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { useUiTheme } from '../ui-context';
 import type { AppTheme } from '../tokens';
 
@@ -23,6 +23,8 @@ export function ListRow({
     disabled = false,
 }: ListRowProps) {
     const theme = useUiTheme(themeOverride);
+    const { fontScale } = useWindowDimensions();
+    const stackTrailingForAccessibilityText = Platform.OS === 'ios' && fontScale >= 2 && Boolean(trailing);
     const interactive = Boolean(onPress);
     const accessibilityLabel = description ? `${title}, ${description}` : title;
 
@@ -36,6 +38,7 @@ export function ListRow({
             onPress={onPress}
             style={({ pressed }) => [
                 styles.row,
+                stackTrailingForAccessibilityText ? styles.rowAccessibilityText : null,
                 {
                     borderBottomColor: theme.colors.separator,
                     opacity: disabled ? 0.5 : 1,
@@ -54,7 +57,11 @@ export function ListRow({
                     </Text>
                 ) : null}
             </View>
-            {trailing ? <View style={styles.trailing}>{trailing}</View> : null}
+            {trailing ? (
+                <View style={[styles.trailing, stackTrailingForAccessibilityText ? styles.trailingAccessibilityText : null]}>
+                    {trailing}
+                </View>
+            ) : null}
         </Pressable>
     );
 }
@@ -73,4 +80,6 @@ const styles = StyleSheet.create({
     copy: { flex: 1, gap: 3, minWidth: 0 },
     title: { fontWeight: '600', flexShrink: 1 },
     trailing: { minWidth: 44, alignItems: 'flex-end', flexShrink: 0 },
+    rowAccessibilityText: { flexWrap: 'wrap', alignItems: 'flex-start' },
+    trailingAccessibilityText: { width: '100%' },
 });
