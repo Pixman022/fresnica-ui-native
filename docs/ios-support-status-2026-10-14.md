@@ -6,10 +6,10 @@ physical-device acceptance as separate conclusions.
 
 ## Current repository heads
 
-- Native main: `50952c35dbffc33028db17726a4efbe9e4dbbcbf`
-  (`fix: preserve iOS accessibility large-text layouts (#94)`)
-- Web main: `913d991df3bbe67f80a31fd18ef648dafb018190`
-  (`docs: add iOS component specifications draft (#31)`)
+- Native main snapshot before this status update: `c23b8ed6c0aee10b93e7d70ce44b6483cc83256a`
+  (`docs: sync iOS large-text fix status (#95)`)
+- Web main: `3f79aff9f1183e1cb3dd6f11dcbbbe98cc23c0e7`
+  (`docs: sync iOS large-text component specs (#32)`)
 
 ## Task status
 
@@ -21,19 +21,26 @@ physical-device acceptance as separate conclusions.
 - **IOS03 — In progress.** Corrected S03/S04 top-frame and targeted detail evidence are available.
   S03 maximum-standard text remains acceptable in the reviewed action slice. S04 maximum
   accessibility text reproduced Header truncation and ListRow trailing-content squeeze; #94 fixes
-  those two layout defects without changing base typography values. Post-fix detail screenshots,
-  Modal/keyboard reachability and the final typography mapping remain open.
+  those two layout defects without changing base typography values. Post-fix S04 action/content
+  screenshots are now reviewed and confirm the Header title can grow without ellipsis and the
+  ListRow trailing badge no longer squeezes the copy column. S03 retains the original layout at
+  ~1.35 fontScale. Modal/keyboard reachability and the final typography mapping remain open.
 - **IOS04 — In progress.** iOS component usage rules, Header heading semantics and iOS Field
-  input examples are merged. #94 now lets Header titles grow and stacks ListRow trailing content
+  input examples are merged. #94 lets Header titles grow and stacks ListRow trailing content
   below the copy on iOS accessibility text sizes (fontScale >= 1.5), matching reproduced S04
-  failures. Remaining changes continue to require Simulator reproduction.
+  failures. The post-fix S04 screenshots visually confirm both targeted fixes; S03 shows no
+  regression in the maximum-standard action slice. Remaining changes continue to require
+  Simulator reproduction.
 - **IOS05 — In progress.** S01-S06 runtime matrix is merged; automated iPhone 16 / iOS 18.5
   Release install+launch smoke passes. #92 adds focused S03/S04 action/content evidence views,
-  and #94 has re-run package/build/Android acceptance successfully. Post-fix S03/S04 detail
-  screenshots are still queued; Modal and keyboard-constrained reachability remain open.
+  and #94 re-ran package/build/Android acceptance plus the detail captures successfully. The
+  post-fix S03/S04 screenshots are reviewed. PR #96 is now collecting S05 Modal and S06
+  keyboard-constrained evidence; those two reachability checks remain open until their screenshots
+  are reviewed.
 - **IOS06 — In progress.** English/Chinese specifications for all 15 components are merged as
-  an explicit draft. Final typography values and verified Native evidence are still required
-  before the draft wording is removed.
+  an explicit draft, and Web #32 synchronizes the verified Header/ListRow accessibility-text
+  behavior. Final typography values and remaining Native evidence are still required before the
+  draft wording is removed.
 - **IOS07 — In progress.** A repeatable CI build/install/launch/screenshot gate exists and
   retains runtime evidence. PR #90 now requires visible Preview state to agree with scenario
   metadata; mismatched captures are invalid. Durable reference images, complete review records
@@ -144,9 +151,8 @@ The existing Native Modal `fade` behavior remains unchanged.
 
 ## Next executable sequence
 
-1. Review the queued post-#94 S03/S04 detail screenshots and confirm the Header/ListRow fixes.
-2. Capture remaining Modal and keyboard-constrained reachability evidence without changing
-   production typography.
+1. Review PR #96 S05 Modal and S06 keyboard-constrained evidence.
+2. Fix only defects reproduced by those captures, if any.
 3. Approve, reject or narrow the IOS03 typography mapping from the complete larger-text evidence.
 4. Finalize IOS06 component specs from the verified Native implementation.
 5. Close IOS07 durable visual/reference evidence and regression-gate documentation.

@@ -100,12 +100,15 @@ show:
 - The long Button and StateView grow vertically rather than reproducing those two failures.
 
 #94 fixes only the reproduced Header/ListRow defects and keeps production typography values
-unchanged. Post-fix detail screenshots are still required before those fixes are considered visually
-closed.
+unchanged. The post-fix detail captures are now reviewed:
+
+- S04 actions: the Header title is no longer capped with an ellipsis and can continue to grow
+  vertically at the maximum accessibility category.
+- S04 content: the trailing StatusBadge moves below the copy column, restoring usable text width.
+- S03 actions: the maximum-standard layout remains unchanged at roughly 1.35 fontScale.
 
 The current 17/15/17/20/22/34 iOS candidate mapping therefore remains unapproved. S04 continues to
-show that increasing base sizes before Modal/keyboard reachability and post-fix detail review would
-be premature.
+show that increasing base sizes before Modal/keyboard reachability would be premature.
 
 ## Implementation constraints
 
