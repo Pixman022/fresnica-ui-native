@@ -21,7 +21,7 @@ The Android owner-approved layout set remains in
 workflow/artifact IDs, SHA-256 artifact digests, exact source SHAs, scenario metadata and reviewed
 outcomes. Original iOS PNG/metadata bytes are now versioned under [ios/2026-10-15](ios/2026-10-15),
 with per-file checksums verified by `node scripts/verify-ios-evidence.mjs` in CI.
-The [iOS layout review](ios-layout-review-2026-10-15.md) records the technical reviewer and five
+The [iOS layout review](ios-layout-review-2026-10-15.md) records the technical reviewer and seven
 concrete candidate frames. Project-owner design approval remains pending; an approved iOS Golden
 Baseline is not claimed.
 
@@ -36,7 +36,7 @@ Android profiles use Android 15/API 35, `sdk_gphone64_x86_64`, 420dpi and
 device locale `en-US`. Each Preview selects its own zh-CN or English language,
 Stress scenario, font scale and Light/Dark theme.
 
-GitHub Actions screenshot binaries normally expire after 90 days. The seven iOS reference PNGs
+GitHub Actions screenshot binaries normally expire after 90 days. The ten iOS reference PNGs
 and original metadata are retained in Git and remain available after those artifacts expire.
 The older Android set still preserves fingerprints and source/environment metadata rather than
 permanent PNG copies; archive its binaries separately if exact historical comparison is needed.

@@ -80,4 +80,6 @@ contains an explicit iOS override.
 - Color/contrast work remains deferred; existing semantic roles and known limitations are retained.
 - The shared Native Modal keeps its existing `fade` behavior.
 - Physical-device accessibility remains a future integration gate.
-- The existing Apple gate proves build compatibility; launch/layout evidence is IOS05 work.
+- The Apple gate covers build and launch. Recorded Simulator frame coverage is linked from
+  `ios-support-status-2026-10-14.md`; owner layout approval and unrecorded system-preference
+  behavior remain separate.

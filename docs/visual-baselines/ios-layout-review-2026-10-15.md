@@ -1,7 +1,7 @@
 # iOS layout review — 2026-10-15
 
 **Technical review:** complete for the visible archived frames. Reviewer: Codex assistant,
-2026-10-15. The seven original artifact ZIP digests were checked before extracting their
+2026-10-15. The ten original artifact ZIP digests were checked before extracting their
 unchanged PNG and metadata bytes into this repository. `node scripts/verify-ios-evidence.mjs` checks the
 retained files against their individual SHA-256 values and recorded environment.
 
@@ -10,10 +10,9 @@ approved iOS Golden Baseline is inferred from the request to complete engineerin
 
 ## Scope for the owner decision
 
-The five candidate frames below concern layout at the recorded text sizes: Header wrapping,
-ListRow trailing placement, Modal content and the keyboard-constrained action area. The first
-two older top-frame captures in the manifest are retained as historical context, not proposed
-as additional current-layout approval frames.
+The seven candidate frames below concern layout at the recorded text sizes: Header wrapping,
+ListRow trailing placement, Modal content and the keyboard-constrained action area. Older top-frame captures and the pre-fix S05 Modal frame are retained as historical context,
+not proposed as additional current-layout approval frames.
 
 Colors/contrast, VoiceOver, physical devices, real-device keyboard/autofill, iPad, product
 flows and release acceptance remain excluded. The existing Modal fade is unchanged.
@@ -21,15 +20,31 @@ flows and release acceptance remain excluded. The existing Modal fade is unchang
 The originals live under [ios/2026-10-15](ios/2026-10-15). Metadata `sourceSha` records the
 workflow checkout/merge SHA; it is preserved separately from PR-head and merged-main SHAs.
 
-| Record                | Value                                                                             |
-| --------------------- | --------------------------------------------------------------------------------- |
-| Technical reviewer    | Codex assistant                                                                   |
-| Technical review date | 2026-10-15                                                                        |
-| Owner reviewer        | Pending actual decision                                                           |
-| Owner review date     | Pending actual decision                                                           |
-| Owner decision        | Pending: accept the listed layout scope or identify changes                       |
-| Candidate evidence    | S03 actions; S04 actions/content; S05 Modal; S06 keyboard                         |
-| Reference manifest    | [Exact sources, checksums and environments](ios-simulator-evidence-manifest.json) |
+| Record                | Value                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------- |
+| Technical reviewer    | Codex assistant                                                                       |
+| Technical review date | 2026-10-15                                                                            |
+| Owner reviewer        | Pending actual decision                                                               |
+| Owner review date     | Pending actual decision                                                               |
+| Owner decision        | Pending: accept the listed layout scope or identify changes                           |
+| Candidate evidence    | S01/S02 defaults; S03 actions; S04 actions/content; corrected S05 Modal; S06 keyboard |
+| Reference manifest    | [Exact sources, checksums and environments](ios-simulator-evidence-manifest.json)     |
+
+## S01 default text on a small iPhone
+
+Simplified Chinese, Standard content and Light appearance match the captured metadata.
+The visible fields and rows have no obvious overlap at fontScale 1.00. Content below the
+viewport remains outside this frame's visual decision.
+
+![S01 default small iPhone](ios/2026-10-15/s01-default-small.png)
+
+## S02 default text on a large iPhone
+
+English, Standard content and Dark appearance match the metadata at fontScale 1.00.
+The visible rows, feedback and progress fit the larger viewport. The next button continues
+below the captured bottom edge; this frame alone does not prove its scrolling interaction.
+
+![S02 default large iPhone](ios/2026-10-15/s02-default-large.png)
 
 ## S03 maximum-standard action layout
 
@@ -58,12 +73,12 @@ prove the rest of its scroll behavior.
 
 ## S05 maximum-accessibility Modal
 
-The Chinese title, explanatory content and explicit close button are visible. The separate
-top-right close glyph is clipped by its former fixed 44-point box. The engineering closeout
-changes that box to minimum dimensions so it can grow; a new S05 capture must verify the fix
-before the replacement frame is proposed for owner approval. This older frame is historical.
+The corrected PR #100 frame shows the complete top-right × glyph after the close control
+changes from fixed dimensions to minimum 44-point dimensions. Title, explanatory copy and the
+explicit close action remain visible at the maximum accessibility category. The old clipped
+frame remains archived as historical evidence and is excluded from the proposed layout baseline.
 
-![S05 maximum-accessibility Modal](ios/2026-10-15/s05-modal-maximum-accessibility.png)
+![S05 corrected maximum-accessibility Modal](ios/2026-10-15/s05-modal-close-control-post-fix.png)
 
 ## S06 software keyboard
 
@@ -75,7 +90,7 @@ This frame does not prove actual button activation, VoiceOver focus or real-devi
 
 ## 中文审阅说明
 
-请审阅上面五张原始画面的布局：普通较大字号下的标题省略、最大辅助字号下标题的多行
+请审阅上面七张原始画面的布局：常规字号的小屏与大屏、普通较大字号下的标题省略、最大辅助字号下标题的多行
 换行、列表尾部标签移到下方、弹窗内容和关闭控件，以及键盘上方的输入框和主要按钮。
 当前已完成技术复核，项目所有者的设计认可保持待确认。可以接受上述范围，也可以指出
 具体需要调整的画面与位置。确认后只更新实际审核人、日期、范围和决定。

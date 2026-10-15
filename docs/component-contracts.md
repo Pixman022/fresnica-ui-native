@@ -107,7 +107,8 @@ and migration rules used by this implementation.
 ### Modal focus and announcement ownership
 
 `Modal` remains controlled by `visible` and `onRequestClose`; its animation remains
-`fade`. The optional `onShow` callback tells the host when native modal presentation is
+`fade`. The close control uses minimum 44-point dimensions so its scaled glyph can grow
+without being clipped. The optional `onShow` callback tells the host when native modal presentation is
 ready, and `closeButtonRef` exposes the built-in close control as a possible initial
 accessibility-focus target. The package does not keep a global trigger stack and does not
 restore arbitrary external focus automatically.

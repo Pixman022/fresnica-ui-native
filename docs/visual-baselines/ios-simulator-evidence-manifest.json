@@ -183,8 +183,9 @@
                 "height": 2868,
                 "captureSourceSha": "6d1a562c4f9b5e30800fdc706673ed156e5dd013"
             },
-            "referenceUse": "layout-review-candidate",
-            "runtime": "iOS 18.5"
+            "referenceUse": "historical-context",
+            "runtime": "iOS 18.5",
+            "supersededBy": "s05-modal-close-control-post-fix"
         },
         {
             "id": "s06-software-keyboard",
@@ -213,6 +214,84 @@
             },
             "referenceUse": "layout-review-candidate",
             "runtime": "iOS 18.5"
+        },
+        {
+            "id": "s05-modal-close-control-post-fix",
+            "artifactId": 11960301229,
+            "artifactDigest": "sha256:1e32f9e5b1dd543ca05bf3a20cb3741bdd256948fedf63aa9df320151c1f33ee",
+            "workflowRunId": 38708758540,
+            "pr": 100,
+            "prHeadSha": "d8737bf7e043b70b731cccec4ee9e097102815b3",
+            "reviewedOutcome": "maximum-accessibility close glyph fully visible after minimum-size control fix; title/content/close action remain visible",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s05-modal-close-control-post-fix.png",
+                "screenshotSha256": "abd0db289887c4fbdf9ca834a784f1d27f441a76e6ca4aaea090e2e650bc1c87",
+                "metadata": "ios/2026-10-15/s05-modal-close-control-post-fix.metadata.json",
+                "metadataSha256": "0a85df460e6bc1b592eb262ae876315e5be8ad8fa5b3474550dbba6c43367876",
+                "width": 1320,
+                "height": 2868,
+                "captureSourceSha": "8d84fe7c01ececca06331b139ee0d6610ba3695a"
+            },
+            "device": "iPhone 16 Pro Max",
+            "runtime": "iOS 18.5",
+            "contentSize": "accessibility-extra-extra-extra-large",
+            "appearance": "dark",
+            "previewLocale": "zh-CN",
+            "previewScenario": "stress",
+            "previewEvidenceView": "modal",
+            "referenceUse": "layout-review-candidate"
+        },
+        {
+            "id": "s01-default-small",
+            "artifactId": 11959893671,
+            "artifactDigest": "sha256:18c7dce0c0e8aad5a0e29f70de4fc1fe38df67894e568f337f46475a69dd926b",
+            "workflowRunId": 38709105594,
+            "pr": 100,
+            "prHeadSha": "6f525b9cc265573cce6b72086f0f3d59aa3b3a51",
+            "reviewedOutcome": "default 1.00 text on small iPhone: visible Chinese standard/Light controls and rows match metadata without obvious overlap",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s01-default-small.png",
+                "screenshotSha256": "df1aab94630ba2befe8141180bae37c43bb62153eb353f9c6f879a77c490ee72",
+                "metadata": "ios/2026-10-15/s01-default-small.metadata.json",
+                "metadataSha256": "9f0b11e92c0ab53bf22240a0a1dbc1e643b195eab05715a1c37273cdf9a143d8",
+                "width": 750,
+                "height": 1334,
+                "captureSourceSha": "8e522f60def423b8f05683b34a9d43b7302b2705"
+            },
+            "device": "iPhone SE (3rd generation)",
+            "runtime": "iOS 18.5",
+            "contentSize": "large",
+            "appearance": "light",
+            "previewLocale": "zh-CN",
+            "previewScenario": "standard",
+            "previewEvidenceView": "full",
+            "referenceUse": "layout-review-candidate"
+        },
+        {
+            "id": "s02-default-large",
+            "artifactId": 11960930081,
+            "artifactDigest": "sha256:ce8258bbf88c1abab52db8d509ee2d57c90e66fe6ef6e312c6061dda35dded11",
+            "workflowRunId": 38709105594,
+            "pr": 100,
+            "prHeadSha": "6f525b9cc265573cce6b72086f0f3d59aa3b3a51",
+            "reviewedOutcome": "default 1.00 text on large iPhone: visible English standard/Dark controls and content match metadata without obvious overlap",
+            "referenceUse": "layout-review-candidate",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s02-default-large.png",
+                "screenshotSha256": "453e5fbd9f0fcbfb0b0279ba4310e7e3b48898e8cf413e10b47abefcf83fe5b4",
+                "metadata": "ios/2026-10-15/s02-default-large.metadata.json",
+                "metadataSha256": "4837dbabd52fbbc4812dce64989026251a4a16704e2c689363fc69291d1ceb09",
+                "width": 1320,
+                "height": 2868,
+                "captureSourceSha": "8e522f60def423b8f05683b34a9d43b7302b2705"
+            },
+            "device": "iPhone 16 Pro Max",
+            "runtime": "iOS 18.5",
+            "contentSize": "large",
+            "appearance": "dark",
+            "previewLocale": "en",
+            "previewScenario": "standard",
+            "previewEvidenceView": "full"
         }
     ],
     "technicalReview": {
@@ -227,10 +306,12 @@
         "reviewedAt": null,
         "decision": null,
         "evidenceIds": [
+            "s01-default-small",
+            "s02-default-large",
             "s03-actions-post-fix",
             "s04-actions-post-fix",
             "s04-content-post-fix",
-            "s05-modal-maximum-accessibility",
+            "s05-modal-close-control-post-fix",
             "s06-software-keyboard"
         ],
         "scope": "layout only; deferred items remain excluded"

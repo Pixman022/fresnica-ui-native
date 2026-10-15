@@ -7,6 +7,8 @@ on:
             - 'example/**'
             - 'scripts/android-acceptance-*.mjs'
             - 'scripts/android-tap-accessibility-label.mjs'
+            - 'scripts/android-tap-bounds.mjs'
+            - 'scripts/test-android-tap-bounds.mjs'
             - 'scripts/bootstrap-example.mjs'
             - 'scripts/build-example-android.mjs'
             - 'scripts/start-android-emulator-ci.sh'
@@ -325,11 +327,20 @@ jobs:
               if: github.event_name == 'pull_request'
               id: keyboard_interaction
               run: |
+                  # This scenario deliberately exercises the software IME with a host keyboard.
+                  adb shell settings put secure show_ime_with_hard_keyboard 1
+                  check_ime_visible() {
+                      adb shell dumpsys input_method > "$RUNNER_TEMP/fresnica-ime-status.txt"
+                      grep -Eq 'mInputShown=true|mInputViewStarted=true|isInputViewShown=true' "$RUNNER_TEMP/fresnica-ime-status.txt"
+                  }
                   focused=0
                   for attempt in $(seq 1 10); do
                       if npm run example:tap-label -- "Keyboard visibility check"; then
-                          focused=1
-                          break
+                          sleep 2
+                          if check_ime_visible; then
+                              focused=1
+                              break
+                          fi
                       fi
                       adb shell input swipe 460 1120 460 360 500
                       sleep 2
@@ -348,10 +359,6 @@ jobs:
                   test "$typed" = 1
                   sleep 2
 
-                  check_ime_visible() {
-                      adb shell dumpsys input_method > "$RUNNER_TEMP/fresnica-ime-status.txt"
-                      grep -Eq 'mInputShown=true|mInputViewStarted=true|isInputViewShown=true' "$RUNNER_TEMP/fresnica-ime-status.txt"
-                  }
                   if ! check_ime_visible; then
                       echo "Android IME not visible after focusing the keyboard field" >&2
                       tail -n 90 "$RUNNER_TEMP/fresnica-ime-status.txt" >&2

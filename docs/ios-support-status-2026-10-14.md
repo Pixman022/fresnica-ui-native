@@ -6,12 +6,18 @@ physical-device acceptance as separate conclusions.
 
 ## Engineering closeout — 2026-10-15
 
-Seven original iOS PNG/metadata pairs are retained in Git, with an integrity check in CI.
+Ten original iOS PNG/metadata pairs are retained in Git, with an integrity check in CI.
 The [layout review](visual-baselines/ios-layout-review-2026-10-15.md) names the technical reviewer
 and separates that result from the pending owner decision. Direct inspection also identified
 a clipped top-right Modal close glyph at the maximum accessibility size. The close box now uses
-minimum 44-point dimensions so scaled content can grow; the replacement S05 evidence is verified
-through the reachability workflow before final handoff.
+minimum 44-point dimensions so scaled content can grow. S05 run `38708758540` verifies the
+complete close glyph, and run `38709105594` adds the actual S01/S02 default-size frames.
+Their originals are archived alongside the earlier evidence.
+
+The Android emulator regression exposed an offscreen input with inverted UIAutomator bounds.
+The tap helper now rejects empty/inverted rectangles, and the keyboard workflow confirms actual
+IME visibility before treating a focus attempt as successful. The final Android check validates
+this harness fix; it does not claim physical-device keyboard acceptance.
 
 Compatible dependency maintenance removes the shell-quote critical finding and reduces the
 full Native audit from 40 to 29 (20 moderate, 9 high, 0 critical); production remains 0.
@@ -60,8 +66,8 @@ candidate records identify the new source and artifact rather than silently chan
   build/install/launch/screenshot gates exist; #90 requires visible Preview state to agree with
   scenario metadata. `docs/visual-baselines/ios-simulator-evidence-manifest.json` now versions the
   reviewed S03-S06 run IDs, artifact IDs, SHA-256 digests, source SHAs, scenarios and outcomes.
-  The 2026-10-15 engineering closeout now retains seven original PNG/metadata pairs in Git and
-  verifies individual hashes and capture metadata in CI. Technical reviewer/date and five candidate
+  The 2026-10-15 engineering closeout now retains ten original PNG/metadata pairs in Git and
+  verifies individual hashes and capture metadata in CI. Technical reviewer/date and seven candidate
   frames are recorded in `visual-baselines/ios-layout-review-2026-10-15.md`. Owner design approval
   remains pending; no automated pixel-diff or owner-approved iOS Golden Baseline is claimed.
 - **IOS08 — Complete for the current internal design-system handoff.** The final private candidate
@@ -131,7 +137,7 @@ The visible top frames show wrapping without an obvious horizontal-overflow or o
 
 These older top-frame captures are retained as historical context. Later #94/#96 detail evidence
 covers Header, actions, ListRow, Modal and keyboard-constrained slices; see the archived manifest
-and the 2026-10-15 layout review. The owner decision still concerns only the five listed frames.
+and the 2026-10-15 layout review. The owner decision still concerns only the seven listed frames.
 
 ## Current merged iOS implementation/documentation slices
 
