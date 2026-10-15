@@ -6,10 +6,10 @@ physical-device acceptance as separate conclusions.
 
 ## Current repository heads
 
-- Native main snapshot before this status update: `c23b8ed6c0aee10b93e7d70ce44b6483cc83256a`
-  (`docs: sync iOS large-text fix status (#95)`)
-- Web main: `3f79aff9f1183e1cb3dd6f11dcbbbe98cc23c0e7`
-  (`docs: sync iOS large-text component specs (#32)`)
+- Native main: `2b2bac959e4b926bf789d5fe88c36077df1f6542`
+  (`docs: finalize iOS reachability and typography review (#98)`)
+- Web main: `f1b3436f6f19043a4ac0d50e4f954c0f479913f2`
+  (`docs: finalize iOS component specifications (#33)`)
 
 ## Task status
 
@@ -25,12 +25,12 @@ physical-device acceptance as separate conclusions.
   accessibility category and the keyboard-constrained Field/action slice remains usable at ~1.35
   fontScale. No evidence requires the proposed 17/15/17/20/22/34 iOS base-size mapping, so that
   candidate is rejected for this release scope and the current typography values remain unchanged.
-- **IOS04 — In progress.** iOS component usage rules, Header heading semantics and iOS Field
-  input examples are merged. #94 lets Header titles grow and stacks ListRow trailing content
-  below the copy on iOS accessibility text sizes (fontScale >= 1.5), matching reproduced S04
-  failures. The post-fix S04 screenshots visually confirm both targeted fixes; S03 shows no
-  regression in the maximum-standard action slice. Remaining changes continue to require
-  Simulator reproduction.
+- **IOS04 — Complete for the current design-system scope.** iOS component usage rules, Header
+  heading semantics and iOS Field input examples are merged. #94 lets Header titles grow and
+  stacks ListRow trailing content below the copy on iOS accessibility text sizes
+  (`fontScale >= 1.5`), matching the reproduced S04 failures. Post-fix S04 screenshots confirm
+  both targeted fixes and S03 shows no regression at maximum-standard text. Future behavior changes
+  still require new Simulator reproduction before acceptance.
 - **IOS05 — Complete for the current Simulator matrix.** S01-S06 runtime coverage is merged and the
   automated iPhone 16 / iOS 18.5 Release install+launch smoke passes. #92/#94 cover the corrected
   S03/S04 large-text detail slices. #96 adds S05 Modal and S06 keyboard-constrained evidence.
@@ -39,16 +39,19 @@ physical-device acceptance as separate conclusions.
   first-run tutorial in Simulator evidence mode, and the final S06 capture visibly shows the software
   keyboard with the focused Field and primary action still reachable. These are Simulator conclusions,
   not physical-device or VoiceOver acceptance.
-- **IOS06 — In progress.** English/Chinese specifications for all 15 components are merged as an
-  explicit draft, and Web #32 synchronizes the verified Header/ListRow accessibility-text behavior.
-  Native typography and reachability decisions are now verified; the remaining work is to remove
-  stale draft wording and synchronize the final evidence-backed component-spec status in the Web repo.
-- **IOS07 — In progress.** A repeatable CI build/install/launch/screenshot gate exists and
-  retains runtime evidence. PR #90 now requires visible Preview state to agree with scenario
-  metadata; mismatched captures are invalid. Durable reference images, complete review records
-  and any future required-check decision remain open.
-- **IOS08 — Not started.** Final candidate handoff, consumer-document synchronization and the
-  final limitation statement wait for IOS03-IOS07.
+- **IOS06 — Complete for the current design-system scope.** Web #33 finalizes the English and
+  Simplified Chinese specifications for all 15 components, records the unchanged typography mapping
+  and synchronizes the verified S05/S06 reachability conclusions.
+- **IOS07 — Complete for the current Simulator evidence scope.** Repeatable CI
+  build/install/launch/screenshot gates exist; #90 requires visible Preview state to agree with
+  scenario metadata. `docs/visual-baselines/ios-simulator-evidence-manifest.json` now versions the
+  reviewed S03-S06 run IDs, artifact IDs, SHA-256 digests, source SHAs, scenarios and outcomes.
+  Artifact binaries remain temporary and no automated pixel-diff gate is claimed.
+- **IOS08 — Complete for the current internal design-system handoff.** The final private candidate
+  is recorded in `docs/delivery-candidate-ios-2026-10-15.md` with archive SHA-256
+  `29fc4c244148e28326488d31f1ea6397ace9d304a62c62cdf33f4bc0adab1f8b`,
+  Native source `2b2bac959e4b926bf789d5fe88c36077df1f6542`, CI run `38699064654`
+  and delivery artifact `11955465470`. Consumer handoff wording is synchronized.
 
 ## First successful iOS runtime smoke
 
@@ -135,6 +138,8 @@ Web:
 
 - #30 — iOS design-system guideline entry points
 - #31 — English/Chinese 15-component iOS specification draft
+- #32 — verified Header/ListRow large-text behavior synchronization
+- #33 — final iOS component specifications and typography/reachability status
 
 ## Deferred / excluded
 
@@ -152,9 +157,9 @@ The following remain intentionally outside the active completion claim:
 
 The existing Native Modal `fade` behavior remains unchanged.
 
-## Next executable sequence
+## Completion boundary
 
-1. Finalize IOS06 component specs from the verified Native implementation and the unchanged
-   typography mapping.
-2. Close IOS07 durable visual/reference evidence and regression-gate documentation.
-3. Complete IOS08 candidate handoff and cross-repository status synchronization.
+IOS01-IOS08 are complete for the current **Simulator-backed design-system scope**. Remaining work is
+intentionally deferred rather than incomplete: physical-device/VoiceOver acceptance, real-device
+keyboard/autofill, color/contrast changes, iPad support and wallet-product integration/release
+acceptance.
