@@ -4,6 +4,8 @@ on:
     pull_request:
         paths:
             - 'example/App.tsx'
+            - 'src/components/Header.tsx'
+            - 'src/components/ListRow.tsx'
             - 'scripts/run-example-ios-smoke.mjs'
             - '.github/workflows/ios-typography-detail.yml'
     workflow_dispatch:
