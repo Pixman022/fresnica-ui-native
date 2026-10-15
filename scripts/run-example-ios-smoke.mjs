@@ -14,6 +14,8 @@ const deviceName = process.env.IOS_PREVIEW_DEVICE ?? 'iPhone 16';
 const runtimeVersion = process.env.IOS_PREVIEW_RUNTIME ?? '18.5';
 const contentSize = process.env.IOS_PREVIEW_CONTENT_SIZE ?? '';
 const appearance = process.env.IOS_PREVIEW_APPEARANCE ?? '';
+const previewLocale = process.env.IOS_PREVIEW_LOCALE ?? 'en';
+const previewScenario = process.env.IOS_PREVIEW_SCENARIO ?? 'standard';
 
 function run(command, args, cwd = root, capture = false) {
     const result = spawnSync(command, args, {
@@ -37,8 +39,13 @@ if (process.platform !== 'darwin') {
     throw new Error('The iOS runtime smoke check requires macOS.');
 }
 
+if (!fs.existsSync(projectDir)) {
+    throw new Error('Preview host is missing. Run npm run example:bootstrap first.');
+}
+
 if (!fs.existsSync(workspace)) {
-    throw new Error('iOS workspace is missing. Run npm run example:bootstrap and pod install first.');
+    run('bundle', ['install'], projectDir);
+    run('bundle', ['exec', 'pod', 'install'], iosDir);
 }
 
 fs.rmSync(evidenceDir, { recursive: true, force: true });
@@ -103,6 +110,28 @@ const bundleId = run(
 );
 
 run('xcrun', ['simctl', 'install', device.udid, appPath]);
+run('xcrun', [
+    'simctl',
+    'spawn',
+    device.udid,
+    'defaults',
+    'write',
+    bundleId,
+    'FresnicaPreviewLocale',
+    '-string',
+    previewLocale,
+]);
+run('xcrun', [
+    'simctl',
+    'spawn',
+    device.udid,
+    'defaults',
+    'write',
+    bundleId,
+    'FresnicaPreviewScenario',
+    '-string',
+    previewScenario,
+]);
 run('xcrun', ['simctl', 'launch', '--terminate-running-process', device.udid, bundleId]);
 run('sleep', ['5']);
 run('xcrun', ['simctl', 'io', device.udid, 'screenshot', screenshotPath]);
@@ -119,6 +148,8 @@ const metadata = {
     node: run('node', ['--version'], root, true),
     contentSize: contentSize || 'default',
     appearance: appearance || 'system',
+    previewLocale,
+    previewScenario,
     screenshot: path.relative(root, screenshotPath),
 };
 
