@@ -10,6 +10,7 @@ const evidenceDir = path.join(root, process.env.IOS_PREVIEW_EVIDENCE_DIR ?? 'exa
 const derivedData = path.join(root, 'example', '.cache', 'ios-smoke-derived-data');
 const screenshotPath = path.join(evidenceDir, 'launch.png');
 const metadataPath = path.join(evidenceDir, 'metadata.json');
+const previewAppPath = path.join(projectDir, 'App.tsx');
 const deviceName = process.env.IOS_PREVIEW_DEVICE ?? 'iPhone 16';
 const runtimeVersion = process.env.IOS_PREVIEW_RUNTIME ?? '18.5';
 const contentSize = process.env.IOS_PREVIEW_CONTENT_SIZE ?? '';
@@ -47,6 +48,23 @@ if (!fs.existsSync(workspace)) {
     run('bundle', ['install'], projectDir);
     run('bundle', ['exec', 'pod', 'install'], iosDir);
 }
+
+if (!['en', 'zh-CN'].includes(previewLocale)) {
+    throw new Error(`Unsupported Preview locale: ${previewLocale}`);
+}
+if (!['standard', 'stress'].includes(previewScenario)) {
+    throw new Error(`Unsupported Preview scenario: ${previewScenario}`);
+}
+
+let previewApp = fs.readFileSync(previewAppPath, 'utf8');
+const defaultLocaleLine = "const initialLocale: Locale = 'en';";
+const defaultScenarioLine = "const initialScenario: Scenario = 'standard';";
+if (!previewApp.includes(defaultLocaleLine) || !previewApp.includes(defaultScenarioLine)) {
+    throw new Error('Preview launch defaults changed; update the iOS smoke injection points.');
+}
+previewApp = previewApp.replace(defaultLocaleLine, `const initialLocale: Locale = '${previewLocale}';`);
+previewApp = previewApp.replace(defaultScenarioLine, `const initialScenario: Scenario = '${previewScenario}';`);
+fs.writeFileSync(previewAppPath, previewApp);
 
 fs.rmSync(evidenceDir, { recursive: true, force: true });
 fs.rmSync(derivedData, { recursive: true, force: true });
@@ -110,28 +128,6 @@ const bundleId = run(
 );
 
 run('xcrun', ['simctl', 'install', device.udid, appPath]);
-run('xcrun', [
-    'simctl',
-    'spawn',
-    device.udid,
-    'defaults',
-    'write',
-    bundleId,
-    'FresnicaPreviewLocale',
-    '-string',
-    previewLocale,
-]);
-run('xcrun', [
-    'simctl',
-    'spawn',
-    device.udid,
-    'defaults',
-    'write',
-    bundleId,
-    'FresnicaPreviewScenario',
-    '-string',
-    previewScenario,
-]);
 run('xcrun', ['simctl', 'launch', '--terminate-running-process', device.udid, bundleId]);
 run('sleep', ['5']);
 run('xcrun', ['simctl', 'io', device.udid, 'screenshot', screenshotPath]);
