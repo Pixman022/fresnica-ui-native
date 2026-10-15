@@ -15,6 +15,12 @@ WCAG AA, TalkBack, physical-device behavior or automated pixel comparison.
 
 ## Pinned reference evidence
 
+The Android owner-approved layout set remains in
+[approved-manifest.json](approved-manifest.json). The iOS Simulator review is recorded separately in
+[ios-simulator-evidence-manifest.json](ios-simulator-evidence-manifest.json); it pins S03-S06
+workflow/artifact IDs, SHA-256 artifact digests, exact source SHAs, scenario metadata and reviewed
+outcomes without claiming an owner-approved iOS Golden Baseline.
+
 The versioned [approved-manifest.json](approved-manifest.json) contains seven PNG
 SHA-256 values and their GitHub Actions run/artifact IDs, original clean source
 checkout SHAs, emulator configuration, screenshot pixel dimensions and capture time.
@@ -54,7 +60,9 @@ emulator details may differ across otherwise equivalent screenshots.
 - Original brand-green primary buttons and light lettering remain unchanged.
   Known Light/Dark contrast deficits are **not WCAG AA compliant**.
 - No general focus-traversal or TalkBack sign-off, reduced-motion sign-off,
-  iOS/physical-device acceptance, wallet-product or Mainnet release approval.
+  physical-device iOS/VoiceOver acceptance, real-device keyboard/autofill, wallet-product or
+  Mainnet release approval. iOS Simulator evidence is tracked separately from this Android
+  owner-approved layout baseline.
 - In PR #42, after-tap feedback appears in the UI hierarchy but is partly
   obscured by the keyboard in the screenshot. That full-text readability
   is not included in this approval.
