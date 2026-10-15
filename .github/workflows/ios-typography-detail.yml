@@ -1,0 +1,83 @@
+name: iOS Typography Detail Evidence
+
+on:
+    pull_request:
+        paths:
+            - 'example/App.tsx'
+            - 'src/components/Header.tsx'
+            - 'src/components/ListRow.tsx'
+            - 'scripts/run-example-ios-smoke.mjs'
+            - '.github/workflows/ios-typography-detail.yml'
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    probe:
+        runs-on: macos-15
+        timeout-minutes: 45
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - name: s03-actions
+                      content_size: extra-extra-extra-large
+                      appearance: dark
+                      locale: zh-CN
+                      scenario: stress
+                      evidence_view: actions
+                    - name: s04-actions
+                      content_size: accessibility-extra-extra-extra-large
+                      appearance: light
+                      locale: en
+                      scenario: standard
+                      evidence_view: actions
+                    - name: s04-content
+                      content_size: accessibility-extra-extra-extra-large
+                      appearance: light
+                      locale: en
+                      scenario: standard
+                      evidence_view: content
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Select Xcode 16.4
+              run: sudo xcode-select -s /Applications/Xcode_16.4.app
+
+            - name: Set up Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22.13.0
+                  cache: npm
+
+            - name: Install package dependencies
+              run: npm ci
+
+            - name: Build package
+              run: npm run build
+
+            - name: Bootstrap preview host from packed package
+              run: npm run example:bootstrap
+
+            - name: Capture detail evidence
+              env:
+                  IOS_PREVIEW_DEVICE: iPhone SE (3rd generation)
+                  IOS_PREVIEW_RUNTIME: '18.5'
+                  IOS_PREVIEW_CONTENT_SIZE: ${{ matrix.content_size }}
+                  IOS_PREVIEW_APPEARANCE: ${{ matrix.appearance }}
+                  IOS_PREVIEW_LOCALE: ${{ matrix.locale }}
+                  IOS_PREVIEW_SCENARIO: ${{ matrix.scenario }}
+                  IOS_PREVIEW_EVIDENCE_VIEW: ${{ matrix.evidence_view }}
+                  IOS_PREVIEW_EVIDENCE_DIR: example/ios-typography-detail/${{ matrix.name }}
+              run: npm run example:ios:smoke
+
+            - name: Upload detail evidence
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: ios-typography-detail-${{ matrix.name }}
+                  path: example/ios-typography-detail/${{ matrix.name }}
+                  if-no-files-found: warn

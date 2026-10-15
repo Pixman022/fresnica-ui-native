@@ -17,6 +17,7 @@ const contentSize = process.env.IOS_PREVIEW_CONTENT_SIZE ?? '';
 const appearance = process.env.IOS_PREVIEW_APPEARANCE ?? '';
 const previewLocale = process.env.IOS_PREVIEW_LOCALE ?? 'en';
 const previewScenario = process.env.IOS_PREVIEW_SCENARIO ?? 'standard';
+const previewEvidenceView = process.env.IOS_PREVIEW_EVIDENCE_VIEW ?? 'full';
 
 function run(command, args, cwd = root, capture = false) {
     const result = spawnSync(command, args, {
@@ -55,15 +56,27 @@ if (!['en', 'zh-CN'].includes(previewLocale)) {
 if (!['standard', 'stress'].includes(previewScenario)) {
     throw new Error(`Unsupported Preview scenario: ${previewScenario}`);
 }
+if (!['full', 'actions', 'content'].includes(previewEvidenceView)) {
+    throw new Error(`Unsupported Preview evidence view: ${previewEvidenceView}`);
+}
 
 let previewApp = fs.readFileSync(previewAppPath, 'utf8');
 const defaultLocaleLine = "const initialLocale: Locale = 'en';";
 const defaultScenarioLine = "const initialScenario: Scenario = 'standard';";
-if (!previewApp.includes(defaultLocaleLine) || !previewApp.includes(defaultScenarioLine)) {
+const defaultEvidenceViewLine = "const initialEvidenceView: EvidenceView = 'full';";
+if (
+    !previewApp.includes(defaultLocaleLine) ||
+    !previewApp.includes(defaultScenarioLine) ||
+    !previewApp.includes(defaultEvidenceViewLine)
+) {
     throw new Error('Preview launch defaults changed; update the iOS smoke injection points.');
 }
 previewApp = previewApp.replace(defaultLocaleLine, `const initialLocale: Locale = '${previewLocale}';`);
 previewApp = previewApp.replace(defaultScenarioLine, `const initialScenario: Scenario = '${previewScenario}';`);
+previewApp = previewApp.replace(
+    defaultEvidenceViewLine,
+    `const initialEvidenceView: EvidenceView = '${previewEvidenceView}';`,
+);
 fs.writeFileSync(previewAppPath, previewApp);
 
 fs.rmSync(evidenceDir, { recursive: true, force: true });
@@ -146,6 +159,7 @@ const metadata = {
     appearance: appearance || 'system',
     previewLocale,
     previewScenario,
+    previewEvidenceView,
     screenshot: path.relative(root, screenshotPath),
 };
 

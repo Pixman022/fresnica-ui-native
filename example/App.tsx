@@ -36,9 +36,11 @@ import { enUS, zhCN } from '@fresnica/ui-native/locales';
 
 type Locale = 'en' | 'zh-CN';
 type Scenario = 'standard' | 'stress';
+type EvidenceView = 'full' | 'actions' | 'content';
 type PressableRef = ComponentRef<typeof Pressable>;
 const initialLocale: Locale = 'en';
 const initialScenario: Scenario = 'standard';
+const initialEvidenceView: EvidenceView = 'full';
 
 function focusAccessibilityTarget(target: PressableRef | null) {
     const node = findNodeHandle(target);
@@ -221,6 +223,45 @@ export default function App() {
                     <StatusBar barStyle={theme.systemBars.statusBarStyle} />
                     <KeyboardAvoidingView style={styles.keyboardContainer} behavior="padding">
                         <Screen theme={theme} scroll>
+                            {initialEvidenceView === 'actions' ? (
+                                <>
+                                    <Header theme={theme} title={stress ? labels.stressHeader : labels.sampleHeader} />
+                                    <Button label={stress ? labels.stressAction : labels.enabledAction} />
+                                    <StateView
+                                        theme={theme}
+                                        title={labels.emptyTitle}
+                                        description={labels.emptyDescription}
+                                        action={<Button label={labels.modalOpen} />}
+                                    />
+                                </>
+                            ) : initialEvidenceView === 'content' ? (
+                                <>
+                                    <ListRow
+                                        theme={theme}
+                                        title={stress ? labels.stressNetworkTitle : labels.networkTitle}
+                                        description={
+                                            stress ? labels.stressNetworkDescription : labels.networkDescription
+                                        }
+                                        trailing={<StatusBadge theme={theme} label={labels.status} tone="positive" />}
+                                    />
+                                    <Field
+                                        theme={theme}
+                                        label={labels.amount}
+                                        value={amount}
+                                        onChangeText={setAmount}
+                                        placeholder={labels.amountPlaceholder}
+                                        state={stress ? 'error' : 'default'}
+                                        supportingText={stress ? labels.stressAmountError : undefined}
+                                    />
+                                    <InlineMessage
+                                        theme={theme}
+                                        message={stress ? labels.stressInfo : labels.info}
+                                        tone={stress ? 'error' : 'info'}
+                                        announcementMode="passive"
+                                    />
+                                </>
+                            ) : null}
+
                             <View style={styles.section}>
                                 <Typography variant="screenTitle">{labels.title}</Typography>
                                 <Typography muted>{labels.subtitle}</Typography>
