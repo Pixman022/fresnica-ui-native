@@ -239,7 +239,9 @@ export default function App() {
                                     <ListRow
                                         theme={theme}
                                         title={stress ? labels.stressNetworkTitle : labels.networkTitle}
-                                        description={stress ? labels.stressNetworkDescription : labels.networkDescription}
+                                        description={
+                                            stress ? labels.stressNetworkDescription : labels.networkDescription
+                                        }
                                         trailing={<StatusBadge theme={theme} label={labels.status} tone="positive" />}
                                     />
                                     <Field
