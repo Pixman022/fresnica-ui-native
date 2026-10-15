@@ -55,6 +55,39 @@
       "reviewedOutcome": "valid state; reproduced Header/ListRow failures later fixed by #94"
     },
     {
+      "id": "s03-actions-post-fix",
+      "workflowRunId": 38676258333,
+      "artifactId": 11947195140,
+      "artifactDigest": "sha256:cee807acb26218bd282089a882e2a444d89d2b5fb45b84af3ddbf8a778b6063f",
+      "pr": 94,
+      "prHeadSha": "046765c103221ba1b66928802dce8bb499cba66b",
+      "mergedMainSha": "50952c35dbffc33028db17726a4efbe9e4dbbcbf",
+      "previewEvidenceView": "actions",
+      "reviewedOutcome": "maximum-standard action layout remains unchanged after the targeted fixes"
+    },
+    {
+      "id": "s04-actions-post-fix",
+      "workflowRunId": 38676258333,
+      "artifactId": 11947097565,
+      "artifactDigest": "sha256:849dca5b0a9a5669fd9e2ebd23665eb70db3324216568723666f40332d959248",
+      "pr": 94,
+      "prHeadSha": "046765c103221ba1b66928802dce8bb499cba66b",
+      "mergedMainSha": "50952c35dbffc33028db17726a4efbe9e4dbbcbf",
+      "previewEvidenceView": "actions",
+      "reviewedOutcome": "Header title grows without the destructive two-line accessibility-text truncation"
+    },
+    {
+      "id": "s04-content-post-fix",
+      "workflowRunId": 38676258333,
+      "artifactId": 11947247774,
+      "artifactDigest": "sha256:6ae5defd07ae1ab261c188ec66d30951cd58665c32122f303f7b741fcbe465c9",
+      "pr": 94,
+      "prHeadSha": "046765c103221ba1b66928802dce8bb499cba66b",
+      "mergedMainSha": "50952c35dbffc33028db17726a4efbe9e4dbbcbf",
+      "previewEvidenceView": "content",
+      "reviewedOutcome": "ListRow trailing content moves below the copy column and restores usable text width"
+    },
+    {
       "id": "s05-modal-maximum-accessibility",
       "workflowRunId": 38693816310,
       "artifactId": 11953917873,
