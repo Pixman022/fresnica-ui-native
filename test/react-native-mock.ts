@@ -12,6 +12,13 @@ export const Pressable = 'Pressable';
 export const ScrollView = 'ScrollView';
 export const TextInput = 'TextInput';
 export const Modal = 'Modal';
+export const Platform = { OS: 'ios' };
+
+let windowDimensions = { width: 390, height: 844, scale: 3, fontScale: 1 };
+export const useWindowDimensions = () => windowDimensions;
+export const setMockFontScale = (fontScale: number) => {
+    windowDimensions = { ...windowDimensions, fontScale };
+};
 
 export const StyleSheet = {
     create: <T extends Record<string, unknown>>(styles: T): T => styles,
