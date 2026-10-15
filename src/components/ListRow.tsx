@@ -58,7 +58,12 @@ export function ListRow({
                 ) : null}
             </View>
             {trailing ? (
-                <View style={[styles.trailing, stackTrailingForAccessibilityText ? styles.trailingAccessibilityText : null]}>
+                <View
+                    style={[
+                        styles.trailing,
+                        stackTrailingForAccessibilityText ? styles.trailingAccessibilityText : null,
+                    ]}
+                >
                     {trailing}
                 </View>
             ) : null}
