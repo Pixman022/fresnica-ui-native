@@ -56,7 +56,7 @@ if (!['en', 'zh-CN'].includes(previewLocale)) {
 if (!['standard', 'stress'].includes(previewScenario)) {
     throw new Error(`Unsupported Preview scenario: ${previewScenario}`);
 }
-if (!['full', 'actions', 'content'].includes(previewEvidenceView)) {
+if (!['full', 'actions', 'content', 'modal', 'keyboard'].includes(previewEvidenceView)) {
     throw new Error(`Unsupported Preview evidence view: ${previewEvidenceView}`);
 }
 
@@ -93,6 +93,10 @@ if (!runtimeKey) {
 const device = devices.devices[runtimeKey].find((candidate) => candidate.name === deviceName);
 if (!device) {
     throw new Error(`${deviceName} is not available for iOS ${runtimeVersion}.`);
+}
+
+if (previewEvidenceView === 'keyboard') {
+    run('defaults', ['write', 'com.apple.iphonesimulator', 'ConnectHardwareKeyboard', '-bool', 'false']);
 }
 
 if (device.state !== 'Booted') {
