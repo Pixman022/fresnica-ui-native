@@ -9,7 +9,8 @@ not a published registry release.
 ## Supported baseline
 
 - React Native CLI `0.87.0`, React `19.2.3`, Node.js `>=22.13.0`.
-- Android-first, minSdk 26, TypeScript with generated declarations.
+- React Native design-system package with Android support and the current Simulator-backed iPhone
+  component-support baseline; Android minSdk 26; TypeScript with generated declarations.
 - Light, Dark and System theme resolution with host-provided system appearance.
 - English and Simplified Chinese labels supplied by the consuming application.
 - Semantic tokens originate in [`Pixman022/fresnica-ui`](https://github.com/Pixman022/fresnica-ui).
@@ -31,8 +32,11 @@ npm run build
 npm pack --pack-destination .
 ```
 
-For the current verified candidate, the output archive is
-`fresnica-ui-native-1.1.0-rc.1.tgz`. Copy
+For the current verified iOS-support candidate, use Native source
+`2b2bac959e4b926bf789d5fe88c36077df1f6542`. Its CI-generated output archive is
+`fresnica-ui-native-1.1.0-rc.1.tgz` with SHA-256
+`29fc4c244148e28326488d31f1ea6397ace9d304a62c62cdf33f4bc0adab1f8b`.
+Copy
 that archive to the consumer's internal artifact location; do not commit
 generated `dist/` to the source repository or infer a package version from
 the changing `main` branch.
@@ -84,7 +88,9 @@ npx tsc --noEmit
 
 On changes to package entry points or peer dependencies, review the latest
 [Android Preview workflow](../.github/workflows/android-preview.yml) result
-for the exact commit. CI also runs the packed-package contract after build,
+for the exact commit. For iPhone design-system support, also review the pinned
+[iOS Simulator evidence manifest](visual-baselines/ios-simulator-evidence-manifest.json)
+and the current iOS Preview/reachability workflows. CI also runs the packed-package contract after build,
 verifying the root and `./locales` exports, React/RN peer versions, required
 distribution/license files, and exclusion of source/example/product paths.
 A passing TypeScript build proves basic package imports, not visual parity or
@@ -117,8 +123,9 @@ This keeps synchronization reviewable without adding a cross-repository service.
 
 ## Deliberate non-goals
 
-There is no npm registry publication requirement in phase one, no wallet App
-release gate, and no claim of device-level TalkBack acceptance or Mainnet
-security review. The scoped optimization work is complete; use the
-[delivery candidate record](delivery-candidate-2026-10-12.md) for the pinned `1.1.0-rc.1`
-identity and keep deferred physical-device accessibility in its separate integration gate.
+There is no npm registry publication requirement in phase one and no wallet App release gate.
+The current Simulator-backed iPhone design-system support does **not** claim physical-device
+VoiceOver, real keyboard/autofill, iPad, color/contrast or wallet-product acceptance. Use the
+[iOS support candidate record](delivery-candidate-ios-2026-10-15.md) for the current pinned
+`1.1.0-rc.1` archive identity. The older 2026-10-12 candidate remains a historical pre-iOS-support
+record. Keep deferred physical-device accessibility in its separate integration gate.
