@@ -1,6 +1,7 @@
 # iOS Typography Review
 
-Status: IOS03 review in progress. No production typography values are changed by this document.
+Status: IOS03 Simulator review complete for the current release scope. No production typography
+values are changed by this document.
 
 ## Current Native typography
 
@@ -40,15 +41,20 @@ not a fixed-size-only text system. However, iOS-specific Dynamic Type acceptance
 
 Current constraints and verified decisions include:
 
-- `Field` supporting copy uses a fixed line height of 18 and still requires larger-text evidence.
-- `StateView` description uses a fixed line height of 22 and still requires larger-text evidence.
+- `Field` supporting copy uses a fixed line height of 18; reviewed S03/S04/S06 evidence does not
+  reproduce clipping or an unreachable action that requires changing it.
+- `StateView` description uses a fixed line height of 22; reviewed S03/S04 detail evidence shows
+  vertical growth without a reproduced clipping failure.
 - S04 reproduced Header truncation from the two-line cap; #94 removes that cap on iOS when
   `fontScale >= 1.5`.
 - S04 reproduced a ListRow trailing badge squeezing the copy column; #94 stacks trailing content
   to a full-width second line on iOS when `fontScale >= 1.5`.
 - S03 at the maximum standard text category (~1.35 fontScale) keeps the existing Header/ListRow
   layout.
-- Modal content scrolls, but title/action reachability still needs larger-text validation.
+- S05 validates the current Modal presentation at the maximum accessibility text category without
+  reproduced title/content/close-control clipping.
+- S06 validates the keyboard-constrained Field/action slice at ~1.35 fontScale with the software
+  keyboard visibly present and the primary action still reachable.
 
 Do not classify these constraints as defects until a recorded iOS scenario reproduces clipping,
 overlap or unreachable content.
@@ -107,8 +113,12 @@ unchanged. The post-fix detail captures are now reviewed:
 - S04 content: the trailing StatusBadge moves below the copy column, restoring usable text width.
 - S03 actions: the maximum-standard layout remains unchanged at roughly 1.35 fontScale.
 
-The current 17/15/17/20/22/34 iOS candidate mapping therefore remains unapproved. S04 continues to
-show that increasing base sizes before Modal/keyboard reachability would be premature.
+The 17/15/17/20/22/34 iOS candidate mapping is **rejected for the current release scope**. The
+complete Simulator evidence now covers the reproduced large-text failures plus S05 Modal and S06
+keyboard-constrained reachability. It shows a need for targeted layout adaptation, not a need to
+raise the package-wide iOS base typography values. The existing 14/13/15/18/20/48 values therefore
+remain authoritative for this release, with system text scaling enabled and the verified
+Header/ListRow accessibility-size adaptations retained.
 
 ## Implementation constraints
 
@@ -119,16 +129,16 @@ show that increasing base sizes before Modal/keyboard reachability would be prem
 - Do not change colors, contrast thresholds or the shared Modal fade behavior.
 - Preserve caller-provided custom `AppTheme` compatibility.
 
-## IOS03 acceptance sequence
+## IOS03 acceptance result
 
-1. Establish IOS05 launch evidence on the fixed iPhone Simulator.
-2. Record default text-size screenshots before changing typography.
-3. Apply the smallest iOS-specific mapping needed for the approved roles.
-4. Verify all direct consumers listed above.
-5. Exercise default, largest standard and representative accessibility text sizes.
-6. Reproduce and fix only observed clipping, overlap or unreachable-action problems.
-7. Record final values, rationale, source SHA and migration impact.
-8. Keep VoiceOver physical-device acceptance separate.
+- Final package values for this release: `body 14`, `supporting 13`, `action 15`,
+  `sectionTitle 18`, `screenTitle 20`, `display 48`.
+- Migration impact: none; no public theme/API or generated token contract change is required.
+- Verified implementation changes remain limited to the reproduced Header/ListRow accessibility-size
+  layout adaptations from #94.
+- S05 Modal and S06 keyboard evidence from #96 close the remaining Simulator reachability questions.
+- VoiceOver, physical-device behavior and real keyboard/autofill acceptance remain separate deferred
+  integration gates.
 
 ## External reference boundary
 
