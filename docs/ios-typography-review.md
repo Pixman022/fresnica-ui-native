@@ -38,13 +38,16 @@ Any iOS mapping therefore needs regression coverage across these consumers.
 React Native text scaling has not been disabled in the package, so the current implementation is
 not a fixed-size-only text system. However, iOS-specific Dynamic Type acceptance is not complete.
 
-Current constraints that require Simulator verification include:
+Current constraints and verified decisions include:
 
-- `Field` supporting copy uses a fixed line height of 18.
-- `StateView` description uses a fixed line height of 22.
-- `Header` allows two title lines before truncation.
-- Button, segmented-control and row layouts use minimum control heights that may need to grow when
-  accessibility text sizes are enabled.
+- `Field` supporting copy uses a fixed line height of 18 and still requires larger-text evidence.
+- `StateView` description uses a fixed line height of 22 and still requires larger-text evidence.
+- S04 reproduced Header truncation from the two-line cap; #94 removes that cap on iOS when
+  `fontScale >= 1.5`.
+- S04 reproduced a ListRow trailing badge squeezing the copy column; #94 stacks trailing content
+  to a full-width second line on iOS when `fontScale >= 1.5`.
+- S03 at the maximum standard text category (~1.35 fontScale) keeps the existing Header/ListRow
+  layout.
 - Modal content scrolls, but title/action reachability still needs larger-text validation.
 
 Do not classify these constraints as defects until a recorded iOS scenario reproduces clipping,
@@ -88,13 +91,21 @@ The corrected PR-head typography probe (workflow run `38664206311`) produced:
   English, standard content. The visible top frame shows the Preview title and subtitle
   wrapping vertically without horizontal overflow or clipped glyphs.
 
-These are **top-frame layout observations only**. They do not yet prove Header truncation,
-long Button layout, lower ListRow content, StateView, Modal, keyboard-constrained reachability or
-that every primary action can be reached by scrolling at the tested categories.
+Targeted detail evidence from #92 adds lower action/content slices. The reviewed pre-fix captures
+show:
 
-The current 17/15/17/20/22/34 iOS candidate mapping therefore remains unapproved. In particular,
-S04 demonstrates how large the current fixed role sizes become under the maximum accessibility
-category, so increasing base sizes before lower-page evidence would be premature.
+- S03 actions at maximum standard text remain readable without the S04 failures.
+- S04 Header title is truncated to a fragment by the two-line cap.
+- S04 ListRow copy is squeezed into near single-character wrapping by trailing badge content.
+- The long Button and StateView grow vertically rather than reproducing those two failures.
+
+#94 fixes only the reproduced Header/ListRow defects and keeps production typography values
+unchanged. Post-fix detail screenshots are still required before those fixes are considered visually
+closed.
+
+The current 17/15/17/20/22/34 iOS candidate mapping therefore remains unapproved. S04 continues to
+show that increasing base sizes before Modal/keyboard reachability and post-fix detail review would
+be premature.
 
 ## Implementation constraints
 
