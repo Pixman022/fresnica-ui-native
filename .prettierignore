@@ -1,2 +1,5 @@
 example/FresnicaPreview/
 example/.cache/
+
+# Preserve archived workflow metadata byte for byte.
+docs/visual-baselines/ios/

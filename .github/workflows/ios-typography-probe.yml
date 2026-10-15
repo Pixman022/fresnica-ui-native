@@ -19,12 +19,26 @@ jobs:
             fail-fast: false
             matrix:
                 include:
+                    - name: s01
+                      device: iPhone SE (3rd generation)
+                      content_size: large
+                      appearance: light
+                      locale: zh-CN
+                      scenario: standard
+                    - name: s02
+                      device: iPhone 16 Pro Max
+                      content_size: large
+                      appearance: dark
+                      locale: en
+                      scenario: standard
                     - name: s03
+                      device: iPhone SE (3rd generation)
                       content_size: extra-extra-extra-large
                       appearance: dark
                       locale: zh-CN
                       scenario: stress
                     - name: s04
+                      device: iPhone SE (3rd generation)
                       content_size: accessibility-extra-extra-extra-large
                       appearance: light
                       locale: en
@@ -54,7 +68,7 @@ jobs:
 
             - name: Capture typography probe
               env:
-                  IOS_PREVIEW_DEVICE: iPhone SE (3rd generation)
+                  IOS_PREVIEW_DEVICE: ${{ matrix.device }}
                   IOS_PREVIEW_RUNTIME: '18.5'
                   IOS_PREVIEW_CONTENT_SIZE: ${{ matrix.content_size }}
                   IOS_PREVIEW_APPEARANCE: ${{ matrix.appearance }}

@@ -19,7 +19,11 @@ The Android owner-approved layout set remains in
 [approved-manifest.json](approved-manifest.json). The iOS Simulator review is recorded separately in
 [ios-simulator-evidence-manifest.json](ios-simulator-evidence-manifest.json); it pins S03-S06
 workflow/artifact IDs, SHA-256 artifact digests, exact source SHAs, scenario metadata and reviewed
-outcomes without claiming an owner-approved iOS Golden Baseline.
+outcomes. Original iOS PNG/metadata bytes are now versioned under [ios/2026-10-15](ios/2026-10-15),
+with per-file checksums verified by `node scripts/verify-ios-evidence.mjs` in CI.
+The [iOS layout review](ios-layout-review-2026-10-15.md) records the technical reviewer and seven
+concrete candidate frames. Project-owner design approval remains pending; an approved iOS Golden
+Baseline is not claimed.
 
 The versioned [approved-manifest.json](approved-manifest.json) contains seven PNG
 SHA-256 values and their GitHub Actions run/artifact IDs, original clean source
@@ -32,11 +36,10 @@ Android profiles use Android 15/API 35, `sdk_gphone64_x86_64`, 420dpi and
 device locale `en-US`. Each Preview selects its own zh-CN or English language,
 Stress scenario, font scale and Light/Dark theme.
 
-GitHub Actions screenshot binaries normally expire after 90 days. This repository
-preserves their SHA-256 fingerprints and the source/environment needed for a
-reviewable manual baseline, **not permanent PNG copies**. Archive the original
-binary evidence separately before the workflow artifacts expire if exact image
-comparison is needed later.
+GitHub Actions screenshot binaries normally expire after 90 days. The ten iOS reference PNGs
+and original metadata are retained in Git and remain available after those artifacts expire.
+The older Android set still preserves fingerprints and source/environment metadata rather than
+permanent PNG copies; archive its binaries separately if exact historical comparison is needed.
 
 ## Reproduce and review
 

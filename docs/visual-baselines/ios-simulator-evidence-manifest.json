@@ -20,7 +20,7 @@
     },
     "evidencePolicy": {
         "metadataMustMatchVisibleState": true,
-        "artifactRetention": "GitHub Actions artifacts are temporary; source SHA, artifact ID, digest and reviewed outcome are versioned here.",
+        "artifactRetention": "Original PNG and metadata bytes are versioned under ios/2026-10-15; Actions ZIP digests were verified before extraction. Historical Actions artifacts may expire without removing these repository copies.",
         "pixelDiffGate": "disabled"
     },
     "references": [
@@ -33,11 +33,23 @@
             "prHeadSha": "0e36210914c0e2e826d2f58187bb2880c3c05143",
             "mergedMainSha": "079f892159ae72baeb746c3353709f09c1f097d7",
             "device": "iPhone SE (3rd generation)",
-            "contentSize": "maximum standard",
+            "contentSize": "extra-extra-extra-large",
             "appearance": "dark",
             "previewLocale": "zh-CN",
             "previewScenario": "stress",
-            "reviewedOutcome": "valid state; maximum-standard layout remains acceptable"
+            "reviewedOutcome": "valid state; maximum-standard layout remains acceptable",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s03-maximum-standard.png",
+                "screenshotSha256": "59b1c91793aac961f85c97279cb9197945ce6b742fcf0187fb22392d9eec617b",
+                "metadata": "ios/2026-10-15/s03-maximum-standard.metadata.json",
+                "metadataSha256": "0d9a3979949eba68df3606f6695ed0e9bfe9953988dd2748f707dbd4898b97cf",
+                "width": 750,
+                "height": 1334,
+                "captureSourceSha": "2339b6e886c3e7a8e72f2901211059c5ec3b8e59"
+            },
+            "referenceUse": "historical-context",
+            "runtime": "iOS 18.5",
+            "previewEvidenceView": "full"
         },
         {
             "id": "s04-maximum-accessibility",
@@ -48,11 +60,23 @@
             "prHeadSha": "0e36210914c0e2e826d2f58187bb2880c3c05143",
             "mergedMainSha": "079f892159ae72baeb746c3353709f09c1f097d7",
             "device": "iPhone SE (3rd generation)",
-            "contentSize": "maximum accessibility",
+            "contentSize": "accessibility-extra-extra-extra-large",
             "appearance": "light",
             "previewLocale": "en",
             "previewScenario": "standard",
-            "reviewedOutcome": "valid state; reproduced Header/ListRow failures later fixed by #94"
+            "reviewedOutcome": "valid state; reproduced Header/ListRow failures later fixed by #94",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s04-maximum-accessibility.png",
+                "screenshotSha256": "74be986db26b4d0b2ff56de61b3b3f9b83893e043f0779cb79aa309523d18a39",
+                "metadata": "ios/2026-10-15/s04-maximum-accessibility.metadata.json",
+                "metadataSha256": "01971da878efc0663767c4edb7950625bc85f6d44fa8fa9bca0197b8f0482169",
+                "width": 750,
+                "height": 1334,
+                "captureSourceSha": "2339b6e886c3e7a8e72f2901211059c5ec3b8e59"
+            },
+            "referenceUse": "historical-context",
+            "runtime": "iOS 18.5",
+            "previewEvidenceView": "full"
         },
         {
             "id": "s03-actions-post-fix",
@@ -63,7 +87,23 @@
             "prHeadSha": "046765c103221ba1b66928802dce8bb499cba66b",
             "mergedMainSha": "50952c35dbffc33028db17726a4efbe9e4dbbcbf",
             "previewEvidenceView": "actions",
-            "reviewedOutcome": "maximum-standard action layout remains unchanged after the targeted fixes"
+            "reviewedOutcome": "maximum-standard action layout remains unchanged after the targeted fixes",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s03-actions-post-fix.png",
+                "screenshotSha256": "c0447f8e2cb39271ae37d8f343920cd151bad91537ec85ec549c32238059fe17",
+                "metadata": "ios/2026-10-15/s03-actions-post-fix.metadata.json",
+                "metadataSha256": "9415b26eceb622cae91555d451379ecf1d2617d756ea061b4067212989a61a3f",
+                "width": 750,
+                "height": 1334,
+                "captureSourceSha": "4f648f3cccc5116b3ee328e436a327aea71996c0"
+            },
+            "referenceUse": "layout-review-candidate",
+            "device": "iPhone SE (3rd generation)",
+            "runtime": "iOS 18.5",
+            "contentSize": "extra-extra-extra-large",
+            "appearance": "dark",
+            "previewLocale": "zh-CN",
+            "previewScenario": "stress"
         },
         {
             "id": "s04-actions-post-fix",
@@ -74,7 +114,23 @@
             "prHeadSha": "046765c103221ba1b66928802dce8bb499cba66b",
             "mergedMainSha": "50952c35dbffc33028db17726a4efbe9e4dbbcbf",
             "previewEvidenceView": "actions",
-            "reviewedOutcome": "Header title grows without the destructive two-line accessibility-text truncation"
+            "reviewedOutcome": "Header title grows without the destructive two-line accessibility-text truncation",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s04-actions-post-fix.png",
+                "screenshotSha256": "d5e36df01b1b19330ea5e1203bf596fd57bcbb005081d8dfaaf60f212aa66b59",
+                "metadata": "ios/2026-10-15/s04-actions-post-fix.metadata.json",
+                "metadataSha256": "5dd8399bd904f7ba4b865e87189abf2765724e3730ca8756e4265e551a9a9c61",
+                "width": 750,
+                "height": 1334,
+                "captureSourceSha": "4f648f3cccc5116b3ee328e436a327aea71996c0"
+            },
+            "referenceUse": "layout-review-candidate",
+            "device": "iPhone SE (3rd generation)",
+            "runtime": "iOS 18.5",
+            "contentSize": "accessibility-extra-extra-extra-large",
+            "appearance": "light",
+            "previewLocale": "en",
+            "previewScenario": "standard"
         },
         {
             "id": "s04-content-post-fix",
@@ -85,7 +141,23 @@
             "prHeadSha": "046765c103221ba1b66928802dce8bb499cba66b",
             "mergedMainSha": "50952c35dbffc33028db17726a4efbe9e4dbbcbf",
             "previewEvidenceView": "content",
-            "reviewedOutcome": "ListRow trailing content moves below the copy column and restores usable text width"
+            "reviewedOutcome": "ListRow trailing content moves below the copy column and restores usable text width",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s04-content-post-fix.png",
+                "screenshotSha256": "12870912219a5bdcd3296e02804692d32f648016eeb428e45fe42fc78e02803b",
+                "metadata": "ios/2026-10-15/s04-content-post-fix.metadata.json",
+                "metadataSha256": "6fc3bcb72f023bb6ef03a0a84e095428979644d76cad04f15e7c7b94085c5f20",
+                "width": 750,
+                "height": 1334,
+                "captureSourceSha": "4f648f3cccc5116b3ee328e436a327aea71996c0"
+            },
+            "referenceUse": "layout-review-candidate",
+            "device": "iPhone SE (3rd generation)",
+            "runtime": "iOS 18.5",
+            "contentSize": "accessibility-extra-extra-extra-large",
+            "appearance": "light",
+            "previewLocale": "en",
+            "previewScenario": "standard"
         },
         {
             "id": "s05-modal-maximum-accessibility",
@@ -101,7 +173,19 @@
             "previewLocale": "zh-CN",
             "previewScenario": "stress",
             "previewEvidenceView": "modal",
-            "reviewedOutcome": "title, content and close control visible without reproduced clipping"
+            "reviewedOutcome": "title, content and close control visible without reproduced clipping",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s05-modal-maximum-accessibility.png",
+                "screenshotSha256": "312274fd15a4fba6527f9f34e844444ba885b40dc66085a3606567b7ed54a993",
+                "metadata": "ios/2026-10-15/s05-modal-maximum-accessibility.metadata.json",
+                "metadataSha256": "0434b46f306f7dc09f639bab97688bfd37cd49fd5b0286b3d9333a1430514865",
+                "width": 1320,
+                "height": 2868,
+                "captureSourceSha": "6d1a562c4f9b5e30800fdc706673ed156e5dd013"
+            },
+            "referenceUse": "historical-context",
+            "runtime": "iOS 18.5",
+            "supersededBy": "s05-modal-close-control-post-fix"
         },
         {
             "id": "s06-software-keyboard",
@@ -118,7 +202,118 @@
             "previewScenario": "standard",
             "previewEvidenceView": "keyboard",
             "reviewedOutcome": "software keyboard visibly present; focused Field and primary action remain reachable",
-            "supersedes": "first S06 capture from run 38690729334, which was invalid because the iOS keyboard tutorial obscured the keyboard"
+            "supersedes": "first S06 capture from run 38690729334, which was invalid because the iOS keyboard tutorial obscured the keyboard",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s06-software-keyboard.png",
+                "screenshotSha256": "4003cd2581488182585104686b507b047fb4d760bc2b245cd18950a351fc9075",
+                "metadata": "ios/2026-10-15/s06-software-keyboard.metadata.json",
+                "metadataSha256": "7a38eff60bcac62263916635073942a2523517baa2b3a591e622e45ce79c0d32",
+                "width": 1179,
+                "height": 2556,
+                "captureSourceSha": "6d1a562c4f9b5e30800fdc706673ed156e5dd013"
+            },
+            "referenceUse": "layout-review-candidate",
+            "runtime": "iOS 18.5"
+        },
+        {
+            "id": "s05-modal-close-control-post-fix",
+            "artifactId": 11960301229,
+            "artifactDigest": "sha256:1e32f9e5b1dd543ca05bf3a20cb3741bdd256948fedf63aa9df320151c1f33ee",
+            "workflowRunId": 38708758540,
+            "pr": 100,
+            "prHeadSha": "d8737bf7e043b70b731cccec4ee9e097102815b3",
+            "reviewedOutcome": "maximum-accessibility close glyph fully visible after minimum-size control fix; title/content/close action remain visible",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s05-modal-close-control-post-fix.png",
+                "screenshotSha256": "abd0db289887c4fbdf9ca834a784f1d27f441a76e6ca4aaea090e2e650bc1c87",
+                "metadata": "ios/2026-10-15/s05-modal-close-control-post-fix.metadata.json",
+                "metadataSha256": "0a85df460e6bc1b592eb262ae876315e5be8ad8fa5b3474550dbba6c43367876",
+                "width": 1320,
+                "height": 2868,
+                "captureSourceSha": "8d84fe7c01ececca06331b139ee0d6610ba3695a"
+            },
+            "device": "iPhone 16 Pro Max",
+            "runtime": "iOS 18.5",
+            "contentSize": "accessibility-extra-extra-extra-large",
+            "appearance": "dark",
+            "previewLocale": "zh-CN",
+            "previewScenario": "stress",
+            "previewEvidenceView": "modal",
+            "referenceUse": "layout-review-candidate"
+        },
+        {
+            "id": "s01-default-small",
+            "artifactId": 11959893671,
+            "artifactDigest": "sha256:18c7dce0c0e8aad5a0e29f70de4fc1fe38df67894e568f337f46475a69dd926b",
+            "workflowRunId": 38709105594,
+            "pr": 100,
+            "prHeadSha": "6f525b9cc265573cce6b72086f0f3d59aa3b3a51",
+            "reviewedOutcome": "default 1.00 text on small iPhone: visible Chinese standard/Light controls and rows match metadata without obvious overlap",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s01-default-small.png",
+                "screenshotSha256": "df1aab94630ba2befe8141180bae37c43bb62153eb353f9c6f879a77c490ee72",
+                "metadata": "ios/2026-10-15/s01-default-small.metadata.json",
+                "metadataSha256": "9f0b11e92c0ab53bf22240a0a1dbc1e643b195eab05715a1c37273cdf9a143d8",
+                "width": 750,
+                "height": 1334,
+                "captureSourceSha": "8e522f60def423b8f05683b34a9d43b7302b2705"
+            },
+            "device": "iPhone SE (3rd generation)",
+            "runtime": "iOS 18.5",
+            "contentSize": "large",
+            "appearance": "light",
+            "previewLocale": "zh-CN",
+            "previewScenario": "standard",
+            "previewEvidenceView": "full",
+            "referenceUse": "layout-review-candidate"
+        },
+        {
+            "id": "s02-default-large",
+            "artifactId": 11960930081,
+            "artifactDigest": "sha256:ce8258bbf88c1abab52db8d509ee2d57c90e66fe6ef6e312c6061dda35dded11",
+            "workflowRunId": 38709105594,
+            "pr": 100,
+            "prHeadSha": "6f525b9cc265573cce6b72086f0f3d59aa3b3a51",
+            "reviewedOutcome": "default 1.00 text on large iPhone: visible English standard/Dark controls and content match metadata without obvious overlap",
+            "referenceUse": "layout-review-candidate",
+            "archive": {
+                "screenshot": "ios/2026-10-15/s02-default-large.png",
+                "screenshotSha256": "453e5fbd9f0fcbfb0b0279ba4310e7e3b48898e8cf413e10b47abefcf83fe5b4",
+                "metadata": "ios/2026-10-15/s02-default-large.metadata.json",
+                "metadataSha256": "4837dbabd52fbbc4812dce64989026251a4a16704e2c689363fc69291d1ceb09",
+                "width": 1320,
+                "height": 2868,
+                "captureSourceSha": "8e522f60def423b8f05683b34a9d43b7302b2705"
+            },
+            "device": "iPhone 16 Pro Max",
+            "runtime": "iOS 18.5",
+            "contentSize": "large",
+            "appearance": "dark",
+            "previewLocale": "en",
+            "previewScenario": "standard",
+            "previewEvidenceView": "full"
         }
-    ]
+    ],
+    "technicalReview": {
+        "reviewedBy": "Codex assistant (technical visual review)",
+        "reviewedAt": "2026-10-15",
+        "record": "ios-layout-review-2026-10-15.md",
+        "scope": "visible recorded frames and metadata only"
+    },
+    "ownerApproval": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null,
+        "decision": null,
+        "evidenceIds": [
+            "s01-default-small",
+            "s02-default-large",
+            "s03-actions-post-fix",
+            "s04-actions-post-fix",
+            "s04-content-post-fix",
+            "s05-modal-close-control-post-fix",
+            "s06-software-keyboard"
+        ],
+        "scope": "layout only; deferred items remain excluded"
+    }
 }

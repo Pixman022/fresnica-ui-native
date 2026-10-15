@@ -76,6 +76,6 @@ const styles = StyleSheet.create({
     surface: { width: '100%', maxWidth: 480, maxHeight: '90%', padding: 24, gap: 16 },
     header: { minHeight: 44, flexDirection: 'row', alignItems: 'center', gap: 12 },
     title: { flex: 1, flexShrink: 1, fontWeight: '700' },
-    close: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center' },
+    close: { minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
     content: { gap: 16 },
 });

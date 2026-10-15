@@ -1,4 +1,5 @@
 import { spawnSync } from 'node:child_process';
+import { parseTapPoint } from './android-tap-bounds.mjs';
 
 const adb = process.platform === 'win32' ? 'adb.exe' : 'adb';
 const remoteHierarchyPath = '/sdcard/fresnica-tap-window.xml';
@@ -60,14 +61,7 @@ try {
             continue;
         }
 
-        const bounds = node.match(/\bbounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"/);
-        if (!bounds) {
-            throw new Error(`Accessibility node has no bounds: ${label}`);
-        }
-
-        const [, left, top, right, bottom] = bounds.map(Number);
-        const x = Math.round((left + right) / 2);
-        const y = Math.round((top + bottom) / 2);
+        const { x, y } = parseTapPoint(node, label);
         run(['shell', 'input', 'tap', String(x), String(y)]);
         console.log(`Tapped "${label}" at ${x},${y}`);
         process.exit(0);

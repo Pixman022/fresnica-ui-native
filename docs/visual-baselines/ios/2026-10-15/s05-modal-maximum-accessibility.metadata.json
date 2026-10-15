@@ -1,0 +1,17 @@
+{
+  "device": "iPhone 16 Pro Max",
+  "runtime": "iOS 18.5",
+  "udid": "F1218AE5-3D29-4CE5-9D0F-6F21CEAA502C",
+  "bundleId": "org.reactjs.native.example.FresnicaPreview",
+  "configuration": "Release",
+  "packageVersion": "1.1.0-rc.1",
+  "sourceSha": "6d1a562c4f9b5e30800fdc706673ed156e5dd013",
+  "xcode": "Xcode 16.4\nBuild version 16F6",
+  "node": "v22.13.0",
+  "contentSize": "accessibility-extra-extra-extra-large",
+  "appearance": "dark",
+  "previewLocale": "zh-CN",
+  "previewScenario": "stress",
+  "previewEvidenceView": "modal",
+  "screenshot": "example/ios-reachability-evidence/s05-modal/launch.png"
+}
