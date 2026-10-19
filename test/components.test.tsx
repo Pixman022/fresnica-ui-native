@@ -388,9 +388,13 @@ describe('native components', () => {
         );
 
         const row = screen.UNSAFE_getByType(Pressable);
-        expect(row.props.style({ pressed: false })).toEqual(expect.arrayContaining([null]));
-        const trailing = screen.getByText('Connected').parent;
-        expect(trailing?.props.style).toEqual(expect.arrayContaining([null]));
+        const rowStyle = row.props.style({ pressed: false });
+        expect(rowStyle[1]).toBeNull();
+
+        const trailing = screen
+            .UNSAFE_getAllByType(View)
+            .find((node) => Array.isArray(node.props.style) && node.props.style[0]?.minWidth === 44);
+        expect(trailing?.props.style[1]).toBeNull();
     });
 
     it('keeps whole-row ListRow action as the only button when trailing content is presentation-only', () => {
