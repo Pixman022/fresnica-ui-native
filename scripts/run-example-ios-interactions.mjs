@@ -7,6 +7,7 @@ const projectDir = path.join(root, 'example', 'FresnicaPreview');
 const iosDir = path.join(projectDir, 'ios');
 const workspace = path.join(iosDir, 'FresnicaPreview.xcworkspace');
 const projectPath = path.join(iosDir, 'FresnicaPreview.xcodeproj');
+const previewAppPath = path.join(projectDir, 'App.tsx');
 const evidenceDir = path.join(root, 'example', 'ios-interaction-evidence');
 const derivedData = path.join(root, 'example', '.cache', 'ios-interaction-derived-data');
 const resultBundle = path.join(evidenceDir, 'q05-interactions.xcresult');
@@ -47,6 +48,17 @@ if (!fs.existsSync(workspace)) {
     run('bundle', ['install'], projectDir);
     run('bundle', ['exec', 'pod', 'install'], iosDir);
 }
+
+let previewApp = fs.readFileSync(previewAppPath, 'utf8');
+const defaultEvidenceViewLine = "const initialEvidenceView: EvidenceView = 'full';";
+if (!previewApp.includes(defaultEvidenceViewLine)) {
+    throw new Error('Preview evidence-view launch default changed; update the Q05 injection point.');
+}
+previewApp = previewApp.replace(
+    defaultEvidenceViewLine,
+    "const initialEvidenceView: EvidenceView = 'keyboard';",
+);
+fs.writeFileSync(previewAppPath, previewApp);
 
 fs.rmSync(evidenceDir, { recursive: true, force: true });
 fs.rmSync(derivedData, { recursive: true, force: true });
