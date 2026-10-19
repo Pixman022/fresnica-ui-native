@@ -90,8 +90,11 @@ final class Q05InteractionTests: XCTestCase {
             return
         }
 
+        let scrollView = app.scrollViews.firstMatch
+        XCTAssertTrue(scrollView.waitForExistence(timeout: 4), "Preview ScrollView was not found")
+
         for _ in 0..<maxSwipes {
-            app.swipeUp()
+            scrollView.swipeUp()
             if element.isHittable {
                 return
             }
