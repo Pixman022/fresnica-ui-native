@@ -171,7 +171,13 @@ if (!device) {
     throw new Error(`${deviceName} is not available for iOS ${runtimeVersion}.`);
 }
 
-run('defaults', [\n    'write',\n    'com.apple.iphonesimulator',\n    'ConnectHardwareKeyboard',\n    '-bool',\n    'false',\n]);
+run('defaults', [
+    'write',
+    'com.apple.iphonesimulator',
+    'ConnectHardwareKeyboard',
+    '-bool',
+    'false',
+]);
 
 if (device.state !== 'Booted') {
     run('xcrun', ['simctl', 'boot', device.udid]);
@@ -236,7 +242,9 @@ const exportResult = spawnSync(
     { cwd: root, stdio: 'inherit', shell: false },
 );
 if (exportResult.status !== 0) {
-    console.warn(\n        '[q05] xcresult attachment export was unavailable; the xcresult bundle still contains the screenshots.',\n    );
+    console.warn(
+        '[q05] xcresult attachment export was unavailable; the xcresult bundle still contains the screenshots.',
+    );
 }
 
 console.log(JSON.stringify(metadata, null, 2));
