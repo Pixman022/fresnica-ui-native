@@ -34,6 +34,8 @@ export function Header({
     const theme = useUiTheme(themeOverride);
     const { fontScale } = useWindowDimensions();
     const expandTitleForAccessibilityText = Platform.OS === 'ios' && fontScale >= 1.5;
+    const hasStartContent = onBack !== undefined || leading != null;
+    const hasTrailingContent = trailing != null;
     const start = onBack ? (
         <Pressable
             accessible
@@ -50,7 +52,7 @@ export function Header({
     );
     return (
         <View style={[styles.container, { borderBottomColor: theme.colors.separator, minHeight: 56 }]}>
-            <View style={styles.side}>{start}</View>
+            {!expandTitleForAccessibilityText || hasStartContent ? <View style={styles.side}>{start}</View> : null}
             <Text
                 accessibilityRole="header"
                 numberOfLines={expandTitleForAccessibilityText ? undefined : 2}
@@ -59,7 +61,9 @@ export function Header({
             >
                 {title}
             </Text>
-            <View style={[styles.side, styles.trailing]}>{trailing}</View>
+            {!expandTitleForAccessibilityText || hasTrailingContent ? (
+                <View style={[styles.side, styles.trailing]}>{trailing}</View>
+            ) : null}
         </View>
     );
 }

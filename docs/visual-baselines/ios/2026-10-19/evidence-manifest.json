@@ -1,0 +1,54 @@
+{
+    "schema": "fresnica-ios-layout-optimization-evidence/v1",
+    "reviewDate": "2026-10-19",
+    "pr": 103,
+    "prHeadSha": "f15a38113af6ecf881d84485fd2ce5460888a7a7",
+    "workflowRunId": 39215086435,
+    "technicalReview": "complete",
+    "ownerDecision": "pending",
+    "binaryStorage": "GitHub Actions artifacts; PNG SHA-256 is versioned here and historical 2026-10-15 repository images are not overwritten",
+    "references": [
+        {
+            "id": "s03-actions-q03",
+            "artifactId": 12168868814,
+            "artifactDigest": "sha256:2f2fcd6c17f2828ede41fa8845e90f33f701cb3e4ae6f84a004a1c99bce250a5",
+            "pngSha256": "ed6080b53931c1ab65bbb385b14c4d06c4a24656627318ef6ac8f8c1cf2530d6",
+            "device": "iPhone SE (3rd generation)",
+            "runtime": "iOS 18.5",
+            "contentSize": "extra-extra-extra-large",
+            "appearance": "dark",
+            "previewLocale": "zh-CN",
+            "previewScenario": "stress",
+            "previewEvidenceView": "actions",
+            "outcome": "maximum-standard Header behavior remains the existing two-line ellipsis; no Q03 regression"
+        },
+        {
+            "id": "s04-actions-q03",
+            "artifactId": 12169214601,
+            "artifactDigest": "sha256:fd1e9c76bd3a2f4886b44233c36f4ad90de509aa4f9b0d6360e57ded03432dc4",
+            "pngSha256": "7e1e321f8666cf01dd3f6641341a2c08866ed5b08f1fdd4e21ab5d88ffca8c64",
+            "device": "iPhone SE (3rd generation)",
+            "runtime": "iOS 18.5",
+            "contentSize": "accessibility-extra-extra-extra-large",
+            "appearance": "light",
+            "previewLocale": "en",
+            "previewScenario": "standard",
+            "previewEvidenceView": "actions",
+            "outcome": "empty Header side slots are reclaimed; Sample, screen and header each remain intact as words and Continue remains visible"
+        },
+        {
+            "id": "s04-content-q03",
+            "artifactId": 12169662134,
+            "artifactDigest": "sha256:b17057ffb3cfaea31e1be4c5b4e0c244c5c5d7da6aebdc7a1af839b531b2ab5f",
+            "pngSha256": "e90b8147fc1170a245ca1fb26ac445261033302a64a92c5554d32a82e86f3450",
+            "device": "iPhone SE (3rd generation)",
+            "runtime": "iOS 18.5",
+            "contentSize": "accessibility-extra-extra-extra-large",
+            "appearance": "light",
+            "previewLocale": "en",
+            "previewScenario": "standard",
+            "previewEvidenceView": "content",
+            "outcome": "existing Field/ListRow accessibility-size content remains readable in the reviewed frame; Q03 does not change those components"
+        }
+    ]
+}
