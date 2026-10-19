@@ -92,7 +92,6 @@ final class Q05InteractionTests: XCTestCase {
 
         let scrollView = app.scrollViews.firstMatch
         XCTAssertTrue(scrollView.waitForExistence(timeout: 4), "Preview ScrollView was not found")
-        print("[q05] target frame=\(element.frame) scroll frame=\(scrollView.frame) hittable=\(element.isHittable)")
 
         for _ in 0..<maxSwipes {
             scrollView.swipeUp()
@@ -124,6 +123,47 @@ final class Q05InteractionTests: XCTestCase {
         let feedback = app.staticTexts["Keyboard action was pressed"]
         XCTAssertTrue(feedback.waitForExistence(timeout: 6), "Primary action feedback did not appear")
         attachScreenshot("keyboard-after-primary-action")
+    }
+
+    func testLongContentScrollAndAction() throws {
+        let action = app.buttons["Toggle sample feedback"]
+        scrollUntilHittable(action)
+        XCTAssertTrue(action.isHittable, "Long-content action did not become reachable")
+        attachScreenshot("long-content-before-action")
+        action.tap()
+
+        let feedback = app.staticTexts["Icon action was pressed"]
+        XCTAssertTrue(feedback.waitForExistence(timeout: 6), "Long-content action feedback did not appear")
+        attachScreenshot("long-content-after-action")
+    }
+
+    func testModalOpenAndClose() throws {
+        let trigger = app.buttons["Open modal"]
+        scrollUntilHittable(trigger)
+        XCTAssertTrue(trigger.isHittable, "Modal trigger did not become reachable")
+        trigger.tap()
+
+        let title = app.staticTexts["Preview modal"]
+        XCTAssertTrue(title.waitForExistence(timeout: 6), "Modal did not open")
+
+        let close = app.buttons.matching(identifier: "Close modal").firstMatch
+        XCTAssertTrue(close.waitForExistence(timeout: 4), "Modal close control was not found")
+        XCTAssertTrue(close.isHittable, "Modal close control is not reachable")
+        attachScreenshot("modal-open")
+        close.tap()
+
+        let modalClosed = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"),
+            object: title
+        )
+        XCTAssertEqual(
+            XCTWaiter.wait(for: [modalClosed], timeout: 6),
+            .completed,
+            "Modal did not close after activating the close control"
+        )
+        XCTAssertTrue(trigger.waitForExistence(timeout: 4), "Modal trigger did not return after close")
+        XCTAssertTrue(trigger.isHittable, "Modal trigger is not reachable after close")
+        attachScreenshot("modal-closed")
     }
 }
 `;
@@ -242,7 +282,9 @@ const metadata = {
     appearance: 'light',
     locale: 'en',
     scenario: 'standard',
-    interaction: 'keyboard-field-primary-action',
+    interactions: ['keyboard-field-primary-action', 'long-content-icon-action', 'modal-open-close'],
+    modalFocusBoundary:
+        'The trigger is asserted reachable after close; physical-device and VoiceOver focus certification remain deferred.',
     resultBundle: path.relative(root, resultBundle),
 };
 fs.writeFileSync(path.join(evidenceDir, 'metadata.json'), `${JSON.stringify(metadata, null, 2)}\n`);
