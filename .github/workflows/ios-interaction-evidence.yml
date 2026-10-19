@@ -13,7 +13,7 @@ permissions:
     contents: read
 
 jobs:
-    keyboard-action:
+    q05-interactions:
         runs-on: macos-15
         timeout-minutes: 45
 
@@ -39,7 +39,7 @@ jobs:
             - name: Bootstrap Preview host from packed package
               run: npm run example:bootstrap
 
-            - name: Exercise keyboard and primary action
+            - name: Exercise Q05 key interactions
               env:
                   IOS_PREVIEW_DEVICE: iPhone 16
                   IOS_PREVIEW_RUNTIME: '18.5'
@@ -49,7 +49,7 @@ jobs:
               if: always()
               uses: actions/upload-artifact@v7
               with:
-                  name: ios-interaction-keyboard-action
+                  name: ios-interaction-q05
                   path: example/ios-interaction-evidence
                   if-no-files-found: warn
                   retention-days: 90
