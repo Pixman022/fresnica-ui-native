@@ -60,7 +60,7 @@ or product navigation layer.
   has **not** been runtime-validated in this project.
 - Verified Simulator baseline: Xcode 16.4 / iOS 18.5 on iPhone Simulator.
 - Dynamic Type review covers default, maximum-standard and representative maximum-accessibility
-  text sizes. The current 14/13/15/18/20/22/48? typography contract is not changed here; use the
+  text sizes. The current 14/13/15/18/20/48 typography contract is not changed here; use the
   recorded iOS typography decision rather than inferring values from Web CSS.
 - Simulator evidence covers the current S01-S06 review matrix, including the reviewed Modal close
   control and software-keyboard-constrained Field/action path.
