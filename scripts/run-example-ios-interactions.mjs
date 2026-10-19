@@ -156,8 +156,12 @@ fs.writeFileSync(rubyPath, rubySource);
 
 run('bundle', ['exec', 'ruby', rubyPath, projectPath, swiftPath], projectDir);
 
-const devices = JSON.parse(\n    run('xcrun', ['simctl', 'list', 'devices', 'available', '-j'], root, true),\n);
-const runtimeKey = Object.keys(devices.devices).find((key) =>\n    key.endsWith(`iOS-${runtimeVersion.replace('.', '-')}`),\n);
+const devices = JSON.parse(
+    run('xcrun', ['simctl', 'list', 'devices', 'available', '-j'], root, true),
+);
+const runtimeKey = Object.keys(devices.devices).find((key) =>
+    key.endsWith(`iOS-${runtimeVersion.replace('.', '-')}`),
+);
 if (!runtimeKey) {
     throw new Error(`iOS ${runtimeVersion} Simulator runtime is not installed.`);
 }
