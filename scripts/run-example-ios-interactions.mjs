@@ -136,6 +136,8 @@ unless test_target.source_build_phase.files_references.include?(file_ref)
 end
 
 test_target.build_configurations.each do |config|
+  config.build_settings['PRODUCT_NAME'] = '$(TARGET_NAME)'
+  config.build_settings['PRODUCT_MODULE_NAME'] = '$(PRODUCT_NAME:c99extidentifier)'
   config.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = 'org.reactjs.native.example.FresnicaPreviewUITests'
   config.build_settings['GENERATE_INFOPLIST_FILE'] = 'YES'
   config.build_settings['SWIFT_VERSION'] = '5.0'
