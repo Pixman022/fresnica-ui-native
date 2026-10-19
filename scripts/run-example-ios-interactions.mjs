@@ -92,6 +92,7 @@ final class Q05InteractionTests: XCTestCase {
 
         let scrollView = app.scrollViews.firstMatch
         XCTAssertTrue(scrollView.waitForExistence(timeout: 4), "Preview ScrollView was not found")
+        print("[q05] target frame=\(element.frame) scroll frame=\(scrollView.frame) hittable=\(element.isHittable)")
 
         for _ in 0..<maxSwipes {
             scrollView.swipeUp()
@@ -106,6 +107,7 @@ final class Q05InteractionTests: XCTestCase {
     func testKeyboardFieldAndPrimaryAction() throws {
         let field = app.textFields["Keyboard visibility check"]
         XCTAssertTrue(field.waitForExistence(timeout: 12), "Keyboard field was not found")
+        attachScreenshot("keyboard-initial")
         scrollUntilHittable(field)
         field.tap()
 
