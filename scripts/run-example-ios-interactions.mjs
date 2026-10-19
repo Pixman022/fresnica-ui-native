@@ -156,12 +156,8 @@ fs.writeFileSync(rubyPath, rubySource);
 
 run('bundle', ['exec', 'ruby', rubyPath, projectPath, swiftPath], projectDir);
 
-const devices = JSON.parse(
-    run('xcrun', ['simctl', 'list', 'devices', 'available', '-j'], root, true),
-);
-const runtimeKey = Object.keys(devices.devices).find((key) =>
-    key.endsWith(`iOS-${runtimeVersion.replace('.', '-')}`),
-);
+const devices = JSON.parse(run('xcrun', ['simctl', 'list', 'devices', 'available', '-j'], root, true));
+const runtimeKey = Object.keys(devices.devices).find((key) => key.endsWith(`iOS-${runtimeVersion.replace('.', '-')}`));
 if (!runtimeKey) {
     throw new Error(`iOS ${runtimeVersion} Simulator runtime is not installed.`);
 }
@@ -171,13 +167,7 @@ if (!device) {
     throw new Error(`${deviceName} is not available for iOS ${runtimeVersion}.`);
 }
 
-run('defaults', [
-    'write',
-    'com.apple.iphonesimulator',
-    'ConnectHardwareKeyboard',
-    '-bool',
-    'false',
-]);
+run('defaults', ['write', 'com.apple.iphonesimulator', 'ConnectHardwareKeyboard', '-bool', 'false']);
 
 if (device.state !== 'Booted') {
     run('xcrun', ['simctl', 'boot', device.udid]);
