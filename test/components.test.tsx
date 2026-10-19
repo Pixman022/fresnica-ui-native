@@ -13,13 +13,22 @@ import { SegmentedControl } from '../src/components/SegmentedControl';
 import { Skeleton } from '../src/components/Skeleton';
 import { StatusBadge } from '../src/components/StatusBadge';
 import { Typography } from '../src/components/Typography';
+import { resolveTheme, themes } from '../src/theme';
 import { theme } from './helpers';
-import { setMockFontScale } from './react-native-mock';
+import { setMockFontScale, setMockPlatform } from './react-native-mock';
 
 describe('native components', () => {
     afterEach(() => {
         setMockFontScale(1);
+        setMockPlatform('ios');
     });
+    it('resolves explicit and system theme modes', () => {
+        expect(resolveTheme('light')).toBe(themes.light);
+        expect(resolveTheme('dark')).toBe(themes.dark);
+        expect(resolveTheme('system')).toBe(themes.light);
+        expect(resolveTheme('system', 'dark')).toBe(themes.dark);
+    });
+
     it('renders Button and invokes onPress', () => {
         const onPress = jest.fn();
         render(<Button label="Continue" theme={theme} onPress={onPress} />);
@@ -323,6 +332,15 @@ describe('native components', () => {
         expect(screen.getByRole('button', { name: 'Go back' })).toBeTruthy();
     });
 
+    it('keeps Header standard truncation and side slots on Android at large font scale', () => {
+        setMockPlatform('android');
+        setMockFontScale(2);
+        render(<Header title="A deliberately long account settings title" theme={theme} />);
+
+        expect(screen.getByText('A deliberately long account settings title').props.numberOfLines).toBe(2);
+        expect(screen.UNSAFE_getAllByType(View)).toHaveLength(3);
+    });
+
     it('exposes ListRow button and disabled state', () => {
         render(<ListRow title="Security" theme={theme} onPress={jest.fn()} disabled />);
         expect(screen.getByRole('button', { name: 'Security' })).toBeDisabled();
@@ -355,6 +373,24 @@ describe('native components', () => {
         expect(row.props.style({ pressed: false })).toEqual(
             expect.arrayContaining([expect.objectContaining({ flexWrap: 'wrap', alignItems: 'flex-start' })]),
         );
+    });
+
+    it('keeps ListRow trailing content horizontal on Android at large font scale', () => {
+        setMockPlatform('android');
+        setMockFontScale(2);
+        render(
+            <ListRow
+                title="Network"
+                description="Testnet connected"
+                theme={theme}
+                trailing={<StatusBadge theme={theme} label="Connected" tone="positive" />}
+            />,
+        );
+
+        const row = screen.UNSAFE_getByType(Pressable);
+        expect(row.props.style({ pressed: false })).toEqual(expect.arrayContaining([null]));
+        const trailing = screen.getByText('Connected').parent;
+        expect(trailing?.props.style).toEqual(expect.arrayContaining([null]));
     });
 
     it('keeps whole-row ListRow action as the only button when trailing content is presentation-only', () => {
