@@ -50,6 +50,31 @@ amount panels, selectors and transaction presentation remain Feature-local by de
   theme generation and persistence belong to the consuming application; the package does not
   implement image processing.
 
+## iOS support summary
+
+The current package includes the same 15 shared components for iPhone-oriented React Native use.
+The implementation remains a cross-platform design-system package rather than a SwiftUI/UIKit SDK
+or product navigation layer.
+
+- Planned minimum package target: iOS 15.1, inherited from the React Native template. That minimum
+  has **not** been runtime-validated in this project.
+- Verified Simulator baseline: Xcode 16.4 / iOS 18.5 on iPhone Simulator.
+- Dynamic Type review covers default, maximum-standard and representative maximum-accessibility
+  text sizes. The current 14/13/15/18/20/48 typography contract is not changed here; use the
+  recorded iOS typography decision rather than inferring values from Web CSS.
+- Simulator evidence covers the current S01-S06 review matrix, including the reviewed Modal close
+  control and software-keyboard-constrained Field/action path.
+- Technical layout review is complete for the recorded frames. Project-owner layout approval remains
+  pending, and there is no owner-approved iOS Golden Baseline.
+- Physical-device iOS, actual VoiceOver focus/speech/gesture behavior, real-device keyboard/autofill
+  and color/contrast work remain deferred.
+
+Start with the [iOS support baseline](docs/ios-support-baseline.md), the
+[Web iOS component specifications](https://github.com/Pixman022/fresnica-ui/blob/main/docs/design-system/ios-component-specs.md),
+the [Simulator evidence manifest](docs/visual-baselines/ios-simulator-evidence-manifest.json),
+the [layout review](docs/visual-baselines/ios-layout-review-2026-10-15.md), and the
+[consumer handoff](docs/consumer-handoff.md).
+
 ## First implementation slice
 
 1. `AppTheme` and theme-mode resolution
