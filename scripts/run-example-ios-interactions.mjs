@@ -206,7 +206,7 @@ run(
         '-scheme',
         'FresnicaPreviewQ05',
         '-configuration',
-        'Debug',
+        'Release',
         '-sdk',
         'iphonesimulator',
         '-destination',
@@ -224,6 +224,7 @@ run(
 const metadata = {
     device: deviceName,
     runtime: `iOS ${runtimeVersion}`,
+    configuration: 'Release',
     sourceSha: process.env.GITHUB_SHA ?? 'local',
     xcode: run('xcodebuild', ['-version'], root, true),
     node: run('node', ['--version'], root, true),
