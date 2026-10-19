@@ -54,10 +54,7 @@ const defaultEvidenceViewLine = "const initialEvidenceView: EvidenceView = 'full
 if (!previewApp.includes(defaultEvidenceViewLine)) {
     throw new Error('Preview evidence-view launch default changed; update the Q05 injection point.');
 }
-previewApp = previewApp.replace(
-    defaultEvidenceViewLine,
-    "const initialEvidenceView: EvidenceView = 'keyboard';",
-);
+previewApp = previewApp.replace(defaultEvidenceViewLine, "const initialEvidenceView: EvidenceView = 'keyboard';");
 fs.writeFileSync(previewAppPath, previewApp);
 
 fs.rmSync(evidenceDir, { recursive: true, force: true });
