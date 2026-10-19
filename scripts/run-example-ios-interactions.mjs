@@ -156,8 +156,8 @@ fs.writeFileSync(rubyPath, rubySource);
 
 run('bundle', ['exec', 'ruby', rubyPath, projectPath, swiftPath], projectDir);
 
-const devices = JSON.parse(run('xcrun', ['simctl', 'list', 'devices', 'available', '-j'], root, true));
-const runtimeKey = Object.keys(devices.devices).find((key) => key.endsWith(`iOS-${runtimeVersion.replace('.', '-')}`));
+const devices = JSON.parse(\n    run('xcrun', ['simctl', 'list', 'devices', 'available', '-j'], root, true),\n);
+const runtimeKey = Object.keys(devices.devices).find((key) =>\n    key.endsWith(`iOS-${runtimeVersion.replace('.', '-')}`),\n);
 if (!runtimeKey) {
     throw new Error(`iOS ${runtimeVersion} Simulator runtime is not installed.`);
 }
@@ -167,7 +167,7 @@ if (!device) {
     throw new Error(`${deviceName} is not available for iOS ${runtimeVersion}.`);
 }
 
-run('defaults', ['write', 'com.apple.iphonesimulator', 'ConnectHardwareKeyboard', '-bool', 'false']);
+run('defaults', [\n    'write',\n    'com.apple.iphonesimulator',\n    'ConnectHardwareKeyboard',\n    '-bool',\n    'false',\n]);
 
 if (device.state !== 'Booted') {
     run('xcrun', ['simctl', 'boot', device.udid]);
@@ -232,7 +232,7 @@ const exportResult = spawnSync(
     { cwd: root, stdio: 'inherit', shell: false },
 );
 if (exportResult.status !== 0) {
-    console.warn('[q05] xcresult attachment export was unavailable; the xcresult bundle still contains the screenshots.');
+    console.warn(\n        '[q05] xcresult attachment export was unavailable; the xcresult bundle still contains the screenshots.',\n    );
 }
 
 console.log(JSON.stringify(metadata, null, 2));
