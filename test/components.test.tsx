@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
-import { Modal as NativeModal, Pressable, ScrollView } from 'react-native';
+import { Modal as NativeModal, Pressable, ScrollView, View } from 'react-native';
 import { Button } from '../src/components/Button';
 import { Field } from '../src/components/Field';
 import { Header } from '../src/components/Header';
@@ -296,6 +296,31 @@ describe('native components', () => {
         setMockFontScale(2);
         render(<Header title="A deliberately long account settings title" theme={theme} />);
         expect(screen.getByText('A deliberately long account settings title').props.numberOfLines).toBeUndefined();
+    });
+
+    it('reclaims empty Header side slots at iOS accessibility text sizes', () => {
+        setMockFontScale(2);
+        render(<Header title="A deliberately long account settings title" theme={theme} />);
+
+        const views = screen.UNSAFE_getAllByType(View);
+        expect(views).toHaveLength(1);
+    });
+
+    it('keeps a real Header back-action slot at iOS accessibility text sizes', () => {
+        setMockFontScale(2);
+        render(
+            <Header
+                title="A deliberately long account settings title"
+                theme={theme}
+                leading={<Typography theme={theme}>‹</Typography>}
+                onBack={jest.fn()}
+                backAccessibilityLabel="Go back"
+            />,
+        );
+
+        const views = screen.UNSAFE_getAllByType(View);
+        expect(views).toHaveLength(2);
+        expect(screen.getByRole('button', { name: 'Go back' })).toBeTruthy();
     });
 
     it('exposes ListRow button and disabled state', () => {
