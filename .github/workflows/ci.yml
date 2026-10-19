@@ -50,6 +50,18 @@ jobs:
               working-directory: fresnica-ui-native
               run: npm test
 
+            - name: Collect package coverage baseline
+              working-directory: fresnica-ui-native
+              run: npm run test:coverage
+
+            - name: Upload package coverage baseline
+              uses: actions/upload-artifact@v7
+              with:
+                  name: native-package-coverage
+                  path: fresnica-ui-native/coverage
+                  if-no-files-found: error
+                  retention-days: 30
+
             - name: Verify archived iOS visual evidence
               working-directory: fresnica-ui-native
               run: node scripts/verify-ios-evidence.mjs
