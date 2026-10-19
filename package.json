@@ -60,7 +60,8 @@
         "test:package": "node scripts/test-packed-package.mjs",
         "delivery:artifact": "node scripts/create-delivery-artifact.mjs",
         "example:ios:build": "node scripts/build-example-ios.mjs",
-        "example:ios:smoke": "node scripts/run-example-ios-smoke.mjs"
+        "example:ios:smoke": "node scripts/run-example-ios-smoke.mjs",
+        "test:coverage": "jest --runInBand --coverage"
     },
     "devDependencies": {
         "@react-native/babel-preset": "^0.87.0",

@@ -13,6 +13,9 @@ export const ScrollView = 'ScrollView';
 export const TextInput = 'TextInput';
 export const Modal = 'Modal';
 export const Platform = { OS: 'ios' };
+export const setMockPlatform = (os: 'ios' | 'android') => {
+    Platform.OS = os;
+};
 
 let windowDimensions = { width: 390, height: 844, scale: 3, fontScale: 1 };
 export const useWindowDimensions = () => windowDimensions;

@@ -12,4 +12,21 @@ module.exports = {
     ],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
     testMatch: ['<rootDir>/test/**/*.test.tsx'],
+    collectCoverageFrom: [
+        'src/components/**/*.{ts,tsx}',
+        'src/theme.ts',
+        'src/ui-context.tsx',
+        'src/locales.ts',
+        '!src/**/*.d.ts',
+    ],
+    coverageDirectory: 'coverage',
+    coverageReporters: ['text', 'json-summary'],
+    coverageThreshold: {
+        global: {
+            statements: 97,
+            branches: 86,
+            functions: 96,
+            lines: 97,
+        },
+    },
 };
