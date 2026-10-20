@@ -1,10 +1,12 @@
-# Wallet Security Boundary
+# Historical Wallet Prototype Security Boundary
 
-Fresnica Native uses a non-custodial local-wallet architecture.
+This record documents the retained `product/` wallet prototype. It is historical product
+reference, not part of the current `@fresnica/ui-native` component-library delivery or Maintenance
+scope. No new wallet security, signing, Mainnet or recovery work is implied by retaining this file.
 
-## Current scope
+## Recorded prototype scope
 
-The current implementation is intentionally Testnet-only.
+The retained implementation is intentionally Testnet-only.
 
 - Network: Stellar Testnet
 - Secret custody: local device only
@@ -41,9 +43,10 @@ payment, shows a review screen, then retrieves the local secret only after devic
 The signed transaction is submitted directly to Stellar Testnet Horizon. The UI does not expose the
 secret or signed XDR, and Mainnet endpoints are not available in this slice.
 
-## Mainnet gate
+## Historical Mainnet gate
 
-Mainnet signing and submission remain disabled until all of the following are complete:
+Mainnet signing and submission remain disabled. The following items were recorded as product-release
+requirements and remain outside the current component-library scope:
 
 - production backup/recovery/export policy;
 - Mainnet creation/import UX and recovery acknowledgement;
@@ -53,10 +56,12 @@ Mainnet signing and submission remain disabled until all of the following are co
 - physical-device biometric/passcode acceptance;
 - threat-model and security-review sign-off.
 
-## Verification
+## Historical verification
 
-Android Product Acceptance generates a clean React Native host, typechecks it, runs
-`wallet-core-smoke.mts`, builds the APK and then runs the existing product-flow emulator gate.
+The retained Android Product Acceptance workflow can be started manually. When run, it generates a
+clean React Native host, typechecks it, runs `wallet-core-smoke.mts`, builds the APK and exercises
+the historical product-flow emulator path. Routine component-library pull requests and Maintenance
+do not run this wallet verification.
 
 The smoke check proves:
 
