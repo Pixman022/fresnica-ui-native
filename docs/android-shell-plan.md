@@ -29,8 +29,8 @@ component package.
 3. A native-stack Send route provides the first secondary wallet flow.
 4. Theme and locale preferences persist through AsyncStorage.
 5. NetInfo supplies connection state and the Scan route owns the user-initiated camera permission request.
-6. The manual Android Product Acceptance workflow can build and exercise the historical product
-   shell on a headless emulator when explicitly requested.
+6. The `Historical Android Product Acceptance` workflow remains manual and can build and exercise the
+   historical product shell on a headless emulator when explicitly requested.
 
 See [`product-app-acceptance.md`](product-app-acceptance.md) for the retained manual workflow and
 historical product-release boundary.
