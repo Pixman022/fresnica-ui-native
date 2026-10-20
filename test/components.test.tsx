@@ -365,7 +365,9 @@ describe('native components', () => {
     });
 
     it('includes ListRow description in an interactive accessibility label', async () => {
-        await render(<ListRow title="Security" description="Manage access and backups" theme={theme} onPress={jest.fn()} />);
+        await render(
+            <ListRow title="Security" description="Manage access and backups" theme={theme} onPress={jest.fn()} />,
+        );
         expect(screen.getByRole('button', { name: 'Security, Manage access and backups' })).toBeTruthy();
     });
 
@@ -458,7 +460,9 @@ describe('native components', () => {
         const { rerender } = await render(<InlineMessage message="Unable to connect" theme={theme} tone="error" />);
         expect(screen.getByRole('alert', { name: 'Unable to connect' })).toBeTruthy();
 
-        await rerender(<InlineMessage message="Unable to connect" theme={theme} tone="error" announcementMode="passive" />);
+        await rerender(
+            <InlineMessage message="Unable to connect" theme={theme} tone="error" announcementMode="passive" />,
+        );
         expect(screen.queryByRole('alert')).toBeNull();
         expect(screen.getByText('Unable to connect')).toBeTruthy();
 
