@@ -1,8 +1,14 @@
 # iOS Support Work Status — 2026-10-14
 
-This record tracks the current state of the iOS component/design-system support plan after the
-first successful Simulator runtime smoke. It intentionally keeps build, runtime, visual review and
-physical-device acceptance as separate conclusions.
+This record tracks the iOS component/design-system support plan from the 2026-10-14/15
+engineering round. It intentionally keeps build, runtime, visual review and physical-device
+acceptance as separate conclusions.
+
+**Maintenance update — 2026-10-20:** the broader 2026-10-15 iOS candidate-frame / Golden Baseline
+owner approval was not granted by this record. A later, narrower decision approved only the current
+Q03 extreme-Dynamic-Type Header layout after before/after review. See
+`quality-maintenance-ios-experience-status-2026-10-20.md`. Physical-device, VoiceOver,
+color/contrast and the broader iOS Golden Baseline remain outside that approval.
 
 ## Engineering closeout — 2026-10-15
 
@@ -64,14 +70,16 @@ superseded history and pins the new source and artifact below.
 - **IOS06 — Complete for the current design-system scope.** Web #33 finalizes the English and
   Simplified Chinese specifications for all 15 components, records the unchanged typography mapping
   and synchronizes the verified S05/S06 reachability conclusions.
-- **IOS07 — Engineering evidence complete; owner design decision pending.** Repeatable CI
-  build/install/launch/screenshot gates exist; #90 requires visible Preview state to agree with
-  scenario metadata. `docs/visual-baselines/ios-simulator-evidence-manifest.json` now versions the
-  reviewed S01-S06 run IDs, artifact IDs, SHA-256 digests, source SHAs, scenarios and outcomes.
-  The 2026-10-15 engineering closeout now retains ten original PNG/metadata pairs in Git and
+- **IOS07 — Engineering evidence complete; broader iOS Golden Baseline remains unapproved.**
+  Repeatable CI build/install/launch/screenshot gates exist; #90 requires visible Preview state to
+  agree with scenario metadata. `docs/visual-baselines/ios-simulator-evidence-manifest.json`
+  versions the reviewed S01-S06 run IDs, artifact IDs, SHA-256 digests, source SHAs, scenarios and
+  outcomes. The 2026-10-15 engineering closeout retains ten original PNG/metadata pairs in Git and
   verifies individual hashes and capture metadata in CI. Technical reviewer/date and seven candidate
-  frames are recorded in `visual-baselines/ios-layout-review-2026-10-15.md`. Owner design approval
-  remains pending; no automated pixel-diff or owner-approved iOS Golden Baseline is claimed.
+  frames are recorded in `visual-baselines/ios-layout-review-2026-10-15.md`. At that closeout,
+  owner approval was still pending. On 2026-10-20 the owner later approved only the current Q03
+  extreme-Dynamic-Type Header layout; that narrower decision does not approve the seven-frame set as
+  a whole and does not create an owner-approved iOS Golden Baseline. No automated pixel-diff is claimed.
 - **IOS08 — Complete for the current internal design-system handoff.** The final private candidate
   is recorded in `docs/delivery-candidate-ios-2026-10-15.md` with archive SHA-256
   `5b42564fcbc7b47a9b8609d7252de4f47377d3ed2223fbb9ec117b5de7eb5ceb`,
@@ -140,7 +148,8 @@ The visible top frames show wrapping without an obvious horizontal-overflow or o
 
 These older top-frame captures are retained as historical context. Later #94/#96 detail evidence
 covers Header, actions, ListRow, Modal and keyboard-constrained slices; see the archived manifest
-and the 2026-10-15 layout review. The owner decision still concerns only the seven listed frames.
+and the 2026-10-15 layout review. The seven-frame review did not later become a broad owner-approved
+Golden Baseline. The separate 2026-10-20 owner decision applies only to the Q03 current Header layout.
 
 ## Current merged iOS implementation/documentation slices
 
@@ -190,7 +199,8 @@ The existing Native Modal `fade` behavior remains unchanged.
 
 The implementation and internal handoff for IOS01-IOS08 are delivered for the current
 **Simulator-backed design-system scope**. IOS07 original-image retention and technical-review
-records are now completed by the engineering closeout. The project-owner layout decision remains
-pending and must not be described as approved. Physical-device/VoiceOver acceptance, real-device
-keyboard/autofill, color/contrast changes, iPad support and wallet-product integration/release
-acceptance retain their existing deferred/excluded status.
+records are completed by the engineering closeout. The broader iOS Golden Baseline remains
+unapproved; the later 2026-10-20 owner decision closes only the Q03 current Header-layout decision.
+Physical-device/VoiceOver acceptance, real-device keyboard/autofill, color/contrast changes, iPad
+support and wallet-product integration/release acceptance retain their existing deferred/excluded
+status.
