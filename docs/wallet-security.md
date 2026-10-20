@@ -1,10 +1,14 @@
-# Wallet Security Boundary
+# Historical Wallet Security Boundary
 
-Fresnica Native uses a non-custodial local-wallet architecture.
+> Historical product-prototype record. This document describes the retained Testnet wallet
+> prototype under `product/`; wallet security, signing, transaction submission, Mainnet enablement
+> and recovery design are not part of the current reusable UI-library Maintenance scope.
 
-## Current scope
+The historical Fresnica wallet prototype uses a non-custodial local-wallet architecture.
 
-The current implementation is intentionally Testnet-only.
+## Historical prototype scope
+
+The retained implementation is intentionally Testnet-only.
 
 - Network: Stellar Testnet
 - Secret custody: local device only
@@ -53,10 +57,11 @@ Mainnet signing and submission remain disabled until all of the following are co
 - physical-device biometric/passcode acceptance;
 - threat-model and security-review sign-off.
 
-## Verification
+## Historical verification
 
-Android Product Acceptance generates a clean React Native host, typechecks it, runs
-`wallet-core-smoke.mts`, builds the APK and then runs the existing product-flow emulator gate.
+The manual Android Product Acceptance workflow can generate a clean React Native host, typecheck it,
+run `wallet-core-smoke.mts`, build the APK and exercise the historical product flow when explicitly
+requested. Routine package pull requests and `main` Maintenance do not run this wallet workflow.
 
 The smoke check proves:
 
@@ -67,4 +72,6 @@ The smoke check proves:
 - invalid Stellar secret seeds are rejected;
 - zero, negative and values with more than seven XLM decimal places are rejected.
 
-Biometric/passcode prompts and secure-store behavior still require physical-device acceptance.
+Biometric/passcode prompts and secure-store behavior were never physically accepted for this
+prototype. Those checks would belong to a future product-scope decision, not the current component
+library.

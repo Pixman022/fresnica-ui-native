@@ -1,7 +1,8 @@
-# Wallet Threat Model (Engineering Draft)
+# Historical Wallet Threat Model (Engineering Draft)
 
-Status: **draft — not a release security review or sign-off**. Scope: Android product App, Stellar Testnet only.
-Mainnet creation, signing and submission remain out of scope and disabled.
+Status: **historical draft — not a release security review or sign-off**. Scope: retained Android
+product prototype, Stellar Testnet only. This is not a current `@fresnica/ui-native` Maintenance
+workstream. Mainnet creation, signing and submission remain out of scope and disabled.
 
 ## Assets and trust boundaries
 
@@ -11,7 +12,7 @@ Mainnet creation, signing and submission remain out of scope and disabled.
 - **Signed transaction:** created locally after device authentication, passed directly to Testnet Horizon without rendering signed XDR in the UI.
 - **External network:** HTTPS Testnet Horizon is outside the device trust boundary; network errors do not prove that submission failed.
 
-## Threats, current controls and remaining risk
+## Threats, historical prototype controls and remaining risk
 
 - **Stored secret extraction:** Android Keystore-backed Keychain requests biometric/passcode access.
   Physical-device behavior and production backup/recovery still require acceptance.
@@ -27,17 +28,18 @@ Mainnet creation, signing and submission remain out of scope and disabled.
   Secure backup and recovery must be designed before Mainnet creation.
 - **Authentication or system UI failure:** Android Keychain requests local authentication.
   Physical-device passcode/biometric and accessibility acceptance are still required.
-- **Unsafe dependencies or build changes:** CI and Android Product Acceptance check builds and wallet smoke tests.
-  Release dependency review and independent threat-model sign-off are not yet complete.
+- **Unsafe dependencies or build changes:** the retained manual Android Product Acceptance workflow
+  can still check the historical build and wallet smoke tests when explicitly run. It is not a
+  required package gate. Release dependency review and independent threat-model sign-off were not completed.
 
 ## Verification boundaries
 
-- CI wallet smoke tests construct local XDR and reject unauthorized signing intents without obtaining real funds or submitting transactions.
-- Automated Android acceptance checks navigation, localization and APK build. It does **not** validate hardware-backed Keychain behavior, physical biometrics or transfer submission.
-- Real Testnet payments require separate, explicitly authorized end-to-end testing. No Mainnet operation is permitted.
+- The retained wallet smoke test can construct local XDR and reject unauthorized signing intents without obtaining real funds or submitting transactions.
+- The manual Android product workflow can check navigation, localization and APK build. It does **not** validate hardware-backed Keychain behavior, physical biometrics or transfer submission.
+- Any future real Testnet payment testing requires a separate, explicitly authorized product-scope decision. No Mainnet operation is permitted.
 - This document records threats and engineering mitigations, **not** approval for Mainnet or production funds.
 
-## Open decisions tracked by Issue #22
+## Historical open product decisions tracked by Issue #22
 
 1. Production wallet backup, recovery and secret-export UX.
 2. Screenshot/recents handling for sensitive surfaces.
@@ -45,4 +47,5 @@ Mainnet creation, signing and submission remain out of scope and disabled.
 4. Production Horizon/provider trust, availability and custom endpoint configuration.
 5. Physical-device authentication acceptance and independent security review sign-off.
 
-These decisions must be resolved separately; this draft does not choose them on behalf of the product owner.
+These decisions were not resolved by this historical draft. They do not block current UI-library
+Maintenance and would need to be reconsidered only if wallet-product development is explicitly resumed.

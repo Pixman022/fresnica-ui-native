@@ -151,7 +151,7 @@ design-system contract documents. Do not extend product logic as part of the UI 
 Component behavior and the phase-one acceptance matrix are documented in
 [`docs/component-contracts.md`](docs/component-contracts.md).
 
-The Android shell boundary and build order are documented in
+The historical Android product-shell boundary and build order are retained in
 [`docs/android-shell-plan.md`](docs/android-shell-plan.md).
 
 The primitive Preview emulator workflow, evidence bundle and review expectations are
