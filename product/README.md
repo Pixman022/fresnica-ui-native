@@ -33,7 +33,7 @@ For a compile-only check:
 npm run product:android:build
 ```
 
-## Current product slice
+## Historical product slice
 
 The root stack contains the five primary wallet destinations defined by the Fresnica
 navigation hierarchy: Home, Activity, Scan, Explore and Settings. A secondary Send route is
@@ -53,5 +53,5 @@ Mainnet signing and submission remain disabled until the remaining release secur
 physical-device checks are complete.
 
 See [product app acceptance](../docs/product-app-acceptance.md) and
-[wallet security](../docs/wallet-security.md) for the automated/manual acceptance and security
-boundaries.
+[wallet security](../docs/wallet-security.md) for the retained manual acceptance workflow and
+historical security boundaries.
