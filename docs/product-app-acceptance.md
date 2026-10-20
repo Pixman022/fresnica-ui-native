@@ -1,14 +1,17 @@
-# Product App Android Acceptance
+# Historical Product App Android Acceptance
 
-The first product App shell is committed under `product/`. It is separate from the reusable
-component package and from the primitive-only Preview host.
+The first product App shell is committed under `product/` as historical wallet-prototype
+reference. It is separate from the reusable component package and from the primitive-only Preview
+host, and it does not gate current `@fresnica/ui-native` Maintenance work.
 
-## Automated product gate
+## Manual historical product workflow
 
-`.github/workflows/android-product-acceptance.yml` generates a clean React Native 0.87
-host, installs the current local `@fresnica/ui-native` build plus the approved App-shell
-dependencies, typechecks the host, runs the pure wallet-core smoke check, builds the Android
-APK, starts a headless emulator and runs a focused product flow.
+`.github/workflows/android-product-acceptance.yml` is retained as a manual
+`workflow_dispatch` check. When explicitly run, it generates a clean React Native 0.87 host,
+installs the current local `@fresnica/ui-native` build plus the historical App-shell dependencies,
+typechecks the host, runs the pure wallet-core smoke check, builds the Android APK, starts a
+headless emulator and runs a focused product flow. Routine component-package pull requests and
+`main` maintenance do not trigger this workflow.
 
 The flow verifies:
 
@@ -68,5 +71,5 @@ run the product App on at least one supported physical Android device and record
 - long English and Simplified Chinese copy;
 - absence of horizontal overflow at 320dp.
 
-These are release acceptance tasks, not blockers for keeping the product shell source and
-automated emulator gate in the repository.
+These are historical product-release acceptance tasks, not blockers for the reusable component
+package. The emulator workflow remains available only for an explicit future product-scope decision.
