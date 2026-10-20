@@ -7,7 +7,7 @@ on:
     workflow_dispatch:
 
 permissions:
-    contents: write
+    contents: read
 
 jobs:
     test:
@@ -35,21 +35,7 @@ jobs:
 
             - name: Install dependencies
               working-directory: fresnica-ui-native
-              run: npm install
-
-            - name: Format migrated component tests
-              working-directory: fresnica-ui-native
-              run: npx prettier --write test/components.test.tsx test/provider.test.tsx test/missing-component-render.test.tsx
-
-            - name: Upload RNTL 14 refresh files
-              uses: actions/upload-artifact@v7
-              with:
-                  name: native-rntl14-refresh
-                  path: |
-                      fresnica-ui-native/package-lock.json
-                      fresnica-ui-native/test/components.test.tsx
-                  if-no-files-found: error
-                  retention-days: 1
+              run: npm ci
 
             - name: Audit native development dependencies (report only)
               working-directory: fresnica-ui-native
@@ -105,28 +91,3 @@ jobs:
                   path: fresnica-ui-native/artifacts/delivery
                   if-no-files-found: error
                   retention-days: 90
-
-            - name: Commit generated RNTL 14 refresh
-              if: github.event_name == 'pull_request'
-              working-directory: fresnica-ui-native
-              env:
-                  HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
-              run: |
-                  cp package-lock.json /tmp/package-lock.json
-                  cp test/components.test.tsx /tmp/components.test.tsx
-                  cp test/provider.test.tsx /tmp/provider.test.tsx
-                  cp test/missing-component-render.test.tsx /tmp/missing-component-render.test.tsx
-                  git fetch origin "$HEAD_BRANCH"
-                  git checkout -B "$HEAD_BRANCH" "origin/$HEAD_BRANCH"
-                  cp /tmp/package-lock.json package-lock.json
-                  cp /tmp/components.test.tsx test/components.test.tsx
-                  cp /tmp/provider.test.tsx test/provider.test.tsx
-                  cp /tmp/missing-component-render.test.tsx test/missing-component-render.test.tsx
-                  if git diff --quiet -- package-lock.json test/components.test.tsx test/provider.test.tsx test/missing-component-render.test.tsx; then
-                      exit 0
-                  fi
-                  git config user.name "github-actions[bot]"
-                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-                  git add package-lock.json test/components.test.tsx test/provider.test.tsx test/missing-component-render.test.tsx
-                  git commit -m "test: refresh RNTL 14 lock and formatting"
-                  git push origin HEAD:"$HEAD_BRANCH"
