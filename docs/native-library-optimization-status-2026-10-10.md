@@ -1,5 +1,11 @@
 # Native Component Library Optimization Status — 2026-10-10
 
+> **Maintenance note — 2026-10-20:** this document preserves the 2026-10-10 plan checkpoint. Its
+> G03 “iOS support deferred” label is historical: later rounds delivered the current
+> Simulator-backed iPhone component baseline, Dynamic Type evidence and Simulator interaction
+> evidence. Physical-device iOS/VoiceOver, color/contrast and product acceptance remain deferred.
+> See `quality-maintenance-ios-experience-status-2026-10-20.md` for the current closeout state.
+
 Source plan: `Fresnica Native 组件库优化工作计划` dated 2026-10-10.
 
 ## Baseline recheck
@@ -34,9 +40,9 @@ final accessibility-role boundary fix.
 
 ## Conditional items
 
-G01 contrast changes, G02 physical-device accessibility, G03 iOS support and G04 system
-reduced-motion remain conditional/deferred exactly as recorded in the source plan. They are
-not converted into current engineering blockers.
+At this 2026-10-10 checkpoint, G01 contrast changes, G02 physical-device accessibility, G03 iOS
+support and G04 system reduced-motion remained conditional/deferred exactly as recorded in the
+source plan. They were not converted into engineering blockers for that optimization round.
 
 ## Scope guard
 
