@@ -62,8 +62,10 @@ or product navigation layer.
 - Dynamic Type review covers default, maximum-standard and representative maximum-accessibility
   text sizes. The current 14/13/15/18/20/48 typography contract is not changed here; use the
   recorded iOS typography decision rather than inferring values from Web CSS.
-- Simulator evidence covers the current S01-S06 review matrix, including the reviewed Modal close
-  control and software-keyboard-constrained Field/action path.
+- Simulator visual evidence covers the current S01-S06 review matrix. The 2026-10-19 Q03 review
+  adds extreme-Dynamic-Type Header evidence after reclaiming empty side slots, while Q05 separately
+  adds XCUITest interaction evidence for software keyboard + primary action, long-content
+  scrolling/action activation, and Modal open/close.
 - Technical layout review is complete for the recorded frames. Project-owner layout approval remains
   pending, and there is no owner-approved iOS Golden Baseline.
 - Physical-device iOS, actual VoiceOver focus/speech/gesture behavior, real-device keyboard/autofill
@@ -72,8 +74,10 @@ or product navigation layer.
 Start with the [iOS support baseline](docs/ios-support-baseline.md), the
 [Web iOS component specifications](https://github.com/Pixman022/fresnica-ui/blob/main/docs/design-system/ios-component-specs.md),
 the [Simulator evidence manifest](docs/visual-baselines/ios-simulator-evidence-manifest.json),
-the [layout review](docs/visual-baselines/ios-layout-review-2026-10-15.md), and the
-[consumer handoff](docs/consumer-handoff.md).
+the archived [2026-10-15 layout review](docs/visual-baselines/ios-layout-review-2026-10-15.md),
+the current [2026-10-19 extreme Dynamic Type review](docs/visual-baselines/ios-layout-review-2026-10-19.md),
+the [quality-maintenance status](docs/quality-maintenance-ios-experience-status-2026-10-20.md), and
+the [consumer handoff](docs/consumer-handoff.md).
 
 ## First implementation slice
 
