@@ -60,7 +60,7 @@
 
 - **组件库门槛（当前）：** 组件 role/state/label、44dp 触控目标、320dp、长文案、主题和自动化测试。
 - **首个钱包集成硬门槛：** Android 真机 TalkBack 阅读/焦点顺序、Modal 关闭焦点恢复、真实软键盘避让、系统 Back、安全区/系统栏、至少 1.3× 字体、触控目标、中英文长文案。
-- **正式发布门槛：** 多设备/系统版本、完整 reduced-motion 复核、最终颜色对比审查；iOS 开发启动后再增加 VoiceOver / iPhone 真机门槛。
+- **正式发布门槛：** 多设备/系统版本、完整 reduced-motion 复核、最终颜色对比审查。组件库现已具备 Simulator-backed iPhone 支持；若真实消费 App 的集成/发布范围包含 iOS，则必须在对应产品门槛执行 VoiceOver / iPhone 真机、真实键盘/autofill 与安全区等验收，不能用 Simulator 证据替代。
 
 **验收：** 不把模拟器证据冒充真机验收；首个钱包 UI 集成不得在第二层未完成时标记为“集成完成”。
 
