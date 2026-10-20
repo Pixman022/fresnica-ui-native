@@ -59,9 +59,9 @@ Mainnet signing and submission remain disabled until all of the following are co
 
 ## Historical verification
 
-The manual Historical Android Product Acceptance workflow can generate a clean React Native host, typecheck it,
-run `wallet-core-smoke.mts`, build the APK and exercise the historical product flow when explicitly
-requested. Routine package pull requests and `main` Maintenance do not run this wallet workflow.
+The `Historical Android Product Acceptance` workflow remains manual. When explicitly requested, it can
+generate a clean React Native host, typecheck it, run `wallet-core-smoke.mts`, build the APK and exercise
+the historical product flow. Routine package pull requests and `main` Maintenance do not run this wallet workflow.
 
 The smoke check proves:
 
