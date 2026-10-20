@@ -2,9 +2,31 @@
 
 This is a repository-level change record for the reusable
 `@fresnica/ui-native` package. The package manifest currently declares
-`1.0.0` and `private: true`; that value is an **internal source/package
-baseline**, not proof of an npm publication, a Git tag, or an approved
+`1.1.0-rc.1` and `private: true`; that value is an **internal integration
+candidate**, not proof of an npm publication, a Git tag, or an approved
 production UI release.
+
+## 2026-10-20 — 1.1.0-rc.1 quality-maintenance candidate
+
+- Preserved the public package API, typography mapping, color palette and shared Modal `fade`
+  behavior while completing the 2026-10-19 quality-maintenance work.
+- Q03 reclaims empty Header side slots only at iOS accessibility text sizes; real leading/back/
+  trailing controls retain their existing slots and hit areas. Simulator technical review supports
+  keeping the change, while project-owner layout decision D01 remains pending.
+- Q04 adds package-level Jest coverage measurement and a non-regressing CI gate, with explicit
+  iOS/Android platform-branch coverage.
+- Q05 adds XCUITest Simulator interaction evidence for software keyboard + primary action,
+  long-content scrolling + action activation, and Modal open/close.
+- Q06 freezes the current private candidate from Native source
+  `1afeac9cab5c55e4baeb0e99514c933722935da0`; the tarball
+  `fresnica-ui-native-1.1.0-rc.1.tgz` has SHA-256
+  `341c1cc84590b802d2f8457500b6a30467417c5cf8670b62e54031e1a9313569`.
+- Web quality-maintenance changes are already merged at
+  `e026a6390fd16cf23122d5967b5fd23d6f3fbc57`; Native still pins the unchanged Web token source
+  `15d49e0be28a232ae6de2a7285a3a77add8c87d4`.
+- This remains a private design-system integration candidate. Physical-device iOS/Android
+  acceptance, VoiceOver/TalkBack certification, color/contrast resolution, iPad commitment and
+  wallet-product implementation remain outside the completed engineering round.
 
 ## 2026-10-12 — 1.1.0-rc.1 component-library optimization candidate
 
@@ -71,12 +93,14 @@ See [consumer handoff](docs/consumer-handoff.md) and
   evidence. Real TalkBack/focus order, physical-device behavior, reduced
   motion and full mobile accessibility certification remain **unverified**.
   A green CI run is not a general accessibility or product release sign-off.
-- Approved reference PNGs remain in time-limited GitHub Actions artifacts.
-  The repository records SHA-256 and reproducible profile metadata, not
-  permanently hosted image binaries or an automated pixel-diff threshold.
-- The UI component package does not ship wallet features, Stellar
-  transactions, Mainnet, production security approval, iOS, or a public
-  npm registry release.
+- The archived 2026-10-15 iOS reference PNGs are retained in Git. Android approved PNG binaries
+  and the later 2026-10-19 Q03 iOS PNG binaries may remain in time-limited GitHub Actions artifacts;
+  the repository pins SHA-256 values and reproducible source/profile metadata. No automated
+  pixel-diff threshold is enabled.
+- The UI component package does not ship wallet features, Stellar transactions, Mainnet,
+  production security approval, a SwiftUI/UIKit SDK, physical-device iOS acceptance or a public
+  npm registry release. Current iPhone support is React Native Simulator-backed component support,
+  not a product-release claim.
 
 For the first-phase engineering completion checklist, refer to
 [the scoped delivery plan](docs/ui-library-delivery-plan.md).
