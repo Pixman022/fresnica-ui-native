@@ -1,6 +1,8 @@
 # Fresnica UI 阶段一交付状态报告（视觉布局已批准）
 
 > 记录日期：2026-10-09。**全部 14 项限定范围内的设计系统工程/视觉布局任务已完成，可供内部试集成；本报告不是 WCAG AA、TalkBack 或钱包 App 生产发布批准。**
+>
+> 维护说明（2026-10-20）：本文主体保留阶段一当时的 Android/模拟器事实，不倒填后续结果。阶段一之后，组件库已完成 Simulator-backed iPhone 支持、Dynamic Type 证据、Q03 Header 布局所有者决定和 XCUITest Simulator 交互证据。下文把“iOS”列为未来工作的表述属于 2026-10-09 历史边界；当前仍延期的是 iPhone 真机、VoiceOver、真实键盘/autofill、颜色对比度、iPad 与产品发布验收。
 
 ## 项目边界
 
