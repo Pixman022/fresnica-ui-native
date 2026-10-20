@@ -17,57 +17,75 @@ import { resolveTheme, themes } from '../src/theme';
 import { theme } from './helpers';
 import { setMockFontScale, setMockPlatform } from './react-native-mock';
 
+type RenderJsonNode = {
+    type?: unknown;
+    props?: Record<string, unknown>;
+    children?: unknown[];
+};
+
+function collectRenderJsonNodes(node: unknown): RenderJsonNode[] {
+    if (Array.isArray(node)) {
+        return node.flatMap(collectRenderJsonNodes);
+    }
+    if (node === null || typeof node !== 'object') {
+        return [];
+    }
+
+    const current = node as RenderJsonNode;
+    return [current, ...(current.children ?? []).flatMap(collectRenderJsonNodes)];
+}
+
 describe('native components', () => {
     afterEach(() => {
         setMockFontScale(1);
         setMockPlatform('ios');
     });
-    it('resolves explicit and system theme modes', () => {
+    it('resolves explicit and system theme modes', async () => {
         expect(resolveTheme('light')).toBe(themes.light);
         expect(resolveTheme('dark')).toBe(themes.dark);
         expect(resolveTheme('system')).toBe(themes.light);
         expect(resolveTheme('system', 'dark')).toBe(themes.dark);
     });
 
-    it('renders Button and invokes onPress', () => {
+    it('renders Button and invokes onPress', async () => {
         const onPress = jest.fn();
-        render(<Button label="Continue" theme={theme} onPress={onPress} />);
+        await render(<Button label="Continue" theme={theme} onPress={onPress} />);
 
-        fireEvent.press(screen.getByRole('button', { name: 'Continue' }));
+        await fireEvent.press(screen.getByRole('button', { name: 'Continue' }));
         expect(onPress).toHaveBeenCalledTimes(1);
     });
 
-    it('exposes Button loading and disabled state', () => {
+    it('exposes Button loading and disabled state', async () => {
         const onPress = jest.fn();
-        render(<Button label="Continue" theme={theme} loading onPress={onPress} />);
+        await render(<Button label="Continue" theme={theme} loading onPress={onPress} />);
         const button = screen.getByRole('button', { name: 'Continue' });
         expect(button).toBeBusy();
         expect(button).toBeDisabled();
         expect(screen.getByText('Loading')).toBeTruthy();
 
-        fireEvent.press(button);
+        expect(button.props.onPress).toBeUndefined();
         expect(onPress).not.toHaveBeenCalled();
     });
 
-    it('uses caller loading copy when provided', () => {
-        render(<Button label="Submit" theme={theme} loading loadingLabel="Submitting" />);
+    it('uses caller loading copy when provided', async () => {
+        await render(<Button label="Submit" theme={theme} loading loadingLabel="Submitting" />);
         expect(screen.getByText('Submitting')).toBeTruthy();
         expect(screen.getByRole('button', { name: 'Submit' })).toBeBusy();
     });
 
-    it('keeps disabled Button noninteractive', () => {
+    it('keeps disabled Button noninteractive', async () => {
         const onPress = jest.fn();
-        render(<Button label="Disabled" theme={theme} disabled onPress={onPress} />);
+        await render(<Button label="Disabled" theme={theme} disabled onPress={onPress} />);
         const button = screen.getByRole('button', { name: 'Disabled' });
-        fireEvent.press(button);
+        expect(button.props.onPress).toBeUndefined();
         expect(onPress).not.toHaveBeenCalled();
     });
 
-    it('applies distinct normal and pressed styles for all Button variants', () => {
+    it('applies distinct normal and pressed styles for all Button variants', async () => {
         const variants = ['primary', 'secondary', 'quiet', 'danger'] as const;
         for (const variant of variants) {
             const testID = `button-${variant}`;
-            render(<Button label={variant} theme={theme} variant={variant} testID={testID} />);
+            await render(<Button label={variant} theme={theme} variant={variant} testID={testID} />);
             const button = screen.getByTestId(testID);
             const normal = button.props.style({ pressed: false });
             const pressed = button.props.style({ pressed: true });
@@ -100,8 +118,8 @@ describe('native components', () => {
         }
     });
 
-    it('expands the compact Button touch target without changing its visual token height', () => {
-        render(<Button label="Compact" theme={theme} size="sm" />);
+    it('expands the compact Button touch target without changing its visual token height', async () => {
+        await render(<Button label="Compact" theme={theme} size="sm" />);
         expect(screen.getByRole('button', { name: 'Compact' }).props.hitSlop).toEqual({
             top: 4,
             bottom: 4,
@@ -110,23 +128,23 @@ describe('native components', () => {
         });
     });
 
-    it('forwards Button test and native identifiers to its pressable node', () => {
-        render(<Button label="Continue" theme={theme} testID="continue-button" nativeID="continue-native" />);
+    it('forwards Button test and native identifiers to its pressable node', async () => {
+        await render(<Button label="Continue" theme={theme} testID="continue-button" nativeID="continue-native" />);
         const button = screen.getByTestId('continue-button');
         expect(button.props.nativeID).toBe('continue-native');
         expect(button.props.accessibilityState).toEqual({ disabled: false, busy: false });
     });
 
-    it('renders Field with an accessible label and error text', () => {
-        render(<Field label="Amount" theme={theme} state="error" supportingText="Enter a valid amount" />);
+    it('renders Field with an accessible label and error text', async () => {
+        await render(<Field label="Amount" theme={theme} state="error" supportingText="Enter a valid amount" />);
         const field = screen.getByLabelText('Amount');
         expect(field.props.accessibilityState).toEqual({ disabled: false });
         expect(field.props.accessibilityHint).toBe('Enter a valid amount');
         expect(screen.getByText('Enter a valid amount')).toBeTruthy();
     });
 
-    it('exposes disabled Field semantics without allowing passthrough props to re-enable input', () => {
-        render(<Field label="Disabled amount" theme={theme} state="disabled" editable value="123" />);
+    it('exposes disabled Field semantics without allowing passthrough props to re-enable input', async () => {
+        await render(<Field label="Disabled amount" theme={theme} state="disabled" editable value="123" />);
 
         const field = screen.getByLabelText('Disabled amount');
         expect(field).toBeDisabled();
@@ -134,12 +152,12 @@ describe('native components', () => {
         expect(field.props.editable).toBe(false);
     });
 
-    it('forwards native Field props, styles, identifiers and input events to the TextInput node', () => {
+    it('forwards native Field props, styles, identifiers and input events to the TextInput node', async () => {
         const onFocus = jest.fn();
         const onBlur = jest.fn();
         const onSubmitEditing = jest.fn();
 
-        render(
+        await render(
             <Field
                 label="Amount"
                 theme={theme}
@@ -185,17 +203,17 @@ describe('native components', () => {
         const focusEvent = { nativeEvent: {} };
         const blurEvent = { nativeEvent: {} };
         const submitEvent = { nativeEvent: { text: '12' } };
-        fireEvent(field, 'focus', focusEvent);
-        fireEvent(field, 'blur', blurEvent);
-        fireEvent(field, 'submitEditing', submitEvent);
+        await fireEvent(field, 'focus', focusEvent);
+        await fireEvent(field, 'blur', blurEvent);
+        await fireEvent(field, 'submitEditing', submitEvent);
 
         expect(onFocus).toHaveBeenCalledWith(focusEvent);
         expect(onBlur).toHaveBeenCalledWith(blurEvent);
         expect(onSubmitEditing).toHaveBeenCalledWith(submitEvent);
     });
 
-    it('forwards secure-input props without deriving secret copy and keeps disabled state authoritative', () => {
-        const { rerender } = render(
+    it('forwards secure-input props without deriving secret copy and keeps disabled state authoritative', async () => {
+        const { rerender } = await render(
             <Field
                 label="Secure input"
                 theme={theme}
@@ -222,7 +240,7 @@ describe('native components', () => {
         expect(field.props.accessibilityHint).toBeUndefined();
         expect(screen.queryByText('test-only-secret')).toBeNull();
 
-        rerender(
+        await rerender(
             <Field
                 label="Secure input"
                 theme={theme}
@@ -248,8 +266,8 @@ describe('native components', () => {
         expect(screen.queryByText('test-only-secret')).toBeNull();
     });
 
-    it('treats native editable=false as disabled even when an error state is requested', () => {
-        render(
+    it('treats native editable=false as disabled even when an error state is requested', async () => {
+        await render(
             <Field
                 label="Read-only amount"
                 theme={theme}
@@ -266,8 +284,8 @@ describe('native components', () => {
         expect(field.props.accessibilityHint).toBeUndefined();
     });
 
-    it('exposes IconButton label, disabled state and native identifiers', () => {
-        render(
+    it('exposes IconButton label, disabled state and native identifiers', async () => {
+        await render(
             <IconButton
                 label="Open settings"
                 theme={theme}
@@ -282,8 +300,8 @@ describe('native components', () => {
         expect(button.props.nativeID).toBe('settings-native');
     });
 
-    it('exposes Header back action and heading title', () => {
-        render(
+    it('exposes Header back action and heading title', async () => {
+        await render(
             <Header
                 title="Settings"
                 theme={theme}
@@ -296,28 +314,28 @@ describe('native components', () => {
         expect(screen.getByRole('header', { name: 'Settings' })).toBeTruthy();
     });
 
-    it('allows Header titles to use two lines before truncating', () => {
-        render(<Header title="A deliberately long account settings title" theme={theme} />);
+    it('allows Header titles to use two lines before truncating', async () => {
+        await render(<Header title="A deliberately long account settings title" theme={theme} />);
         expect(screen.getByText('A deliberately long account settings title').props.numberOfLines).toBe(2);
     });
 
-    it('lets Header titles grow at iOS accessibility text sizes', () => {
+    it('lets Header titles grow at iOS accessibility text sizes', async () => {
         setMockFontScale(2);
-        render(<Header title="A deliberately long account settings title" theme={theme} />);
+        await render(<Header title="A deliberately long account settings title" theme={theme} />);
         expect(screen.getByText('A deliberately long account settings title').props.numberOfLines).toBeUndefined();
     });
 
-    it('reclaims empty Header side slots at iOS accessibility text sizes', () => {
+    it('reclaims empty Header side slots at iOS accessibility text sizes', async () => {
         setMockFontScale(2);
-        render(<Header title="A deliberately long account settings title" theme={theme} />);
+        await render(<Header title="A deliberately long account settings title" theme={theme} />);
 
-        const views = screen.UNSAFE_getAllByType(View);
+        const views = collectRenderJsonNodes(screen.toJSON()).filter((node) => node.type === View);
         expect(views).toHaveLength(1);
     });
 
-    it('keeps a real Header back-action slot at iOS accessibility text sizes', () => {
+    it('keeps a real Header back-action slot at iOS accessibility text sizes', async () => {
         setMockFontScale(2);
-        render(
+        await render(
             <Header
                 title="A deliberately long account settings title"
                 theme={theme}
@@ -327,40 +345,42 @@ describe('native components', () => {
             />,
         );
 
-        const views = screen.UNSAFE_getAllByType(View);
+        const views = collectRenderJsonNodes(screen.toJSON()).filter((node) => node.type === View);
         expect(views).toHaveLength(2);
         expect(screen.getByRole('button', { name: 'Go back' })).toBeTruthy();
     });
 
-    it('keeps Header standard truncation and side slots on Android at large font scale', () => {
+    it('keeps Header standard truncation and side slots on Android at large font scale', async () => {
         setMockPlatform('android');
         setMockFontScale(2);
-        render(<Header title="A deliberately long account settings title" theme={theme} />);
+        await render(<Header title="A deliberately long account settings title" theme={theme} />);
 
         expect(screen.getByText('A deliberately long account settings title').props.numberOfLines).toBe(2);
-        expect(screen.UNSAFE_getAllByType(View)).toHaveLength(3);
+        expect(collectRenderJsonNodes(screen.toJSON()).filter((node) => node.type === View)).toHaveLength(3);
     });
 
-    it('exposes ListRow button and disabled state', () => {
-        render(<ListRow title="Security" theme={theme} onPress={jest.fn()} disabled />);
+    it('exposes ListRow button and disabled state', async () => {
+        await render(<ListRow title="Security" theme={theme} onPress={jest.fn()} disabled />);
         expect(screen.getByRole('button', { name: 'Security' })).toBeDisabled();
     });
 
-    it('includes ListRow description in an interactive accessibility label', () => {
-        render(<ListRow title="Security" description="Manage access and backups" theme={theme} onPress={jest.fn()} />);
+    it('includes ListRow description in an interactive accessibility label', async () => {
+        await render(
+            <ListRow title="Security" description="Manage access and backups" theme={theme} onPress={jest.fn()} />,
+        );
         expect(screen.getByRole('button', { name: 'Security, Manage access and backups' })).toBeTruthy();
     });
 
-    it('keeps noninteractive ListRow content outside a grouped button', () => {
-        render(<ListRow title="Network" description="Testnet connected" theme={theme} />);
+    it('keeps noninteractive ListRow content outside a grouped button', async () => {
+        await render(<ListRow title="Network" description="Testnet connected" theme={theme} />);
         expect(screen.queryByRole('button')).toBeNull();
         expect(screen.getByText('Network')).toBeTruthy();
         expect(screen.getByText('Testnet connected')).toBeTruthy();
     });
 
-    it('stacks ListRow trailing content at iOS accessibility text sizes', () => {
+    it('stacks ListRow trailing content at iOS accessibility text sizes', async () => {
         setMockFontScale(2);
-        render(
+        await render(
             <ListRow
                 title="Network"
                 description="Testnet connected"
@@ -369,16 +389,16 @@ describe('native components', () => {
             />,
         );
 
-        const row = screen.UNSAFE_getByType(Pressable);
+        const row = screen.root;
         expect(row.props.style({ pressed: false })).toEqual(
             expect.arrayContaining([expect.objectContaining({ flexWrap: 'wrap', alignItems: 'flex-start' })]),
         );
     });
 
-    it('keeps ListRow trailing content horizontal on Android at large font scale', () => {
+    it('keeps ListRow trailing content horizontal on Android at large font scale', async () => {
         setMockPlatform('android');
         setMockFontScale(2);
-        render(
+        await render(
             <ListRow
                 title="Network"
                 description="Testnet connected"
@@ -387,18 +407,20 @@ describe('native components', () => {
             />,
         );
 
-        const row = screen.UNSAFE_getByType(Pressable);
+        const row = screen.root;
         const rowStyle = row.props.style({ pressed: false });
         expect(rowStyle[1]).toBeNull();
 
-        const trailing = screen
-            .UNSAFE_getAllByType(View)
-            .find((node) => Array.isArray(node.props.style) && node.props.style[0]?.minWidth === 44);
-        expect(trailing?.props.style[1]).toBeNull();
+        const trailing = collectRenderJsonNodes(screen.toJSON()).find((node) => {
+            const style = node.props?.style;
+            return Array.isArray(style) && style[0]?.minWidth === 44;
+        });
+        const trailingStyle = trailing?.props?.style;
+        expect(Array.isArray(trailingStyle) ? trailingStyle[1] : undefined).toBeNull();
     });
 
-    it('keeps whole-row ListRow action as the only button when trailing content is presentation-only', () => {
-        render(
+    it('keeps whole-row ListRow action as the only button when trailing content is presentation-only', async () => {
+        await render(
             <ListRow
                 title="Network"
                 description="Testnet connected"
@@ -413,8 +435,8 @@ describe('native components', () => {
         expect(screen.getByText('Connected')).toBeTruthy();
     });
 
-    it('keeps an independent trailing action separate when the ListRow itself is not interactive', () => {
-        render(
+    it('keeps an independent trailing action separate when the ListRow itself is not interactive', async () => {
+        await render(
             <ListRow
                 title="Account"
                 description="Primary"
@@ -434,40 +456,42 @@ describe('native components', () => {
         expect(screen.queryByRole('button', { name: 'Account, Primary' })).toBeNull();
     });
 
-    it('preserves error alert semantics by default and supports passive delivery', () => {
-        const { rerender } = render(<InlineMessage message="Unable to connect" theme={theme} tone="error" />);
+    it('preserves error alert semantics by default and supports passive delivery', async () => {
+        const { rerender } = await render(<InlineMessage message="Unable to connect" theme={theme} tone="error" />);
         expect(screen.getByRole('alert', { name: 'Unable to connect' })).toBeTruthy();
 
-        rerender(<InlineMessage message="Unable to connect" theme={theme} tone="error" announcementMode="passive" />);
+        await rerender(
+            <InlineMessage message="Unable to connect" theme={theme} tone="error" announcementMode="passive" />,
+        );
         expect(screen.queryByRole('alert')).toBeNull();
         expect(screen.getByText('Unable to connect')).toBeTruthy();
 
-        rerender(<InlineMessage message="Important update" theme={theme} announcementMode="alert" />);
+        await rerender(<InlineMessage message="Important update" theme={theme} announcementMode="alert" />);
         expect(screen.getByRole('alert', { name: 'Important update' })).toBeTruthy();
     });
 
-    it('renders StatusBadge text', () => {
-        render(<StatusBadge label="Completed" theme={theme} tone="positive" />);
+    it('renders StatusBadge text', async () => {
+        await render(<StatusBadge label="Completed" theme={theme} tone="positive" />);
         expect(screen.getByText('Completed')).toBeTruthy();
     });
 
-    it('exposes Skeleton busy state', () => {
-        render(<Skeleton accessibilityLabel="Loading balance" theme={theme} />);
+    it('exposes Skeleton busy state', async () => {
+        await render(<Skeleton accessibilityLabel="Loading balance" theme={theme} />);
         expect(screen.getByRole('progressbar', { name: 'Loading balance' })).toBeBusy();
     });
 
-    it('keeps scroll-screen actions tappable while the keyboard is open', () => {
-        render(
+    it('keeps scroll-screen actions tappable while the keyboard is open', async () => {
+        await render(
             <Screen theme={theme} scroll>
                 <Button label="Continue" theme={theme} />
             </Screen>,
         );
         expect(screen.getByRole('button', { name: 'Continue' })).toBeTruthy();
-        expect(screen.UNSAFE_getByType(ScrollView).props.keyboardShouldPersistTaps).toBe('handled');
+        expect(screen.root.props.keyboardShouldPersistTaps).toBe('handled');
     });
 
-    it('renders Typography content', () => {
-        render(
+    it('renders Typography content', async () => {
+        await render(
             <Typography theme={theme} variant="sectionTitle">
                 Overview
             </Typography>,
@@ -475,9 +499,9 @@ describe('native components', () => {
         expect(screen.getByText('Overview')).toBeTruthy();
     });
 
-    it('calls Modal close callback from the accessible close control', () => {
+    it('calls Modal close callback from the accessible close control', async () => {
         const onRequestClose = jest.fn();
-        render(
+        await render(
             <Modal
                 theme={theme}
                 visible
@@ -490,13 +514,13 @@ describe('native components', () => {
         );
 
         expect(screen.getByRole('button', { name: 'Confirm' })).toBeTruthy();
-        fireEvent(screen.getByLabelText('Close'), 'press');
+        await fireEvent(screen.getByLabelText('Close'), 'press');
         expect(onRequestClose).toHaveBeenCalledTimes(1);
     });
 
-    it('routes the Android Back request through the native Modal close callback', () => {
+    it('routes the Android Back request through the native Modal close callback', async () => {
         const onRequestClose = jest.fn();
-        render(
+        await render(
             <Modal
                 theme={theme}
                 visible
@@ -508,18 +532,19 @@ describe('native components', () => {
             </Modal>,
         );
 
-        const nativeModal = screen.UNSAFE_getByType(NativeModal);
+        const nativeModal = screen.root;
         expect(nativeModal.props.accessibilityViewIsModal).toBe(true);
-        expect(screen.UNSAFE_getByType(ScrollView).props.keyboardShouldPersistTaps).toBe('handled');
+        const scrollView = collectRenderJsonNodes(screen.toJSON()).find((node) => node.type === ScrollView);
+        expect(scrollView?.props?.keyboardShouldPersistTaps).toBe('handled');
 
-        fireEvent(nativeModal, 'requestClose');
+        await fireEvent(nativeModal, 'requestClose');
         expect(onRequestClose).toHaveBeenCalledTimes(1);
     });
 
-    it('exposes Modal show timing while accepting a built-in close control ref', () => {
+    it('exposes Modal show timing while accepting a built-in close control ref', async () => {
         const onShow = jest.fn();
 
-        render(
+        await render(
             <Modal
                 theme={theme}
                 visible
@@ -532,16 +557,16 @@ describe('native components', () => {
             </Modal>,
         );
 
-        const nativeModal = screen.UNSAFE_getByType(NativeModal);
-        fireEvent(nativeModal, 'show');
+        const nativeModal = screen.root;
+        await fireEvent(nativeModal, 'show');
 
         expect(onShow).toHaveBeenCalledTimes(1);
         expect(screen.getByRole('button', { name: 'Close' })).toBeTruthy();
     });
 
-    it('reports selected SegmentedControl tab and changes selection', () => {
+    it('reports selected SegmentedControl tab and changes selection', async () => {
         const onChange = jest.fn();
-        render(
+        await render(
             <SegmentedControl
                 theme={theme}
                 accessibilityLabel="View mode"
@@ -555,26 +580,26 @@ describe('native components', () => {
         );
 
         expect(screen.getByRole('tab', { name: 'View mode, All' })).toBeSelected();
-        fireEvent.press(screen.getByRole('tab', { name: 'View mode, Active' }));
+        await fireEvent.press(screen.getByRole('tab', { name: 'View mode, Active' }));
         expect(onChange).toHaveBeenCalledWith('active');
     });
 
-    it('exposes Progress as an integer percentage and clamps it to the supported range', () => {
-        const { rerender } = render(<Progress theme={theme} value={0.64} accessibilityLabel="Upload progress" />);
+    it('exposes Progress as an integer percentage and clamps it to the supported range', async () => {
+        const { rerender } = await render(<Progress theme={theme} value={0.64} accessibilityLabel="Upload progress" />);
         expect(screen.getByRole('progressbar', { name: 'Upload progress' })).toHaveAccessibilityValue({
             min: 0,
             max: 100,
             now: 64,
         });
 
-        rerender(<Progress theme={theme} value={2} accessibilityLabel="Upload progress" />);
+        await rerender(<Progress theme={theme} value={2} accessibilityLabel="Upload progress" />);
         expect(screen.getByRole('progressbar', { name: 'Upload progress' })).toHaveAccessibilityValue({
             min: 0,
             max: 100,
             now: 100,
         });
 
-        rerender(<Progress theme={theme} value={Number.NaN} accessibilityLabel="Upload progress" />);
+        await rerender(<Progress theme={theme} value={Number.NaN} accessibilityLabel="Upload progress" />);
         expect(screen.getByRole('progressbar', { name: 'Upload progress' })).toHaveAccessibilityValue({
             min: 0,
             max: 100,

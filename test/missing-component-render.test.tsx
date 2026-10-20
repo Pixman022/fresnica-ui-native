@@ -5,20 +5,24 @@ import { StateView } from '../src/components/StateView';
 import { themes } from '../src/theme';
 
 describe('native component render coverage', () => {
-    it('renders Divider as a decorative separator using theme colors and the provided inset', () => {
+    it('renders Divider as a decorative separator using theme colors and the provided inset', async () => {
         for (const theme of [themes.light, themes.dark]) {
-            const divider = render(<Divider theme={theme} inset={16} />).toJSON();
-            expect(divider).toHaveProperty('props.accessibilityRole', 'none');
-            expect(divider).toHaveProperty('props.style.1', {
-                backgroundColor: theme.colors.separator,
-                marginLeft: 16,
-            });
+            const { root } = await render(<Divider theme={theme} inset={16} />);
+            expect(root.props.accessibilityRole).toBe('none');
+            expect(root.props.style).toEqual(
+                expect.arrayContaining([
+                    expect.objectContaining({
+                        backgroundColor: theme.colors.separator,
+                        marginLeft: 16,
+                    }),
+                ]),
+            );
         }
     });
 
-    it('renders StateView with localized copy, summary semantics and a caller-provided action', () => {
+    it('renders StateView with localized copy, summary semantics and a caller-provided action', async () => {
         const onPress = jest.fn();
-        const stateView = render(
+        const { root } = await render(
             <StateView
                 theme={themes.light}
                 tone="error"
@@ -26,17 +30,17 @@ describe('native component render coverage', () => {
                 description="请重试"
                 action={<Button theme={themes.light} label="重试" onPress={onPress} />}
             />,
-        ).toJSON();
+        );
 
-        expect(stateView).toHaveProperty('props.accessibilityRole', 'summary');
+        expect(root.props.accessibilityRole).toBe('summary');
         expect(screen.getByText('无法加载')).toBeTruthy();
         expect(screen.getByText('请重试')).toBeTruthy();
-        fireEvent.press(screen.getByRole('button', { name: '重试' }));
+        await fireEvent.press(screen.getByRole('button', { name: '重试' }));
         expect(onPress).toHaveBeenCalledTimes(1);
     });
 
-    it('renders StateView in Dark theme with optional icon and success copy', () => {
-        render(
+    it('renders StateView in Dark theme with optional icon and success copy', async () => {
+        await render(
             <StateView
                 theme={themes.dark}
                 tone="success"

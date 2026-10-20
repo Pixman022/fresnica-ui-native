@@ -17,8 +17,8 @@ function LocaleProbe() {
 }
 
 describe('FresnicaUiProvider', () => {
-    it('falls back to the light theme and enUS without a provider', () => {
-        const view = render(
+    it('falls back to the light theme and enUS without a provider', async () => {
+        const view = await render(
             <>
                 <Typography>Default theme text</Typography>
                 <LocaleProbe />
@@ -36,7 +36,7 @@ describe('FresnicaUiProvider', () => {
         expect(view.getByText('Close|Loading')).toBeTruthy();
     });
 
-    it('updates complete provider themes reactively and lets an explicit component theme win', () => {
+    it('updates complete provider themes reactively and lets an explicit component theme win', async () => {
         const firstTheme: AppTheme = {
             ...themes.light,
             colors: {
@@ -78,14 +78,14 @@ describe('FresnicaUiProvider', () => {
             </FresnicaUiProvider>
         );
 
-        const view = render(renderTree(firstTheme));
+        const view = await render(renderTree(firstTheme));
 
         const expectTheme = (theme: AppTheme) => {
             const providerText = view.getByText('Provider text');
             expect(providerText.props.style).toEqual(
                 expect.arrayContaining([expect.objectContaining({ color: theme.colors.contentPrimary })]),
             );
-            expect(providerText.parent?.parent?.parent?.props.style).toEqual(
+            expect(view.root.props.style).toEqual(
                 expect.arrayContaining([expect.objectContaining({ backgroundColor: theme.colors.background })]),
             );
             expect(view.getByText('Explicit text').props.style).toEqual(
@@ -128,13 +128,13 @@ describe('FresnicaUiProvider', () => {
         };
 
         expectTheme(firstTheme);
-        view.rerender(renderTree(secondTheme));
+        await view.rerender(renderTree(secondTheme));
         expectTheme(secondTheme);
     });
 
-    it('updates locale reactively and keeps explicit Modal copy authoritative', () => {
+    it('updates locale reactively and keeps explicit Modal copy authoritative', async () => {
         const onRequestClose = jest.fn();
-        const view = render(
+        const view = await render(
             <FresnicaUiProvider theme={themes.light} locale={zhCN}>
                 <Modal visible title="Details" onRequestClose={onRequestClose}>
                     <Typography>Body</Typography>
@@ -144,7 +144,7 @@ describe('FresnicaUiProvider', () => {
 
         expect(view.getByRole('button', { name: '关闭' })).toBeTruthy();
 
-        view.rerender(
+        await view.rerender(
             <FresnicaUiProvider theme={themes.light} locale={enUS}>
                 <Modal visible title="Details" onRequestClose={onRequestClose} closeAccessibilityLabel="Dismiss">
                     <Typography>Body</Typography>
@@ -155,18 +155,18 @@ describe('FresnicaUiProvider', () => {
         expect(view.getByRole('button', { name: 'Dismiss' })).toBeTruthy();
     });
 
-    it('keeps independent React roots isolated', () => {
+    it('keeps independent React roots isolated', async () => {
         const customTheme = {
             ...themes.light,
             colors: { ...themes.light.colors, contentPrimary: '#654321' },
         };
-        const first = render(
+        const first = await render(
             <FresnicaUiProvider theme={customTheme} locale={zhCN}>
                 <Typography>First root</Typography>
                 <LocaleProbe />
             </FresnicaUiProvider>,
         );
-        const second = render(
+        const second = await render(
             <>
                 <Typography>Second root</Typography>
                 <LocaleProbe />
@@ -183,11 +183,11 @@ describe('FresnicaUiProvider', () => {
         expect(second.getByText('Close|Loading')).toBeTruthy();
     });
 
-    it('keeps built-in locale keys aligned and falls back missing runtime keys to enUS', () => {
+    it('keeps built-in locale keys aligned and falls back missing runtime keys to enUS', async () => {
         expect(Object.keys(zhCN)).toEqual(Object.keys(enUS));
 
         const incompleteLocale = { close: 'Dismiss' } as UiLocale;
-        const view = render(
+        const view = await render(
             <FresnicaUiProvider locale={incompleteLocale}>
                 <LocaleProbe />
             </FresnicaUiProvider>,

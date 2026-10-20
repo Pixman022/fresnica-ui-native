@@ -1,7 +1,33 @@
-# Dependency Audit Classification — 2026-10-15
+# Dependency Audit Classification — 2026-10-20
 
 This record separates the reusable Native package's production install graph from
 repository development/test/build findings and records M01 gate behavior.
+
+## React 19 test-renderer maintenance — 2026-10-20
+
+Starting source: Native main `dd3bfff1f0c5e7316b0806fb1dae4114ed3583bb`.
+React Native Testing Library moves from 13.2.0 to 14.1.0 and the deprecated
+`react-test-renderer` package is replaced by `test-renderer` 1.2.0, the compatibility
+line for React 19.2. React 19.2.3, React Native 0.87.0, TypeScript 6.0.3, Jest/babel-jest
+30.5.2 and Metro 0.87.1 remain unchanged.
+
+The test suite is migrated to RNTL 14's async `render`, `rerender` and `fireEvent`
+contract and its supported host-root / JSON inspection APIs. Migration CI run
+`39363087600` records 45 passing package tests, a passing coverage gate, archived iOS
+evidence verification, fixed Web Token-source verification, build/pack checks and internal
+delivery-candidate creation.
+
+| Audit            | Before RNTL 14          | After RNTL 14            |
+| ---------------- | ----------------------- | ------------------------ |
+| Full graph       | 29: 20 moderate, 9 high | 29: 19 moderate, 10 high |
+| Production graph | 0                       | 0                        |
+
+The total vulnerable-package count is unchanged. The severity distribution changes with
+the test-renderer dependency graph; the retained findings are still development/test/build
+paths in the same `braces` (Metro/React Native) and `sprintf-js`
+(Istanbul/YAML/Jest) advisory families. npm's proposed complete remediation still requires
+out-of-range React Native or Jest/Babel changes, so no force fix is applied. Production
+exposure remains zero for this package install graph.
 
 ## Compatible maintenance result — 2026-10-15
 
