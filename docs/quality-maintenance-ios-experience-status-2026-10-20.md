@@ -6,15 +6,26 @@ It keeps engineering completion separate from the pending owner layout decision 
 
 ## Final task status
 
-| Item | Status | Delivered result |
-| --- | --- | --- |
-| Q01 | Complete | Web #35 updates the compatible esbuild chain to 0.28.2, corrects the audit explanation, and keeps the production dependency audit at 0. Web main: `e026a6390fd16cf23122d5967b5fd23d6f3fbc57`. |
-| Q02 | Complete | Web README statistics are synchronized to the actual 561 unit tests and 49 accessibility tests; Native #102 adds the iOS support summary and entry links. |
-| Q03 | Engineering complete | Native #103 reclaims empty Header side slots only at iOS accessibility text sizes. Real controls retain their slots. Q03 Simulator evidence supports keeping the change. D01 owner layout approval remains pending. |
-| Q04 | Complete | Native #105 establishes package-level Jest coverage and a CI gate: statements 97.74%, branches 86.97%, functions 96.66%, lines 97.69%, with explicit iOS/Android branch tests. |
-| Q05 | Complete | Native #106 adds XCUITest Simulator interaction evidence for keyboard + primary action, long-content scrolling + action, and Modal open/close. Successful run `39235433519`, artifact `12180134517`. |
-| Q06 | Complete | A new private candidate is frozen from Native `1afeac9cab5c55e4baeb0e99514c933722935da0`; main CI `39352213975` passes and delivery artifact `12233551785` records tarball SHA-256 `341c1cc84590b802d2f8457500b6a30467417c5cf8670b62e54031e1a9313569`. |
-| D01 | Pending actual owner decision | Engineering review is complete, but no owner identity, date or approval is inferred. The 2026-10-19 layout review remains the decision record. |
+- **Q01 — Complete.** Web #35 updates the compatible esbuild chain to 0.28.2, corrects the audit
+  explanation, and keeps the production dependency audit at 0. Web main:
+  `e026a6390fd16cf23122d5967b5fd23d6f3fbc57`.
+- **Q02 — Complete.** Web README statistics are synchronized to the actual 561 unit tests and
+  49 accessibility tests; Native #102 adds the iOS support summary and entry links.
+- **Q03 — Engineering complete.** Native #103 reclaims empty Header side slots only at iOS
+  accessibility text sizes. Real controls retain their slots. Q03 Simulator evidence supports
+  keeping the change. D01 owner layout approval remains pending.
+- **Q04 — Complete.** Native #105 establishes package-level Jest coverage and a CI gate:
+  statements 97.74%, branches 86.97%, functions 96.66%, lines 97.69%, with explicit iOS/Android
+  branch tests.
+- **Q05 — Complete.** Native #106 adds XCUITest Simulator interaction evidence for keyboard +
+  primary action, long-content scrolling + action, and Modal open/close. Successful run
+  `39235433519`, artifact `12180134517`.
+- **Q06 — Complete.** A new private candidate is frozen from Native
+  `1afeac9cab5c55e4baeb0e99514c933722935da0`; main CI `39352213975` passes and delivery
+  artifact `12233551785` records tarball SHA-256
+  `341c1cc84590b802d2f8457500b6a30467417c5cf8670b62e54031e1a9313569`.
+- **D01 — Pending actual owner decision.** Engineering review is complete, but no owner identity,
+  date or approval is inferred. The 2026-10-19 layout review remains the decision record.
 
 ## Q05 interaction evidence
 
