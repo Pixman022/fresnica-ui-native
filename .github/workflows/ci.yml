@@ -37,11 +37,17 @@ jobs:
               working-directory: fresnica-ui-native
               run: npm install
 
-            - name: Upload refreshed package lock
+            - name: Format migrated component tests
+              working-directory: fresnica-ui-native
+              run: npx prettier --write test/components.test.tsx
+
+            - name: Upload RNTL 14 refresh files
               uses: actions/upload-artifact@v7
               with:
-                  name: native-rntl14-package-lock
-                  path: fresnica-ui-native/package-lock.json
+                  name: native-rntl14-refresh
+                  path: |
+                      fresnica-ui-native/package-lock.json
+                      fresnica-ui-native/test/components.test.tsx
                   if-no-files-found: error
                   retention-days: 1
 
