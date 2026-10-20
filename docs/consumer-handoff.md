@@ -13,8 +13,9 @@ links the retained baseline PNG/metadata files and original technical review. Th
 [2026-10-19 extreme Dynamic Type review](visual-baselines/ios-layout-review-2026-10-19.md)
 records the later Q03 Header optimization and its owner-decision boundary; Q05 interaction evidence
 is summarized in the [2026-10-20 quality-maintenance status](quality-maintenance-ios-experience-status-2026-10-20.md).
-The project-owner layout decision remains pending. Color/contrast and physical-device acceptance
-retain their deferred status.
+The project owner approved the current Q03 (second) extreme-Dynamic-Type Header layout on
+2026-10-20. The broader iOS Golden Baseline remains unapproved; color/contrast and physical-device
+acceptance retain their deferred status.
 
 ## Supported baseline
 
