@@ -1,3 +1,6 @@
+# Historical wallet prototype is outside the reusable package maintenance gate.
+product/
+
 example/FresnicaPreview/
 example/.cache/
 
