@@ -39,13 +39,13 @@ npm run build
 npm pack --pack-destination .
 ```
 
-For the current verified iOS-support candidate, use Native source
-`14934ce59e6009a90ca88c4e709c484bb3a36175`. Its CI-generated output archive is
+For the current verified quality-maintenance/iOS-support candidate, use Native source
+`1afeac9cab5c55e4baeb0e99514c933722935da0`. Its CI-generated output archive is
 `fresnica-ui-native-1.1.0-rc.1.tgz` with SHA-256
-`5b42564fcbc7b47a9b8609d7252de4f47377d3ed2223fbb9ec117b5de7eb5ceb`.
-The [candidate record](delivery-candidate-ios-2026-10-15.md) pins the successful main CI run
-and delivery artifact. The same private version was used for earlier candidates; check this exact
-source and checksum when choosing the archive.
+`341c1cc84590b802d2f8457500b6a30467417c5cf8670b62e54031e1a9313569`.
+The [current candidate record](delivery-candidate-ios-2026-10-20.md) pins main CI run
+`39352213975` and delivery artifact `12233551785`. The same private version string was used for
+earlier candidates, so consumers must pin this exact source SHA and checksum.
 Copy
 that archive to the consumer's internal artifact location; do not commit
 generated `dist/` to the source repository or infer a package version from
@@ -100,7 +100,9 @@ On changes to package entry points or peer dependencies, review the latest
 [Android Preview workflow](../.github/workflows/android-preview.yml) result
 for the exact commit. For iPhone design-system support, also review the pinned
 [iOS Simulator evidence manifest](visual-baselines/ios-simulator-evidence-manifest.json)
-and the current iOS Preview/reachability workflows. CI also runs the packed-package contract after build,
+and the current iOS Preview/reachability workflows. The Q05 iOS interaction workflow additionally
+exercises a real software-keyboard action, long-content scrolling/action activation and Modal
+open/close in Simulator using XCUITest. CI also runs the packed-package contract after build,
 verifying the root and `./locales` exports, React/RN peer versions, required
 distribution/license files, and exclusion of source/example/product paths.
 A passing TypeScript build proves basic package imports, not visual parity or
@@ -136,6 +138,6 @@ This keeps synchronization reviewable without adding a cross-repository service.
 There is no npm registry publication requirement in phase one and no wallet App release gate.
 The current Simulator-backed iPhone design-system support does **not** claim physical-device
 VoiceOver, real keyboard/autofill, iPad, color/contrast or wallet-product acceptance. Use the
-[iOS support candidate record](delivery-candidate-ios-2026-10-15.md) for the current pinned
-`1.1.0-rc.1` archive identity. The older 2026-10-12 candidate remains a historical pre-iOS-support
-record. Keep deferred physical-device accessibility in its separate integration gate.
+[current quality-maintenance candidate record](delivery-candidate-ios-2026-10-20.md) for the
+current pinned `1.1.0-rc.1` archive identity. The 2026-10-15 and 2026-10-12 candidate records
+remain historical identities and are not silently rewritten. Keep deferred physical-device accessibility in its separate integration gate.
