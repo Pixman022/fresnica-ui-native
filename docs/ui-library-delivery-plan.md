@@ -2,6 +2,8 @@
 
 > 状态：阶段一已完成（14/14）· 2026-10-09 · 责任范围：仅 `Pixman022/fresnica-ui` 与 `Pixman022/fresnica-ui-native`。
 > 本计划是 UI 设计规范和可复用组件库的交付计划，不是钱包 App 的开发或上线计划。
+>
+> 维护说明（2026-10-20）：本文主体保留 2026-10-09 阶段一的 Android-first 历史基线，不倒填后续结果。后续组件库已完成 Simulator-backed iPhone 支持、Dynamic Type 布局复核及交互证据；仍未完成的是 iPhone 真机、VoiceOver、真实键盘/autofill、颜色对比度和产品级验收。
 
 ## 1. 依据与现状
 
