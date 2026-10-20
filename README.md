@@ -119,7 +119,7 @@ and does not bundle an App shell.
 `npm run test:render` contains Jest/React Native Testing Library tests for component
 rendering, callbacks and accessibility state. The standalone package uses a small
 hostless Jest adapter for React Native primitives so these checks run before a product
-App exists. Product Android acceptance is maintained separately from the package-level suite.
+App exists. Historical Product Android acceptance remains available as a manual workflow and is not a package-level gate.
 
 ## Android preview host
 

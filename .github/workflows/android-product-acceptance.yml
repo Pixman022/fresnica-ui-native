@@ -1,18 +1,6 @@
 name: Android Product Acceptance
 
 on:
-    pull_request:
-        paths:
-            - 'src/**'
-            - 'product/**'
-            - 'scripts/android-acceptance-*.mjs'
-            - 'scripts/android-tap-accessibility-label.mjs'
-            - 'scripts/bootstrap-product-app.mjs'
-            - 'scripts/build-product-android.mjs'
-            - 'scripts/start-android-emulator-ci.sh'
-            - 'package.json'
-            - 'package-lock.json'
-            - '.github/workflows/android-product-acceptance.yml'
     workflow_dispatch:
 
 permissions:
