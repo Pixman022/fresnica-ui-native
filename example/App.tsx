@@ -271,10 +271,17 @@ export default function App() {
                                         value={keyboardValue}
                                         onChangeText={setKeyboardValue}
                                         placeholder={labels.keyboardPlaceholder}
-                                        supportingText={labels.keyboardHint}
+                                        supportingText={keyboardActionActive ? undefined : labels.keyboardHint}
                                         autoFocus
                                     />
-                                    <Button theme={theme} label={labels.keyboardAction} />
+                                    {keyboardActionActive ? (
+                                        <InlineMessage theme={theme} tone="success" message={labels.keyboardFeedback} />
+                                    ) : null}
+                                    <Button
+                                        theme={theme}
+                                        label={labels.keyboardAction}
+                                        onPress={() => setKeyboardActionActive(true)}
+                                    />
                                 </View>
                             ) : null}
 
@@ -450,27 +457,29 @@ export default function App() {
                                 }
                             />
 
-                            <View style={styles.section}>
-                                <Typography theme={theme} variant="sectionTitle">
-                                    {labels.keyboardTitle}
-                                </Typography>
-                                <Field
-                                    theme={theme}
-                                    label={labels.keyboardTitle}
-                                    value={keyboardValue}
-                                    onChangeText={setKeyboardValue}
-                                    placeholder={labels.keyboardPlaceholder}
-                                    supportingText={keyboardActionActive ? undefined : labels.keyboardHint}
-                                />
-                                {keyboardActionActive ? (
-                                    <InlineMessage theme={theme} tone="success" message={labels.keyboardFeedback} />
-                                ) : null}
-                                <Button
-                                    theme={theme}
-                                    label={labels.keyboardAction}
-                                    onPress={() => setKeyboardActionActive(true)}
-                                />
-                            </View>
+                            {initialEvidenceView !== 'keyboard' ? (
+                                <View style={styles.section}>
+                                    <Typography theme={theme} variant="sectionTitle">
+                                        {labels.keyboardTitle}
+                                    </Typography>
+                                    <Field
+                                        theme={theme}
+                                        label={labels.keyboardTitle}
+                                        value={keyboardValue}
+                                        onChangeText={setKeyboardValue}
+                                        placeholder={labels.keyboardPlaceholder}
+                                        supportingText={keyboardActionActive ? undefined : labels.keyboardHint}
+                                    />
+                                    {keyboardActionActive ? (
+                                        <InlineMessage theme={theme} tone="success" message={labels.keyboardFeedback} />
+                                    ) : null}
+                                    <Button
+                                        theme={theme}
+                                        label={labels.keyboardAction}
+                                        onPress={() => setKeyboardActionActive(true)}
+                                    />
+                                </View>
+                            ) : null}
 
                             <Modal
                                 visible={modalVisible}
