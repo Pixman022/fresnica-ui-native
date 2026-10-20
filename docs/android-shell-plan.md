@@ -1,12 +1,13 @@
-# Android App Shell Plan
+# Android Host Boundary Record
 
-This repository contains two on-demand React Native 0.87 hosts:
+This repository retains two React Native 0.87 host sources with different status:
 
-- `example/` is the primitive Preview Host.
-- `product/` is the first product App shell and wallet slice.
+- `example/` is the active primitive Preview Host for the reusable component package.
+- `product/` is a historical wallet-product shell retained for reference.
 
 Both consume `@fresnica/ui-native` without moving product responsibilities into the
-component package.
+component package. The historical product host is not a current package Maintenance or
+delivery gate.
 
 ## Boundary
 
@@ -17,23 +18,24 @@ component package.
 - The product localization layer owns English/Simplified Chinese labels and accessibility copy.
 - Android permissions, keyboard policy and hardware integration remain product-App responsibilities.
 
-## Current implementation
+## Recorded product implementation
 
 1. The reusable package and Preview Host remain independently buildable.
 2. `product/App.tsx` owns the primary Home / Activity / Scan / Explore / Settings tabs.
 3. A native-stack Send route provides the first secondary wallet flow.
 4. Theme and locale preferences persist through AsyncStorage.
 5. NetInfo supplies connection state and the Scan route owns the user-initiated camera permission request.
-6. Android Product Acceptance builds and exercises the product shell on a headless emulator.
+6. The retained Android Product Acceptance workflow can build and exercise the product shell on
+   a headless emulator when explicitly started.
 
-See [`product-app-acceptance.md`](product-app-acceptance.md) for the automated gate and
-manual release boundary.
+See [`product-app-acceptance.md`](product-app-acceptance.md) for the manual historical workflow
+and its separate product-release boundary.
 
-## Product-App Acceptance Checklist
+## Historical Product-App Acceptance Checklist
 
-The emulator workflow now covers launch, primary/secondary navigation, Android Back,
-locale persistence and evidence capture. The following remain physical-device release
-acceptance because CI cannot credibly claim human assistive-technology behavior:
+When manually run, the emulator workflow covers launch, primary/secondary navigation, Android Back,
+locale persistence and evidence capture. The following remain unresolved historical product-release
+acceptance items; they are not blockers for the reusable UI package:
 
 - [ ] TalkBack focus order is logical.
 - [ ] All icon-only actions have localized labels.
