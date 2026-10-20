@@ -1,8 +1,10 @@
-# Fresnica Product App Shell
+# Historical Fresnica Product App Shell
 
-The `product/` directory contains the committed source for the first Android product shell.
-The generated React Native CLI host lives at `product/FresnicaWallet/` and is intentionally
-ignored.
+The `product/` directory contains the committed source for the earlier Android product shell.
+It is retained for historical reference and is not part of the current reusable UI-library
+development scope. The generated React Native CLI host lives at `product/FresnicaWallet/` and is
+intentionally ignored. Product acceptance is now manual-only and does not gate component-package
+Maintenance.
 
 The shell uses the approved Android-first baseline:
 
