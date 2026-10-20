@@ -29,10 +29,10 @@ shared primitive is currently required to start wallet UI integration.
 
 | Candidate                     | Recommendation                     | Entry criteria                                                             |
 | ----------------------------- | ---------------------------------- | -------------------------------------------------------------------------- |
-| `SearchField`                 | Evaluate from `Field` patterns     | A second feature needs the same search semantics and clear action.         |
-| `SecureField`                 | Evaluate after secure-input review | Keyboard, autofill and screenshot policy is agreed by the App shell.       |
-| `Toast` / `Announcement`      | Evaluate as a host-integrated primitive | Announcement timing and screen-reader queue policy are documented.    |
-| `BottomSheet` / `ActionSheet` | Evaluate after modal review        | Platform dismissal/gesture and focus restoration are defined and tested.   |
+| `SearchField`                 | Adapt from field patterns          | A second feature needs the same search semantics and clear action.         |
+| `SecureField`                 | Add as a native primitive          | Keyboard, autofill and screenshot policy is agreed by the App shell.       |
+| `Toast` / `Announcement`      | Add as a host-integrated primitive | Announcement timing and screen-reader queue policy are documented.         |
+| `BottomSheet` / `ActionSheet` | Add after modal review             | Native gesture, back handling and focus restoration are tested on Android. |
 
 ## Feature-local components
 
