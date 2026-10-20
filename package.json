@@ -1,7 +1,7 @@
 {
     "name": "@fresnica/ui-native",
     "version": "1.1.0-rc.1",
-    "description": "Android-first React Native adapter for the Fresnica design system",
+    "description": "Cross-platform React Native adapter for the Fresnica design system",
     "author": "Pixman <pixhonic@gmail.com>",
     "private": true,
     "type": "module",

@@ -3,7 +3,7 @@
 This is the standalone native repository for the Fresnica design-system adapter.
 The Web repository is maintained separately at `fresnica-ui/`.
 
-Android-first React Native adapter for the Fresnica design system.
+Cross-platform React Native adapter for the Fresnica design system, with Android support and a Simulator-backed iPhone component baseline.
 
 This package is intentionally separate from the Web `fresnica-ui` package. It consumes
 the shared semantic design language and exposes native-friendly theme and component
@@ -39,7 +39,7 @@ amount panels, selectors and transaction presentation remain Feature-local by de
 - React Native CLI `0.87.0` (not Expo)
 - React `19.2.3`, TypeScript `6.0.3`, Node `>=22.13.0`
 - Hermes and New Architecture enabled
-- Android first: minSdk 26, targetSdk 36, compileSdk 37, Kotlin 2.2.0
+- Android baseline: minSdk 26, targetSdk 36, compileSdk 37, Kotlin 2.2.0
 - Built-in component-generic `enUS` and `zhCN` Locale packs selected through `FresnicaUiProvider`; product copy remains App-owned
 - Light, Dark and System themes. For `system`, the App shell must pass the platform-resolved
   appearance (`light` or `dark`) to `resolveTheme`; Android dynamic accent color is not consumed.
