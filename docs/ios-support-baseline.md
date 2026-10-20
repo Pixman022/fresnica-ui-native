@@ -1,6 +1,6 @@
 # iOS Support Baseline
 
-Status: IOS01 baseline for the 2026-10-14 iOS support round.
+Status: IOS01 baseline established 2026-10-14; current Simulator-backed support status synchronized through 2026-10-20.
 
 This document separates planned support, build compatibility and runtime validation. A successful
 Simulator build does not prove that every supported iOS version has been launched and exercised.
@@ -49,8 +49,8 @@ image. A toolchain change needs a concrete React Native, dependency or platform 
 - **Orientation:** portrait is the first-round baseline. Landscape is covered only where a consuming host explicitly supports it.
 - **Physical iPhone:** not claimed; deferred.
 - **VoiceOver / real keyboard / real autofill:** not claimed; deferred.
-- **Dynamic Type:** component and Simulator support are in scope for IOS03/IOS05.
-- **Light / Dark / English / zh-CN:** existing package capabilities; iOS runtime evidence belongs to IOS05.
+- **Dynamic Type:** IOS03/IOS05 Simulator work is complete for the current component scope, including maximum-standard and representative maximum-accessibility evidence plus the later Q03 Header layout review.
+- **Light / Dark / English / zh-CN:** covered by the recorded S01-S06 Simulator matrix; this remains package/Simulator evidence, not physical-device acceptance.
 
 A new SDK build must not be described as proof of the minimum runtime. IOS05 records the exact
 Simulator runtime and device used for each scenario in the [iOS Preview Runtime Matrix](ios-preview-matrix.md).
@@ -81,5 +81,6 @@ contains an explicit iOS override.
 - The shared Native Modal keeps its existing `fade` behavior.
 - Physical-device accessibility remains a future integration gate.
 - The Apple gate covers build and launch. Recorded Simulator frame coverage is linked from
-  `ios-support-status-2026-10-14.md`; owner layout approval and unrecorded system-preference
-  behavior remain separate.
+  `ios-support-status-2026-10-14.md`; the later Q03 Header layout decision is recorded in
+  `quality-maintenance-ios-experience-status-2026-10-20.md`. That narrow approval does not create
+  a broader owner-approved iOS Golden Baseline, and unrecorded system-preference behavior remains separate.
