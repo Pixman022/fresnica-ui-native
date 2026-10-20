@@ -45,7 +45,7 @@ describe('native components', () => {
         expect(button).toBeDisabled();
         expect(screen.getByText('Loading')).toBeTruthy();
 
-        await fireEvent.press(button);
+        expect(button.props.onPress).toBeUndefined();
         expect(onPress).not.toHaveBeenCalled();
     });
 
@@ -59,7 +59,7 @@ describe('native components', () => {
         const onPress = jest.fn();
         await render(<Button label="Disabled" theme={theme} disabled onPress={onPress} />);
         const button = screen.getByRole('button', { name: 'Disabled' });
-        await fireEvent.press(button);
+        expect(button.props.onPress).toBeUndefined();
         expect(onPress).not.toHaveBeenCalled();
     });
 
@@ -311,7 +311,7 @@ describe('native components', () => {
         setMockFontScale(2);
         await render(<Header title="A deliberately long account settings title" theme={theme} />);
 
-        const views = screen.UNSAFE_getAllByType(View);
+        const views = screen.container.findAllByType(View);
         expect(views).toHaveLength(1);
     });
 
@@ -327,7 +327,7 @@ describe('native components', () => {
             />,
         );
 
-        const views = screen.UNSAFE_getAllByType(View);
+        const views = screen.container.findAllByType(View);
         expect(views).toHaveLength(2);
         expect(screen.getByRole('button', { name: 'Go back' })).toBeTruthy();
     });
@@ -338,7 +338,7 @@ describe('native components', () => {
         await render(<Header title="A deliberately long account settings title" theme={theme} />);
 
         expect(screen.getByText('A deliberately long account settings title').props.numberOfLines).toBe(2);
-        expect(screen.UNSAFE_getAllByType(View)).toHaveLength(3);
+        expect(screen.container.findAllByType(View)).toHaveLength(3);
     });
 
     it('exposes ListRow button and disabled state', async () => {
@@ -369,7 +369,7 @@ describe('native components', () => {
             />,
         );
 
-        const row = screen.UNSAFE_getByType(Pressable);
+        const row = screen.container.findByType(Pressable);
         expect(row.props.style({ pressed: false })).toEqual(
             expect.arrayContaining([expect.objectContaining({ flexWrap: 'wrap', alignItems: 'flex-start' })]),
         );
@@ -387,7 +387,7 @@ describe('native components', () => {
             />,
         );
 
-        const row = screen.UNSAFE_getByType(Pressable);
+        const row = screen.container.findByType(Pressable);
         const rowStyle = row.props.style({ pressed: false });
         expect(rowStyle[1]).toBeNull();
 
@@ -463,7 +463,7 @@ describe('native components', () => {
             </Screen>,
         );
         expect(screen.getByRole('button', { name: 'Continue' })).toBeTruthy();
-        expect(screen.UNSAFE_getByType(ScrollView).props.keyboardShouldPersistTaps).toBe('handled');
+        expect(screen.container.findByType(ScrollView).props.keyboardShouldPersistTaps).toBe('handled');
     });
 
     it('renders Typography content', async () => {
@@ -508,9 +508,9 @@ describe('native components', () => {
             </Modal>,
         );
 
-        const nativeModal = screen.UNSAFE_getByType(NativeModal);
+        const nativeModal = screen.container.findByType(NativeModal);
         expect(nativeModal.props.accessibilityViewIsModal).toBe(true);
-        expect(screen.UNSAFE_getByType(ScrollView).props.keyboardShouldPersistTaps).toBe('handled');
+        expect(screen.container.findByType(ScrollView).props.keyboardShouldPersistTaps).toBe('handled');
 
         await fireEvent(nativeModal, 'requestClose');
         expect(onRequestClose).toHaveBeenCalledTimes(1);
@@ -532,7 +532,7 @@ describe('native components', () => {
             </Modal>,
         );
 
-        const nativeModal = screen.UNSAFE_getByType(NativeModal);
+        const nativeModal = screen.container.findByType(NativeModal);
         await fireEvent(nativeModal, 'show');
 
         expect(onShow).toHaveBeenCalledTimes(1);
