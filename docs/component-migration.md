@@ -44,7 +44,7 @@ policy or domain state and should not couple the design system to product behavi
 ## Web-only or deferred
 
 `Table`, `Pagination`, `DatePicker`, `TimePicker`, `BackTop`, `Cursor`,
-`Typewriter`, `CodeBlock` and `Footer` remain Web-only for the Android-first scope.
+`Typewriter`, `CodeBlock` and `Footer` remain Web-only for the current Native shared-component scope.
 
 Promote a feature component only after two features share the same interaction,
 the public props contain no wallet-specific nouns, labels are caller-injected,
