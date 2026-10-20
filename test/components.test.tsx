@@ -17,6 +17,24 @@ import { resolveTheme, themes } from '../src/theme';
 import { theme } from './helpers';
 import { setMockFontScale, setMockPlatform } from './react-native-mock';
 
+type RenderJsonNode = {
+    type?: unknown;
+    props?: Record<string, unknown>;
+    children?: unknown[];
+};
+
+function collectRenderJsonNodes(node: unknown): RenderJsonNode[] {
+    if (Array.isArray(node)) {
+        return node.flatMap(collectRenderJsonNodes);
+    }
+    if (node === null || typeof node !== 'object') {
+        return [];
+    }
+
+    const current = node as RenderJsonNode;
+    return [current, ...(current.children ?? []).flatMap(collectRenderJsonNodes)];
+}
+
 describe('native components', () => {
     afterEach(() => {
         setMockFontScale(1);
@@ -311,7 +329,7 @@ describe('native components', () => {
         setMockFontScale(2);
         await render(<Header title="A deliberately long account settings title" theme={theme} />);
 
-        const views = screen.container.findAllByType(View);
+        const views = collectRenderJsonNodes(screen.toJSON()).filter((node) => node.type === View);
         expect(views).toHaveLength(1);
     });
 
@@ -327,7 +345,7 @@ describe('native components', () => {
             />,
         );
 
-        const views = screen.container.findAllByType(View);
+        const views = collectRenderJsonNodes(screen.toJSON()).filter((node) => node.type === View);
         expect(views).toHaveLength(2);
         expect(screen.getByRole('button', { name: 'Go back' })).toBeTruthy();
     });
@@ -338,7 +356,7 @@ describe('native components', () => {
         await render(<Header title="A deliberately long account settings title" theme={theme} />);
 
         expect(screen.getByText('A deliberately long account settings title').props.numberOfLines).toBe(2);
-        expect(screen.container.findAllByType(View)).toHaveLength(3);
+        expect(collectRenderJsonNodes(screen.toJSON()).filter((node) => node.type === View)).toHaveLength(3);
     });
 
     it('exposes ListRow button and disabled state', async () => {
@@ -369,7 +387,7 @@ describe('native components', () => {
             />,
         );
 
-        const row = screen.container.findByType(Pressable);
+        const row = screen.root;
         expect(row.props.style({ pressed: false })).toEqual(
             expect.arrayContaining([expect.objectContaining({ flexWrap: 'wrap', alignItems: 'flex-start' })]),
         );
@@ -387,14 +405,16 @@ describe('native components', () => {
             />,
         );
 
-        const row = screen.container.findByType(Pressable);
+        const row = screen.root;
         const rowStyle = row.props.style({ pressed: false });
         expect(rowStyle[1]).toBeNull();
 
-        const trailing = screen
-            .UNSAFE_getAllByType(View)
-            .find((node) => Array.isArray(node.props.style) && node.props.style[0]?.minWidth === 44);
-        expect(trailing?.props.style[1]).toBeNull();
+        const trailing = collectRenderJsonNodes(screen.toJSON()).find((node) => {
+            const style = node.props?.style;
+            return Array.isArray(style) && style[0]?.minWidth === 44;
+        });
+        const trailingStyle = trailing?.props?.style;
+        expect(Array.isArray(trailingStyle) ? trailingStyle[1] : undefined).toBeNull();
     });
 
     it('keeps whole-row ListRow action as the only button when trailing content is presentation-only', async () => {
@@ -463,7 +483,7 @@ describe('native components', () => {
             </Screen>,
         );
         expect(screen.getByRole('button', { name: 'Continue' })).toBeTruthy();
-        expect(screen.container.findByType(ScrollView).props.keyboardShouldPersistTaps).toBe('handled');
+        expect(screen.root.props.keyboardShouldPersistTaps).toBe('handled');
     });
 
     it('renders Typography content', async () => {
@@ -508,9 +528,10 @@ describe('native components', () => {
             </Modal>,
         );
 
-        const nativeModal = screen.container.findByType(NativeModal);
+        const nativeModal = screen.root;
         expect(nativeModal.props.accessibilityViewIsModal).toBe(true);
-        expect(screen.container.findByType(ScrollView).props.keyboardShouldPersistTaps).toBe('handled');
+        const scrollView = collectRenderJsonNodes(screen.toJSON()).find((node) => node.type === ScrollView);
+        expect(scrollView?.props?.keyboardShouldPersistTaps).toBe('handled');
 
         await fireEvent(nativeModal, 'requestClose');
         expect(onRequestClose).toHaveBeenCalledTimes(1);
@@ -532,7 +553,7 @@ describe('native components', () => {
             </Modal>,
         );
 
-        const nativeModal = screen.container.findByType(NativeModal);
+        const nativeModal = screen.root;
         await fireEvent(nativeModal, 'show');
 
         expect(onShow).toHaveBeenCalledTimes(1);
