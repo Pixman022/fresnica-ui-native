@@ -49,7 +49,10 @@ For the current verified quality-maintenance/iOS-support candidate, use Native s
 `341c1cc84590b802d2f8457500b6a30467417c5cf8670b62e54031e1a9313569`.
 The [current candidate record](delivery-candidate-ios-2026-10-20.md) pins main CI run
 `39352213975` and delivery artifact `12233551785`. The same private version string was used for
-earlier candidates, so consumers must pin this exact source SHA and checksum.
+earlier candidates, so consumers must pin this exact source SHA and checksum. Do **not** choose the
+newest Actions artifact by name or timestamp: routine CI runs before Native #119 also produced
+same-version delivery artifacts after the Q06 freeze, but those are non-candidate CI byproducts and
+are not approved replacements for artifact `12233551785`.
 
 The 2026-10-20 maintenance decision keeps this `1.1.0-rc.1` artifact frozen; no
 `1.1.0-rc.2` is created for the later test-tooling, CI-action or documentation maintenance.
