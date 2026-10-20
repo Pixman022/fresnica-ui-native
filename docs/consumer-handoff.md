@@ -8,10 +8,13 @@ not a published registry release.
 
 ## Layout review and retained evidence
 
-The [iOS layout review](visual-baselines/ios-layout-review-2026-10-15.md) links original
-versioned PNG/metadata files, technical reviewer/date and the exact owner-decision scope.
-The project-owner layout decision remains pending. Color/contrast and physical-device
-acceptance retain their deferred status.
+The archived [2026-10-15 iOS layout review](visual-baselines/ios-layout-review-2026-10-15.md)
+links the retained baseline PNG/metadata files and original technical review. The current
+[2026-10-19 extreme Dynamic Type review](visual-baselines/ios-layout-review-2026-10-19.md)
+records the later Q03 Header optimization and its owner-decision boundary; Q05 interaction evidence
+is summarized in the [2026-10-20 quality-maintenance status](quality-maintenance-ios-experience-status-2026-10-20.md).
+The project-owner layout decision remains pending. Color/contrast and physical-device acceptance
+retain their deferred status.
 
 ## Supported baseline
 
@@ -46,8 +49,7 @@ For the current verified quality-maintenance/iOS-support candidate, use Native s
 The [current candidate record](delivery-candidate-ios-2026-10-20.md) pins main CI run
 `39352213975` and delivery artifact `12233551785`. The same private version string was used for
 earlier candidates, so consumers must pin this exact source SHA and checksum.
-Copy
-that archive to the consumer's internal artifact location; do not commit
+Copy that archive to the consumer's internal artifact location; do not commit
 generated `dist/` to the source repository or infer a package version from
 the changing `main` branch.
 
@@ -99,10 +101,11 @@ npx tsc --noEmit
 On changes to package entry points or peer dependencies, review the latest
 [Android Preview workflow](../.github/workflows/android-preview.yml) result
 for the exact commit. For iPhone design-system support, also review the pinned
-[iOS Simulator evidence manifest](visual-baselines/ios-simulator-evidence-manifest.json)
-and the current iOS Preview/reachability workflows. The Q05 iOS interaction workflow additionally
-exercises a real software-keyboard action, long-content scrolling/action activation and Modal
-open/close in Simulator using XCUITest. CI also runs the packed-package contract after build,
+[iOS Simulator evidence manifest](visual-baselines/ios-simulator-evidence-manifest.json), the
+[current Q03 layout review](visual-baselines/ios-layout-review-2026-10-19.md), and the current iOS
+Preview/reachability workflows. The Q05 iOS interaction workflow additionally exercises a real
+software-keyboard action, long-content scrolling/action activation and Modal open/close in
+Simulator using XCUITest. CI also runs the packed-package contract after build,
 verifying the root and `./locales` exports, React/RN peer versions, required
 distribution/license files, and exclusion of source/example/product paths.
 A passing TypeScript build proves basic package imports, not visual parity or
