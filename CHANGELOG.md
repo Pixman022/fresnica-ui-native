@@ -29,6 +29,23 @@ production UI release.
   acceptance, VoiceOver/TalkBack certification, color/contrast resolution, iPad commitment and
   wallet-product implementation remain outside the completed engineering round.
 
+### Post-freeze repository maintenance — 2026-10-20
+
+- The Q06 artifact above remains frozen at source
+  `1afeac9cab5c55e4baeb0e99514c933722935da0` and SHA-256
+  `341c1cc84590b802d2f8457500b6a30467417c5cf8670b62e54031e1a9313569`.
+- Native #110 updates **test-only** tooling to React Native Testing Library 14.1.0 and
+  `test-renderer` 1.2.0 for the React 19.2 line. Public component/runtime APIs and the
+  React Native 0.87 / React 19.2.3 baseline remain unchanged.
+- Native #112 updates package/README positioning from the historical Android-first wording to the
+  current cross-platform React Native scope. Native #114 aligns the remaining iOS evidence uploads
+  on `actions/upload-artifact@v7`. Native #111/#113/#115/#116 synchronize supporting evidence and
+  iOS status wording.
+- These later commits do **not** rewrite or replace the frozen Q06 tarball. Current `main` is not
+  byte-identical to that candidate because repository/package metadata and development tooling have
+  changed after the freeze. Consumers must keep pinning the recorded Q06 source SHA and checksum
+  until a separate candidate/version decision intentionally freezes a newer artifact.
+
 ## 2026-10-12 — 1.1.0-rc.1 component-library optimization candidate
 
 - Added the frozen public API/migration contract for Provider/theme/Locale, Field native props,
