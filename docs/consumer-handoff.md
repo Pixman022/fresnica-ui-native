@@ -50,6 +50,13 @@ For the current verified quality-maintenance/iOS-support candidate, use Native s
 The [current candidate record](delivery-candidate-ios-2026-10-20.md) pins main CI run
 `39352213975` and delivery artifact `12233551785`. The same private version string was used for
 earlier candidates, so consumers must pin this exact source SHA and checksum.
+
+The 2026-10-20 maintenance decision keeps this `1.1.0-rc.1` artifact frozen; no
+`1.1.0-rc.2` is created for the later test-tooling, CI-action or documentation maintenance.
+Current `main` is therefore a Maintenance development line, not a replacement candidate.
+Freeze a newer candidate only when a real consuming App needs the newer line or a material
+runtime/API/token/React-Native baseline change requires a new consumer-validation cycle.
+
 Copy that archive to the consumer's internal artifact location; do not commit
 generated `dist/` to the source repository or infer a package version from
 the changing `main` branch.
