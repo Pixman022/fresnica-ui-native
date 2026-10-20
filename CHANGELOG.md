@@ -51,6 +51,15 @@ production UI release.
   non-candidate CI byproducts and must not be treated as newer approved rc.1 packages. Freeze a newer
   candidate only when a real consuming App needs it or a material runtime/API/token/React-Native
   baseline change justifies a new consumer-validation cycle.
+- Native #121 makes the historical Android Product Acceptance workflow manual-only, so routine
+  package pull requests and `main` Maintenance no longer run wallet-product acceptance.
+- Native #122 removes historical `product/` checks from the package-level `npm test` gate while
+  preserving the product scripts for explicit manual reproduction.
+- Native #123/#124 mark the Android shell, wallet security/threat-model records and
+  `product/README.md` as historical prototype material. These changes clarify repository scope;
+  they do not change wallet implementation, security decisions, package runtime behavior or the
+  frozen `1.1.0-rc.1` candidate.
+- The post-cleanup Native `main` CI for #124 completed successfully in run `39395112202`.
 
 ## 2026-10-12 — 1.1.0-rc.1 component-library optimization candidate
 
