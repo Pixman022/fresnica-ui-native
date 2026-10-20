@@ -12,10 +12,11 @@ line for React 19.2. React 19.2.3, React Native 0.87.0, TypeScript 6.0.3, Jest/b
 30.5.2 and Metro 0.87.1 remain unchanged.
 
 The test suite is migrated to RNTL 14's async `render`, `rerender` and `fireEvent`
-contract and its supported host-root / JSON inspection APIs. Migration CI run
-`39363087600` records 45 passing package tests, a passing coverage gate, archived iOS
+contract and its supported host-root / JSON inspection APIs. Final PR-head CI run
+`39363438128` records 45 passing package tests, a passing coverage gate, archived iOS
 evidence verification, fixed Web Token-source verification, build/pack checks and internal
-delivery-candidate creation.
+delivery-candidate creation. After merge, main CI run `39364488752` repeats the same required
+package gate successfully on merge commit `b53566a3ed72833f06370ca383862a1a04d9e09b`.
 
 | Audit            | Before RNTL 14          | After RNTL 14            |
 | ---------------- | ----------------------- | ------------------------ |
