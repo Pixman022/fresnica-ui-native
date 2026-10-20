@@ -28,7 +28,7 @@ workstream. Mainnet creation, signing and submission remain out of scope and dis
   Secure backup and recovery must be designed before Mainnet creation.
 - **Authentication or system UI failure:** Android Keychain requests local authentication.
   Physical-device passcode/biometric and accessibility acceptance are still required.
-- **Unsafe dependencies or build changes:** the retained manual Android Product Acceptance workflow
+- **Unsafe dependencies or build changes:** the retained manual Historical Android Product Acceptance workflow
   can still check the historical build and wallet smoke tests when explicitly run. It is not a
   required package gate. Release dependency review and independent threat-model sign-off were not completed.
 
