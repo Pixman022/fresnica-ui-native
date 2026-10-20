@@ -27,8 +27,9 @@ technical reviewer and seven concrete candidate frames. The
 [iOS evidence manifest](ios/2026-10-19/evidence-manifest.json) record the later Q03 Header
 optimization. Q05 Simulator interaction evidence is summarized in the
 [2026-10-20 quality-maintenance status](../quality-maintenance-ios-experience-status-2026-10-20.md).
-Project-owner design approval remains pending; none of these records create an approved iOS Golden
-Baseline.
+The project owner approved the Q03 extreme-Dynamic-Type Header layout on 2026-10-20 after reviewing
+the before/after S04 frames. That approval is limited to Q03; the broader iOS Golden Baseline remains
+unapproved.
 
 The versioned [approved-manifest.json](approved-manifest.json) contains seven PNG
 SHA-256 values and their GitHub Actions run/artifact IDs, original clean source
