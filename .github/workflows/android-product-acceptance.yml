@@ -1,4 +1,4 @@
-name: Android Product Acceptance
+name: Historical Android Product Acceptance
 
 on:
     workflow_dispatch:
