@@ -46,7 +46,9 @@ production UI release.
   changed after the freeze.
 - **Maintenance decision A — 2026-10-20:** keep `1.1.0-rc.1` frozen and do not create
   `1.1.0-rc.2` for maintenance-only changes. Current `main` remains the Maintenance development
-  line. Consumers must keep pinning the recorded Q06 source SHA and checksum. Freeze a newer
+  line. Consumers must keep pinning the recorded Q06 source SHA, checksum and delivery artifact ID.
+  Same-version delivery artifacts produced by routine CI after the Q06 freeze but before #119 are
+  non-candidate CI byproducts and must not be treated as newer approved rc.1 packages. Freeze a newer
   candidate only when a real consuming App needs it or a material runtime/API/token/React-Native
   baseline change justifies a new consumer-validation cycle.
 
