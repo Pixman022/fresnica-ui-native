@@ -2,7 +2,7 @@
 
 This record closes the engineering tasks from
 `Fresnica_质量维护与iOS体验优化工作计划_2026-10-19.md`.
-It keeps engineering completion separate from the pending owner layout decision D01.
+It records both engineering completion and the subsequent project-owner layout decision D01.
 
 ## Final task status
 
@@ -11,9 +11,10 @@ It keeps engineering completion separate from the pending owner layout decision 
   `e026a6390fd16cf23122d5967b5fd23d6f3fbc57`.
 - **Q02 — Complete.** Web README statistics are synchronized to the actual 561 unit tests and
   49 accessibility tests; Native #102 adds the iOS support summary and entry links.
-- **Q03 — Engineering complete.** Native #103 reclaims empty Header side slots only at iOS
-  accessibility text sizes. Real controls retain their slots. Q03 Simulator evidence supports
-  keeping the change. D01 owner layout approval remains pending.
+- **Q03 — Complete and owner-approved.** Native #103 reclaims empty Header side slots only at iOS
+  accessibility text sizes. Real controls retain their slots and hit areas. After reviewing the
+  before/after S04 maximum-accessibility frames, the owner selected the current Q03 (second) layout
+  on 2026-10-20.
 - **Q04 — Complete.** Native #105 establishes package-level Jest coverage and a CI gate:
   statements 97.74%, branches 86.97%, functions 96.66%, lines 97.69%, with explicit iOS/Android
   branch tests.
@@ -24,8 +25,9 @@ It keeps engineering completion separate from the pending owner layout decision 
   `1afeac9cab5c55e4baeb0e99514c933722935da0`; main CI `39352213975` passes and delivery
   artifact `12233551785` records tarball SHA-256
   `341c1cc84590b802d2f8457500b6a30467417c5cf8670b62e54031e1a9313569`.
-- **D01 — Pending actual owner decision.** Engineering review is complete, but no owner identity,
-  date or approval is inferred. The 2026-10-19 layout review remains the decision record.
+- **D01 — Approved 2026-10-20.** Keep the current Q03 Header layout: reclaim empty side-slot
+  placeholders at iOS accessibility text sizes, while preserving real leading/back/trailing control
+  slots and hit areas. This decision is layout-only and does not approve the broader iOS Golden Baseline.
 
 ## Q05 interaction evidence
 
@@ -67,7 +69,8 @@ SDK, or wallet-product implementation.
 
 ## Completion statement
 
-Q01-Q06 satisfy the engineering completion criteria from the 2026-10-19 plan. D01 is intentionally
-still pending. The correct project state is therefore:
+Q01-Q06 satisfy the engineering completion criteria from the 2026-10-19 plan, and D01 is now
+explicitly approved for the Q03 Header layout. Deferred color/contrast, physical-device,
+VoiceOver/TalkBack, iPad and wallet-product gates remain unchanged. The correct project state is:
 
-**Engineering optimization complete; project-owner layout approval pending.**
+**Engineering optimization complete; Q03 owner layout decision approved; project remains in maintenance with deferred integration gates.**

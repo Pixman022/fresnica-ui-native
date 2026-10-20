@@ -12,7 +12,8 @@ production UI release.
   behavior while completing the 2026-10-19 quality-maintenance work.
 - Q03 reclaims empty Header side slots only at iOS accessibility text sizes; real leading/back/
   trailing controls retain their existing slots and hit areas. Simulator technical review supports
-  keeping the change, while project-owner layout decision D01 remains pending.
+  keeping the change, and the project owner approved this Q03 layout as D01 on 2026-10-20 after
+  reviewing the before/after maximum-accessibility frames.
 - Q04 adds package-level Jest coverage measurement and a non-regressing CI gate, with explicit
   iOS/Android platform-branch coverage.
 - Q05 adds XCUITest Simulator interaction evidence for software keyboard + primary action,

@@ -5,7 +5,7 @@
     "prHeadSha": "f15a38113af6ecf881d84485fd2ce5460888a7a7",
     "workflowRunId": 39215086435,
     "technicalReview": "complete",
-    "ownerDecision": "pending",
+    "ownerDecision": "approved",
     "binaryStorage": "GitHub Actions artifacts; PNG SHA-256 is versioned here and historical 2026-10-15 repository images are not overwritten",
     "references": [
         {
@@ -50,5 +50,16 @@
             "previewEvidenceView": "content",
             "outcome": "existing Field/ListRow accessibility-size content remains readable in the reviewed frame; Q03 does not change those components"
         }
+    ],
+    "ownerDecisionDate": "2026-10-20",
+    "ownerDecisionScope": "Keep the current Q03 (second) layout: at iOS accessibility text sizes reclaim only empty Header side-slot placeholders; preserve slots and hit areas for real leading/back/trailing controls.",
+    "ownerDecisionDoesNotApprove": [
+        "broader iOS Golden Baseline",
+        "color/contrast acceptance",
+        "physical-device acceptance",
+        "VoiceOver speech/gesture/focus behavior",
+        "real-device keyboard/autofill",
+        "iPad support",
+        "wallet-product acceptance"
     ]
 }

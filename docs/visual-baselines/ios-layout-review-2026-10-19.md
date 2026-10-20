@@ -6,8 +6,11 @@
 head is `f15a38113af6ecf881d84485fd2ce5460888a7a7`; evidence comes from
 [iOS Typography Detail Evidence run 39215086435](https://github.com/Pixman022/fresnica-ui-native/actions/runs/39215086435).
 
-**Project-owner layout decision:** pending. This technical recommendation does not
-create an owner-approved iOS Golden Baseline.
+**Project-owner layout decision:** approved on 2026-10-20. After reviewing the before/after
+S04 maximum-accessibility Header frames, the owner selected the current Q03 (second) layout:
+reclaim empty side-slot placeholders at iOS accessibility text sizes while preserving slots
+and hit areas for real leading/back/trailing controls. This approval is limited to Q03 and
+does not create an owner-approved iOS Golden Baseline.
 
 ## Change under review
 
@@ -76,10 +79,9 @@ Native RedBox because Metro was unavailable; its diagnostic screenshot explicitl
 reported that environment failure. The job was rerun rather than changing Android
 component behavior.
 
-These frames are Simulator technical evidence only. They do not approve colors,
-contrast, physical devices, VoiceOver, real-device keyboard/autofill, iPad or wallet
-product behavior. The owner layout decision remains D01 and must be recorded from an
-actual owner response.
+These frames are Simulator technical evidence only. D01 is now approved for the Q03 Header
+layout shown here. The decision does not approve colors, contrast, physical devices, VoiceOver,
+real-device keyboard/autofill, iPad, wallet-product behavior, or the broader iOS Golden Baseline.
 
 Exact source, artifact and screenshot digests are versioned in
 [ios/2026-10-19/evidence-manifest.json](ios/2026-10-19/evidence-manifest.json).

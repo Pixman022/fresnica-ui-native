@@ -66,8 +66,9 @@ or product navigation layer.
   adds extreme-Dynamic-Type Header evidence after reclaiming empty side slots, while Q05 separately
   adds XCUITest interaction evidence for software keyboard + primary action, long-content
   scrolling/action activation, and Modal open/close.
-- Technical layout review is complete for the recorded frames. Project-owner layout approval remains
-  pending, and there is no owner-approved iOS Golden Baseline.
+- Technical layout review is complete for the recorded frames. The project owner approved the Q03
+  extreme-Dynamic-Type Header layout on 2026-10-20 after reviewing the before/after frames. This
+  narrow decision does not create an owner-approved iOS Golden Baseline.
 - Physical-device iOS, actual VoiceOver focus/speech/gesture behavior, real-device keyboard/autofill
   and color/contrast work remain deferred.
 
