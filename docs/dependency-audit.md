@@ -17,10 +17,10 @@ contract and its supported host-root / JSON inspection APIs. Migration CI run
 evidence verification, fixed Web Token-source verification, build/pack checks and internal
 delivery-candidate creation.
 
-| Audit            | Before RNTL 14              | After RNTL 14                |
-| ---------------- | --------------------------- | ---------------------------- |
-| Full graph       | 29: 20 moderate, 9 high     | 29: 19 moderate, 10 high     |
-| Production graph | 0                           | 0                            |
+| Audit            | Before RNTL 14          | After RNTL 14            |
+| ---------------- | ----------------------- | ------------------------ |
+| Full graph       | 29: 20 moderate, 9 high | 29: 19 moderate, 10 high |
+| Production graph | 0                       | 0                        |
 
 The total vulnerable-package count is unchanged. The severity distribution changes with
 the test-renderer dependency graph; the retained findings are still development/test/build
