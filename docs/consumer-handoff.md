@@ -54,8 +54,11 @@ earlier candidates, so consumers must pin this exact source SHA and checksum.
 The 2026-10-20 maintenance decision keeps this `1.1.0-rc.1` artifact frozen; no
 `1.1.0-rc.2` is created for the later test-tooling, CI-action or documentation maintenance.
 Current `main` is therefore a Maintenance development line, not a replacement candidate.
-Freeze a newer candidate only when a real consuming App needs the newer line or a material
-runtime/API/token/React-Native baseline change requires a new consumer-validation cycle.
+Routine pull-request/`main` CI continues to validate the packed-package contract but does not upload
+a new delivery tarball. Candidate generation is an explicit manual CI action and refuses to reuse
+the frozen `1.1.0-rc.1` version; a newer candidate therefore requires a prior version decision and
+package-version bump. Freeze that newer candidate only when a real consuming App needs the newer line
+or a material runtime/API/token/React-Native baseline change requires a new consumer-validation cycle.
 
 Copy that archive to the consumer's internal artifact location; do not commit
 generated `dist/` to the source repository or infer a package version from

@@ -78,10 +78,14 @@ step inside the Native `test` job: any moderate-or-higher production finding or 
 tool failure returns a non-zero status and fails the job.
 
 Repository ruleset `Protect main` (ID `24701211`) is active for the default branch and
-requires the `test` status check. Because build, fixed Token-source verification, package
-contract verification, and internal delivery-candidate creation all run later in the same
-required job, a failed production audit prevents those steps from succeeding and prevents
-the required `test` check from passing.
+requires the `test` status check. Because build, fixed Token-source verification and packed-package
+contract verification run later in the same required job, a failed production audit prevents those
+checks from succeeding and prevents the required `test` check from passing.
+
+Routine pull-request and `main` CI no longer creates or uploads a delivery tarball. Delivery-candidate
+creation is an explicit `workflow_dispatch` option after the normal gates pass, and the workflow
+refuses to regenerate the frozen `1.1.0-rc.1` identity. A newer candidate therefore requires a
+separate version decision and package-version bump first.
 
 ## Development findings policy
 
