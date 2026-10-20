@@ -66,10 +66,11 @@ certification or physical-device keyboard/autofill acceptance.
 
 ## Design-decision boundary
 
-Q03 engineering implementation and technical recommendation are complete. The project-owner layout
-decision D01 remains pending and is intentionally not inferred from engineering approval or from this
-candidate record. Existing color/contrast, physical-device, VoiceOver, iPad and wallet-product
-boundaries remain unchanged.
+Q03 engineering implementation and technical recommendation are complete. After this candidate was
+frozen, the project owner approved D01 on 2026-10-20 by selecting the current Q03 (second) Header
+layout. The approval does not change this candidate's source SHA, archive checksum or package API.
+Existing color/contrast, physical-device, VoiceOver, iPad, broader iOS Golden Baseline and
+wallet-product boundaries remain unchanged.
 
 ## Release meaning
 
