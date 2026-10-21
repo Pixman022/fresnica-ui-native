@@ -36,7 +36,7 @@ import { enUS, zhCN } from '@fresnica/ui-native/locales';
 
 type Locale = 'en' | 'zh-CN';
 type Scenario = 'standard' | 'stress';
-type EvidenceView = 'full' | 'actions' | 'content' | 'modal' | 'keyboard';
+type EvidenceView = 'full' | 'actions' | 'content' | 'modal' | 'keyboard' | 'header-boundary';
 type PressableRef = ComponentRef<typeof Pressable>;
 const initialLocale: Locale = 'en';
 const initialScenario: Scenario = 'standard';
@@ -260,6 +260,29 @@ export default function App() {
                                         announcementMode="passive"
                                     />
                                 </>
+                            ) : initialEvidenceView === 'header-boundary' ? (
+                                <View style={styles.section}>
+                                    <Header
+                                        theme={theme}
+                                        title={labels.sampleHeader}
+                                        leading={false}
+                                        trailing=""
+                                    />
+                                    <Header
+                                        theme={theme}
+                                        title={labels.sampleHeader}
+                                        leading={<Typography theme={theme}>‹</Typography>}
+                                        onBack={() => undefined}
+                                        backAccessibilityLabel={labels.modalClose}
+                                        trailing={
+                                            <IconButton
+                                                theme={theme}
+                                                label={labels.accountAction}
+                                                icon={<Typography theme={theme}>•••</Typography>}
+                                            />
+                                        }
+                                    />
+                                </View>
                             ) : initialEvidenceView === 'keyboard' ? (
                                 <View style={styles.section}>
                                     <Typography theme={theme} variant="sectionTitle">
