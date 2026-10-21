@@ -84,6 +84,7 @@ const copy = {
         accountTitle: 'Account',
         accountDescription: 'Primary account',
         accountAction: 'Open account actions',
+        backAction: 'Back',
         trailingFeedback: 'Independent trailing action was pressed',
         info: 'Native components are using the current Fresnica semantic theme.',
         passiveError: 'Passive error text for an app-owned announcement flow.',
@@ -148,6 +149,7 @@ const copy = {
         accountTitle: '账户',
         accountDescription: '主账户',
         accountAction: '打开账户操作',
+        backAction: '返回',
         trailingFeedback: '独立尾部操作已触发',
         info: '原生组件正在使用当前 Fresnica 语义主题。',
         passiveError: '这是供应用自行控制播报时使用的被动错误文本。',
@@ -273,7 +275,7 @@ export default function App() {
                                         title={labels.sampleHeader}
                                         leading={<Typography theme={theme}>‹</Typography>}
                                         onBack={() => undefined}
-                                        backAccessibilityLabel={labels.modalClose}
+                                        backAccessibilityLabel={labels.backAction}
                                         trailing={
                                             <IconButton
                                                 theme={theme}
