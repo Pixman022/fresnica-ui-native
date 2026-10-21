@@ -264,12 +264,7 @@ export default function App() {
                                 </>
                             ) : initialEvidenceView === 'header-boundary' ? (
                                 <View style={styles.section}>
-                                    <Header
-                                        theme={theme}
-                                        title={labels.sampleHeader}
-                                        leading={false}
-                                        trailing=""
-                                    />
+                                    <Header theme={theme} title={labels.sampleHeader} leading={false} trailing="" />
                                     <Header
                                         theme={theme}
                                         title={labels.sampleHeader}
