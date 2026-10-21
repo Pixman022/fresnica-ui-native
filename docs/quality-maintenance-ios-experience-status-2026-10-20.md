@@ -90,7 +90,8 @@ The plan's later F01-F04 maintenance round does not alter Q01-Q06 or D01:
   `39533706886` passes all three Q05 XCUITests with zero failures and publishes artifact
   `12317779291` (digest
   `sha256:56304bccf88bce32a12fedf921db3d7bec7683316741d2d1cd06e9d19adb6ecb`).
-  Typography Detail `39533706770` remains queued, so F01 is not recorded as complete yet.
+  iOS Preview Fresh Build `39533706768` also passes build and launch smoke. Typography Detail
+  `39533706770` remains queued, so F01 is not recorded as complete yet.
 - **F04 — In progress.** Final cross-repository specification/status/consumer-handoff synchronization
   follows the completed F01 validation.
 
