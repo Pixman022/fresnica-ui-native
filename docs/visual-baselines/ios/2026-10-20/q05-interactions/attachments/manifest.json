@@ -1,0 +1,83 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "F0E646EF-4792-4F36-B48B-EC89B3A6B73B",
+        "deviceName" : "iPhone 16",
+        "exportedFileName" : "8089F370-8681-4657-8F77-D7FE0B100562.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "keyboard-after-primary-action_0_DEF7F9EC-A2F7-4CF0-806E-9E52277F7100.png",
+        "timestamp" : 1792406721.628
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "F0E646EF-4792-4F36-B48B-EC89B3A6B73B",
+        "deviceName" : "iPhone 16",
+        "exportedFileName" : "CFA4D7F3-8926-478E-9C40-691F8F5D2F7D.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "keyboard-before-primary-action_0_9B39567D-3405-40F5-B79A-71215A248D62.png",
+        "timestamp" : 1792406718.719
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "F0E646EF-4792-4F36-B48B-EC89B3A6B73B",
+        "deviceName" : "iPhone 16",
+        "exportedFileName" : "453D32AD-7E73-466A-BC56-9873BF1E3A16.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "keyboard-initial_0_F81C8B9F-43D3-4D3E-83F9-AD6D2C05F07C.png",
+        "timestamp" : 1792406714.182
+      }
+    ],
+    "testIdentifier" : "Q05InteractionTests/testKeyboardFieldAndPrimaryAction()",
+    "testIdentifierURL" : "test://com.apple.xcode/FresnicaPreview/FresnicaPreviewUITests/Q05InteractionTests/testKeyboardFieldAndPrimaryAction"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "F0E646EF-4792-4F36-B48B-EC89B3A6B73B",
+        "deviceName" : "iPhone 16",
+        "exportedFileName" : "798A0B7D-5658-4971-83B8-168FA84CFAFD.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "long-content-after-action_0_B642A94A-425E-4026-A83C-54DEC36291C2.png",
+        "timestamp" : 1792406733.44
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "F0E646EF-4792-4F36-B48B-EC89B3A6B73B",
+        "deviceName" : "iPhone 16",
+        "exportedFileName" : "FDC58839-DA83-485C-A093-DE930549C4F2.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "long-content-before-action_0_21BF97BD-FFFC-4D17-987F-E07B287C2F56.png",
+        "timestamp" : 1792406731.742
+      }
+    ],
+    "testIdentifier" : "Q05InteractionTests/testLongContentScrollAndAction()",
+    "testIdentifierURL" : "test://com.apple.xcode/FresnicaPreview/FresnicaPreviewUITests/Q05InteractionTests/testLongContentScrollAndAction"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "F0E646EF-4792-4F36-B48B-EC89B3A6B73B",
+        "deviceName" : "iPhone 16",
+        "exportedFileName" : "F2D7ECA5-9D98-401B-A821-58EDA6552E13.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "modal-closed_0_FDC77350-7ADE-49B5-8399-0DF03A92985B.png",
+        "timestamp" : 1792406750.445
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "F0E646EF-4792-4F36-B48B-EC89B3A6B73B",
+        "deviceName" : "iPhone 16",
+        "exportedFileName" : "161067C2-B26E-4B27-8C72-5D905499BB4C.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "modal-open_0_A36686C6-4D2B-478B-8FC0-CBD7260D87C8.png",
+        "timestamp" : 1792406747.464
+      }
+    ],
+    "testIdentifier" : "Q05InteractionTests/testModalOpenAndClose()",
+    "testIdentifierURL" : "test://com.apple.xcode/FresnicaPreview/FresnicaPreviewUITests/Q05InteractionTests/testModalOpenAndClose"
+  }
+]

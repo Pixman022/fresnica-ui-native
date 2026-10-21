@@ -1,0 +1,19 @@
+{
+  "device": "iPhone 16",
+  "runtime": "iOS 18.5",
+  "configuration": "Release",
+  "sourceSha": "77645ad5c2a430dd273b2d8f2429ad03b8b7831d",
+  "xcode": "Xcode 16.4\nBuild version 16F6",
+  "node": "v22.13.0",
+  "contentSize": "extra-extra-extra-large",
+  "appearance": "light",
+  "locale": "en",
+  "scenario": "standard",
+  "interactions": [
+    "keyboard-field-primary-action",
+    "long-content-icon-action",
+    "modal-open-close"
+  ],
+  "modalFocusBoundary": "The trigger is asserted reachable after close; physical-device and VoiceOver focus certification remain deferred.",
+  "resultBundle": "example/ios-interaction-evidence/q05-interactions.xcresult"
+}
