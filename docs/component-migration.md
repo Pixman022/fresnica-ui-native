@@ -48,5 +48,5 @@ policy or domain state and should not couple the design system to product behavi
 
 Promote a feature component only after two features share the same interaction,
 the public props contain no wallet-specific nouns, labels are caller-injected,
-TalkBack/Dynamic Type/keyboard/320 dp behavior is specified, and a contract test
+screen-reader, text-scaling, keyboard and minimum-width behavior are specified, and a contract test
 plus an owner exist.
