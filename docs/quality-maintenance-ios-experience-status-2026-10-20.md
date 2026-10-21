@@ -84,7 +84,8 @@ The plan's later F01-F04 maintenance round does not alter Q01-Q06 or D01:
 - **F01 — Validation in progress.** Native #132 final head
   `a615c448a45dd3c287f5ea1d592c4e26f49370db` contains the Header React-empty side-slot boundary
   fix, focused regression coverage and a separate `f01-header-boundary` maximum-accessibility
-  Simulator evidence view. Package CI `39533706772`, Android Preview `39533706732` and Android
+  Simulator evidence view. Package CI `39533706772` passes 53 tests with 97.90% statements,
+  87.62% branches, 96.87% functions and 97.82% lines; Android Preview `39533706732` and Android
   Emulator Acceptance `39533706824` pass. Final-head iOS Interaction Evidence
   `39533706886` is running and Typography Detail `39533706770` remains queued, so F01 is not
   recorded as complete yet.
