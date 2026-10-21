@@ -3,9 +3,14 @@ name: iOS Interaction Evidence
 on:
     pull_request:
         paths:
+            - 'src/**'
             - 'example/App.tsx'
+            - 'scripts/bootstrap-example.mjs'
             - 'scripts/run-example-ios-interactions.mjs'
             - 'package.json'
+            - 'package-lock.json'
+            - 'tsconfig.json'
+            - 'tsconfig.build.json'
             - '.github/workflows/ios-interaction-evidence.yml'
     workflow_dispatch:
 
