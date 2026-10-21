@@ -70,6 +70,27 @@ same scope boundaries: no color/contrast resolution, physical-device acceptance,
 speech/gesture/focus certification, real-device keyboard/autofill, iPad commitment, SwiftUI/UIKit
 SDK, or wallet-product implementation.
 
+## 2026-10-21 follow-up maintenance
+
+The plan's later F01-F04 maintenance round does not alter Q01-Q06 or D01:
+
+- **F02 — Complete.** Native #130 adds the real package-source/build-input trigger paths for
+  iOS Interaction Evidence while keeping manual dispatch. A later Header source PR automatically
+  started the XCUITest workflow through the new `src/**` path, proving source-trigger coverage.
+- **F03 — Complete.** Native #131 archives the three Q03 PNG/metadata pairs and seven Q05
+  screenshots plus original metadata/attachment manifest, pins source artifact/run/job identities,
+  and extends `verify-ios-evidence.mjs`. A temporary checksum mismatch was rejected by CI before
+  the correct manifest was restored and the final CI passed.
+- **F01 — Validation in progress.** Native #132 contains the Header React-empty side-slot boundary
+  fix and focused regression coverage. Package CI and Android Preview/Emulator checks pass; final
+  iOS Simulator runs are intentionally not recorded as complete until their queued final-head jobs
+  finish.
+- **F04 — In progress.** Final cross-repository specification/status/consumer-handoff synchronization
+  follows the completed F01 validation.
+
+The frozen `1.1.0-rc.1` candidate remains the Q06 artifact listed above. It does **not** acquire
+post-freeze F01-F03 Maintenance behavior merely because `main` advances.
+
 ## Completion statement
 
 Q01-Q06 satisfy the engineering completion criteria from the 2026-10-19 plan, and D01 is now
