@@ -25,8 +25,12 @@ The archived [2026-10-15 iOS layout review](ios-layout-review-2026-10-15.md) rec
 technical reviewer and seven concrete candidate frames. The
 [2026-10-19 extreme Dynamic Type review](ios-layout-review-2026-10-19.md) and its
 [iOS evidence manifest](ios/2026-10-19/evidence-manifest.json) record the later Q03 Header
-optimization. Q05 Simulator interaction evidence is summarized in the
-[2026-10-20 quality-maintenance status](../quality-maintenance-ios-experience-status-2026-10-20.md).
+optimization, with its three original PNG/metadata pairs now archived alongside that manifest.
+Q05 Simulator interaction evidence is archived under
+[ios/2026-10-20/q05-interactions](ios/2026-10-20/q05-interactions), including the seven original
+XCUITest screenshots, original metadata/attachment manifest and a traceable three-test result summary;
+the [2026-10-20 quality-maintenance status](../quality-maintenance-ios-experience-status-2026-10-20.md)
+retains the engineering conclusion.
 The project owner approved the Q03 extreme-Dynamic-Type Header layout on 2026-10-20 after reviewing
 the before/after S04 frames. That approval is limited to Q03; the broader iOS Golden Baseline remains
 unapproved.
@@ -43,11 +47,12 @@ device locale `en-US`. Each Preview selects its own zh-CN or English language,
 Stress scenario, font scale and Light/Dark theme.
 
 GitHub Actions screenshot binaries normally expire after 90 days. The ten archived 2026-10-15
-iOS reference PNGs and original metadata are retained in Git and remain available after those
-artifacts expire. The 2026-10-19 Q03 PNG bytes remain in Actions artifacts; their artifact digests,
-PNG SHA-256 values and source/profile metadata are pinned in the repository manifest. The older
-Android set likewise preserves fingerprints and source/environment metadata rather than permanent
-PNG copies; archive time-limited binaries separately if exact historical comparison is needed.
+iOS reference PNGs and original metadata, the three Q03 2026-10-19 PNG/metadata pairs and the seven
+Q05 interaction screenshots are retained in Git and remain available after their source artifacts
+expire. The Q05 full `.xcresult` is not duplicated in Git; its source run/job/artifact, artifact
+ZIP SHA-256, result-bundle path and extracted passing test summary remain pinned. The older Android
+set likewise preserves fingerprints and source/environment metadata rather than permanent PNG copies;
+archive time-limited binaries separately if exact historical comparison is needed.
 
 ## Reproduce and review
 
