@@ -6,7 +6,7 @@
     "workflowRunId": 39215086435,
     "technicalReview": "complete",
     "ownerDecision": "approved",
-    "binaryStorage": "GitHub Actions artifacts; PNG SHA-256 is versioned here and historical 2026-10-15 repository images are not overwritten",
+    "binaryStorage": "Original PNG and metadata bytes are versioned under ios/2026-10-19; Actions ZIP digests were verified before extraction and the earlier 2026-10-15 archive is not overwritten",
     "references": [
         {
             "id": "s03-actions-q03",
@@ -20,7 +20,16 @@
             "previewLocale": "zh-CN",
             "previewScenario": "stress",
             "previewEvidenceView": "actions",
-            "outcome": "maximum-standard Header behavior remains the existing two-line ellipsis; no Q03 regression"
+            "outcome": "maximum-standard Header behavior remains the existing two-line ellipsis; no Q03 regression",
+            "archive": {
+                "screenshot": "ios/2026-10-19/s03-actions-q03.png",
+                "screenshotSha256": "ed6080b53931c1ab65bbb385b14c4d06c4a24656627318ef6ac8f8c1cf2530d6",
+                "metadata": "ios/2026-10-19/s03-actions-q03.metadata.json",
+                "metadataSha256": "08b65ea3ff9610231a34ddc0214b4c61f996699a915392ac284dda5d8d613620",
+                "width": 750,
+                "height": 1334,
+                "captureSourceSha": "a603d3c9a11238198c28d545358eb2ec5b3d92df"
+            }
         },
         {
             "id": "s04-actions-q03",
@@ -34,7 +43,16 @@
             "previewLocale": "en",
             "previewScenario": "standard",
             "previewEvidenceView": "actions",
-            "outcome": "empty Header side slots are reclaimed; Sample, screen and header each remain intact as words and Continue remains visible"
+            "outcome": "empty Header side slots are reclaimed; Sample, screen and header each remain intact as words and Continue remains visible",
+            "archive": {
+                "screenshot": "ios/2026-10-19/s04-actions-q03.png",
+                "screenshotSha256": "7e1e321f8666cf01dd3f6641341a2c08866ed5b08f1fdd4e21ab5d88ffca8c64",
+                "metadata": "ios/2026-10-19/s04-actions-q03.metadata.json",
+                "metadataSha256": "dee6e9c7394302b6f17ef5ecdbdc57cd8aac004f81b96377c443ac327b1069f1",
+                "width": 750,
+                "height": 1334,
+                "captureSourceSha": "a603d3c9a11238198c28d545358eb2ec5b3d92df"
+            }
         },
         {
             "id": "s04-content-q03",
@@ -48,7 +66,16 @@
             "previewLocale": "en",
             "previewScenario": "standard",
             "previewEvidenceView": "content",
-            "outcome": "existing Field/ListRow accessibility-size content remains readable in the reviewed frame; Q03 does not change those components"
+            "outcome": "existing Field/ListRow accessibility-size content remains readable in the reviewed frame; Q03 does not change those components",
+            "archive": {
+                "screenshot": "ios/2026-10-19/s04-content-q03.png",
+                "screenshotSha256": "e90b8147fc1170a245ca1fb26ac445261033302a64a92c5554d32a82e86f3450",
+                "metadata": "ios/2026-10-19/s04-content-q03.metadata.json",
+                "metadataSha256": "764f03263a7d79cdee913c1d790e5953b01ebed7f884c604fa421feb75ba89fe",
+                "width": 750,
+                "height": 1334,
+                "captureSourceSha": "a603d3c9a11238198c28d545358eb2ec5b3d92df"
+            }
         }
     ],
     "ownerDecisionDate": "2026-10-20",
@@ -61,5 +88,8 @@
         "real-device keyboard/autofill",
         "iPad support",
         "wallet-product acceptance"
-    ]
+    ],
+    "finalPrHeadSha": "1f142f289eebd9f3952b93f0d733c8a1f665b269",
+    "captureCheckoutSha": "a603d3c9a11238198c28d545358eb2ec5b3d92df",
+    "mergedMainSha": "c79fede1667c7d9ea9117c60527ea586f44b0f06"
 }

@@ -1,0 +1,114 @@
+{
+    "schema": "fresnica-ios-interaction-evidence/v1",
+    "captureDate": "2026-10-19",
+    "archiveDate": "2026-10-21",
+    "scope": "Q05 neutral Preview iOS Simulator interactions",
+    "workflowRunId": 39235433519,
+    "jobId": 118003245453,
+    "artifactId": 12180134517,
+    "artifactDigest": "sha256:438dbeeb0093ccfb3942269ed30200b097cd754b1d04b4b1ea14f7fc1c86932d",
+    "pr": 106,
+    "prHeadSha": "a5a510d932c80ea761317a2104d64c7b61a70e2d",
+    "captureCheckoutSha": "77645ad5c2a430dd273b2d8f2429ad03b8b7831d",
+    "mergedMainSha": "1afeac9cab5c55e4baeb0e99514c933722935da0",
+    "environment": {
+        "device": "iPhone 16",
+        "runtime": "iOS 18.5",
+        "configuration": "Release",
+        "xcode": "16.4 (16F6)",
+        "node": "22.13.0",
+        "contentSize": "extra-extra-extra-large",
+        "appearance": "light",
+        "locale": "en",
+        "scenario": "standard"
+    },
+    "originalFiles": {
+        "metadata": {
+            "path": "ios/2026-10-20/q05-interactions/metadata.json",
+            "sha256": "38cd9e6c935e2a1e1cc2c7c8cc01789a17b83785638d1b720af449afc883376d"
+        },
+        "attachmentsManifest": {
+            "path": "ios/2026-10-20/q05-interactions/attachments/manifest.json",
+            "sha256": "726586d2a7ea1c0235065a1520ca8939702d4f07e39de07fecfe6c9abd2b62c6"
+        }
+    },
+    "resultBundle": {
+        "artifactPath": "q05-interactions.xcresult",
+        "repositoryArchived": false,
+        "integrity": "The complete result bundle remains inside the source artifact and is covered by the artifact ZIP SHA-256.",
+        "infoPlistSha256": "5736ca3b0fef10389113582e7778542dc5197ca4b66b4862fc74b1aaa57f20b8"
+    },
+    "screenshots": [
+        {
+            "id": "keyboard-initial",
+            "testIdentifier": "Q05InteractionTests/testKeyboardFieldAndPrimaryAction()",
+            "suggestedHumanReadableName": "keyboard-initial_0_F81C8B9F-43D3-4D3E-83F9-AD6D2C05F07C.png",
+            "path": "ios/2026-10-20/q05-interactions/attachments/453D32AD-7E73-466A-BC56-9873BF1E3A16.png",
+            "sha256": "8d4483427828dd489a4d81011ce3135323cbbd8951fbc72af52b28b1e4196863",
+            "width": 1178,
+            "height": 2556
+        },
+        {
+            "id": "keyboard-before-primary-action",
+            "testIdentifier": "Q05InteractionTests/testKeyboardFieldAndPrimaryAction()",
+            "suggestedHumanReadableName": "keyboard-before-primary-action_0_9B39567D-3405-40F5-B79A-71215A248D62.png",
+            "path": "ios/2026-10-20/q05-interactions/attachments/CFA4D7F3-8926-478E-9C40-691F8F5D2F7D.png",
+            "sha256": "6dc40d71b5868422b98f18368de4ba9d2de38b2211a87815936bb6af02ff03ff",
+            "width": 1178,
+            "height": 2556
+        },
+        {
+            "id": "keyboard-after-primary-action",
+            "testIdentifier": "Q05InteractionTests/testKeyboardFieldAndPrimaryAction()",
+            "suggestedHumanReadableName": "keyboard-after-primary-action_0_DEF7F9EC-A2F7-4CF0-806E-9E52277F7100.png",
+            "path": "ios/2026-10-20/q05-interactions/attachments/8089F370-8681-4657-8F77-D7FE0B100562.png",
+            "sha256": "969f4ebca594b646cc92f5ea79c5bd16f14ca22fb985638ebf1fd41b137aa98c",
+            "width": 1178,
+            "height": 2556
+        },
+        {
+            "id": "long-content-before-action",
+            "testIdentifier": "Q05InteractionTests/testLongContentScrollAndAction()",
+            "suggestedHumanReadableName": "long-content-before-action_0_21BF97BD-FFFC-4D17-987F-E07B287C2F56.png",
+            "path": "ios/2026-10-20/q05-interactions/attachments/FDC58839-DA83-485C-A093-DE930549C4F2.png",
+            "sha256": "3e6d1c3113a8a9394f53ec359e6e118359a0849d89e8bd784f207e0f9026196b",
+            "width": 1178,
+            "height": 2556
+        },
+        {
+            "id": "long-content-after-action",
+            "testIdentifier": "Q05InteractionTests/testLongContentScrollAndAction()",
+            "suggestedHumanReadableName": "long-content-after-action_0_B642A94A-425E-4026-A83C-54DEC36291C2.png",
+            "path": "ios/2026-10-20/q05-interactions/attachments/798A0B7D-5658-4971-83B8-168FA84CFAFD.png",
+            "sha256": "985b82ea71104c9543b9713b90c9d8dfd6aafd91eade0201cdac4138b1713ce8",
+            "width": 1178,
+            "height": 2556
+        },
+        {
+            "id": "modal-open",
+            "testIdentifier": "Q05InteractionTests/testModalOpenAndClose()",
+            "suggestedHumanReadableName": "modal-open_0_A36686C6-4D2B-478B-8FC0-CBD7260D87C8.png",
+            "path": "ios/2026-10-20/q05-interactions/attachments/161067C2-B26E-4B27-8C72-5D905499BB4C.png",
+            "sha256": "1970c320f585640eb81184d9c056442dc36b44c05bdda8616c85472b050aa35f",
+            "width": 1178,
+            "height": 2556
+        },
+        {
+            "id": "modal-closed",
+            "testIdentifier": "Q05InteractionTests/testModalOpenAndClose()",
+            "suggestedHumanReadableName": "modal-closed_0_FDC77350-7ADE-49B5-8399-0DF03A92985B.png",
+            "path": "ios/2026-10-20/q05-interactions/attachments/F2D7ECA5-9D98-401B-A821-58EDA6552E13.png",
+            "sha256": "531ddcb1c5620418ae5d81f26cab87b19d4a6db648a918c256aca565e47733b7",
+            "width": 1178,
+            "height": 2556
+        }
+    ],
+    "testSummary": "ios/2026-10-20/q05-interactions/test-summary.json",
+    "doesNotApprove": [
+        "physical-device acceptance",
+        "VoiceOver speech/gesture/focus behavior",
+        "real-device keyboard/autofill",
+        "color/contrast acceptance",
+        "wallet-product release"
+    ]
+}

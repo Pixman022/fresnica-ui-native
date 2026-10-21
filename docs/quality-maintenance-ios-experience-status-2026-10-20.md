@@ -41,8 +41,11 @@ The run executed three tests with zero failures:
 - Modal trigger -> Modal visible -> close control -> Modal disappears -> trigger reachable again.
 
 The workflow fails if a required target, keyboard or callback feedback is missing. It does not use
-blind coordinate taps to infer success. Screenshots and the `.xcresult` bundle are retained in the
-workflow artifact. Physical-device and VoiceOver focus certification remain outside this result.
+blind coordinate taps to infer success. The seven original screenshots, original metadata and
+attachment manifest, plus a traceable three-test result summary, are now retained in
+`visual-baselines/ios/2026-10-20/q05-interactions`. The full `.xcresult` remains in the pinned
+source artifact rather than being duplicated in Git. Physical-device and VoiceOver focus
+certification remain outside this result.
 
 ## Current private candidate
 
