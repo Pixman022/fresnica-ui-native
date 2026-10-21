@@ -87,8 +87,10 @@ The plan's later F01-F04 maintenance round does not alter Q01-Q06 or D01:
   Simulator evidence view. Package CI `39533706772` passes 53 tests with 97.90% statements,
   87.62% branches, 96.87% functions and 97.82% lines; Android Preview `39533706732` and Android
   Emulator Acceptance `39533706824` pass. Final-head iOS Interaction Evidence
-  `39533706886` is running and Typography Detail `39533706770` remains queued, so F01 is not
-  recorded as complete yet.
+  `39533706886` passes all three Q05 XCUITests with zero failures and publishes artifact
+  `12317779291` (digest
+  `sha256:56304bccf88bce32a12fedf921db3d7bec7683316741d2d1cd06e9d19adb6ecb`).
+  Typography Detail `39533706770` remains queued, so F01 is not recorded as complete yet.
 - **F04 — In progress.** Final cross-repository specification/status/consumer-handoff synchronization
   follows the completed F01 validation.
 
