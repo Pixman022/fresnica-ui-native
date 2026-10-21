@@ -36,6 +36,7 @@ threshold.
 - artifact: `12168868814`
 - artifact digest:
   `sha256:2f2fcd6c17f2828ede41fa8845e90f33f701cb3e4ae6f84a004a1c99bce250a5`
+- archived original: [s03-actions-q03.png](ios/2026-10-19/s03-actions-q03.png)
 - PNG SHA-256:
   `ed6080b53931c1ab65bbb385b14c4d06c4a24656627318ef6ac8f8c1cf2530d6`
 
@@ -53,6 +54,7 @@ cap or hidden content is used.
 - artifact: `12169214601`
 - artifact digest:
   `sha256:fd1e9c76bd3a2f4886b44233c36f4ad90de509aa4f9b0d6360e57ded03432dc4`
+- archived original: [s04-actions-q03.png](ios/2026-10-19/s04-actions-q03.png)
 - PNG SHA-256:
   `7e1e321f8666cf01dd3f6641341a2c08866ed5b08f1fdd4e21ab5d88ffca8c64`
 
@@ -68,6 +70,7 @@ available in the reviewed viewport. Q03 does not change those components.
 - artifact: `12169662134`
 - artifact digest:
   `sha256:b17057ffb3cfaea31e1be4c5b4e0c244c5c5d7da6aebdc7a1af839b531b2ab5f`
+- archived original: [s04-content-q03.png](ios/2026-10-19/s04-content-q03.png)
 - PNG SHA-256:
   `e90b8147fc1170a245ca1fb26ac445261033302a64a92c5554d32a82e86f3450`
 
