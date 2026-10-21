@@ -81,10 +81,13 @@ The plan's later F01-F04 maintenance round does not alter Q01-Q06 or D01:
   screenshots plus original metadata/attachment manifest, pins source artifact/run/job identities,
   and extends `verify-ios-evidence.mjs`. A temporary checksum mismatch was rejected by CI before
   the correct manifest was restored and the final CI passed.
-- **F01 — Validation in progress.** Native #132 contains the Header React-empty side-slot boundary
-  fix and focused regression coverage. Package CI and Android Preview/Emulator checks pass; final
-  iOS Simulator runs are intentionally not recorded as complete until their queued final-head jobs
-  finish.
+- **F01 — Validation in progress.** Native #132 final head
+  `a615c448a45dd3c287f5ea1d592c4e26f49370db` contains the Header React-empty side-slot boundary
+  fix, focused regression coverage and a separate `f01-header-boundary` maximum-accessibility
+  Simulator evidence view. Package CI `39533706772`, Android Preview `39533706732` and Android
+  Emulator Acceptance `39533706824` pass. Final-head iOS Interaction Evidence
+  `39533706886` is running and Typography Detail `39533706770` remains queued, so F01 is not
+  recorded as complete yet.
 - **F04 — In progress.** Final cross-repository specification/status/consumer-handoff synchronization
   follows the completed F01 validation.
 
