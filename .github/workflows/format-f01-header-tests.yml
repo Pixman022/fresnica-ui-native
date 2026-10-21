@@ -1,0 +1,37 @@
+name: Format F01 Header Tests
+
+on:
+    pull_request:
+        paths:
+            - '.github/workflows/format-f01-header-tests.yml'
+
+permissions:
+    contents: write
+
+jobs:
+    format:
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout F01 branch
+              uses: actions/checkout@v7
+              with:
+                  ref: ${{ github.head_ref }}
+            - name: Set up Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22.13.0
+                  cache: npm
+            - name: Install dependencies
+              run: npm ci
+            - name: Format Header tests
+              run: npx prettier --write test/components.test.tsx
+            - name: Commit formatted tests
+              run: |
+                  set -euo pipefail
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add test/components.test.tsx
+                  git diff --cached --quiet && exit 0
+                  git commit -m "style: format Header edge-case tests"
+                  git push origin "HEAD:${GITHUB_HEAD_REF}"
