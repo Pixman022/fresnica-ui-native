@@ -1,0 +1,30 @@
+{
+    "schema": "fresnica-ios-interaction-test-summary/v1",
+    "source": "GitHub Actions decoded job log for q05-interactions; original q05-interactions.xcresult remains inside the pinned artifact",
+    "workflowRunId": 39235433519,
+    "jobId": 118003245453,
+    "artifactId": 12180134517,
+    "artifactDigest": "sha256:438dbeeb0093ccfb3942269ed30200b097cd754b1d04b4b1ea14f7fc1c86932d",
+    "resultBundle": "q05-interactions.xcresult",
+    "executed": 3,
+    "failures": 0,
+    "unexpectedFailures": 0,
+    "durationSeconds": 46.976,
+    "tests": [
+        {
+            "name": "Q05InteractionTests/testKeyboardFieldAndPrimaryAction()",
+            "status": "passed",
+            "durationSeconds": 18.214
+        },
+        {
+            "name": "Q05InteractionTests/testLongContentScrollAndAction()",
+            "status": "passed",
+            "durationSeconds": 11.837
+        },
+        {
+            "name": "Q05InteractionTests/testModalOpenAndClose()",
+            "status": "passed",
+            "durationSeconds": 16.925
+        }
+    ]
+}
