@@ -23,6 +23,12 @@ type HeaderWithoutBackAction = HeaderBaseProps & {
 
 export type HeaderProps = HeaderWithBackAction | HeaderWithoutBackAction;
 
+function hasVisibleSlotContent(content: ReactNode) {
+    if (content == null || typeof content === 'boolean') return false;
+    if (typeof content === 'string') return content.length > 0;
+    return true;
+}
+
 export function Header({
     theme: themeOverride,
     title,
@@ -34,8 +40,8 @@ export function Header({
     const theme = useUiTheme(themeOverride);
     const { fontScale } = useWindowDimensions();
     const expandTitleForAccessibilityText = Platform.OS === 'ios' && fontScale >= 1.5;
-    const hasStartContent = onBack !== undefined || leading != null;
-    const hasTrailingContent = trailing != null;
+    const hasStartContent = onBack !== undefined || hasVisibleSlotContent(leading);
+    const hasTrailingContent = hasVisibleSlotContent(trailing);
     const start = onBack ? (
         <Pressable
             accessible
