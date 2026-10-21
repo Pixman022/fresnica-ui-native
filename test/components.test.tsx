@@ -355,23 +355,20 @@ describe('native components', () => {
         ['numeric zero', 0],
         ['non-empty text', 'Menu'],
         ['element', <Typography theme={theme}>Menu</Typography>],
-    ])(
-        'keeps renderable Header side-slot content at iOS accessibility text sizes: %s',
-        async (_label, content) => {
-            setMockFontScale(2);
-            await render(
-                <Header
-                    title="A deliberately long account settings title"
-                    theme={theme}
-                    leading={content}
-                    trailing={content}
-                />,
-            );
+    ])('keeps renderable Header side-slot content at iOS accessibility text sizes: %s', async (_label, content) => {
+        setMockFontScale(2);
+        await render(
+            <Header
+                title="A deliberately long account settings title"
+                theme={theme}
+                leading={content}
+                trailing={content}
+            />,
+        );
 
-            const views = collectRenderJsonNodes(screen.toJSON()).filter((node) => node.type === View);
-            expect(views).toHaveLength(3);
-        },
-    );
+        const views = collectRenderJsonNodes(screen.toJSON()).filter((node) => node.type === View);
+        expect(views).toHaveLength(3);
+    });
 
     it('keeps a real Header back-action slot at iOS accessibility text sizes', async () => {
         setMockFontScale(2);
@@ -400,11 +397,7 @@ describe('native components', () => {
                 onBack={jest.fn()}
                 backAccessibilityLabel="Go back"
                 trailing={
-                    <IconButton
-                        theme={theme}
-                        label="More options"
-                        icon={<Typography theme={theme}>•••</Typography>}
-                    />
+                    <IconButton theme={theme} label="More options" icon={<Typography theme={theme}>•••</Typography>} />
                 }
             />,
         );
