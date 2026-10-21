@@ -60,6 +60,13 @@ production UI release.
   they do not change wallet implementation, security decisions, package runtime behavior or the
   frozen `1.1.0-rc.1` candidate.
 - The post-cleanup Native `main` CI for #124 completed successfully in run `39395112202`.
+- 2026-10-21 follow-up maintenance keeps the same frozen candidate identity. Native #130 expands
+  iOS Interaction Evidence pull-request triggers to package source, lock/build inputs and Preview
+  bootstrap inputs; Native #131 permanently archives the Q03/Q05 evidence bytes and extends CI
+  integrity verification. Neither change rewrites the frozen `1.1.0-rc.1` artifact.
+- The Header empty-content boundary fix is tracked separately from the frozen candidate. If merged
+  on the Maintenance line, it requires a new explicitly versioned candidate before any consuming App
+  may claim that behavior is present in an approved package.
 
 ## 2026-10-12 — 1.1.0-rc.1 component-library optimization candidate
 
