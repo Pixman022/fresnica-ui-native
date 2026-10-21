@@ -39,6 +39,12 @@ jobs:
                       locale: en
                       scenario: standard
                       evidence_view: content
+                    - name: f01-header-boundary
+                      content_size: accessibility-extra-extra-extra-large
+                      appearance: light
+                      locale: en
+                      scenario: standard
+                      evidence_view: header-boundary
 
         steps:
             - name: Checkout repository
