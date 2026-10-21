@@ -23,7 +23,7 @@
             "outcome": "maximum-standard Header behavior remains the existing two-line ellipsis; no Q03 regression",
             "archive": {
                 "screenshot": "ios/2026-10-19/s03-actions-q03.png",
-                "screenshotSha256": "ed6080b53931c1ab65bbb385b14c4d06c4a24656627318ef6ac8f8c1cf2530d6",
+                "screenshotSha256": "0d6080b53931c1ab65bbb385b14c4d06c4a24656627318ef6ac8f8c1cf2530d6",
                 "metadata": "ios/2026-10-19/s03-actions-q03.metadata.json",
                 "metadataSha256": "08b65ea3ff9610231a34ddc0214b4c61f996699a915392ac284dda5d8d613620",
                 "width": 750,
