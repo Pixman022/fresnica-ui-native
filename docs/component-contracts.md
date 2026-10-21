@@ -28,9 +28,10 @@ Chinese labels, disabled/loading/error states where applicable, and a 320 logica
 Product labels, field copy and validation reasons remain caller-owned. The package ships only
 generic internal `enUS` / `zhCN` copy such as close/loading fallbacks.
 
-Platform runtime checks are recorded separately. Android acceptance covers TalkBack/device behavior;
-iOS acceptance covers Simulator launch/layout, Dynamic Type and iOS-specific presentation rules.
-Physical-device accessibility remains a separate gate on both platforms.
+Platform runtime checks are recorded separately. Android emulator acceptance covers launch/layout,
+keyboard and system-Back behavior without claiming TalkBack; iOS acceptance covers Simulator
+launch/layout, Dynamic Type and iOS-specific presentation rules. TalkBack/VoiceOver and other
+physical-device behavior remain separate consuming-App gates.
 
 ## Usage Rules
 

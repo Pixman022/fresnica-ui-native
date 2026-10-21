@@ -59,7 +59,7 @@ transaction submission, backup and release requirements must be managed by the c
 ## iOS integration baseline
 
 See [iOS Support Baseline](ios-support-baseline.md) for the current package/toolchain support matrix.
-The first iOS delivery target is an iPhone React Native host. Build compatibility, Simulator runtime
+The current iOS package target is an iPhone React Native host. Build compatibility, Simulator runtime
 validation, visual review and physical-device acceptance are recorded as separate levels.
 
 Shared iOS design rules live in the Web design-system `ios-guidelines.md` page. iOS-specific
