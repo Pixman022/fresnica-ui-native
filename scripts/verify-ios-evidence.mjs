@@ -54,9 +54,7 @@ if (
 }
 console.log(`Verified ${ids.size} archived iOS frames and metadata; owner approval: ${manifest.ownerApproval.status}.`);
 
-const q03Manifest = JSON.parse(
-    fs.readFileSync(path.join(base, 'ios/2026-10-19/evidence-manifest.json'), 'utf8'),
-);
+const q03Manifest = JSON.parse(fs.readFileSync(path.join(base, 'ios/2026-10-19/evidence-manifest.json'), 'utf8'));
 const q03Ids = new Set();
 
 for (const reference of q03Manifest.references) {
@@ -158,4 +156,3 @@ if (
 console.log(
     `Verified ${q03Ids.size} archived Q03 frames and ${q05Manifest.screenshots.length} Q05 interaction screenshots; Q05 tests: ${q05Summary.executed} passed, ${q05Summary.failures} failed.`,
 );
-
