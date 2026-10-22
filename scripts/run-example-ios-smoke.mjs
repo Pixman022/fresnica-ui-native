@@ -56,7 +56,7 @@ if (!['en', 'zh-CN'].includes(previewLocale)) {
 if (!['standard', 'stress'].includes(previewScenario)) {
     throw new Error(`Unsupported Preview scenario: ${previewScenario}`);
 }
-if (!['full', 'actions', 'content', 'modal', 'keyboard'].includes(previewEvidenceView)) {
+if (!['full', 'actions', 'content', 'modal', 'keyboard', 'header-boundary'].includes(previewEvidenceView)) {
     throw new Error(`Unsupported Preview evidence view: ${previewEvidenceView}`);
 }
 

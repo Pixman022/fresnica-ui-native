@@ -23,6 +23,19 @@ type HeaderWithoutBackAction = HeaderBaseProps & {
 
 export type HeaderProps = HeaderWithBackAction | HeaderWithoutBackAction;
 
+function hasVisibleSlotContent(content: ReactNode) {
+    if (content == null || typeof content === 'boolean') return false;
+    if (typeof content === 'string') return content.length > 0;
+    return true;
+}
+
+function renderSlotContent(content: ReactNode, color: string) {
+    if (typeof content === 'string' || typeof content === 'number') {
+        return <Text style={{ color }}>{content}</Text>;
+    }
+    return content;
+}
+
 export function Header({
     theme: themeOverride,
     title,
@@ -34,8 +47,10 @@ export function Header({
     const theme = useUiTheme(themeOverride);
     const { fontScale } = useWindowDimensions();
     const expandTitleForAccessibilityText = Platform.OS === 'ios' && fontScale >= 1.5;
-    const hasStartContent = onBack !== undefined || leading != null;
-    const hasTrailingContent = trailing != null;
+    const hasStartContent = onBack !== undefined || hasVisibleSlotContent(leading);
+    const hasTrailingContent = hasVisibleSlotContent(trailing);
+    const visibleLeading = renderSlotContent(leading, theme.colors.contentPrimary);
+    const visibleTrailing = renderSlotContent(trailing, theme.colors.contentPrimary);
     const start = onBack ? (
         <Pressable
             accessible
@@ -48,7 +63,7 @@ export function Header({
             {leading}
         </Pressable>
     ) : (
-        leading
+        visibleLeading
     );
     return (
         <View style={[styles.container, { borderBottomColor: theme.colors.separator, minHeight: 56 }]}>
@@ -62,7 +77,7 @@ export function Header({
                 {title}
             </Text>
             {!expandTitleForAccessibilityText || hasTrailingContent ? (
-                <View style={[styles.side, styles.trailing]}>{trailing}</View>
+                <View style={[styles.side, styles.trailing]}>{visibleTrailing}</View>
             ) : null}
         </View>
     );
