@@ -177,8 +177,11 @@ change the public component API.
 - **Button / IconButton:** keep the existing action hierarchy and pressed/disabled/loading
   semantics. The default interactive target remains at least 44×44 logical points. Long
   labels may grow in height; do not force them into a single-line Web-style control.
-- **Header:** remains a reusable visual/action header, not a navigation controller. Its
-  visible title exposes heading semantics. Back, close and done semantics belong to the
+- **Header:** remains a reusable visual/action header, not a navigation controller. At iOS
+  accessibility text sizes (`fontScale >= 1.5`), React-empty optional side content
+  (`undefined`, `null`, booleans and the empty string) does not reserve an otherwise empty side
+  slot; renderable `0`, non-empty text, elements and real actions continue to reserve their slot.
+  Its visible title exposes heading semantics. Back, close and done semantics belong to the
   consuming screen. Native navigation gestures and route transitions stay in the host.
 - **Field:** native `TextInputProps`, ref and submit/focus behavior remain authoritative.
   Keyboard type, text content type/autocomplete, secure entry and return-key configuration
