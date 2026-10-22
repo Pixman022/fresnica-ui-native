@@ -136,10 +136,10 @@ See [consumer handoff](docs/consumer-handoff.md) and
   evidence. Real TalkBack/focus order, physical-device behavior, reduced
   motion and full mobile accessibility certification remain **unverified**.
   A green CI run is not a general accessibility or product release sign-off.
-- The archived 2026-10-15 iOS reference PNGs are retained in Git. Android approved PNG binaries
-  and the later 2026-10-19 Q03 iOS PNG binaries may remain in time-limited GitHub Actions artifacts;
-  the repository pins SHA-256 values and reproducible source/profile metadata. No automated
-  pixel-diff threshold is enabled.
+- The archived 2026-10-15 iOS reference PNGs, the 2026-10-19 Q03 PNG/metadata pairs and the
+  Q05 XCUITest screenshots/metadata are retained in Git with integrity checks. Android approved PNG
+  binaries may remain in time-limited GitHub Actions artifacts; the repository pins SHA-256 values
+  and reproducible source/profile metadata. No automated pixel-diff threshold is enabled.
 - The UI component package does not ship wallet features, Stellar transactions, Mainnet,
   production security approval, a SwiftUI/UIKit SDK, physical-device iOS acceptance or a public
   npm registry release. Current iPhone support is React Native Simulator-backed component support,
