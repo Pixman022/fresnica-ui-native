@@ -16,8 +16,12 @@ pairs and Q05 XCUITest screenshots/metadata are now retained under
 [visual-baselines/ios](visual-baselines/ios), with the Q05 result summary linked from the
 [2026-10-20 quality-maintenance status](quality-maintenance-ios-experience-status-2026-10-20.md).
 The project owner approved the current Q03 (second) extreme-Dynamic-Type Header layout on
-2026-10-20. The broader iOS Golden Baseline remains unapproved; color/contrast and physical-device
-acceptance retain their deferred status.
+2026-10-20. Post-freeze Native #132 later completed the React-empty side-content boundary on
+Maintenance `main` at `e0a6a9ce8300af5aaec0bd621d78ca0c57f20584`; final iOS Typography
+Detail run `39533706770` includes the `f01-header-boundary` artifact `12320333689`, while
+final Interaction run `39533706886` passes all three Q05 XCUITests. This later behavior is not
+part of the frozen `1.1.0-rc.1` artifact. The broader iOS Golden Baseline remains unapproved;
+color/contrast and physical-device acceptance retain their deferred status.
 
 ## Supported baseline
 
