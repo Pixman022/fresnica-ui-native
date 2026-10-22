@@ -60,6 +60,16 @@ production UI release.
   they do not change wallet implementation, security decisions, package runtime behavior or the
   frozen `1.1.0-rc.1` candidate.
 - The post-cleanup Native `main` CI for #124 completed successfully in run `39395112202`.
+- 2026-10-21 follow-up maintenance keeps the same frozen candidate identity. Native #130 expands
+  iOS Interaction Evidence pull-request triggers to package source, lock/build inputs and Preview
+  bootstrap inputs; Native #131 permanently archives the Q03/Q05 evidence bytes and extends CI
+  integrity verification. Neither change rewrites the frozen `1.1.0-rc.1` artifact.
+- Native #132 merges the Header React-empty side-content boundary on Maintenance `main` at
+  `e0a6a9ce8300af5aaec0bd621d78ca0c57f20584`. Final package CI passes 53 tests; Android
+  Preview/Emulator and final iOS Interaction, Fresh Build, Reachability, Typography Probe and
+  Typography Detail checks all pass. This implementation remains post-freeze and is **not** present
+  in the frozen `1.1.0-rc.1` artifact. A consuming App that needs it requires a new explicitly
+  versioned candidate under the existing candidate policy.
 
 ## 2026-10-12 — 1.1.0-rc.1 component-library optimization candidate
 

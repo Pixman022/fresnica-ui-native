@@ -11,11 +11,17 @@ not a published registry release.
 The archived [2026-10-15 iOS layout review](visual-baselines/ios-layout-review-2026-10-15.md)
 links the retained baseline PNG/metadata files and original technical review. The current
 [2026-10-19 extreme Dynamic Type review](visual-baselines/ios-layout-review-2026-10-19.md)
-records the later Q03 Header optimization and its owner-decision boundary; Q05 interaction evidence
-is summarized in the [2026-10-20 quality-maintenance status](quality-maintenance-ios-experience-status-2026-10-20.md).
+records the later Q03 Header optimization and its owner-decision boundary. The original Q03 PNG/metadata
+pairs and Q05 XCUITest screenshots/metadata are now retained under
+[visual-baselines/ios](visual-baselines/ios), with the Q05 result summary linked from the
+[2026-10-20 quality-maintenance status](quality-maintenance-ios-experience-status-2026-10-20.md).
 The project owner approved the current Q03 (second) extreme-Dynamic-Type Header layout on
-2026-10-20. The broader iOS Golden Baseline remains unapproved; color/contrast and physical-device
-acceptance retain their deferred status.
+2026-10-20. Post-freeze Native #132 later completed the React-empty side-content boundary on
+Maintenance `main` at `e0a6a9ce8300af5aaec0bd621d78ca0c57f20584`; final iOS Typography
+Detail run `39533706770` includes the `f01-header-boundary` artifact `12320333689`, while
+final Interaction run `39533706886` passes all three Q05 XCUITests. This later behavior is not
+part of the frozen `1.1.0-rc.1` artifact. The broader iOS Golden Baseline remains unapproved;
+color/contrast and physical-device acceptance retain their deferred status.
 
 ## Supported baseline
 
@@ -55,8 +61,10 @@ same-version delivery artifacts after the Q06 freeze, but those are non-candidat
 are not approved replacements for artifact `12233551785`.
 
 The 2026-10-20 maintenance decision keeps this `1.1.0-rc.1` artifact frozen; no
-`1.1.0-rc.2` is created for the later test-tooling, CI-action or documentation maintenance.
-Current `main` is therefore a Maintenance development line, not a replacement candidate.
+`1.1.0-rc.2` is created for the later test-tooling, CI-action, evidence-archive, documentation or
+Header-boundary maintenance. The frozen archive predates those later `main` changes and therefore
+must not be described as containing them. Current `main` is a Maintenance development line, not a
+replacement candidate.
 Routine pull-request/`main` CI continues to validate the packed-package contract but does not upload
 a new delivery tarball. Candidate generation is an explicit manual CI action and refuses to reuse
 the frozen `1.1.0-rc.1` version; a newer candidate therefore requires a prior version decision and

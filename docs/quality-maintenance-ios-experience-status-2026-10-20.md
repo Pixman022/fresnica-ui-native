@@ -70,6 +70,40 @@ same scope boundaries: no color/contrast resolution, physical-device acceptance,
 speech/gesture/focus certification, real-device keyboard/autofill, iPad commitment, SwiftUI/UIKit
 SDK, or wallet-product implementation.
 
+## 2026-10-21 follow-up maintenance
+
+The plan's later F01-F04 maintenance round does not alter Q01-Q06 or D01:
+
+- **F02 — Complete.** Native #130 adds the real package-source/build-input trigger paths for
+  iOS Interaction Evidence while keeping manual dispatch. A later Header source PR automatically
+  started the XCUITest workflow through the new `src/**` path, proving source-trigger coverage.
+- **F03 — Complete.** Native #131 archives the three Q03 PNG/metadata pairs and seven Q05
+  screenshots plus original metadata/attachment manifest, pins source artifact/run/job identities,
+  and extends `verify-ios-evidence.mjs`. A temporary checksum mismatch was rejected by CI before
+  the correct manifest was restored and the final CI passed.
+- **F01 — Complete.** Native #132 final head
+  `a615c448a45dd3c287f5ea1d592c4e26f49370db` implements the Header React-empty side-slot boundary
+  and merged to Maintenance `main` as
+  `e0a6a9ce8300af5aaec0bd621d78ca0c57f20584`. Package CI `39533706772` passes 53 tests with
+  97.90% statements, 87.62% branches, 96.87% functions and 97.82% lines; Android Preview
+  `39533706732` and Android Emulator Acceptance `39533706824` pass. Final-head iOS Interaction
+  Evidence `39533706886` passes all three Q05 XCUITests with zero failures and publishes artifact
+  `12317779291` (digest
+  `sha256:56304bccf88bce32a12fedf921db3d7bec7683316741d2d1cd06e9d19adb6ecb`).
+  iOS Preview Fresh Build `39533706768`, Reachability Evidence `39533706779`, Typography Probe
+  `39533706735` and Typography Detail `39533706770` all pass. The final
+  `f01-header-boundary` artifact is `12320333689` with digest
+  `sha256:8586dd5a3bc11326a5a7c0873fd87cd84cf31b83a1dba1308b605099ed26456c`;
+  visual review confirms React-empty Header side slots are reclaimed while real back/trailing
+  controls keep their slots at the maximum accessibility content size.
+- **F04 — Complete.** Web #42 merged at
+  `6b20266fb71c2888d18fb75525687cb059e1e58b` and synchronizes the English/Simplified-Chinese iOS
+  Header specification. Native #133 synchronizes the package contract, maintenance status,
+  changelog and consumer handoff while preserving the frozen-candidate boundary.
+
+The frozen `1.1.0-rc.1` candidate remains the Q06 artifact listed above. It does **not** acquire
+post-freeze F01-F03 Maintenance behavior merely because `main` advances.
+
 ## Completion statement
 
 Q01-Q06 satisfy the engineering completion criteria from the 2026-10-19 plan, and D01 is now
