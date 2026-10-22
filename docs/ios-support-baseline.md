@@ -1,6 +1,6 @@
 # iOS Support Baseline
 
-Status: IOS01 baseline established 2026-10-14; current Simulator-backed support status synchronized through 2026-10-20.
+Status: IOS01 baseline established 2026-10-14; current Simulator-backed support status synchronized through 2026-10-22.
 
 This document separates planned support, build compatibility and runtime validation. A successful
 Simulator build does not prove that every supported iOS version has been launched and exercised.
@@ -49,7 +49,7 @@ image. A toolchain change needs a concrete React Native, dependency or platform 
 - **Orientation:** portrait is the first-round baseline. Landscape is covered only where a consuming host explicitly supports it.
 - **Physical iPhone:** not claimed; deferred.
 - **VoiceOver / real keyboard / real autofill:** not claimed; deferred.
-- **Dynamic Type:** IOS03/IOS05 Simulator work is complete for the current component scope, including maximum-standard and representative maximum-accessibility evidence plus the later Q03 Header layout review.
+- **Dynamic Type:** IOS03/IOS05 Simulator work is complete for the current component scope, including maximum-standard and representative maximum-accessibility evidence, the Q03 Header layout review and the later post-freeze F01 React-empty side-content boundary on Maintenance `main`.
 - **Light / Dark / English / zh-CN:** covered by the recorded S01-S06 Simulator matrix; this remains package/Simulator evidence, not physical-device acceptance.
 
 A new SDK build must not be described as proof of the minimum runtime. IOS05 records the exact
