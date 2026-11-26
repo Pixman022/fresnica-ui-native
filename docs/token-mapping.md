@@ -1,8 +1,8 @@
 # Cross-platform Token Mapping
 
-This document records the Web-to-React-Native token contract.
+This document records the Web-to-React-Native token contract. Version 1.1.0 uses light primary `#0F7954` / white and dark primary `#00CA8A` / `#101312`; danger labels stay independently white.
 
-- Source of truth: `fresnica-ui/design-system/tokens.json` (`1.0.0`).
+- Source of truth: `fresnica-ui/design-system/tokens.json` (`1.1.0`).
 - Immutable source record: `token-source.lock.json` pins Web commit
   `15d49e0be28a232ae6de2a7285a3a77add8c87d4`.
 - Locked Git blobs: `tokens.json` = `9c4bbc478618d5a5ef5d1ecdd11d41ee8afdeb5c`;
@@ -17,7 +17,7 @@ This document records the Web-to-React-Native token contract.
   supporting content only, and `accentBlue` is reserved for network information; do not
   map either role to a generic secondary button without a new product decision.
 
-The first migration keeps existing Web visual values unchanged. Any platform value
+The versioned palette migration changes the primary color and on-primary foreground while retaining financial feedback roles. Any platform value
 override must be recorded here with an accessibility reason and native test coverage.
 
 | Web primitive                                      |                 Current RN value | Mapping                                            |
@@ -43,6 +43,7 @@ override must be recorded here with an accessibility reason and native test cove
 | `border-light` / `border-subtle`            | `separator`                              |
 | `action-primary`                            | `primary`                                |
 | `action-primary-pressed`                    | `primaryPressed`                         |
+| `content-on-error`                               | `onDanger` (optional for custom theme callers) |
 | `content-on-primary`                        | `onPrimary`                              |
 | `accent-purple` / `accent-purple-container` | `accentPurple` / `accentPurpleContainer` |
 | `accent-blue` / `accent-blue-container`     | `accentBlue` / `accentBlueContainer`     |
