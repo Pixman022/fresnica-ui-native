@@ -7,20 +7,18 @@ const combinations = [
     { label: 'primary text on surface', foreground: 'contentPrimary', background: 'surface', minimum: 4.5 },
     { label: 'secondary text on surface', foreground: 'contentSecondary', background: 'surface', minimum: 4.5 },
     { label: 'primary text on canvas', foreground: 'contentPrimary', background: 'background', minimum: 4.5 },
-    { label: 'danger button label', foreground: 'onPrimary', background: 'negative', minimum: 4.5 },
+    { label: 'danger button label', foreground: 'onDanger', background: 'negative', minimum: 4.5 },
     {
         label: 'primary button label',
         foreground: 'onPrimary',
         background: 'primary',
         minimum: 4.5,
-        reviewOnly: true,
     },
     {
         label: 'pressed primary button label',
         foreground: 'onPrimary',
         background: 'primaryPressed',
         minimum: 4.5,
-        reviewOnly: true,
     },
     {
         label: 'muted supporting copy',
