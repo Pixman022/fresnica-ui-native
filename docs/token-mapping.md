@@ -4,9 +4,9 @@ This document records the Web-to-React-Native token contract. Version 1.1.0 uses
 
 - Source of truth: `fresnica-ui/design-system/tokens.json` (`1.1.0`).
 - Immutable source record: `token-source.lock.json` pins Web commit
-  `15d49e0be28a232ae6de2a7285a3a77add8c87d4`.
-- Locked Git blobs: `tokens.json` = `9c4bbc478618d5a5ef5d1ecdd11d41ee8afdeb5c`;
-  `platform-token-source.json` = `6ee1c1da3a3be52e84bc8247e13bb577fdbb4cc6`.
+  `4b8456d8523e3ee2cb4647686c69c33eab7d7c69`.
+- Locked Git blobs: `tokens.json` = `25665ef92186092519707c95f0740220ee2029b8`;
+  `platform-token-source.json` = `e83b93b24b68f87de4198f6f7d64ead8f91fb89c`.
 - Native output: `scripts/generate-native-token-contract.mjs` produces `src/generated-token-contract.ts`.
 - Native Light/Dark colors and their semantic role mapping come from
   `fresnica-ui/design-system/platform-token-source.json` and are generated with the same command.
