@@ -6,11 +6,11 @@ Run `npm run test:contrast` for WCAG relative-luminance checks. Ordinary text ta
 
 ## CI-gated primary and danger combinations
 
-| Combination | Light | Dark | Result |
-| --- | ---: | ---: | --- |
-| Primary label / brand green | 5.41:1 (`#FFFFFF` / `#0F7954`) | 8.73:1 (`#101312` / `#00CA8A`) | Pass |
-| Pressed primary label / brand green | 6.89:1 (`#FFFFFF` / `#0C6748`) | 6.10:1 (`#101312` / `#00A875`) | Pass |
-| Danger label / negative red | 5.12:1 (`#FFFFFF` / `#C73945`) | 5.12:1 (`#FFFFFF` / `#C73945`) | Pass |
+The following pairs meet the WCAG AA normal-text contrast threshold:
+
+- **Primary label** — Light: `#FFFFFF` on `#0F7954`, **5.41:1**; Dark: `#101312` on `#00CA8A`, **8.73:1**.
+- **Pressed primary label** — Light: `#FFFFFF` on `#0C6748`, **6.89:1**; Dark: `#101312` on `#00A875`, **6.10:1**.
+- **Danger label** — Both themes: `#FFFFFF` on `#C73945`, **5.12:1**.
 
 `onDanger` maps to the `content-on-error` semantic role and is independent of `onPrimary`. It is optional for caller-provided `AppTheme` values, with the generated white danger foreground as backward-compatible fallback. The audit also gates content-primary on surface/canvas and content-secondary on surface.
 
