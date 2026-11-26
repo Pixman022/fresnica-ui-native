@@ -12,6 +12,8 @@ export type AppTheme = {
         primary: ColorToken;
         primaryPressed: ColorToken;
         onPrimary: ColorToken;
+        /** Optional to keep custom AppTheme values from older consumers valid. */
+        onDanger?: ColorToken;
         accentPurple: ColorToken;
         accentPurpleContainer: ColorToken;
         accentBlue: ColorToken;

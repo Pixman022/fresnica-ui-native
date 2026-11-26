@@ -65,6 +65,7 @@ const colorKeys = [
     'primary',
     'primaryPressed',
     'onPrimary',
+    'onDanger',
     'accentPurple',
     'accentPurpleContainer',
     'accentBlue',

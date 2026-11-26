@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import type { ComponentRef, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { useUiLocale, useUiTheme } from '../ui-context';
+import { nativeThemeColors } from '../generated-token-contract';
 import type { AppTheme, ButtonVariant, ControlSize } from '../tokens';
 
 type PressableRef = ComponentRef<typeof Pressable>;
@@ -51,7 +52,12 @@ export const Button: ForwardRefExoticComponent<ButtonProps & RefAttributes<Press
         lg: theme.sizes.controlLg,
     };
     const filled = variant === 'primary' || variant === 'danger';
-    const foreground = filled ? theme.colors.onPrimary : theme.colors.primary;
+    const foreground =
+        variant === 'danger'
+            ? (theme.colors.onDanger ?? nativeThemeColors.light.onDanger)
+            : filled
+              ? theme.colors.onPrimary
+              : theme.colors.primary;
 
     return (
         <Pressable
