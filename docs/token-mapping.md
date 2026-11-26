@@ -43,7 +43,6 @@ override must be recorded here with an accessibility reason and native test cove
 | `border-light` / `border-subtle`            | `separator`                              |
 | `action-primary`                            | `primary`                                |
 | `action-primary-pressed`                    | `primaryPressed`                         |
-| `content-on-error`                               | `onDanger` (optional for custom theme callers) |
 | `content-on-primary`                        | `onPrimary`                              |
 | `accent-purple` / `accent-purple-container` | `accentPurple` / `accentPurpleContainer` |
 | `accent-blue` / `accent-blue-container`     | `accentBlue` / `accentBlueContainer`     |
@@ -54,6 +53,8 @@ override must be recorded here with an accessibility reason and native test cove
 | `feedback-warning`                          | `warning`                                |
 | `overlay-scrim`                             | `overlay`                                |
 | `background-canvas`                         | `statusBar` / `navigationBar`            |
+
+`content-on-error` maps to `onDanger`, which is optional on caller-supplied `AppTheme` and defaults to the generated white danger label.
 
 CSS variable strings are never passed to React Native. Keep existing `--Fresnica-*`
 aliases in Web, and do not import DOM/CSS/Less modules into the native package.
