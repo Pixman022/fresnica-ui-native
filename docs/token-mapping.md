@@ -1,8 +1,8 @@
 # Cross-platform Token Mapping
 
-This document records the Web-to-React-Native token contract. Version 1.1.0 uses light primary `#0F7954` / white and dark primary `#00CA8A` / `#101312`; danger labels stay independently white.
+This document records the Web-to-React-Native token contract. Token contract 1.1.1 retains the 1.1.0 palette: light primary `#0F7954` / white and dark primary `#00CA8A` / `#101312`; danger labels stay independently white.
 
-- Source of truth: `fresnica-ui/design-system/tokens.json` (`1.1.0`).
+- Source of truth: `fresnica-ui/design-system/tokens.json` (`1.1.1`).
 - Immutable source record: `token-source.lock.json` pins Web commit
   `4b8456d8523e3ee2cb4647686c69c33eab7d7c69`.
 - Locked Git blobs: `tokens.json` = `25665ef92186092519707c95f0740220ee2029b8`;
@@ -37,6 +37,7 @@ override must be recorded here with an accessibility reason and native test cove
 | `surface-default`                           | `surface`                                |
 | `surface-raised`                            | `surfaceRaised`                          |
 | `content-primary`                           | `contentPrimary`                         |
+| `content-body`                              | `contentBody?`                           |
 | `content-secondary`                         | `contentSecondary`                       |
 | `content-muted` / `content-disabled`        | `contentMuted`                           |
 | `border-default`                            | `border`                                 |
@@ -53,6 +54,8 @@ override must be recorded here with an accessibility reason and native test cove
 | `feedback-warning`                          | `warning`                                |
 | `overlay-scrim`                             | `overlay`                                |
 | `background-canvas`                         | `statusBar` / `navigationBar`            |
+
+`content-body` is an additive normal-text role (`#E8EFEB` dark, `#1A1C1D` light) for Typography body and ListRow labels. Existing consumer-supplied `AppTheme` objects may omit `contentBody`; the component falls back to `contentPrimary`. Critical amounts, headings and typed input values keep `contentPrimary`.
 
 `content-on-error` maps to `onDanger`, which is optional on caller-supplied `AppTheme` and defaults to the generated white danger label.
 
