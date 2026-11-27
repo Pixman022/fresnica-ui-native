@@ -8,12 +8,17 @@ export type TypographyProps = { theme?: AppTheme; variant?: TypographyVariant; c
 
 export function Typography({ theme: themeOverride, variant = 'body', children, muted = false }: TypographyProps) {
     const theme = useUiTheme(themeOverride);
+    const foreground = muted
+        ? theme.colors.contentMuted
+        : variant === 'body'
+          ? (theme.colors.contentBody ?? theme.colors.contentPrimary)
+          : theme.colors.contentPrimary;
     return (
         <Text
             style={[
                 styles.base,
                 {
-                    color: muted ? theme.colors.contentMuted : theme.colors.contentPrimary,
+                    color: foreground,
                     fontSize: theme.typography[variant],
                 },
                 (variant === 'action' || variant === 'sectionTitle' || variant === 'screenTitle') && styles.emphasis,

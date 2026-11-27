@@ -44,6 +44,7 @@ describe('FresnicaUiProvider', () => {
                 background: '#101011',
                 surface: '#202022',
                 contentPrimary: '#303033',
+                contentBody: '#303033',
                 primary: '#404044',
                 primaryPressed: '#505055',
                 onPrimary: '#606066',
@@ -58,6 +59,7 @@ describe('FresnicaUiProvider', () => {
                 background: '#111110',
                 surface: '#222220',
                 contentPrimary: '#333330',
+                contentBody: '#333330',
                 primary: '#444440',
                 primaryPressed: '#555550',
                 onPrimary: '#666660',
@@ -158,7 +160,7 @@ describe('FresnicaUiProvider', () => {
     it('keeps independent React roots isolated', async () => {
         const customTheme = {
             ...themes.light,
-            colors: { ...themes.light.colors, contentPrimary: '#654321' },
+            colors: { ...themes.light.colors, contentPrimary: '#654321', contentBody: '#654321' },
         };
         const first = await render(
             <FresnicaUiProvider theme={customTheme} locale={zhCN}>

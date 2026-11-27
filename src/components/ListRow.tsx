@@ -48,7 +48,15 @@ export function ListRow({
         >
             {leading ? <View style={styles.leading}>{leading}</View> : null}
             <View style={styles.copy}>
-                <Text style={[styles.title, { color: theme.colors.contentPrimary, fontSize: theme.typography.body }]}>
+                <Text
+                    style={[
+                        styles.title,
+                        {
+                            color: theme.colors.contentBody ?? theme.colors.contentPrimary,
+                            fontSize: theme.typography.body,
+                        },
+                    ]}
+                >
                     {title}
                 </Text>
                 {description ? (
