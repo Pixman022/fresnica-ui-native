@@ -75,6 +75,7 @@ const colorKeys = [
     'accentYellow',
     'accentYellowContainer',
     'contentPrimary',
+    'contentBody',
     'contentSecondary',
     'contentMuted',
     'border',
