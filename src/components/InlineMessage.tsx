@@ -48,7 +48,7 @@ export function InlineMessage({
             ]}
         >
             {icon}
-            <Text style={{ color: theme.colors.contentPrimary, fontSize: theme.typography.supporting, flex: 1 }}>
+            <Text style={{ color: theme.colors.contentBody ?? theme.colors.contentPrimary, fontSize: theme.typography.supporting, flex: 1 }}>
                 {message}
             </Text>
         </View>
