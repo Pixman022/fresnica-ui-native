@@ -5,6 +5,9 @@ import { nativeThemeColors } from '../src/generated-token-contract.ts';
 // without silently changing the approved Web / Native visual baseline.
 const combinations = [
     { label: 'primary text on surface', foreground: 'contentPrimary', background: 'surface', minimum: 4.5 },
+    { label: 'body text on surface', foreground: 'contentBody', background: 'surface', minimum: 4.5 },
+    { label: 'body text on canvas', foreground: 'contentBody', background: 'background', minimum: 4.5 },
+    { label: 'body text on raised surface', foreground: 'contentBody', background: 'surfaceRaised', minimum: 4.5 },
     { label: 'secondary text on surface', foreground: 'contentSecondary', background: 'surface', minimum: 4.5 },
     { label: 'primary text on canvas', foreground: 'contentPrimary', background: 'background', minimum: 4.5 },
     { label: 'danger button label', foreground: 'onDanger', background: 'negative', minimum: 4.5 },
