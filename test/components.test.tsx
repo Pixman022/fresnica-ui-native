@@ -555,6 +555,39 @@ describe('native components', () => {
         expect(screen.getByText('Overview')).toBeTruthy();
     });
 
+    it('softens ordinary dark body text without dimming titles or money values', async () => {
+        const dark = resolveTheme('dark');
+        await render(
+            <>
+                <Typography theme={dark} variant="body">Regular content</Typography>
+                <Typography theme={dark} variant="screenTitle">Important heading</Typography>
+                <ListRow theme={dark} title="Asset name" description="Supporting note" />
+            </>,
+        );
+        expect(screen.getByText('Regular content').props.style).toEqual(
+            expect.arrayContaining([expect.objectContaining({ color: '#e8efeb' })]),
+        );
+        expect(screen.getByText('Asset name').props.style).toEqual(
+            expect.arrayContaining([expect.objectContaining({ color: '#e8efeb' })]),
+        );
+        expect(screen.getByText('Important heading').props.style).toEqual(
+            expect.arrayContaining([expect.objectContaining({ color: '#f4f7f5' })]),
+        );
+        expect(screen.getByText('Supporting note').props.style).toEqual(
+            expect.objectContaining({ color: '#c5cec8' }),
+        );
+    });
+
+    it('keeps body typography backward compatible with caller-supplied themes', async () => {
+        const base = resolveTheme('dark');
+        const { contentBody: _unused, ...previousColors } = base.colors;
+        const previousTheme = { ...base, colors: previousColors };
+        await render(<Typography theme={previousTheme} variant="body">Legacy body</Typography>);
+        expect(screen.getByText('Legacy body').props.style).toEqual(
+            expect.arrayContaining([expect.objectContaining({ color: '#f4f7f5' })]),
+        );
+    });
+
     it('calls Modal close callback from the accessible close control', async () => {
         const onRequestClose = jest.fn();
         await render(
