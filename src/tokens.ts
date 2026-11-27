@@ -23,6 +23,8 @@ export type AppTheme = {
         accentYellow: ColorToken;
         accentYellowContainer: ColorToken;
         contentPrimary: ColorToken;
+        /** Optional for existing caller-supplied AppTheme objects; defaults to contentPrimary. */
+        contentBody?: ColorToken;
         contentSecondary: ColorToken;
         contentMuted: ColorToken;
         border: ColorToken;
