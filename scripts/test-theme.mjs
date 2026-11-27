@@ -10,4 +10,6 @@ assert.equal(resolveTheme('dark').systemBars.statusBarStyle, 'light-content');
 assert.equal(resolveTheme('light').systemBars.statusBarStyle, 'dark-content');
 assert.deepEqual(resolveTheme('light').colors, nativeThemeColors.light);
 assert.deepEqual(resolveTheme('dark').colors, nativeThemeColors.dark);
+assert.equal(resolveTheme('dark').colors.contentBody, '#e8efeb');
+assert.equal(resolveTheme('light').colors.contentBody, '#1a1c1d');
 console.log('Theme resolution checks passed');
