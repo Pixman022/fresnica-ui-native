@@ -573,9 +573,7 @@ describe('native components', () => {
         expect(screen.getByText('Important heading').props.style).toEqual(
             expect.arrayContaining([expect.objectContaining({ color: '#f4f7f5' })]),
         );
-        expect(screen.getByText('Supporting note').props.style).toEqual(
-            expect.objectContaining({ color: '#c5cec8' }),
-        );
+        expect(screen.getByText('Supporting note').props.style).toEqual(expect.objectContaining({ color: '#c5cec8' }));
     });
 
     it('keeps body typography backward compatible with caller-supplied themes', async () => {
